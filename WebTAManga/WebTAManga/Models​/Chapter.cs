@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace WebTAManga.Models​;
+
+public partial class Chapter
+{
+    public int ChapterId { get; set; }
+
+    public int StoryId { get; set; }
+
+    public string ChapterTitle { get; set; } = null!;
+
+    public string Content { get; set; } = null!;
+
+    public DateTime? CreatedAt { get; set; }
+
+    public virtual ICollection<ChapterImage> ChapterImages { get; set; } = new List<ChapterImage>();
+        
+    public virtual ICollection<ReadingHistory> ReadingHistories { get; set; } = new List<ReadingHistory>();
+
+    public virtual Story? Story { get; set; } = null!;
+}
