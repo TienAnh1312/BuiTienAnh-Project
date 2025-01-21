@@ -25,10 +25,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Genre.GenreId)
+                @Html.DisplayFor(modelItem => item.Genre.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Story.StoryId)
+                @Html.DisplayFor(modelItem => item.Story.Title)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.StoryGenreId">Edit</a> |

@@ -9,7 +9,6 @@ using WebTAManga.Models;
 
 namespace WebTAManga.Areas.Admins.Controllers
 {
-    
     public class StoryGenresController : BaseController
     {
         private readonly WebMangaContext _context;
@@ -49,8 +48,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         // GET: Admins/StoryGenres/Create
         public IActionResult Create()
         {
-            ViewData["GenreId"] = new SelectList(_context.Genres, "GenreId", "GenreId");
-            ViewData["StoryId"] = new SelectList(_context.Stories, "StoryId", "StoryId");
+            ViewData["GenreId"] = new SelectList(_context.Genres, "GenreId", "Name");
+            ViewData["StoryId"] = new SelectList(_context.Stories, "StoryId", "Title");
             return View();
         }
 
@@ -67,8 +66,8 @@ namespace WebTAManga.Areas.Admins.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GenreId"] = new SelectList(_context.Genres, "GenreId", "GenreId", storyGenre.GenreId);
-            ViewData["StoryId"] = new SelectList(_context.Stories, "StoryId", "StoryId", storyGenre.StoryId);
+            ViewData["GenreId"] = new SelectList(_context.Genres, "GenreId", "Name", storyGenre.GenreId);
+            ViewData["StoryId"] = new SelectList(_context.Stories, "StoryId", "Title", storyGenre.StoryId);
             return View(storyGenre);
         }
 
@@ -85,8 +84,8 @@ namespace WebTAManga.Areas.Admins.Controllers
             {
                 return NotFound();
             }
-            ViewData["GenreId"] = new SelectList(_context.Genres, "GenreId", "GenreId", storyGenre.GenreId);
-            ViewData["StoryId"] = new SelectList(_context.Stories, "StoryId", "StoryId", storyGenre.StoryId);
+            ViewData["GenreId"] = new SelectList(_context.Genres, "GenreId", "Name", storyGenre.GenreId);
+            ViewData["StoryId"] = new SelectList(_context.Stories, "StoryId", "Title", storyGenre.StoryId);
             return View(storyGenre);
         }
 
@@ -122,8 +121,8 @@ namespace WebTAManga.Areas.Admins.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GenreId"] = new SelectList(_context.Genres, "GenreId", "GenreId", storyGenre.GenreId);
-            ViewData["StoryId"] = new SelectList(_context.Stories, "StoryId", "StoryId", storyGenre.StoryId);
+            ViewData["GenreId"] = new SelectList(_context.Genres, "GenreId", "Name", storyGenre.GenreId);
+            ViewData["StoryId"] = new SelectList(_context.Stories, "StoryId", "Title", storyGenre.StoryId);
             return View(storyGenre);
         }
 

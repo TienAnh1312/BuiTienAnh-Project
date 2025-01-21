@@ -85,7 +85,10 @@ wwwroot\images\admins\cpimages\15.jpg
 wwwroot\images\admins\cpimages\16.jpg
 wwwroot\images\admins\cpimages\17.jpg
 wwwroot\images\admins\cpimages\18.jpg
+wwwroot\images\admins\cpimages\19.jpg
 wwwroot\images\admins\cpimages\2.jpg
+wwwroot\images\admins\cpimages\20.jpg
+wwwroot\images\admins\cpimages\21.jpg
 wwwroot\images\admins\cpimages\3.jpg
 wwwroot\images\admins\cpimages\4.jpg
 wwwroot\images\admins\cpimages\5.jpg

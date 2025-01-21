@@ -1,0 +1,41 @@
+﻿@model WebTAManga.Models.Story
+
+<div class="container mt-5">
+    <h2 class="text-center">@Model.Title</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <img src="~/@Model.CoverImage" alt="Comic Cover" class="img-fluid">
+        </div>
+        <div class="col-md-8">
+            <p><strong>Author:</strong> @Model.Author</p>
+            <p>
+                <strong>Genres:</strong>
+                @foreach (var storyGenre in Model.StoryGenres)
+                {
+                    <span>@storyGenre.Genre.Name</span>
+                    @if (!EqualityComparer<WebTAManga.Models.Genre>.Default.Equals(storyGenre.Genre, Model.StoryGenres.LastOrDefault()?.Genre))
+                    {
+                        <span>, </span> <!-- Phân cách giữa các thể loại -->
+                    }
+                }
+            </p>
+            <p><strong>Description:</strong> @Model.Description</p>
+        </div>
+    </div>
+
+    <!-- Danh sách chương -->
+    <div class="mt-4">
+        <h3>Chapters</h3>
+        <ul class="list-group">
+            @foreach (var chapter in Model.Chapters)
+            {
+                <li class="list-group-item">
+                    <a href="@Url.Action("ReadChapter", "Home", new { id = chapter.ChapterId })">
+                        @chapter.ChapterTitle
+                    </a>
+                    <span class="float-end text-muted">@chapter.CreatedAt?.ToString("yyyy-MM-dd")</span>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
