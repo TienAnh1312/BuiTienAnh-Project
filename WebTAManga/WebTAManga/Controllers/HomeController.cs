@@ -30,22 +30,43 @@ namespace WebTAManga.Controllers
         // Phương thức Detail để hiển thị chi tiết một truyện
         public IActionResult Details(int? id)
         {
+            var userId = HttpContext.Session.GetInt32("UsersID");
+            if (id == null || userId == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             var story = _context.Stories
-                        .Include(s => s.StoryGenres)  // Bao gồm thể loại
+                        .Include(s => s.StoryGenres)
                         .ThenInclude(sg => sg.Genre)
-                        .Include(s => s.Chapters)    // Bao gồm danh sách các chương
+                        .Include(s => s.Chapters)
                         .FirstOrDefault(s => s.StoryId == id);
 
             if (story == null)
             {
-                return NotFound(); // Nếu không tìm thấy truyện
+                return NotFound();
             }
 
-            return View(story); // Truyền truyện vào view
+            // Lấy danh sách chapterId mà người dùng đã đọc
+            var readingHistories = _context.ReadingHistories
+                                           .Where(r => r.UserId == userId && r.StoryId == id)
+                                           .Select(r => r.ChapterId)
+                                           .ToList();
+
+            ViewBag.ReadingHistories = readingHistories;
+
+            return View(story);
         }
+
 
         public IActionResult ReadChapter(int id)
         {
+            var userId = HttpContext.Session.GetInt32("UsersID");
+            if (userId == null)
+            {
+                return RedirectToAction("Index", "Login"); // Chuyển đến trang đăng nhập nếu chưa đăng nhập
+            }
+
             var chapter = _context.Chapters
                                   .Include(c => c.ChapterImages) // Bao gồm ảnh chương
                                   .FirstOrDefault(c => c.ChapterId == id);
@@ -53,6 +74,23 @@ namespace WebTAManga.Controllers
             if (chapter == null)
             {
                 return NotFound();
+            }
+
+            // Kiểm tra nếu chapter chưa được đánh dấu đã đọc
+            var readingHistory = _context.ReadingHistories
+                                          .FirstOrDefault(r => r.UserId == userId && r.ChapterId == id);
+
+            if (readingHistory == null)
+            {
+                // Nếu chưa có bản ghi, tạo mới và lưu vào cơ sở dữ liệu
+                _context.ReadingHistories.Add(new ReadingHistory
+                {
+                    UserId = userId.Value,
+                    ChapterId = id,
+                    StoryId = chapter.StoryId,
+                    LastReadAt = DateTime.Now
+                });
+                _context.SaveChanges();
             }
 
             // Tìm chương trước và chương sau
@@ -66,11 +104,102 @@ namespace WebTAManga.Controllers
                                        .OrderBy(c => c.ChapterId)
                                        .FirstOrDefault();
 
-            // Truyền chương hiện tại, chương trước và chương sau vào View
             ViewBag.PreviousChapter = previousChapter;
             ViewBag.NextChapter = nextChapter;
 
             return View(chapter);
+        }
+
+
+        //kiểm tra đã đọc
+        public IActionResult ChapterList(int storyId)
+        {
+            var userId = HttpContext.Session.GetInt32("UsersID");
+            if (userId == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            var chapters = _context.Chapters.Where(c => c.StoryId == storyId).ToList();
+
+            // Lấy danh sách các chapter đã được đọc
+            var readingHistories = _context.ReadingHistories
+                                           .Where(r => r.UserId == userId && chapters.Select(c => c.ChapterId).Contains(r.ChapterId))
+                                           .Select(r => r.ChapterId)
+                                           .ToList();
+
+            ViewBag.ReadingHistories = readingHistories;
+
+            return View(chapters);
+        }
+
+
+
+        [HttpPost]
+        public IActionResult AddToFavorites(int storyId)
+        {
+            var userId = HttpContext.Session.GetInt32("UsersID");
+            if (userId == null)
+            {
+                return RedirectToAction("Index", "Login"); // Chuyển đến trang đăng nhập nếu chưa đăng nhập
+            }
+
+            var favorite = _context.Favorites.FirstOrDefault(f => f.UserId == userId && f.StoryId == storyId);
+            if (favorite == null)
+            {
+                favorite = new Favorite
+                {
+                    UserId = userId.Value,
+                    StoryId = storyId,
+                    AddedAt = DateTime.Now
+                };
+                _context.Favorites.Add(favorite);
+                _context.SaveChanges();
+                TempData["SuccessMessage"] = "The story has been added to your favorites!";
+            }
+            else
+            {
+                TempData["InfoMessage"] = "This story is already in your favorites.";
+            }
+
+            return RedirectToAction("Details", new { id = storyId });
+        }
+
+
+        public IActionResult FavoriteList()
+        {
+            var userId = HttpContext.Session.GetInt32("UsersID");
+            if (userId == null)
+            {
+                return RedirectToAction("Index", "Login"); // Chuyển đến trang đăng nhập nếu chưa đăng nhập
+            }
+
+            var favorites = _context.Favorites
+                                    .Include(f => f.Story)
+                                    .Where(f => f.UserId == userId)
+                                    .Select(f => f.Story)
+                                    .ToList();
+
+            return View(favorites);
+        }
+
+        [HttpPost]
+        public IActionResult RemoveFromFavorites(int storyId)
+        {
+            var userId = HttpContext.Session.GetInt32("UsersID");
+            if (userId == null)
+            {
+                return RedirectToAction("Index", "Login"); // Chuyển đến trang đăng nhập nếu chưa đăng nhập
+            }
+
+            var favorite = _context.Favorites.FirstOrDefault(f => f.UserId == userId && f.StoryId == storyId);
+            if (favorite != null)
+            {
+                _context.Favorites.Remove(favorite);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("FavoriteList"); // Quay lại danh sách yêu thích
         }
 
 

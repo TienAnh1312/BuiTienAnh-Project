@@ -1,5 +1,23 @@
 ﻿@model WebTAManga.Models.Story
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["InfoMessage"] != null)
+{
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        @TempData["InfoMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
 <div class="container mt-5">
     <h2 class="text-center">@Model.Title</h2>
     <div class="row">
@@ -15,27 +33,34 @@
                     <span>@storyGenre.Genre.Name</span>
                     @if (!EqualityComparer<WebTAManga.Models.Genre>.Default.Equals(storyGenre.Genre, Model.StoryGenres.LastOrDefault()?.Genre))
                     {
-                        <span>, </span> <!-- Phân cách giữa các thể loại -->
+                        <span>, </span>
                     }
                 }
             </p>
             <p><strong>Description:</strong> @Model.Description</p>
+
+            <form method="post" asp-action="AddToFavorites" asp-controller="Home">
+                <input type="hidden" name="storyId" value="@Model.StoryId" />
+                <button type="submit" class="btn btn-warning">Add to Favorites</button>
+            </form>
+
         </div>
     </div>
 
     <!-- Danh sách chương -->
-    <div class="mt-4">
-        <h3>Chapters</h3>
-        <ul class="list-group">
-            @foreach (var chapter in Model.Chapters)
-            {
-                <li class="list-group-item">
-                    <a href="@Url.Action("ReadChapter", "Home", new { id = chapter.ChapterId })">
-                        @chapter.ChapterTitle
-                    </a>
-                    <span class="float-end text-muted">@chapter.CreatedAt?.ToString("yyyy-MM-dd")</span>
-                </li>
-            }
-        </ul>
+    <div class="list-group">
+        @foreach (var chapter in Model.Chapters)
+        {
+            var isRead = ViewBag.ReadingHistories != null && ViewBag.ReadingHistories.Contains(chapter.ChapterId);
+
+            <a href="@Url.Action("ReadChapter", "Home", new { id = chapter.ChapterId })"
+               class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span>Chapter @chapter.ChapterTitle</span>
+                @if (isRead)
+                {
+                    <i class="fas fa-eye text-success"></i> 
+                }
+            </a>
+        }
     </div>
 </div>

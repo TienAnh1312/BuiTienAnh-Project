@@ -1,0 +1,40 @@
+﻿@model IEnumerable<WebTAManga.Models.Story>
+
+
+<div class="container mt-4">
+    <h2>Your Favorite Stories</h2>
+    <div class="row">
+        @if (Model.Any())
+        {
+            @foreach (var story in Model)
+            {
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="card">
+                        <img src="~/@story.CoverImage" class="card-img-top" alt="@story.Title">
+                        <div class="card-body">
+                            <h5 class="card-title">@story.Title</h5>
+                            <a href="@Url.Action("Details", "Home", new { id = story.StoryId })" class="btn btn-primary">Read More</a>
+                            <form method="post" asp-action="RemoveFromFavorites" asp-controller="Home" class="mt-2">
+                                <input type="hidden" name="storyId" value="@story.StoryId" />
+                                <button type="submit" class="btn btn-danger">Remove</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>You have no favorite stories.</p>
+        }
+    </div>
+</div>
+<script>
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', function (e) {
+            if (!confirm('Are you sure you want to remove this story from favorites?')) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
