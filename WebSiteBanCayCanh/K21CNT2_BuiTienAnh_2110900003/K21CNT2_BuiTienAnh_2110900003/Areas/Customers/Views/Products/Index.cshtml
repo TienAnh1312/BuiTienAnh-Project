@@ -1,0 +1,126 @@
+﻿@model IEnumerable<K21CNT2_BuiTienAnh_2110900003.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<body>
+    <section class="preloader">
+        <div class="spinner">
+            <span class="sk-inner-circle"></span>
+        </div>
+    </section>
+
+    <main>
+
+        <header class="site-header section-padding d-flex justify-content-center align-items-center">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-10 col-12">
+                        <h1>
+                            <span class="d-block text-primary">Choose your</span>
+                            <span class="d-block text-dark">favorite stuffs</span>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="products section-padding">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-12">
+                        <h2 class="mb-5">Sản phẩm nổi bật</h2>
+                    </div>
+
+                    @foreach (var item in ViewBag.ProductsCid2 as List<K21CNT2_BuiTienAnh_2110900003.Models.Product>)
+                    {
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                            <div class="product-thumb">
+                                <a asp-area="Customers" asp-controller="Products" asp-action="Details" asp-route-id="@item.Id" asp-route-CustomersID="@Context.Session.GetInt32("CustomersID")">
+                                    <img src="~/@item.Image" class="img-fluid product-image" alt="@item.Title" style="height: 25rem; object-fit: cover;">
+                                </a>
+
+                                <div class="product-top d-flex">
+                                    <a href="#" class="bi-heart-fill product-icon ms-auto"></a>
+                                </div>
+
+                                <div class="product-info d-flex">
+                                    <div>
+                                        <h5 class="product-title mb-0">
+                                            <a href="product-detail.html" class="product-title-link">@item.Title</a>
+                                        </h5>
+                                        <p class="product-p">Mục: @item.Content</p>
+                                    </div>
+                                    <small class="product-price text-muted ms-auto">@item.PriceNew<sup>VNĐ</sup></small>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+                    <div class="col-12">
+                        <h2 class="mb-5">Sản phẩm mới</h2>
+                    </div>
+
+                    @foreach (var item in ViewBag.ProductsCid1 as List<K21CNT2_BuiTienAnh_2110900003.Models.Product>)
+                    {
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                            <div class="product-thumb">
+                                <a asp-area="Customers" asp-controller="Products" asp-action="Details" asp-route-id="@item.Id" asp-route-CustomersID="@Context.Session.GetInt32("CustomersID")">
+                                    <img src="~/@item.Image" class="img-fluid product-image" alt="@item.Title" style="height: 25rem; object-fit: cover;">
+                                </a>
+
+                                <div class="product-top d-flex">
+                                    <a href="#" class="bi-heart-fill product-icon ms-auto"></a>
+                                </div>
+
+                                <div class="product-info d-flex">
+                                    <div>
+                                        <h5 class="product-title mb-0">
+                                            <a asp-area="Customers" asp-controller="Products" asp-action="Details" asp-route-id="@item.Id" class="product-title-link">@item.Title</a>
+                                        </h5>
+                                        <p class="product-p">Mục: @item.Content</p>
+                                    </div>
+                                    <small class="product-price text-muted ms-auto">@item.PriceNew<sup>VNĐ</sup></small>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="col-12">
+                        <h2 class="mb-5">Sản phẩm cũ</h2>
+                    </div>
+
+                    @foreach (var item in ViewBag.ProductsCid3 as List<K21CNT2_BuiTienAnh_2110900003.Models.Product>)
+                    {
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                            <div class="product-thumb">
+                                <a asp-area="Customers" asp-controller="Products" asp-action="Details" asp-route-id="@item.Id" asp-route-CustomersID="@Context.Session.GetInt32("CustomersID")">
+                                    <img src="~/@item.Image" class="img-fluid product-image" alt="@item.Title" style="height: 25rem; object-fit: cover;">
+                                </a>
+
+                                <div class="product-top d-flex">
+                                    <a href="#" class="bi-heart-fill product-icon ms-auto"></a>
+                                </div>
+
+                                <div class="product-info d-flex">
+                                    <div>
+                                        <h5 class="product-title mb-0">
+                                            <a asp-area="Customers" asp-controller="Products" asp-action="Details" asp-route-id="@item.Id" class="product-title-link">@item.Title</a>
+                                        </h5>
+                                        <p class="product-p">Mục: @item.Content</p>
+                                    </div>
+                                    <small class="product-price text-muted ms-auto">@item.PriceNew<sup>VNĐ</sup></small>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </section>
+    </main>
+</body>

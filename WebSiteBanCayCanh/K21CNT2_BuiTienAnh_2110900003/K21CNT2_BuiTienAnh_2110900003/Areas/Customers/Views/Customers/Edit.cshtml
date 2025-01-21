@@ -1,0 +1,108 @@
+﻿@model K21CNT2_BuiTienAnh_2110900003.Models.Customer
+
+@{
+    ViewData["Title"] = "Edit";
+}
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var modelState in ViewData.ModelState.Values)
+            {
+                foreach (var error in modelState.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+    
+    <body>
+
+        <section class="preloader">
+            <div class="spinner">
+                <span class="sk-inner-circle"></span>
+            </div>
+        </section>
+    
+        <main>
+
+            <section class="sign-in-form section-padding">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-8 mx-auto col-12">
+
+                            <h1 class="hero-title text-center mb-5">Thông tin Khách hàng</h1>
+
+                            <div class="row">
+                                <div class="col-lg-8 col-11 mx-auto">
+                                <form asp-action="Edit" enctype="multipart/form-data" role="form" method="post">
+
+                                        <div class="form-floating mb-4 p-0">
+                                            <input asp-for="Name" name="name" id="name" class="form-control" placeholder="Họ và tên" required>
+                                            <span asp-validation-for="Name" class="text-danger"></span>
+                                            <label for="Name">Họ và tên</label>
+                                        </div>
+
+                                        <div class="form-floating mb-4 p-0">
+                                            <input asp-for="Username" name="username" id="username" class="form-control" placeholder="Tên đăng nhập" required>
+                                            <span asp-validation-for="Username" class="text-danger"></span>
+                                            <label for="Address">Tên đăng nhập</label>
+                                        </div>
+
+                                        <div class="form-floating mb-4 p-0">
+                                            <input asp-for="Password" name="password" id="password" class="form-control" placeholder="Mật khẩu" required>
+                                            <span asp-validation-for="Password" class="text-danger"></span>
+                                            <label for="Address">Mật khẩu</label>
+                                            
+                                        </div>
+
+                                        <div class="form-floating mb-4 p-0">
+                                            <input asp-for="Address" name="address" id="address" class="form-control" placeholder="Địa chỉ" required>
+                                            <span asp-validation-for="Address" class="text-danger"></span>
+                                            <label for="Address">Địa chỉ</label>
+                                        </div>
+
+                                        <div class="form-floating mb-4 p-0">
+                                            <input asp-for="Email" name="email" id="email" class="form-control" placeholder="Email" required>
+                                            <span asp-validation-for="Email" class="text-danger"></span>
+                                            <label for="Email">Email</label>
+                                        </div>
+
+                                        <div class="form-floating mb-4 p-0">
+                                            <input asp-for="Phone" name="phone" id="phone" class="form-control" placeholder="Số điện thoại" required>
+                                            <span asp-validation-for="Phone" class="text-danger"></span>
+                                            <label for="Phone">Số điện thoại</label>
+                                        </div>
+
+                                        <div class="form-floating mb-4 p-0">
+                                            <input asp-for="Avatar" type="file" name="avatar" id="avatar" class="form-control" placeholder="Ảnh đại diện" required>
+                                            <span asp-validation-for="Avatar" class="text-danger"></span>
+                                            <label for="Avatar">Ảnh đại diện</label>
+
+                                        @* Kiểm tra và hiển thị ảnh đại diện hiện tại *@
+                                        @if (!string.IsNullOrEmpty(Model.Avatar))
+                                        {
+                                            <div class="mt-2">
+                                                <img src="~/@Url.Content(Model.Avatar)" alt="Current Image" class="img-fluid" style="max-width: 10rem; height: 9rem; object-fit: cover;" />
+                                            </div>
+                                        }
+                                        
+                                        </div>
+                                        
+
+                                        <button type="submit" class="btn custom-btn form-control mt-4 mb-3">
+                                            Lưu
+                                        </button>
+  
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </body>
