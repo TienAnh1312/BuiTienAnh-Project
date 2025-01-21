@@ -1,0 +1,33 @@
+﻿@model IEnumerable<WebTAManga.Models.FollowedStory>
+
+<div class="container mt-4">
+    <h2>Your Followed Stories</h2>
+    <div class="row">
+        @if (Model.Any())
+        {
+            @foreach (var followedStory in Model)
+            {
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="card">
+                        <img src="~/@followedStory.Story.CoverImage" class="card-img-top" alt="@followedStory.Story.Title">
+                        <div class="card-body">
+                            <h5 class="card-title">@followedStory.Story.Title</h5>
+                            @if (followedStory.LastReadChapter != null)
+                            {
+                                <p class="card-text">
+                                    Last Read Chapter: @followedStory.LastReadChapter.ChapterTitle
+                                    <span class="badge badge-info">Last Read</span>
+                                </p>
+                            }
+                            <a href="@Url.Action("Details", "Home", new { id = followedStory.Story.StoryId })" class="btn btn-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>You are not following any stories.</p>
+        }
+    </div>
+</div>

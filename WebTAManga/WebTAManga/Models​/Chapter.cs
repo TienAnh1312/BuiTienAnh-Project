@@ -16,7 +16,9 @@ public partial class Chapter
     public DateTime? CreatedAt { get; set; }
 
     public virtual ICollection<ChapterImage> ChapterImages { get; set; } = new List<ChapterImage>();
-        
+
+    public virtual ICollection<FollowedStory> FollowedStories { get; set; } = new List<FollowedStory>();
+
     public virtual ICollection<ReadingHistory> ReadingHistories { get; set; } = new List<ReadingHistory>();
 
     public virtual Story? Story { get; set; } = null!;

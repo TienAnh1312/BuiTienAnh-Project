@@ -17,5 +17,5 @@ public partial class AdminLog
 
     public DateTime? CreatedAt { get; set; }
 
-    public virtual Admin Admin { get; set; } = null!;
+    public virtual Admin? Admin { get; set; } = null!;
 }

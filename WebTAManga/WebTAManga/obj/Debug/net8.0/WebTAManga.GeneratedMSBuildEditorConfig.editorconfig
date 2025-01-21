@@ -132,26 +132,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5zXFZpZXdzXEZhdm9yaXRlc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/BuiTienAnh/Học tập/BuiTienAnh-TH/BuiTienAnh-Project/WebTAManga/WebTAManga/Areas/Admins/Views/FollowedStories/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5zXFZpZXdzXEZvbGxvd2VkU3Rvcmllc1xDcmVhdGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[E:/BuiTienAnh/Học tập/BuiTienAnh-TH/BuiTienAnh-Project/WebTAManga/WebTAManga/Areas/Admins/Views/FollowedStories/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5zXFZpZXdzXEZvbGxvd2VkU3Rvcmllc1xEZWxldGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[E:/BuiTienAnh/Học tập/BuiTienAnh-TH/BuiTienAnh-Project/WebTAManga/WebTAManga/Areas/Admins/Views/FollowedStories/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5zXFZpZXdzXEZvbGxvd2VkU3Rvcmllc1xEZXRhaWxzLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[E:/BuiTienAnh/Học tập/BuiTienAnh-TH/BuiTienAnh-Project/WebTAManga/WebTAManga/Areas/Admins/Views/FollowedStories/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5zXFZpZXdzXEZvbGxvd2VkU3Rvcmllc1xFZGl0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[E:/BuiTienAnh/Học tập/BuiTienAnh-TH/BuiTienAnh-Project/WebTAManga/WebTAManga/Areas/Admins/Views/FollowedStories/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5zXFZpZXdzXEZvbGxvd2VkU3Rvcmllc1xJbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [E:/BuiTienAnh/Học tập/BuiTienAnh-TH/BuiTienAnh-Project/WebTAManga/WebTAManga/Areas/Admins/Views/Genres/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5zXFZpZXdzXEdlbnJlc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -314,6 +294,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [E:/BuiTienAnh/Học tập/BuiTienAnh-TH/BuiTienAnh-Project/WebTAManga/WebTAManga/Views/Home/FavoriteList.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxGYXZvcml0ZUxpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/BuiTienAnh/Học tập/BuiTienAnh-TH/BuiTienAnh-Project/WebTAManga/WebTAManga/Views/Home/FollowedStories.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxGb2xsb3dlZFN0b3JpZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/BuiTienAnh/Học tập/BuiTienAnh-TH/BuiTienAnh-Project/WebTAManga/WebTAManga/Views/Home/Index.cshtml]

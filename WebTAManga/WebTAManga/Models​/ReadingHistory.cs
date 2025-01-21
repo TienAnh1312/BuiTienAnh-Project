@@ -15,9 +15,9 @@ public partial class ReadingHistory
 
     public DateTime? LastReadAt { get; set; }
 
-    public virtual Chapter Chapter { get; set; } = null!;
+    public virtual Chapter? Chapter { get; set; } = null!;
 
-    public virtual Story Story { get; set; } = null!;
+    public virtual Story? Story { get; set; } = null!;
 
-    public virtual User User { get; set; } = null!;
+    public virtual User? User { get; set; } = null!;
 }

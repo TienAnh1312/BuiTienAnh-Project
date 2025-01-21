@@ -9,7 +9,7 @@ public partial class ChapterImage
 
     public int ChapterId { get; set; }
 
-    public string? ImageUrl { get; set; } = null!;
+    public string ImageUrl { get; set; } = null!;
 
     public int PageNumber { get; set; }
 

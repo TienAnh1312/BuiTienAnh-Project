@@ -44,6 +44,11 @@
                 <button type="submit" class="btn btn-warning">Add to Favorites</button>
             </form>
 
+            <!-- Thêm vào danh sách theo dõi -->
+            <form method="post" asp-action="AddToFollowed" asp-controller="Home">
+                <input type="hidden" name="storyId" value="@Model.StoryId" />
+                <button type="submit" class="btn btn-success">Follow</button>
+            </form>
         </div>
     </div>
 
@@ -55,7 +60,7 @@
 
             <a href="@Url.Action("ReadChapter", "Home", new { id = chapter.ChapterId })"
                class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                <span>Chapter @chapter.ChapterTitle</span>
+                <span> @chapter.ChapterTitle</span>
                 @if (isRead)
                 {
                     <i class="fas fa-eye text-success"></i> 

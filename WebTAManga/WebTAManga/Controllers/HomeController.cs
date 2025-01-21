@@ -58,7 +58,6 @@ namespace WebTAManga.Controllers
             return View(story);
         }
 
-
         public IActionResult ReadChapter(int id)
         {
             var userId = HttpContext.Session.GetInt32("UsersID");
@@ -93,6 +92,16 @@ namespace WebTAManga.Controllers
                 _context.SaveChanges();
             }
 
+            // Cập nhật chương cuối cùng đã đọc trong FollowedStory
+            var followedStory = _context.FollowedStories
+                                        .FirstOrDefault(f => f.UserId == userId && f.StoryId == chapter.StoryId);
+
+            if (followedStory != null)
+            {
+                followedStory.LastReadChapterId = chapter.ChapterId;  // Cập nhật chương cuối đã đọc
+                _context.SaveChanges();
+            }
+
             // Tìm chương trước và chương sau
             var previousChapter = _context.Chapters
                                            .Where(c => c.StoryId == chapter.StoryId && c.ChapterId < chapter.ChapterId)
@@ -109,7 +118,6 @@ namespace WebTAManga.Controllers
 
             return View(chapter);
         }
-
 
         //kiểm tra đã đọc
         public IActionResult ChapterList(int storyId)
@@ -200,6 +208,58 @@ namespace WebTAManga.Controllers
             }
 
             return RedirectToAction("FavoriteList"); // Quay lại danh sách yêu thích
+        }
+
+        [HttpPost]
+        public IActionResult AddToFollowed(int storyId)
+        {
+            var userId = HttpContext.Session.GetInt32("UsersID");
+            if (userId == null)
+            {
+                return RedirectToAction("Index", "Login"); // Chuyển đến trang đăng nhập nếu chưa đăng nhập
+            }
+
+            // Kiểm tra nếu câu chuyện đã có trong danh sách theo dõi của người dùng
+            var followedStory = _context.FollowedStories.FirstOrDefault(f => f.UserId == userId && f.StoryId == storyId);
+            if (followedStory == null)
+            {
+                followedStory = new FollowedStory
+                {
+                    UserId = userId.Value,
+                    StoryId = storyId,
+                    LastReadChapterId = null, // Chưa có chương nào được đọc
+                };
+                _context.FollowedStories.Add(followedStory);
+
+                // Cập nhật lại thông báo
+                TempData["SuccessMessage"] = "The story has been added to your followed stories!";
+                _context.SaveChanges();
+            }
+            else
+            {
+                TempData["InfoMessage"] = "This story is already in your followed stories.";
+            }
+
+            return RedirectToAction("Details", new { id = storyId });
+        }
+
+
+        public IActionResult FollowedStories()
+        {
+            var userId = HttpContext.Session.GetInt32("UsersID");
+            if (userId == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            // Lấy danh sách các câu chuyện mà người dùng đang theo dõi
+            var followedStories = _context.FollowedStories
+                                           .Where(f => f.UserId == userId)
+                                           .Include(f => f.Story)
+                                           .Include(f => f.LastReadChapter) // Bao gồm thông tin chương cuối đã đọc
+                                           .ToList();
+
+            return View(followedStories);
         }
 
 

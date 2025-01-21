@@ -205,6 +205,10 @@ public partial class WebMangaContext : DbContext
             entity.Property(e => e.StoryId).HasColumnName("story_id");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
+            entity.HasOne(d => d.LastReadChapter).WithMany(p => p.FollowedStories)
+                .HasForeignKey(d => d.LastReadChapterId)
+                .HasConstraintName("FK_followed_stories_LastReadChapter");
+
             entity.HasOne(d => d.Story).WithMany(p => p.FollowedStories)
                 .HasForeignKey(d => d.StoryId)
                 .HasConstraintName("FK__followed___story__6C190EBB");

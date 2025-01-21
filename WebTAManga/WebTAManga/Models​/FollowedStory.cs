@@ -13,7 +13,11 @@ public partial class FollowedStory
 
     public DateTime? FollowedAt { get; set; }
 
-    public virtual Story Story { get; set; } = null!;
+    public int? LastReadChapterId { get; set; }
 
-    public virtual User User { get; set; } = null!;
+    public virtual Chapter? LastReadChapter { get; set; }
+
+    public virtual Story? Story { get; set; } = null!;
+
+    public virtual User? User { get; set; } = null!;
 }
