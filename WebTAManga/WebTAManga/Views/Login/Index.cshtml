@@ -1,0 +1,40 @@
+﻿@model WebTAManga.Login.Models.LoginCustomers
+@{
+    ViewData["Title"] = "Đăng nhập";
+    // Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var modelState in ViewData.ModelState.Values)
+            {
+                foreach (var error in modelState.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+<div class="container mt-5">
+    <h2 class="text-center">Login</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form asp-action="Index" method="post"> 
+                <div class="mb-3">
+                    <label for="username" class="form-label">Email</label>
+                    <input asp-for="Email" type="email" class="form-control" id="email" placeholder="Enter your email">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input asp-for="Password" type="password" class="form-control" id="password" placeholder="Enter your password">
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

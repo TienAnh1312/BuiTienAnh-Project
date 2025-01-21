@@ -1,0 +1,35 @@
+body {
+    background-color: #FFFFCC;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    background-color: #ffcc00;
+}
+
+.navbar-brand, .nav-link {
+    color: #663300 !important;
+}
+
+.navbar-brand:hover, .nav-link:hover {
+    color: #996633 !important;
+}
+
+.comic-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.comic-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+footer {
+    background-color: #ffcc00;
+    color: #663300;
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+
