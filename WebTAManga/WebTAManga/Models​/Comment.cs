@@ -15,6 +15,12 @@ public partial class Comment
 
     public DateTime? CreatedAt { get; set; }
 
+    public int? ParentCommentId { get; set; }
+
+    public virtual ICollection<Comment> InverseParentComment { get; set; } = new List<Comment>();   
+
+    public virtual Comment? ParentComment { get; set; }
+
     public virtual Story? Story { get; set; } = null!;
 
     public virtual User? User { get; set; } = null!;

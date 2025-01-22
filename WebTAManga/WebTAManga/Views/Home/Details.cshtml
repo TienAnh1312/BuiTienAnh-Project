@@ -2,6 +2,21 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+<style>
+    .comment {
+        margin-left: 0;
+    }
+
+    .reply {
+        margin-left: 20px; /* Thụt vào cho các bình luận con */
+    }
+
+    .nested-reply {
+        margin-left: 60px; /* Thụt vào nhiều hơn cho các bình luận của bình luận con */
+    }
+</style>
+
+<!-- Hiển thị thông báo thành công và thông báo thông tin -->
 @if (TempData["SuccessMessage"] != null)
 {
     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -39,12 +54,13 @@
             </p>
             <p><strong>Description:</strong> @Model.Description</p>
 
+            <!-- Add to Favorites -->
             <form method="post" asp-action="AddToFavorites" asp-controller="Home">
                 <input type="hidden" name="storyId" value="@Model.StoryId" />
                 <button type="submit" class="btn btn-warning">Add to Favorites</button>
             </form>
 
-            <!-- Thêm vào danh sách theo dõi -->
+            <!-- Add to Followed Stories -->
             <form method="post" asp-action="AddToFollowed" asp-controller="Home">
                 <input type="hidden" name="storyId" value="@Model.StoryId" />
                 <button type="submit" class="btn btn-success">Follow</button>
@@ -52,20 +68,147 @@
         </div>
     </div>
 
-    <!-- Danh sách chương -->
-    <div class="list-group">
+    <!-- Chapter List -->
+    <div class="list-group mt-4">
         @foreach (var chapter in Model.Chapters)
         {
             var isRead = ViewBag.ReadingHistories != null && ViewBag.ReadingHistories.Contains(chapter.ChapterId);
 
             <a href="@Url.Action("ReadChapter", "Home", new { id = chapter.ChapterId })"
                class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                <span> @chapter.ChapterTitle</span>
+                <span>@chapter.ChapterTitle</span>
                 @if (isRead)
                 {
-                    <i class="fas fa-eye text-success"></i> 
+                    <i class="fas fa-eye text-success"></i>
                 }
             </a>
         }
     </div>
+
+    <!-- Comments Section -->
+    <!-- Comments Section -->
+    <div class="mt-5">
+        <h4>Comments</h4>
+        @if (ViewBag.Comments != null && (ViewBag.Comments as List<WebTAManga.Models.Comment>)?.Any() == true)
+        {
+            <ul class="list-group">
+                @foreach (var comment in ViewBag.Comments as List<WebTAManga.Models.Comment>)
+                {
+                    <!-- Bình luận gốc -->
+                    <li class="list-group-item comment">
+                        <strong>@comment.User.Username</strong> (@comment.CreatedAt):
+                        <p>@comment.Content</p>
+
+                        <!-- Reply Button -->
+                        <button class="btn btn-link" onclick="toggleReplyForm(@comment.CommentId, null)">Reply</button>
+
+                        <!-- Reply Form for Parent Comment -->
+                        <div id="replyForm-@comment.CommentId" style="display:none; margin-top: 10px;">
+                            @using (Html.BeginForm("ReplyComment", "Home", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("storyId", comment.StoryId)
+                                @Html.Hidden("parentCommentId", comment.CommentId)
+                                <div class="form-group">
+                                    <textarea class="form-control" name="content" placeholder="Write your reply..." required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-info mt-2">Reply</button>
+                            }
+                        </div>
+
+                        <!-- Display Replies -->
+                        <div class="replies mt-3">
+                            @foreach (var reply in comment.InverseParentComment)
+                            {
+                                <!-- Bình luận trả lời con -->
+                                <div class="reply">
+                                    <strong>@reply.User.Username</strong> (@reply.CreatedAt):
+                                    <p>@reply.Content</p>
+
+                                    <!-- Reply to a Reply -->
+                                    <button class="btn btn-link" onclick="toggleReplyForm(@reply.CommentId, @comment.CommentId)">Reply</button>
+
+                                    <!-- Reply Form for Nested Reply -->
+                                    <div id="replyForm-@reply.CommentId" style="display:none; margin-top: 10px;">
+                                        @using (Html.BeginForm("ReplyComment", "Home", FormMethod.Post))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            @Html.Hidden("storyId", reply.StoryId)
+                                            @Html.Hidden("parentCommentId", reply.CommentId)
+                                            @Html.Hidden("grandParentCommentId", comment.CommentId) <!-- Truyền lại parent của parent -->
+                                            <div class="form-group">
+                                                <textarea class="form-control" name="content" placeholder="Write your reply..." required></textarea>
+                                            </div>
+                                            <button type="submit" class="btn btn-info mt-2">Reply</button>
+                                        }
+                                    </div>
+
+                                    <!-- Bình luận trả lời của bình luận trả lời con -->
+                                    <div class="replies mt-3">
+                                        @foreach (var nestedReply in reply.InverseParentComment)
+                                        {
+                                            <!-- Bình luận của bình luận trả lời con -->
+                                            <div class="nested-reply">
+                                                <strong>@nestedReply.User.Username</strong> (@nestedReply.CreatedAt):
+                                                <p>@nestedReply.Content</p>
+
+                                                <!-- Reply to a Reply -->
+                                                <button class="btn btn-link" onclick="toggleReplyForm(@nestedReply.CommentId, @reply.CommentId)">Reply</button>
+
+                                                <!-- Reply Form for Nested Reply -->
+                                                <div id="replyForm-@nestedReply.CommentId" style="display:none; margin-top: 10px;">
+                                                    @using (Html.BeginForm("ReplyComment", "Home", FormMethod.Post))
+                                                    {
+                                                        @Html.AntiForgeryToken()
+                                                        @Html.Hidden("storyId", nestedReply.StoryId)
+                                                        @Html.Hidden("parentCommentId", nestedReply.CommentId)
+                                                        @Html.Hidden("grandParentCommentId", reply.CommentId)
+                                                        <div class="form-group">
+                                                            <textarea class="form-control" name="content" placeholder="Write your reply..." required></textarea>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-info mt-2">Reply</button>
+                                                    }
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>No comments yet.</p>
+        }
+
+        <!-- Add New Comment Form -->
+        <form method="post" asp-action="AddComment" asp-controller="Home">
+            <div class="form-group">
+                <textarea class="form-control" name="Content" placeholder="Write your comment..." required></textarea>
+            </div>
+            <input type="hidden" name="StoryId" value="@Model.StoryId" />
+            <button type="submit" class="btn btn-primary mt-2">Add Comment</button>
+        </form>
+    </div>
+
 </div>
+
+<script>
+     function toggleReplyForm(commentId, grandParentId) {
+        var form = document.getElementById("replyForm-" + commentId);
+        if (form.style.display === "none" || form.style.display === "") {
+            form.style.display = "block";
+        } else {
+            form.style.display = "none";
+        }
+
+        if (grandParentId) {
+            // Thêm logic để xử lý các bình luận trả lời con của bình luận con
+            document.getElementById("replyForm-" + commentId).querySelector('input[name="grandParentCommentId"]').value = grandParentId;
+        }
+    }
+
+</script>

@@ -37,26 +37,31 @@ namespace WebTAManga.Controllers
             }
 
             var story = _context.Stories
-                        .Include(s => s.StoryGenres)
-                        .ThenInclude(sg => sg.Genre)
-                        .Include(s => s.Chapters)
-                        .FirstOrDefault(s => s.StoryId == id);
+                                .Include(s => s.StoryGenres)
+                                .ThenInclude(sg => sg.Genre)
+                                .Include(s => s.Chapters)
+                                .Include(s => s.Comments) // Bao gồm bình luận
+                                .ThenInclude(c => c.User) // Bao gồm người dùng của mỗi bình luận
+                                .FirstOrDefault(s => s.StoryId == id);
 
             if (story == null)
             {
                 return NotFound();
             }
 
-            // Lấy danh sách chapterId mà người dùng đã đọc
-            var readingHistories = _context.ReadingHistories
-                                           .Where(r => r.UserId == userId && r.StoryId == id)
-                                           .Select(r => r.ChapterId)
-                                           .ToList();
+            // Lấy danh sách bình luận cha và bình luận trả lời
+            var comments = _context.Comments
+                                   .Where(c => c.StoryId == id && c.ParentCommentId == null)
+                                   .OrderByDescending(c => c.CreatedAt)
+                                   .Include(c => c.User)
+                                   .Include(c => c.InverseParentComment) // Bao gồm các bình luận trả lời
+                                   .ToList();
 
-            ViewBag.ReadingHistories = readingHistories;
+            ViewBag.Comments = comments;
 
             return View(story);
         }
+
 
         public IActionResult ReadChapter(int id)
         {
@@ -260,6 +265,67 @@ namespace WebTAManga.Controllers
                                            .ToList();
 
             return View(followedStories);
+        }
+
+        // Thêm bình luận
+        [HttpPost]
+        public IActionResult AddComment(int storyId, string content)
+        {
+            var userId = HttpContext.Session.GetInt32("UsersID");
+            if (userId == null || string.IsNullOrWhiteSpace(content))
+            {
+                TempData["ErrorMessage"] = "You must be logged in and provide a comment!";
+                return RedirectToAction("Details", new { id = storyId });
+            }
+
+            // Thêm bình luận vào cơ sở dữ liệu
+            var comment = new Comment
+            {
+                UserId = userId.Value,
+                StoryId = storyId,
+                Content = content,
+                CreatedAt = DateTime.Now
+            };
+
+            _context.Comments.Add(comment);
+            _context.SaveChanges();
+
+            TempData["SuccessMessage"] = "Your comment has been added!";
+            return RedirectToAction("Details", new { id = storyId });
+        }
+
+        // Trả lời bình luận
+        [HttpPost]
+        public IActionResult ReplyComment(int storyId, int parentCommentId, int? grandParentCommentId, string content)
+        {
+            var userId = HttpContext.Session.GetInt32("UsersID");
+            if (userId == null || string.IsNullOrWhiteSpace(content))
+            {
+                TempData["ErrorMessage"] = "You must be logged in and provide a reply!";
+                return RedirectToAction("Details", new { id = storyId });
+            }
+
+            // Thêm bình luận trả lời vào cơ sở dữ liệu
+            var replyComment = new Comment
+            {
+                UserId = userId.Value,
+                StoryId = storyId,
+                Content = content,
+                CreatedAt = DateTime.Now,
+                ParentCommentId = parentCommentId // Nếu có bình luận cha
+            };
+
+            // Nếu có bình luận của bình luận con
+            if (grandParentCommentId.HasValue)
+            {
+                replyComment.ParentCommentId = grandParentCommentId.Value;
+            }
+
+            _context.Comments.Add(replyComment);
+            _context.SaveChanges();
+
+            TempData["SuccessMessage"] = "Your reply has been added!";
+            return RedirectToAction("Details", new { id = storyId });
         }
 
 

@@ -36,10 +36,10 @@
                             <a class="nav-link" href="#">Thông tin cá nhân</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="FavoriteList">Favorites</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="FavoriteList" asp-route-customerId="@Context.Session.GetInt32("UsersId")">Favorites</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="FollowedStories">Follows</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="FollowedStories" asp-route-customerId="@Context.Session.GetInt32("UsersId")">Follows</a>
                         </li>
                     }
                     else
