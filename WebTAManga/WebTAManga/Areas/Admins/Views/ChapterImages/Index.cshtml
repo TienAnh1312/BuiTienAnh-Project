@@ -1,51 +1,28 @@
 ﻿@model IEnumerable<WebTAManga.Models.ChapterImage>
 
-@{
-    ViewData["Title"] = "Index";
-}
-
-<h1>Index</h1>
+<h2>Chapter Images</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" asp-route-chapterId="@ViewData["ChapterId"]" class="btn btn-primary">Add New Image</a>
 </p>
+
 <table class="table">
-    <thead>
+    <tr>
+        <th>Page Number</th>
+        <th>Image</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var item in Model)
+    {
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PageNumber)
-            </th>
-            
-            <th>
-                @Html.DisplayNameFor(model => model.Chapter)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
+            <td>@item.PageNumber</td>
+            <td><img src="~/@item.ImageUrl" width="100" /></td>
             <td>
-                <img src="~/@Url.Content(item.ImageUrl)" alt="Current Image" class="img-fluid rounded" style="max-width: 3rem;" />
-            </td>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.PageNumber)
-            </td>
-            
-            <td>
-                @Html.DisplayFor(modelItem => item.Chapter.ChapterId)
-            </td>
-
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ImageId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ImageId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ImageId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.ImageId" class="btn btn-warning">Edit</a>
+                <a asp-action="Delete" asp-route-id="@item.ImageId" class="btn btn-danger">Delete</a>
             </td>
         </tr>
-}
-    </tbody>
+    }
 </table>
+
+<a asp-action="Index" asp-controller="Stories" class="btn btn-secondary">Back to Stories</a>

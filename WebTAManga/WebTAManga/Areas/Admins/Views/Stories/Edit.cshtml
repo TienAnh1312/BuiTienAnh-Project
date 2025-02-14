@@ -1,54 +1,91 @@
 ﻿@model WebTAManga.Models.Story
 
 @{
-    ViewData["Title"] = "Edit";
+    var selectedGenres = ViewData["SelectedGenres"] as List<int> ?? new List<int>();
 }
 
-<h1>Edit</h1>
+<h2 class="mb-4">Edit Story</h2>
 
-<h4>Story</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="StoryId" />
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+<div class="card shadow-sm p-4">
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="StoryId" />
+
+        <div class="mb-3">
+            <label asp-for="Title" class="form-label fw-bold"></label>
+            <input asp-for="Title" class="form-control" placeholder="Enter story title" />
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Genres</label>
+            <div>
+                @foreach (var genre in (List<WebTAManga.Models.Genre>)ViewData["Genres"])
+                {
+                    <div class="form-check">
+                        <input type="checkbox" name="selectedGenres" value="@genre.GenreId"
+                               class="form-check-input"
+                        @(selectedGenres.Contains(genre.GenreId) ? "checked" : "") />
+                        <label class="form-check-label">@genre.Name</label>
+                    </div>
+                }
             </div>
-            <div class="form-group">
-                <label asp-for="Author" class="control-label"></label>
-                <input asp-for="Author" class="form-control" />
-                <span asp-validation-for="Author" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CoverImage" class="control-label"></label>
-                <input asp-for="CoverImage" class="form-control" />
-                <span asp-validation-for="CoverImage" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedAt" class="control-label"></label>
-                <input asp-for="CreatedAt" class="form-control" />
-                <span asp-validation-for="CreatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="CoverImage" class="form-label fw-bold"></label>
+            <input type="file" name="newCoverImage" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-bold">Current Cover Image</label>
+            @if (!string.IsNullOrEmpty(Model.CoverImage))
+            {
+                <div>
+                    <img src="~/@Model.CoverImage" alt="Cover Image" class="img-thumbnail" style="max-width: 200px;">
+                </div>
+            }
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Author" class="form-label fw-bold"></label>
+            <input asp-for="Author" class="form-control" placeholder="Enter author name" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label fw-bold"></label>
+            <textarea asp-for="Description" class="form-control" rows="4" placeholder="Enter story description"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-10">Save</button>
+    </form>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<hr class="my-4">
+
+<h3 class="mb-3">Chapters</h3>
+<p>
+    <a asp-controller="Chapters" asp-action="Create" class="btn btn-success">+ Create New Chapter</a>
+</p>
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Title</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var chapter in Model.Chapters)
+            {
+                <tr>
+                    <td class="align-middle">@chapter.ChapterTitle</td>
+                    <td>
+                        <a asp-action="Edit" asp-controller="Chapters" asp-route-id="@chapter.ChapterId" class="btn btn-warning btn-sm">Edit Chapter</a>
+                        <a asp-action="Index" asp-controller="ChapterImages" asp-route-chapterId="@chapter.ChapterId" class="btn btn-info btn-sm">Edit Images</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+<a asp-action="Index" class="btn btn-secondary mt-3">Back to List</a>

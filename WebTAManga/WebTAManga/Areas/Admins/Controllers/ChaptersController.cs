@@ -49,12 +49,11 @@ namespace WebTAManga.Areas.Admins.Controllers
         public IActionResult Create()
         {
             ViewData["StoryId"] = new SelectList(_context.Stories, "StoryId", "Title");
-            return View();
+            return View();  
         }
 
         // POST: Admins/Chapters/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ChapterId,StoryId,ChapterTitle,Content,CreatedAt")] Chapter chapter)
@@ -77,18 +76,24 @@ namespace WebTAManga.Areas.Admins.Controllers
                 return NotFound();
             }
 
-            var chapter = await _context.Chapters.FindAsync(id);
+            var chapter = await _context.Chapters
+                .Include(c => c.Story) // Load story của chapter đó
+                .FirstOrDefaultAsync(m => m.ChapterId == id);
+
             if (chapter == null)
             {
                 return NotFound();
             }
-            ViewData["StoryId"] = new SelectList(_context.Stories, "StoryId", "Title", chapter.StoryId);
+
+            // Chỉ load story của chapter này
+            ViewData["StoryId"] = new SelectList(new List<Story> { chapter.Story }, "StoryId", "Title");
+
             return View(chapter);
         }
 
+
         // POST: Admins/Chapters/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ChapterId,StoryId,ChapterTitle,Content,CreatedAt")] Chapter chapter)

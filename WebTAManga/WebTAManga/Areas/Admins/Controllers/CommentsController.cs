@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WebTAManga.Areas.Admins.Models;
 using WebTAManga.Models;
 
 namespace WebTAManga.Areas.Admins.Controllers
@@ -22,9 +23,20 @@ namespace WebTAManga.Areas.Admins.Controllers
         // GET: Admins/Comments
         public async Task<IActionResult> Index()
         {
-            var webMangaContext = _context.Comments.Include(c => c.Story).Include(c => c.User);
-            return View(await webMangaContext.ToListAsync());
+            var usersWithCommentCount = await _context.Users
+                .Where(u => u.Comments.Any()) // Lọc user có bình luận
+                .Select(u => new
+                {
+                    u.UserId,
+                    u.Username,
+                    u.Email,
+                    CommentCount = u.Comments.Count()
+                })
+                .ToListAsync();
+
+            return View(usersWithCommentCount);
         }
+
 
         // GET: Admins/Comments/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -34,17 +46,27 @@ namespace WebTAManga.Areas.Admins.Controllers
                 return NotFound();
             }
 
-            var comment = await _context.Comments
-                .Include(c => c.Story)
-                .Include(c => c.User)
-                .FirstOrDefaultAsync(m => m.CommentId == id);
-            if (comment == null)
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return View(comment);
+            var stories = await _context.Comments
+                .Where(c => c.UserId == id)
+                .Select(c => c.Story)
+                .Distinct()
+                .ToListAsync();
+
+            var viewModel = new UserCommentViewModel
+            {
+                User = user,
+                Stories = stories
+            };
+
+            return View(viewModel);
         }
+
 
         // GET: Admins/Comments/Create
         public IActionResult Create()
@@ -166,5 +188,23 @@ namespace WebTAManga.Areas.Admins.Controllers
         {
             return _context.Comments.Any(e => e.CommentId == id);
         }
+
+        //hiển thị bình luận của user trong một story
+        public async Task<IActionResult> UserStoryComments(int userId, int storyId)
+        {
+            var comments = await _context.Comments
+                .Where(c => c.UserId == userId && c.StoryId == storyId)
+                .ToListAsync();
+
+            var viewModel = new UserStoryCommentsViewModel
+            {
+                Comments = comments,
+                Story = await _context.Stories.FindAsync(storyId),
+                User = await _context.Users.FindAsync(userId)
+            };
+
+            return View(viewModel);
+        }
+
     }
 }

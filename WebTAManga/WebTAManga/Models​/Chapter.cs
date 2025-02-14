@@ -9,9 +9,9 @@ public partial class Chapter
 
     public int StoryId { get; set; }
 
-    public string ChapterTitle { get; set; } = null!;
+    public string? ChapterTitle { get; set; } = null!;
 
-    public string Content { get; set; } = null!;
+    public string? Content { get; set; } = null!;
 
     public DateTime? CreatedAt { get; set; }
 

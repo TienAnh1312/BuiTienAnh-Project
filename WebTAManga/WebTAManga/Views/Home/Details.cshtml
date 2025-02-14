@@ -1,7 +1,8 @@
 ﻿@model WebTAManga.Models.Story
-
+@{
+    var ReadingHistories = ViewBag.ReadingHistories as List<WebTAManga.Models.ReadingHistory>;
+}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
 <style>
     .comment {
         margin-left: 0;
@@ -72,7 +73,7 @@
     <div class="list-group mt-4">
         @foreach (var chapter in Model.Chapters)
         {
-            var isRead = ViewBag.ReadingHistories != null && ViewBag.ReadingHistories.Contains(chapter.ChapterId);
+            bool isRead = (ViewBag.ReadingHistories != null && ReadingHistories.FirstOrDefault(x => x.ChapterId == chapter.ChapterId) != null);
 
             <a href="@Url.Action("ReadChapter", "Home", new { id = chapter.ChapterId })"
                class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
@@ -83,9 +84,10 @@
                 }
             </a>
         }
+
     </div>
 
-    <!-- Comments Section -->
+    
     <!-- Comments Section -->
     <div class="mt-5">
         <h4>Comments</h4>

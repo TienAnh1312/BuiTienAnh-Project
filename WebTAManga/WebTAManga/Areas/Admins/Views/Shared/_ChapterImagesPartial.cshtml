@@ -1,0 +1,18 @@
+﻿@model List<WebTAManga.Models.ChapterImage>
+
+@if (Model != null && Model.Count > 0)
+{
+    <div class="row">
+        @foreach (var image in Model)
+        {
+            <div class="col-md-3">
+                <img src="~/@image.ImageUrl" class="img-fluid img-thumbnail" alt="Chapter Image" />
+                <p>Page: @image.PageNumber</p>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p class="text-danger">No images found for this chapter.</p>
+}

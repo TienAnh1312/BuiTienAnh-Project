@@ -58,7 +58,11 @@ namespace WebTAManga.Controllers
                                    .ToList();
 
             ViewBag.Comments = comments;
-
+            var readingHistories = _context.ReadingHistories
+                                          .Where(r => r.UserId == userId && r.StoryId == id)
+                                          //.Select(r => r.ChapterId)
+                                          .ToList();
+            ViewBag.ReadingHistories = readingHistories;
             return View(story);
         }
 
@@ -136,10 +140,15 @@ namespace WebTAManga.Controllers
             var chapters = _context.Chapters.Where(c => c.StoryId == storyId).ToList();
 
             // Lấy danh sách các chapter đã được đọc
+            //var readingHistories = _context.ReadingHistories
+            //                               .Where(r => r.UserId == userId && chapters.Select(c => c.ChapterId).Contains(r.ChapterId))
+            //                               .Select(r => r.ChapterId)
+            //                               .ToList();
             var readingHistories = _context.ReadingHistories
-                                           .Where(r => r.UserId == userId && chapters.Select(c => c.ChapterId).Contains(r.ChapterId))
-                                           .Select(r => r.ChapterId)
+                                           .Where(r => r.UserId == userId && r.StoryId == storyId)
+                                           //.Select(r => r.ChapterId)
                                            .ToList();
+
 
             ViewBag.ReadingHistories = readingHistories;
 

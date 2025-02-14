@@ -4,45 +4,83 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<div class="container mt-4">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">@Model.Title </h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3 text-center">
+                    <img src="~/@Model.CoverImage" alt="Current Image" class="img-fluid rounded shadow-sm" style="max-width: 100%;">
+                </div>
+                <div class="col-md-9">
+                    <dl class="row">
+                        <dt class="col-sm-3">Title</dt>
+                        <dd class="col-sm-9">@Model.Title</dd>
 
-<div>
-    <h4>Story</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Author)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Author)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CoverImage)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CoverImage)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-    </dl>
+                        <dt class="col-sm-3">Author</dt>
+                        <dd class="col-sm-9">@Model.Author</dd>
+
+                        <dt class="col-sm-3">Description</dt>
+                        <dd class="col-sm-9">@Model.Description</dd>
+
+                        <dt class="col-sm-3">Created At</dt>
+                        @(Model.CreatedAt.HasValue ? Model.CreatedAt.Value.ToString("dd/MM/yyyy") : "N/A")
+
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <h3 class="text-primary">Chapters</h3>
+        <ul class="list-group">
+            @foreach (var chapter in Model.Chapters)
+            {
+                <li class="list-group-item list-group-item-action chapter-link" data-chapter-id="@chapter.ChapterId">
+                    <i class="bi bi-book"></i> @chapter.ChapterTitle
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div class="mt-4 card shadow-lg">
+        <div class="card-header bg-info text-white">
+            <h3 class="mb-0">Chapter Images</h3>
+        </div>
+        <div class="card-body text-center" id="chapterImagesContainer">
+            <p class="text-muted">Select a chapter to view images.</p>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Back to List
+        </a>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.StoryId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $(".chapter-link").click(function () {
+                var chapterId = $(this).data("chapter-id");
+                $("#chapterImagesContainer").html("<p class='text-muted'>Loading images...</p>");
+
+                $.ajax({
+                    url: "/Admins/Stories/GetChapterImages",
+                    type: "GET",
+                    data: { chapterId: chapterId },
+                    success: function (data) {
+                        $("#chapterImagesContainer").html(data);
+                    },
+                    error: function () {
+                        $("#chapterImagesContainer").html("<p class='text-danger'>Error loading images.</p>");
+                    }
+                });
+            });
+        });
+    </script>
+}
