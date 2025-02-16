@@ -63,7 +63,7 @@ namespace WebTAManga.Areas.Admins.Controllers
                 User = user,
                 Stories = stories
             };
-
+            
             return View(viewModel);
         }
 
