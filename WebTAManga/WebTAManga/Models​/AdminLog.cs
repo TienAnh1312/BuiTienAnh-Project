@@ -9,7 +9,7 @@ public partial class AdminLog
 
     public int AdminId { get; set; }
 
-    public string Action { get; set; } = null!;
+    public string? Action { get; set; } = null!;
 
     public int? TargetId { get; set; }
 

@@ -33,8 +33,8 @@ namespace WebTAManga.Controllers
             if (dataLogin != null)
             {
                 HttpContext.Session.SetString("usersLogin", model.Email);
-                //HttpContext.Session.SetInt32("CustomersID", model.CustomersID);
                 HttpContext.Session.SetInt32("UsersID", (int)dataLogin.UserId);
+         
 
                 return RedirectToAction("Index", "Home", new { UsersID = dataLogin.UserId });
             }

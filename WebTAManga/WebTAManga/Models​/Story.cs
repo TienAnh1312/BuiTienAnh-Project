@@ -7,7 +7,7 @@ public partial class Story
 {
     public int StoryId { get; set; }
 
-    public string Title { get; set; } = null!;
+    public string? Title { get; set; } = null!;
 
     public string? Author { get; set; }
 

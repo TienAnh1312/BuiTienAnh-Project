@@ -26,6 +26,7 @@
   <ItemGroup>
     <Folder Include="Areas\Admins\Data\" />
     <Folder Include="wwwroot\images\admins\cpimages\" />
+    <Folder Include="wwwroot\images\admins\avatarFrames\" />
     <Folder Include="wwwroot\images\admins\stories\" />
   </ItemGroup>
 

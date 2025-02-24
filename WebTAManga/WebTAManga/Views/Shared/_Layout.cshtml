@@ -33,14 +33,16 @@
                     @if (Context.Session.GetString("usersLogin") != null)
                     {
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Thông tin cá nhân</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Profile" asp-route-customerId="@Context.Session.GetInt32("UsersId")">Thông tin cá nhân</a>
                         </li>
+
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="FavoriteList" asp-route-customerId="@Context.Session.GetInt32("UsersId")">Favorites</a>
                         </li>
+
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="FollowedStories" asp-route-customerId="@Context.Session.GetInt32("UsersId")">Follows</a>
-                        </li>
+                        </li>                
                     }
                     else
                     {
@@ -48,6 +50,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Login" asp-action="Index" asp-route-customerId="@Context.Session.GetInt32("UsersId")">Đăng nhập</a>
                         </li>
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Create">Đăng ký</a>
                         </li>

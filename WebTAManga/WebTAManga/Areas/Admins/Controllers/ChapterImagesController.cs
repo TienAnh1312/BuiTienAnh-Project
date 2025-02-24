@@ -57,7 +57,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/ChapterImages/Create
-       
+
         public IActionResult Create(int chapterId)
         {
             var chapter = _context.Chapters.Find(chapterId);
@@ -66,47 +66,63 @@ namespace WebTAManga.Areas.Admins.Controllers
                 return NotFound();
             }
 
+            // Lấy số PageNumber lớn nhất hiện có trong chapter này
+            var maxPageNumber = _context.ChapterImages
+                                .Where(ci => ci.ChapterId == chapterId)
+                                .Max(ci => (int?)ci.PageNumber) ?? 0;
+
             var chapterImage = new ChapterImage
             {
-                ChapterId = chapterId // Gán chapterId vào model
+                ChapterId = chapterId,
+                PageNumber = maxPageNumber + 1 // Tự động gán số trang tiếp theo
             };
 
-            ViewData["ChapterTitle"] = chapter.ChapterTitle; // Truyền tên chapter để hiển thị
+            ViewData["ChapterTitle"] = chapter.ChapterTitle;
             return View(chapterImage);
         }
 
-
         // POST: Admins/ChapterImages/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ChapterImage chapterImage)
+        public async Task<IActionResult> Create(int chapterId, List<IFormFile> ImageFiles)
         {
-            if (!ModelState.IsValid)
+            if (ImageFiles == null || ImageFiles.Count == 0)
             {
-                return View(chapterImage);
+                ModelState.AddModelError("ImageFiles", "Vui lòng chọn ít nhất một ảnh.");
+                return View();
             }
 
-            // Process the image if a new file is uploaded
-            var files = HttpContext.Request.Form.Files;
-            if (files.Count() > 0 && files[0].Length > 0)
-            {
-                var file = files[0];
-                var fileName = file.FileName;
-                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "admins", "stories", fileName);
+            // Lấy số PageNumber lớn nhất hiện có trong chapter này
+            var maxPageNumber = _context.ChapterImages
+                                .Where(ci => ci.ChapterId == chapterId)
+                                .Max(ci => (int?)ci.PageNumber) ?? 0;
 
-                using (var stream = new FileStream(path, FileMode.Create))
+            foreach (var file in ImageFiles)
+            {
+                if (file.Length > 0)
                 {
-                    file.CopyTo(stream);
-                    chapterImage.ImageUrl = "images/admins/stories/" + fileName; // Save the image path
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "admins", "stories", fileName);
+
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+
+                    // Tạo mới ChapterImage với số trang tự động tăng
+                    var chapterImage = new ChapterImage
+                    {
+                        ChapterId = chapterId,
+                        PageNumber = ++maxPageNumber, // Tự động tăng số trang
+                        ImageUrl = "images/admins/stories/" + fileName
+                    };
+
+                    _context.Add(chapterImage);
                 }
             }
 
-            _context.Add(chapterImage);
             await _context.SaveChangesAsync();
-
-            return RedirectToAction("Index", new { chapterId = chapterImage.ChapterId });
+            return RedirectToAction("Index", new { chapterId });
         }
 
         // GET: Admins/ChapterImages/Edit/5
@@ -184,7 +200,6 @@ namespace WebTAManga.Areas.Admins.Controllers
             return RedirectToAction("Index", new { chapterId = chapterImage.ChapterId });
         }
 
-
         // GET: Admins/ChapterImages/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -212,11 +227,57 @@ namespace WebTAManga.Areas.Admins.Controllers
             var chapterImage = await _context.ChapterImages.FindAsync(id);
             if (chapterImage != null)
             {
+                // Xóa file ảnh trong thư mục wwwroot nếu tồn tại
+                if (!string.IsNullOrEmpty(chapterImage.ImageUrl))
+                {
+                    var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", chapterImage.ImageUrl);
+                    if (System.IO.File.Exists(imagePath))
+                    {
+                        System.IO.File.Delete(imagePath);
+                    }
+                }
+
+                // Xóa dữ liệu trong database
                 _context.ChapterImages.Remove(chapterImage);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Index", new { chapterId = chapterImage.ChapterId });
             }
 
+            return NotFound();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> BulkDelete(int chapterId, List<int> selectedIds)
+        {
+            if (selectedIds == null || !selectedIds.Any())
+            {
+                ModelState.AddModelError("", "Vui lòng chọn ít nhất một ảnh để xóa.");
+                return RedirectToAction("Index", new { chapterId });
+            }
+
+            var chapterImages = await _context.ChapterImages
+                                              .Where(ci => selectedIds.Contains(ci.ImageId))
+                                              .ToListAsync();
+
+            foreach (var image in chapterImages)
+            {
+                // Xóa tệp ảnh khỏi wwwroot nếu tồn tại
+                if (!string.IsNullOrEmpty(image.ImageUrl))
+                {
+                    var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", image.ImageUrl);
+                    if (System.IO.File.Exists(imagePath))
+                    {
+                        System.IO.File.Delete(imagePath);
+                    }
+                }
+            }
+
+            _context.ChapterImages.RemoveRange(chapterImages);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return RedirectToAction("Index", new { chapterId });
         }
 
         private bool ChapterImageExists(int id)

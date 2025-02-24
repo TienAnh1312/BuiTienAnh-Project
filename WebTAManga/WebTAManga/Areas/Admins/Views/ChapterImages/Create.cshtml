@@ -15,15 +15,14 @@
     <input type="hidden" asp-for="ChapterId" />
 
     <div class="form-group">
-        <label asp-for="PageNumber"></label>
-        <input asp-for="PageNumber" class="form-control" />
+        <label asp-for="PageNumber">Page Number (Số trang bắt đầu)</label>
+        <input asp-for="PageNumber" class="form-control" placeholder="Số trang bắt đầu" />
         <span asp-validation-for="PageNumber" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="ImageUrl"></label>
-        <input type="file" name="ImageUrl" class="form-control" />
-        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+        <label>Chọn nhiều ảnh</label>
+        <input type="file" name="ImageFiles" class="form-control" multiple />
     </div>
 
     <button type="submit" class="btn btn-primary">Thêm ảnh</button>

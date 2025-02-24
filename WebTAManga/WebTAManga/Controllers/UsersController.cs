@@ -13,10 +13,12 @@ namespace WebTAManga.Controllers
     public class UsersController : Controller
     {
         private readonly WebMangaContext _context;
+        
 
         public UsersController(WebMangaContext context)
         {
             _context = context;
+            
         }
 
         // GET: Users/Create

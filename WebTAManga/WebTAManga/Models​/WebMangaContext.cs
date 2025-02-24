@@ -19,6 +19,8 @@ public partial class WebMangaContext : DbContext
 
     public virtual DbSet<AdminLog> AdminLogs { get; set; }
 
+    public virtual DbSet<AvatarFrame> AvatarFrames { get; set; }
+
     public virtual DbSet<Chapter> Chapters { get; set; }
 
     public virtual DbSet<ChapterImage> ChapterImages { get; set; }
@@ -30,6 +32,10 @@ public partial class WebMangaContext : DbContext
     public virtual DbSet<FollowedStory> FollowedStories { get; set; }
 
     public virtual DbSet<Genre> Genres { get; set; }
+
+    public virtual DbSet<Rank> Ranks { get; set; }
+
+    public virtual DbSet<RankCategory> RankCategories { get; set; }
 
     public virtual DbSet<Rating> Ratings { get; set; }
 
@@ -100,6 +106,16 @@ public partial class WebMangaContext : DbContext
             entity.HasOne(d => d.Admin).WithMany(p => p.AdminLogs)
                 .HasForeignKey(d => d.AdminId)
                 .HasConstraintName("FK__admin_log__admin__66603565");
+        });
+
+        modelBuilder.Entity<AvatarFrame>(entity =>
+        {
+            entity.HasKey(e => e.AvatarFrameId).HasName("PK__AvatarFr__3E7DDDA849C6C766");
+
+            entity.ToTable("AvatarFrame");
+
+            entity.Property(e => e.ImagePath).HasMaxLength(500);
+            entity.Property(e => e.Name).HasMaxLength(255);
         });
 
         modelBuilder.Entity<Chapter>(entity =>
@@ -236,6 +252,25 @@ public partial class WebMangaContext : DbContext
                 .HasColumnName("name");
         });
 
+        modelBuilder.Entity<Rank>(entity =>
+        {
+            entity.HasKey(e => e.RankId).HasName("PK__Ranks__B37AF8762B6E8448");
+
+            entity.Property(e => e.Name).HasMaxLength(255);
+
+            entity.HasOne(d => d.Category).WithMany(p => p.Ranks)
+                .HasForeignKey(d => d.CategoryId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Ranks__CategoryI__17F790F9");
+        });
+
+        modelBuilder.Entity<RankCategory>(entity =>
+        {
+            entity.HasKey(e => e.CategoryId).HasName("PK__RankCate__19093A0BA1734DD2");
+
+            entity.Property(e => e.Name).HasMaxLength(255);
+        });
+
         modelBuilder.Entity<Rating>(entity =>
         {
             entity.HasKey(e => e.RatingId).HasName("PK__ratings__D35B278BF3CCAC4C");
@@ -268,10 +303,16 @@ public partial class WebMangaContext : DbContext
 
             entity.Property(e => e.HistoryId).HasColumnName("history_id");
             entity.Property(e => e.ChapterId).HasColumnName("chapter_id");
+            entity.Property(e => e.EndTime)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
             entity.Property(e => e.LastReadAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
                 .HasColumnName("last_read_at");
+            entity.Property(e => e.StartTime)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
             entity.Property(e => e.StoryId).HasColumnName("story_id");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
@@ -344,6 +385,7 @@ public partial class WebMangaContext : DbContext
             entity.HasIndex(e => e.Username, "UQ__users__F3DBC57212A6DAF4").IsUnique();
 
             entity.Property(e => e.UserId).HasColumnName("user_id");
+            entity.Property(e => e.Avatar).HasMaxLength(255);
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
@@ -351,12 +393,23 @@ public partial class WebMangaContext : DbContext
             entity.Property(e => e.Email)
                 .HasMaxLength(100)
                 .HasColumnName("email");
+            entity.Property(e => e.ExpPoints).HasDefaultValue(0.0);
             entity.Property(e => e.Password)
                 .HasMaxLength(255)
                 .HasColumnName("password");
+            entity.Property(e => e.RankId).HasDefaultValue(1);
             entity.Property(e => e.Username)
                 .HasMaxLength(50)
                 .HasColumnName("username");
+
+            entity.HasOne(d => d.AvatarFrame).WithMany(p => p.Users)
+                .HasForeignKey(d => d.AvatarFrameId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("FK_User_AvatarFrame");
+
+            entity.HasOne(d => d.Rank).WithMany(p => p.Users)
+                .HasForeignKey(d => d.RankId)
+                .HasConstraintName("FK__users__RankId__19DFD96B");
         });
 
         OnModelCreatingPartial(modelBuilder);

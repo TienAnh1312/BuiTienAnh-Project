@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -10,17 +12,17 @@ namespace WebTAManga.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly WebMangaContext _context;
+        private readonly IWebHostEnvironment _environment;
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
         // Constructor duy nhất để nhận cả ILogger và WebMangaContext
-        public HomeController(ILogger<HomeController> logger, WebMangaContext context)
+        public HomeController(ILogger<HomeController> logger, WebMangaContext context, IWebHostEnvironment environment, IWebHostEnvironment hostingEnvironment)
         {
             _logger = logger;
             _context = context;
-
+            _environment = environment;
+            _hostingEnvironment = hostingEnvironment;
         }
-
-
-
 
         public IActionResult Index()
         {
@@ -70,10 +72,10 @@ namespace WebTAManga.Controllers
             return View(story);
         }
 
-
         public IActionResult ReadChapter(int id)
         {
             var userId = HttpContext.Session.GetInt32("UsersID");
+
             if (userId == null)
             {
                 return RedirectToAction("Index", "Login"); // Chuyển đến trang đăng nhập nếu chưa đăng nhập
@@ -115,6 +117,20 @@ namespace WebTAManga.Controllers
                 _context.SaveChanges();
             }
 
+            if (userId != null)
+            {
+                var user = _context.Users.Find(userId);
+                user.ExpPoints += 10; // Cộng điểm khi đọc truyện (ví dụ 10 điểm)
+
+                if (user.ExpPoints >= 100)
+                {
+                    user.ExpPoints = 0; // Reset exp points khi đạt 100%
+                    user.Level += 1; // Tăng cấp độ lên
+                }
+
+                _context.SaveChanges(); // Lưu thay đổi vào cơ sở dữ liệu
+            }
+
             // Tìm chương trước và chương sau
             var previousChapter = _context.Chapters
                                            .Where(c => c.StoryId == chapter.StoryId && c.ChapterId < chapter.ChapterId)
@@ -153,13 +169,10 @@ namespace WebTAManga.Controllers
                                            //.Select(r => r.ChapterId)
                                            .ToList();
 
-
             ViewBag.ReadingHistories = readingHistories;
 
             return View(chapters);
         }
-
-
 
         [HttpPost]
         public IActionResult AddToFavorites(int storyId)
@@ -190,7 +203,6 @@ namespace WebTAManga.Controllers
 
             return RedirectToAction("Details", new { id = storyId });
         }
-
 
         public IActionResult FavoriteList()
         {
@@ -252,6 +264,7 @@ namespace WebTAManga.Controllers
                 // Cập nhật lại thông báo
                 TempData["SuccessMessage"] = "The story has been added to your followed stories!";
                 _context.SaveChanges();
+
             }
             else
             {
@@ -260,7 +273,6 @@ namespace WebTAManga.Controllers
 
             return RedirectToAction("Details", new { id = storyId });
         }
-
 
         public IActionResult FollowedStories()
         {
@@ -282,16 +294,22 @@ namespace WebTAManga.Controllers
 
         // Thêm bình luận
         [HttpPost]
-        public IActionResult AddComment(int storyId, string content)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddComment(int storyId, string content)
         {
-            var userId = HttpContext.Session.GetInt32("UsersID");
-            if (userId == null || string.IsNullOrWhiteSpace(content))
+            var userId = HttpContext.Session.GetInt32("UserID");  // Lấy userId từ session
+            if (userId == null)
             {
-                TempData["ErrorMessage"] = "You must be logged in and provide a comment!";
-                return RedirectToAction("Details", new { id = storyId });
+                return RedirectToAction("Index", "Login"); // Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập
             }
 
-            // Thêm bình luận vào cơ sở dữ liệu
+            var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            // Tạo bình luận mới
             var comment = new Comment
             {
                 UserId = userId.Value,
@@ -301,11 +319,22 @@ namespace WebTAManga.Controllers
             };
 
             _context.Comments.Add(comment);
-            _context.SaveChanges();
 
-            TempData["SuccessMessage"] = "Your comment has been added!";
-            return RedirectToAction("Details", new { id = storyId });
+            // Cộng điểm khi người dùng bình luận
+            user.ExpPoints += 5; // Cộng 5 điểm cho mỗi bình luận (có thể thay đổi theo yêu cầu)
+
+            // Kiểm tra và nâng cấp cấp độ khi điểm đạt 100%
+            if (user.ExpPoints >= 100)
+            {
+                user.ExpPoints = 0; // Reset exp points về 0 khi đạt 100%
+                user.Level += 1; // Tăng cấp độ của người dùng
+            }
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("ReadStory", new { storyId });
         }
+
 
         // Trả lời bình luận
         [HttpPost]
@@ -341,12 +370,6 @@ namespace WebTAManga.Controllers
             return RedirectToAction("Details", new { id = storyId });
         }
 
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
@@ -357,6 +380,141 @@ namespace WebTAManga.Controllers
         {
             IEnumerable<Story> GetAllStories();
         }
+
+        // GET: Users/Profile
+        public IActionResult Profile()
+        {
+            var userId = HttpContext.Session.GetInt32("UsersID");
+
+            if (userId == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            var user = _context.Users
+                .Include(u => u.Rank)
+                .Include(u => u.AvatarFrame) 
+                .FirstOrDefault(u => u.UserId == userId);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.AvatarFrames = _context.AvatarFrames.ToList();
+            return View(user);
+        }
+
+
+        // POST: Users/Profile
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Profile([Bind("UserId,Username,Email,Level,Avatar,AvatarFrame,Password,RankId")] User user, IFormFile avatarFile, string newPassword)
+        {
+            var currentUserId = HttpContext.Session.GetInt32("UsersID");
+
+            if (currentUserId == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.UserId == currentUserId);
+            if (existingUser == null)
+            {
+                return NotFound();
+            }
+
+            // Cập nhật thông tin cá nhân
+            existingUser.Username = user.Username;
+            existingUser.Email = user.Email;
+            existingUser.Level = user.Level;
+            existingUser.AvatarFrame = user.AvatarFrame;
+            existingUser.RankId = user.RankId;
+
+            // Cập nhật ảnh đại diện nếu có
+            if (avatarFile != null && avatarFile.Length > 0)
+            {
+                var uploadsFolder = Path.Combine(_environment.WebRootPath, "uploads/avatars");
+                if (!Directory.Exists(uploadsFolder))
+                {
+                    Directory.CreateDirectory(uploadsFolder);
+                }
+
+                var fileName = Path.GetFileName(avatarFile.FileName);
+                var filePath = Path.Combine(uploadsFolder, fileName);
+
+                // Xóa ảnh cũ nếu có
+                if (!string.IsNullOrEmpty(existingUser.Avatar))
+                {
+                    var oldAvatarPath = Path.Combine(uploadsFolder, existingUser.Avatar);
+                    if (System.IO.File.Exists(oldAvatarPath))
+                    {
+                        System.IO.File.Delete(oldAvatarPath);
+                    }
+                }
+
+                // Lưu ảnh mới
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await avatarFile.CopyToAsync(fileStream);
+                }
+
+                existingUser.Avatar = fileName; // Lưu tên ảnh vào database
+            }
+
+            // Cập nhật mật khẩu nếu có
+            if (!string.IsNullOrEmpty(newPassword))
+            {
+                var passwordHasher = new PasswordHasher<User>();
+                existingUser.Password = passwordHasher.HashPassword(existingUser, newPassword);
+            }
+
+            _context.Update(existingUser);
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Your profile has been updated successfully!";
+            return RedirectToAction("Profile");
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateProfile(User model, IFormFile avatarFile, int avatarFrameId, string newPassword)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = _context.Users.FirstOrDefault(u => u.UserId == model.UserId);
+
+                if (user != null)
+                {
+                    // Xử lý avatar
+                    if (avatarFile != null && avatarFile.Length > 0)
+                    {
+                        var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", "avatars", avatarFile.FileName);
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            avatarFile.CopyTo(stream);
+                        }
+                        user.Avatar = avatarFile.FileName;
+                    }
+
+                    // Cập nhật khung viền avatar
+                    user.AvatarFrameId = avatarFrameId;
+
+                    // Cập nhật mật khẩu nếu có
+                    if (!string.IsNullOrEmpty(newPassword))
+                    {
+                        user.Password = newPassword;  // Cần mã hóa mật khẩu trước khi lưu.
+                    }
+
+                    _context.SaveChanges();
+
+                    TempData["SuccessMessage"] = "Profile updated successfully.";
+                    return RedirectToAction("Profile");
+                }
+            }
+
+            return View(model);
+        }
+
 
     }
 }

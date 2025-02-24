@@ -74,6 +74,7 @@ wwwroot\dist\js\pages\dashboard.js
 wwwroot\dist\js\pages\dashboard2.js
 wwwroot\dist\js\pages\dashboard3.js
 wwwroot\favicon.ico
+wwwroot\images\admins\avatarFrames\a3ade214-3346-42bf-a1d1-257ec5ae16a9.png
 wwwroot\images\admins\cpimages\0.jpg
 wwwroot\images\admins\cpimages\1.jpg
 wwwroot\images\admins\cpimages\10.jpg
@@ -98,12 +99,7 @@ wwwroot\images\admins\cpimages\7.jpg
 wwwroot\images\admins\cpimages\76e2e323-4ffe-4635-9c53-946897097840.jpg
 wwwroot\images\admins\cpimages\8.jpg
 wwwroot\images\admins\cpimages\9.jpg
-wwwroot\images\admins\stories\0.jpg
-wwwroot\images\admins\stories\10.jpg
-wwwroot\images\admins\stories\11.jpg
 wwwroot\images\admins\stories\41.jpg
-wwwroot\images\admins\stories\5.jpg
-wwwroot\images\admins\stories\6.jpg
 wwwroot\images\admins\stories\BanChatCuaChuyenSinh.jfif
 wwwroot\images\admins\stories\CayChuoiCanh.jpg
 wwwroot\images\admins\stories\Caykimngan.jpg
@@ -111,6 +107,7 @@ wwwroot\images\admins\stories\Cayphattai.jpg
 wwwroot\images\admins\stories\Cayvannienthanh.jpg
 wwwroot\images\admins\stories\ChuongMonKhiemTonChut.jfif
 wwwroot\images\admins\stories\CuuThienKiemPhap.jfif
+wwwroot\images\admins\stories\tải xuống.jfif
 wwwroot\images\admins\stories\ThienTaiDoanMenh.jfif
 wwwroot\images\admins\stories\TinhTuKiemSi.jfif
 wwwroot\images\admins\stories\VinhQuangVoTan.jfif
@@ -173,3 +170,4 @@ wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js
 wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js
 wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt
 wwwroot\style\style.css
+wwwroot\uploads\avatars\BanChatCuaChuyenSinh.jfif
