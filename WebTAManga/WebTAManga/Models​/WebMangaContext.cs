@@ -33,6 +33,8 @@ public partial class WebMangaContext : DbContext
 
     public virtual DbSet<Genre> Genres { get; set; }
 
+    public virtual DbSet<PurchasedChapter> PurchasedChapters { get; set; }
+
     public virtual DbSet<Rank> Ranks { get; set; }
 
     public virtual DbSet<RankCategory> RankCategories { get; set; }
@@ -128,11 +130,13 @@ public partial class WebMangaContext : DbContext
             entity.Property(e => e.ChapterTitle)
                 .HasMaxLength(255)
                 .HasColumnName("chapter_title");
+            entity.Property(e => e.Coins).HasDefaultValue(0.0);
             entity.Property(e => e.Content).HasColumnName("content");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
+            entity.Property(e => e.IsLocked).HasDefaultValue(true);
             entity.Property(e => e.StoryId).HasColumnName("story_id");
 
             entity.HasOne(d => d.Story).WithMany(p => p.Chapters)
@@ -250,6 +254,25 @@ public partial class WebMangaContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(100)
                 .HasColumnName("name");
+        });
+
+        modelBuilder.Entity<PurchasedChapter>(entity =>
+        {
+            entity.HasKey(e => e.PurchasedChapterId).HasName("PK__Purchase__D253D2F24EED3440");
+
+            entity.ToTable("PurchasedChapter");
+
+            entity.Property(e => e.PurchasedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+
+            entity.HasOne(d => d.Chapter).WithMany(p => p.PurchasedChapters)
+                .HasForeignKey(d => d.ChapterId)
+                .HasConstraintName("FK_PurchasedChapter_Chapter");
+
+            entity.HasOne(d => d.User).WithMany(p => p.PurchasedChapters)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK_PurchasedChapter_User");
         });
 
         modelBuilder.Entity<Rank>(entity =>
@@ -386,6 +409,7 @@ public partial class WebMangaContext : DbContext
 
             entity.Property(e => e.UserId).HasColumnName("user_id");
             entity.Property(e => e.Avatar).HasMaxLength(255);
+            entity.Property(e => e.Coins).HasDefaultValue(0.0);
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")

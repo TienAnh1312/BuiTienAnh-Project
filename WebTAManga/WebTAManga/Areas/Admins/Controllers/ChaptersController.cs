@@ -96,7 +96,7 @@ namespace WebTAManga.Areas.Admins.Controllers
        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ChapterId,StoryId,ChapterTitle,Content,CreatedAt")] Chapter chapter)
+        public async Task<IActionResult> Edit(int id, [Bind("ChapterId,StoryId,ChapterTitle,Content,CreatedAt,Coins,IsLocked")] Chapter chapter)
         {
             if (id != chapter.ChapterId)
             {

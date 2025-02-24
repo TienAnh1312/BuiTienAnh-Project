@@ -5,7 +5,7 @@
         max-width: 100%;
         height: auto;
         display: block;
-        margin: 0 auto; /* Đảm bảo ảnh được căn giữa */
+        margin: 0 auto;
     }
 
     .text-center {
@@ -13,8 +13,33 @@
     }
 
     .mb-4 {
-        margin-bottom: 1.5rem; /* Khoảng cách giữa các ảnh */
+        margin-bottom: 1.5rem;
     }
+
+    .chapter-locked {
+        text-align: center;
+        padding: 20px;
+        border: 2px dashed #ff0000;
+        background-color: #ffecec;
+        border-radius: 10px;
+        margin: 20px 0;
+    }
+
+        .chapter-locked p {
+            font-size: 18px;
+            color: #d9534f;
+        }
+
+    .btn-unlock {
+        background-color: #5cb85c;
+        border-color: #4cae4c;
+        color: white;
+    }
+
+        .btn-unlock:hover {
+            background-color: #4cae4c;
+            border-color: #398439;
+        }
 </style>
 
 <div class="container mt-5">
@@ -22,20 +47,34 @@
     <p class="text-muted">Published on @Model.CreatedAt?.ToString("yyyy-MM-dd")</p>
 
     <div class="mt-4">
-        @if (Model.ChapterImages != null && Model.ChapterImages.Any())
+        @if (ViewBag.IsPurchased)   
         {
-            <div class="row justify-content-center">
-                @foreach (var image in Model.ChapterImages.OrderBy(i => i.PageNumber))
-                {
-                    <div class="col-12 text-center">
-                        <img src="~/@image.ImageUrl" alt="Page @image.PageNumber" class="img-fluid chapter-image">
-                    </div>
-                }
-            </div>
+            <!-- Hiển thị nội dung chapter nếu đã mua hoặc không bị khóa -->
+            @if (Model.ChapterImages != null && Model.ChapterImages.Any())
+            {
+                <div class="row justify-content-center">
+                    @foreach (var image in Model.ChapterImages.OrderBy(i => i.PageNumber))
+                    {
+                        <div class="col-12 text-center mb-4">
+                            <img src="~/@image.ImageUrl" alt="Page @image.PageNumber" class="img-fluid chapter-image">
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p>No images available for this chapter.</p>
+            }
         }
         else
         {
-            <p>No images available for this chapter.</p>
+            <!-- Thông báo chapter bị khóa và nút mở khóa -->
+            <div class="chapter-locked">
+                <p>Chapter này đã bị khóa. Sử dụng <strong>@Model.Coins</strong> xu để mở khóa.</p>
+                <form method="post" asp-action="BuyChapter" asp-route-chapterId="@Model.ChapterId">
+                    <button type="submit" class="btn btn-unlock">Mua ngay</button>
+                </form>
+            </div>
         }
     </div>
 
@@ -48,8 +87,8 @@
             </a>
         }
         else
-        {   
-            <span></span> <!-- Giữ bố cục -->
+        {
+            <span></span>
         }
 
         @if (ViewBag.NextChapter != null)
@@ -60,3 +99,17 @@
         }
     </div>
 </div>
+    
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger mt-3">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success mt-3">
+        @TempData["SuccessMessage"]
+    </div>
+}

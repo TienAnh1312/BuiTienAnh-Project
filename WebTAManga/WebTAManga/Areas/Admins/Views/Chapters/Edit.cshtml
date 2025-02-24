@@ -26,6 +26,21 @@
                 <span asp-validation-for="ChapterTitle" class="text-danger"></span>
             </div>
 
+            <div class="form-group mb-3">
+                <label asp-for="Coins" class="control-label fw-bold">Số xu mở khóa</label>
+                <input asp-for="Coins" class="form-control" />
+                <span asp-validation-for="Coins" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="IsLocked" class="control-label fw-bold">Trạng thái khóa</label>
+                <select asp-for="IsLocked" class="form-control">
+                    <option value="true" selected>Khóa</option>
+                    <option value="false">Mở khóa</option>
+                </select>
+                <span asp-validation-for="IsLocked" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <label asp-for="Content" class="control-label"></label>
                 <input asp-for="Content" class="form-control" />

@@ -23,6 +23,7 @@
                     <th>@Html.DisplayNameFor(model => model.Email)</th>
                     <th>Password</th> <!-- Ẩn mật khẩu -->
                     <th>@Html.DisplayNameFor(model => model.CreatedAt)</th>
+                    <th>Coins</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -36,6 +37,7 @@
                             <span class="text-muted">••••••••</span> <!-- Không hiển thị mật khẩu -->
                         </td>
                         <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td> <!-- Định dạng ngày -->
+                        <td>@Html.DisplayFor(modelItem => item.Coins)</td>
                         <td>
                             <a asp-action="Edit" asp-route-id="@item.UserId" class="btn btn-warning btn-sm">
                                 <i class="bi bi-pencil-square"></i> Edit

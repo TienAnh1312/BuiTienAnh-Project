@@ -7,48 +7,92 @@
       "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\controllers\\chapterscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\controllers\\chapterscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\controllers\\chapterimagescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\controllers\\chapterimagescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\views\\chapterimages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\views\\chapterimages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\views\\users\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\views\\users\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\models\u200B\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\models\u200B\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\models\u200B\\chapter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\models\u200B\\chapter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\views\\users\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\views\\users\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\views\\stories\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\views\\stories\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\views\\chapters\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\views\\chapters\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\views\\chapters\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\views\\chapters\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\models\u200B\\story.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\models\u200B\\story.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\models\u200B\\purchasedchapter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\models\u200B\\purchasedchapter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\views\\home\\readchapter.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\views\\home\\readchapter.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\views\\home\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\views\\home\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\models\u200B\\storygenre.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\models\u200B\\storygenre.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\models\u200B\\chapterimage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\models\u200B\\chapterimage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\views\\chapterimages\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\views\\chapterimages\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\controllers\\storiescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\controllers\\storiescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\views\\chapterimages\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\views\\chapterimages\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\controllers\\chapterscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\controllers\\chapterscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\views\\home\\profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\views\\home\\profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\views\\stories\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\views\\stories\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\models\u200B\\readinghistory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\models\u200B\\readinghistory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\models\u200B\\rating.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\models\u200B\\rating.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\models\u200B\\rankcategory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -57,58 +101,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\models\u200B\\rank.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\models\u200B\\rank.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\models\u200B\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\models\u200B\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\views\\home\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\views\\home\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\controllers\\avatarframescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\controllers\\avatarframescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\models\u200B\\avatarframe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\models\u200B\\avatarframe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\views\\avatarframes\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\views\\avatarframes\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\views\\stories\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\views\\stories\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\views\\shared\\_sidebar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\views\\shared\\_sidebar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\views\\avatarframes\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\views\\avatarframes\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\controllers\\storiescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\controllers\\storiescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\models\u200B\\storygenre.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\models\u200B\\storygenre.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\models\u200B\\story.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\models\u200B\\story.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\models\u200B\\rating.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\models\u200B\\rating.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\models\u200B\\genre.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -127,8 +119,8 @@
       "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\models\u200B\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\models\u200B\\chapter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\models\u200B\\chapter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\models\u200B\\avatarframe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\models\u200B\\avatarframe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\models\u200B\\adminlog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -141,6 +133,42 @@
     {
       "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\models\u200B\\webmangacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\models\u200B\\webmangacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\controllers\\chapterimagescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\controllers\\chapterimagescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\views\\chapterimages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\views\\chapterimages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\views\\chapterimages\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\views\\chapterimages\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\views\\chapterimages\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\views\\chapterimages\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\views\\home\\profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\views\\home\\profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\controllers\\avatarframescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\controllers\\avatarframescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\views\\avatarframes\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\views\\avatarframes\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\views\\shared\\_sidebar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\views\\shared\\_sidebar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\views\\avatarframes\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\views\\avatarframes\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\models\\userstorycommentsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -199,16 +227,8 @@
       "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\views\\admins\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\views\\users\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\views\\users\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\views\\stories\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\views\\stories\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\views\\stories\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\views\\stories\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\views\\stories\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -217,14 +237,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\views\\shared\\_chapterimagespartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\views\\shared\\_chapterimagespartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\views\\chapters\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\views\\chapters\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\areas\\admins\\views\\chapters\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\areas\\admins\\views\\chapters\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -234,8 +246,34 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 10,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Controllers\\UsersController.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "WebTAManga\\Areas\\Admins\\Controllers\\UsersController.cs",
+              "ViewState": "AgIAAGoAAAAAAAAAAAAwwHsAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-24T08:19:38.239Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Users\\Edit.cshtml",
+              "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Views\\Users\\Edit.cshtml",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Users\\Edit.cshtml",
+              "RelativeToolTip": "WebTAManga\\Areas\\Admins\\Views\\Users\\Edit.cshtml",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAiwB4AAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-24T08:18:09.622Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
@@ -246,19 +284,410 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\ChapterImages\\Create.cshtml",
-              "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Views\\ChapterImages\\Create.cshtml",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\ChapterImages\\Create.cshtml",
-              "RelativeToolTip": "WebTAManga\\Areas\\Admins\\Views\\ChapterImages\\Create.cshtml",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAACwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-20T07:18:45.635Z"
+              "DocumentIndex": 10,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Controllers\\HomeController.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "WebTAManga\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAIsBAAAAAAAAAAAiwJ4BAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-14T16:39:27.278Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 4,
+              "Title": "User.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\User.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\User.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\User.cs",
+              "RelativeToolTip": "WebTAManga\\Models\u200B\\User.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAQwCMAAABoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-14T16:30:16.785Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Chapter.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Chapter.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\Chapter.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Chapter.cs",
+              "RelativeToolTip": "WebTAManga\\Models\u200B\\Chapter.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAQwBMAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-14T07:16:06.018Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Chapters\\Edit.cshtml",
+              "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Views\\Chapters\\Edit.cshtml",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Chapters\\Edit.cshtml",
+              "RelativeToolTip": "WebTAManga\\Areas\\Admins\\Views\\Chapters\\Edit.cshtml",
+              "ViewState": "AgIAACUAAAAAAAAAAAAiwDcAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-14T07:14:19.692Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Users\\Index.cshtml",
+              "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Views\\Users\\Index.cshtml",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Users\\Index.cshtml",
+              "RelativeToolTip": "WebTAManga\\Areas\\Admins\\Views\\Users\\Index.cshtml",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAADEAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-14T09:47:29.154Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ChaptersController.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Controllers\\ChaptersController.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Controllers\\ChaptersController.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Controllers\\ChaptersController.cs",
+              "RelativeToolTip": "WebTAManga\\Areas\\Admins\\Controllers\\ChaptersController.cs",
+              "ViewState": "AgIAADwAAAAAAAAAAAAwwE0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-14T07:20:31.615Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "WebTAManga\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "WebTAManga\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAABYAAAAAAAAAAAAiwDIAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-17T07:24:27.11Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Story.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Story.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\Story.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Story.cs",
+              "RelativeToolTip": "WebTAManga\\Models\u200B\\Story.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAQwBkAAABoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T07:12:48.246Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "PurchasedChapter.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\PurchasedChapter.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\PurchasedChapter.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\PurchasedChapter.cs",
+              "RelativeToolTip": "WebTAManga\\Models\u200B\\PurchasedChapter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-24T07:06:29.519Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "ReadChapter.cshtml",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Home\\ReadChapter.cshtml",
+              "RelativeDocumentMoniker": "WebTAManga\\Views\\Home\\ReadChapter.cshtml",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Home\\ReadChapter.cshtml",
+              "RelativeToolTip": "WebTAManga\\Views\\Home\\ReadChapter.cshtml",
+              "ViewState": "AgIAACkAAAAAAAAAAAAiwEMAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-20T10:26:58.352Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Chapters\\Create.cshtml",
+              "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Views\\Chapters\\Create.cshtml",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Chapters\\Create.cshtml",
+              "RelativeToolTip": "WebTAManga\\Areas\\Admins\\Views\\Chapters\\Create.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAABTAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-14T07:17:15.64Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Stories\\Edit.cshtml",
+              "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Views\\Stories\\Edit.cshtml",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Stories\\Edit.cshtml",
+              "RelativeToolTip": "WebTAManga\\Areas\\Admins\\Views\\Stories\\Edit.cshtml",
+              "ViewState": "AgIAADsAAAAAAAAAAAAiwFIAAAChAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-14T07:51:58.423Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Home\\Details.cshtml",
+              "RelativeDocumentMoniker": "WebTAManga\\Views\\Home\\Details.cshtml",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Home\\Details.cshtml",
+              "RelativeToolTip": "WebTAManga\\Views\\Home\\Details.cshtml",
+              "ViewState": "AgIAALgAAAAAAAAAAAAiwMoAAABbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-01-21T15:23:27.245Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Controllers\\UsersController.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "WebTAManga\\Controllers\\UsersController.cs",
+              "ViewState": "AgIAAL0AAAAAAAAAAAAcwM8AAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T07:19:48.101Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "LoginController.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Controllers\\LoginController.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Controllers\\LoginController.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Controllers\\LoginController.cs",
+              "RelativeToolTip": "WebTAManga\\Controllers\\LoginController.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAcwCsAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T09:21:56.022Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "StoryGenre.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\StoryGenre.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\StoryGenre.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\StoryGenre.cs",
+              "RelativeToolTip": "WebTAManga\\Models\u200B\\StoryGenre.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T07:13:05.67Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "ChapterImage.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\ChapterImage.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\ChapterImage.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\ChapterImage.cs",
+              "RelativeToolTip": "WebTAManga\\Models\u200B\\ChapterImage.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T07:11:04.861Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "StoriesController.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Controllers\\StoriesController.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Controllers\\StoriesController.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Controllers\\StoriesController.cs",
+              "RelativeToolTip": "WebTAManga\\Areas\\Admins\\Controllers\\StoriesController.cs",
+              "ViewState": "AgIAAMYAAAAAAAAAAADwv94AAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-14T07:53:28.577Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Stories\\Index.cshtml",
+              "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Views\\Stories\\Index.cshtml",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Stories\\Index.cshtml",
+              "RelativeToolTip": "WebTAManga\\Areas\\Admins\\Views\\Stories\\Index.cshtml",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACYAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-14T09:42:38.874Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "ReadingHistory.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\ReadingHistory.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\ReadingHistory.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\ReadingHistory.cs",
+              "RelativeToolTip": "WebTAManga\\Models\u200B\\ReadingHistory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T07:12:38.292Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "Rating.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Rating.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\Rating.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Rating.cs",
+              "RelativeToolTip": "WebTAManga\\Models\u200B\\Rating.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T07:12:29.621Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "RankCategory.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\RankCategory.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\RankCategory.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\RankCategory.cs",
+              "RelativeToolTip": "WebTAManga\\Models\u200B\\RankCategory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T07:12:20.536Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "Rank.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Rank.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\Rank.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Rank.cs",
+              "RelativeToolTip": "WebTAManga\\Models\u200B\\Rank.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T07:12:09.95Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "Genre.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Genre.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\Genre.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Genre.cs",
+              "RelativeToolTip": "WebTAManga\\Models\u200B\\Genre.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T07:12:02.932Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "FollowedStory.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\FollowedStory.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\FollowedStory.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\FollowedStory.cs",
+              "RelativeToolTip": "WebTAManga\\Models\u200B\\FollowedStory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T07:11:47.736Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "Favorite.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Favorite.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\Favorite.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Favorite.cs",
+              "RelativeToolTip": "WebTAManga\\Models\u200B\\Favorite.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T07:11:39.071Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "Comment.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Comment.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\Comment.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Comment.cs",
+              "RelativeToolTip": "WebTAManga\\Models\u200B\\Comment.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwBcAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-14T17:32:17.171Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "AvatarFrame.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\AvatarFrame.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\AvatarFrame.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\AvatarFrame.cs",
+              "RelativeToolTip": "WebTAManga\\Models\u200B\\AvatarFrame.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-18T08:08:58.33Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "AdminLog.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\AdminLog.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\AdminLog.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\AdminLog.cs",
+              "RelativeToolTip": "WebTAManga\\Models\u200B\\AdminLog.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T07:08:49.487Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "Admin.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Admin.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\Admin.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Admin.cs",
+              "RelativeToolTip": "WebTAManga\\Models\u200B\\Admin.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T07:10:36.7Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "WebMangaContext.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\WebMangaContext.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\WebMangaContext.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\WebMangaContext.cs",
+              "RelativeToolTip": "WebTAManga\\Models\u200B\\WebMangaContext.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAqwA8AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T07:08:45.126Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
               "Title": "Profile.cshtml",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Home\\Profile.cshtml",
               "RelativeDocumentMoniker": "WebTAManga\\Views\\Home\\Profile.cshtml",
@@ -270,19 +699,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "HomeController.cs",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Controllers\\HomeController.cs",
-              "RelativeDocumentMoniker": "WebTAManga\\Controllers\\HomeController.cs",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Controllers\\HomeController.cs",
-              "RelativeToolTip": "WebTAManga\\Controllers\\HomeController.cs",
-              "ViewState": "AgIAAMQBAAAAAAAAAAAcwNcBAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-14T16:39:27.278Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 33,
               "Title": "ChapterImagesController.cs",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Controllers\\ChapterImagesController.cs",
               "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Controllers\\ChapterImagesController.cs",
@@ -290,62 +707,23 @@
               "RelativeToolTip": "WebTAManga\\Areas\\Admins\\Controllers\\ChapterImagesController.cs",
               "ViewState": "AgIAAFoAAAAAAAAAAADwv2wAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-14T07:59:19.95Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-14T07:59:19.95Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "ChaptersController.cs",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Controllers\\ChaptersController.cs",
-              "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Controllers\\ChaptersController.cs",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Controllers\\ChaptersController.cs",
-              "RelativeToolTip": "WebTAManga\\Areas\\Admins\\Controllers\\ChaptersController.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAswBcAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-14T07:20:31.615Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ChapterImage.cs",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\ChapterImage.cs",
-              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\ChapterImage.cs",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\ChapterImage.cs",
-              "RelativeToolTip": "WebTAManga\\Models\u200B\\ChapterImage.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-17T07:11:04.861Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "WebTAManga\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "WebTAManga\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAACIAAAAtAAAAAAAAAA==",
+              "DocumentIndex": 35,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\ChapterImages\\Create.cshtml",
+              "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Views\\ChapterImages\\Create.cshtml",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\ChapterImages\\Create.cshtml",
+              "RelativeToolTip": "WebTAManga\\Areas\\Admins\\Views\\ChapterImages\\Create.cshtml",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAACwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-17T07:24:27.11Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-20T07:18:45.635Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "LoginController.cs",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Controllers\\LoginController.cs",
-              "RelativeDocumentMoniker": "WebTAManga\\Controllers\\LoginController.cs",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Controllers\\LoginController.cs",
-              "RelativeToolTip": "WebTAManga\\Controllers\\LoginController.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAcwA0AAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-17T09:21:56.022Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 34,
               "Title": "Index.cshtml",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\ChapterImages\\Index.cshtml",
               "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Views\\ChapterImages\\Index.cshtml",
@@ -357,19 +735,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ReadChapter.cshtml",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Home\\ReadChapter.cshtml",
-              "RelativeDocumentMoniker": "WebTAManga\\Views\\Home\\ReadChapter.cshtml",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Home\\ReadChapter.cshtml",
-              "RelativeToolTip": "WebTAManga\\Views\\Home\\ReadChapter.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAALAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-20T10:26:58.352Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 38,
               "Title": "AvatarFramesController.cs",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Controllers\\AvatarFramesController.cs",
               "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Controllers\\AvatarFramesController.cs",
@@ -381,7 +747,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 36,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\ChapterImages\\Edit.cshtml",
               "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Views\\ChapterImages\\Edit.cshtml",
@@ -393,91 +759,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "Details.cshtml",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Home\\Details.cshtml",
-              "RelativeDocumentMoniker": "WebTAManga\\Views\\Home\\Details.cshtml",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Home\\Details.cshtml",
-              "RelativeToolTip": "WebTAManga\\Views\\Home\\Details.cshtml",
-              "ViewState": "AgIAALgAAAAAAAAAAAAiwM4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-01-21T15:23:27.245Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "RankCategory.cs",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\RankCategory.cs",
-              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\RankCategory.cs",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\RankCategory.cs",
-              "RelativeToolTip": "WebTAManga\\Models\u200B\\RankCategory.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-17T07:12:20.536Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "Rank.cs",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Rank.cs",
-              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\Rank.cs",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Rank.cs",
-              "RelativeToolTip": "WebTAManga\\Models\u200B\\Rank.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-17T07:12:09.95Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "ReadingHistory.cs",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\ReadingHistory.cs",
-              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\ReadingHistory.cs",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\ReadingHistory.cs",
-              "RelativeToolTip": "WebTAManga\\Models\u200B\\ReadingHistory.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAQwA0AAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-17T07:12:38.292Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "User.cs",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\User.cs",
-              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\User.cs",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\User.cs",
-              "RelativeToolTip": "WebTAManga\\Models\u200B\\User.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAQwCQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-14T16:30:16.785Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "AvatarFrame.cs",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\AvatarFrame.cs",
-              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\AvatarFrame.cs",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\AvatarFrame.cs",
-              "RelativeToolTip": "WebTAManga\\Models\u200B\\AvatarFrame.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-18T08:08:58.33Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "UsersController.cs",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Controllers\\UsersController.cs",
-              "RelativeDocumentMoniker": "WebTAManga\\Controllers\\UsersController.cs",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Controllers\\UsersController.cs",
-              "RelativeToolTip": "WebTAManga\\Controllers\\UsersController.cs",
-              "ViewState": "AgIAADgAAAAAAAAAAAAgwEwAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-17T07:19:48.101Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 39,
               "Title": "Index.cshtml",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\AvatarFrames\\Index.cshtml",
               "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Views\\AvatarFrames\\Index.cshtml",
@@ -489,7 +771,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 40,
               "Title": "_SideBar.cshtml",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Shared\\_SideBar.cshtml",
               "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Views\\Shared\\_SideBar.cshtml",
@@ -501,7 +783,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 41,
               "Title": "Create.cshtml",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\AvatarFrames\\Create.cshtml",
               "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Views\\AvatarFrames\\Create.cshtml",
@@ -513,163 +795,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Stories\\Index.cshtml",
-              "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Views\\Stories\\Index.cshtml",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Stories\\Index.cshtml",
-              "RelativeToolTip": "WebTAManga\\Areas\\Admins\\Views\\Stories\\Index.cshtml",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAACcAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-14T09:42:38.874Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "StoriesController.cs",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Controllers\\StoriesController.cs",
-              "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Controllers\\StoriesController.cs",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Controllers\\StoriesController.cs",
-              "RelativeToolTip": "WebTAManga\\Areas\\Admins\\Controllers\\StoriesController.cs",
-              "ViewState": "AgIAAFMAAAAAAAAAAAAUwLYAAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-14T07:53:28.577Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "Story.cs",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Story.cs",
-              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\Story.cs",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Story.cs",
-              "RelativeToolTip": "WebTAManga\\Models\u200B\\Story.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAYwBwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-17T07:12:48.246Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "Rating.cs",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Rating.cs",
-              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\Rating.cs",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Rating.cs",
-              "RelativeToolTip": "WebTAManga\\Models\u200B\\Rating.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-17T07:12:29.621Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "Genre.cs",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Genre.cs",
-              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\Genre.cs",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Genre.cs",
-              "RelativeToolTip": "WebTAManga\\Models\u200B\\Genre.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABeAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-17T07:12:02.932Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "FollowedStory.cs",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\FollowedStory.cs",
-              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\FollowedStory.cs",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\FollowedStory.cs",
-              "RelativeToolTip": "WebTAManga\\Models\u200B\\FollowedStory.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-17T07:11:47.736Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
-              "Title": "Favorite.cs",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Favorite.cs",
-              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\Favorite.cs",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Favorite.cs",
-              "RelativeToolTip": "WebTAManga\\Models\u200B\\Favorite.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-17T07:11:39.071Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "StoryGenre.cs",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\StoryGenre.cs",
-              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\StoryGenre.cs",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\StoryGenre.cs",
-              "RelativeToolTip": "WebTAManga\\Models\u200B\\StoryGenre.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-17T07:13:05.67Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 30,
-              "Title": "Comment.cs",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Comment.cs",
-              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\Comment.cs",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Comment.cs",
-              "RelativeToolTip": "WebTAManga\\Models\u200B\\Comment.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABkAAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-14T17:32:17.171Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 31,
-              "Title": "Chapter.cs",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Chapter.cs",
-              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\Chapter.cs",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Chapter.cs",
-              "RelativeToolTip": "WebTAManga\\Models\u200B\\Chapter.cs",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAQwA4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-14T07:16:06.018Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 32,
-              "Title": "AdminLog.cs",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\AdminLog.cs",
-              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\AdminLog.cs",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\AdminLog.cs",
-              "RelativeToolTip": "WebTAManga\\Models\u200B\\AdminLog.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-17T07:08:49.487Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 34,
-              "Title": "WebMangaContext.cs",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\WebMangaContext.cs",
-              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\WebMangaContext.cs",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\WebMangaContext.cs",
-              "RelativeToolTip": "WebTAManga\\Models\u200B\\WebMangaContext.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAxwBQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-17T07:08:45.126Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 33,
-              "Title": "Admin.cs",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Admin.cs",
-              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\Admin.cs",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Admin.cs",
-              "RelativeToolTip": "WebTAManga\\Models\u200B\\Admin.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-17T07:10:36.7Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 42,
               "Title": "UserStoryCommentsViewModel.cs",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Models\\UserStoryCommentsViewModel.cs",
               "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Models\\UserStoryCommentsViewModel.cs",
@@ -681,7 +807,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 43,
               "Title": "_Admins.cshtml",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Shared\\_Admins.cshtml",
               "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Views\\Shared\\_Admins.cshtml",
@@ -693,7 +819,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 44,
               "Title": "RankCategoriesController.cs",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Controllers\\RankCategoriesController.cs",
               "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Controllers\\RankCategoriesController.cs",
@@ -705,7 +831,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 45,
               "Title": "RanksController.cs",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Controllers\\RanksController.cs",
               "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Controllers\\RanksController.cs",
@@ -717,7 +843,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 46,
               "Title": "UserCommentViewModel.cs",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Models\\UserCommentViewModel.cs",
               "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Models\\UserCommentViewModel.cs",
@@ -729,7 +855,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 47,
               "Title": "CommentsController.cs",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Controllers\\CommentsController.cs",
               "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Controllers\\CommentsController.cs",
@@ -741,7 +867,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 51,
               "Title": "Index.cshtml",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Ratings\\Index.cshtml",
               "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Views\\Ratings\\Index.cshtml",
@@ -753,7 +879,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 50,
               "Title": "Index.cshtml",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Comments\\Index.cshtml",
               "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Views\\Comments\\Index.cshtml",
@@ -765,7 +891,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 48,
               "Title": "Details.cshtml",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Comments\\Details.cshtml",
               "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Views\\Comments\\Details.cshtml",
@@ -777,7 +903,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 49,
               "Title": "UserStoryComments.cshtml",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Comments\\UserStoryComments.cshtml",
               "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Views\\Comments\\UserStoryComments.cshtml",
@@ -789,7 +915,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 52,
               "Title": "Index.cshtml",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\ReadingHistories\\Index.cshtml",
               "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Views\\ReadingHistories\\Index.cshtml",
@@ -801,7 +927,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 53,
               "Title": "Index.cshtml",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Favorites\\Index.cshtml",
               "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Views\\Favorites\\Index.cshtml",
@@ -813,7 +939,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 54,
               "Title": "Index.cshtml",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Genres\\Index.cshtml",
               "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Views\\Genres\\Index.cshtml",
@@ -825,7 +951,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 55,
               "Title": "Index.cshtml",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Admins\\Index.cshtml",
               "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Views\\Admins\\Index.cshtml",
@@ -837,19 +963,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Users\\Index.cshtml",
-              "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Views\\Users\\Index.cshtml",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Users\\Index.cshtml",
-              "RelativeToolTip": "WebTAManga\\Areas\\Admins\\Views\\Users\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-14T09:47:29.154Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 52,
+              "DocumentIndex": 57,
               "Title": "Create.cshtml",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Stories\\Create.cshtml",
               "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Views\\Stories\\Create.cshtml",
@@ -861,7 +975,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 56,
               "Title": "Details.cshtml",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Stories\\Details.cshtml",
               "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Views\\Stories\\Details.cshtml",
@@ -873,19 +987,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 51,
-              "Title": "Edit.cshtml",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Stories\\Edit.cshtml",
-              "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Views\\Stories\\Edit.cshtml",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Stories\\Edit.cshtml",
-              "RelativeToolTip": "WebTAManga\\Areas\\Admins\\Views\\Stories\\Edit.cshtml",
-              "ViewState": "AgIAABgAAAAAAAAAAAAAACUAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-14T07:51:58.423Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 53,
+              "DocumentIndex": 58,
               "Title": "_ChapterImagesPartial.cshtml",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Shared\\_ChapterImagesPartial.cshtml",
               "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Views\\Shared\\_ChapterImagesPartial.cshtml",
@@ -894,30 +996,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-02-14T08:28:55.967Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 54,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Chapters\\Create.cshtml",
-              "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Views\\Chapters\\Create.cshtml",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Chapters\\Create.cshtml",
-              "RelativeToolTip": "WebTAManga\\Areas\\Admins\\Views\\Chapters\\Create.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAABTAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-14T07:17:15.64Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 55,
-              "Title": "Edit.cshtml",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Chapters\\Edit.cshtml",
-              "RelativeDocumentMoniker": "WebTAManga\\Areas\\Admins\\Views\\Chapters\\Edit.cshtml",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Areas\\Admins\\Views\\Chapters\\Edit.cshtml",
-              "RelativeToolTip": "WebTAManga\\Areas\\Admins\\Views\\Chapters\\Edit.cshtml",
-              "ViewState": "AgIAABYAAAAAAAAAAAAiwCkAAABMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-14T07:14:19.692Z"
             }
           ]
         }

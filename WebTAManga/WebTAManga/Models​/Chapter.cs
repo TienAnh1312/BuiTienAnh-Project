@@ -15,9 +15,15 @@ public partial class Chapter
 
     public DateTime? CreatedAt { get; set; }
 
+    public bool? IsLocked { get; set; }
+
+    public double? Coins { get; set; }
+
     public virtual ICollection<ChapterImage> ChapterImages { get; set; } = new List<ChapterImage>();
 
     public virtual ICollection<FollowedStory> FollowedStories { get; set; } = new List<FollowedStory>();
+
+    public virtual ICollection<PurchasedChapter> PurchasedChapters { get; set; } = new List<PurchasedChapter>();
 
     public virtual ICollection<ReadingHistory> ReadingHistories { get; set; } = new List<ReadingHistory>();
 

@@ -81,14 +81,20 @@ namespace WebTAManga.Controllers
                 return RedirectToAction("Index", "Login"); // Chuyển đến trang đăng nhập nếu chưa đăng nhập
             }
 
+            // Lấy thông tin chapter kèm hình ảnh
             var chapter = _context.Chapters
-                                  .Include(c => c.ChapterImages) // Bao gồm ảnh chương
+                                  .Include(c => c.ChapterImages)
                                   .FirstOrDefault(c => c.ChapterId == id);
 
             if (chapter == null)
             {
-                return NotFound();
+                return NotFound(); // Nếu chapter không tồn tại
             }
+
+            var isPurchased = _context.PurchasedChapters
+                                    .Any(pc => pc.UserId == userId && pc.ChapterId == id);
+
+            ViewBag.IsPurchased = isPurchased;
 
             // Kiểm tra nếu chapter chưa được đánh dấu đã đọc
             var readingHistory = _context.ReadingHistories
@@ -96,7 +102,6 @@ namespace WebTAManga.Controllers
 
             if (readingHistory == null)
             {
-                // Nếu chưa có bản ghi, tạo mới và lưu vào cơ sở dữ liệu
                 _context.ReadingHistories.Add(new ReadingHistory
                 {
                     UserId = userId.Value,
@@ -113,22 +118,23 @@ namespace WebTAManga.Controllers
 
             if (followedStory != null)
             {
-                followedStory.LastReadChapterId = chapter.ChapterId;  // Cập nhật chương cuối đã đọc
+                followedStory.LastReadChapterId = chapter.ChapterId;
                 _context.SaveChanges();
             }
 
-            if (userId != null)
+            // Tính điểm kinh nghiệm cho người dùng
+            var currentUser = _context.Users.Find(userId);
+            if (currentUser != null)
             {
-                var user = _context.Users.Find(userId);
-                user.ExpPoints += 10; // Cộng điểm khi đọc truyện (ví dụ 10 điểm)
+                currentUser.ExpPoints += 10; // Cộng điểm khi đọc truyện
 
-                if (user.ExpPoints >= 100)
+                if (currentUser.ExpPoints >= 100)
                 {
-                    user.ExpPoints = 0; // Reset exp points khi đạt 100%
-                    user.Level += 1; // Tăng cấp độ lên
+                    currentUser.ExpPoints = 0; // Reset exp points khi đạt 100%
+                    currentUser.Level += 1; // Tăng cấp độ lên
                 }
 
-                _context.SaveChanges(); // Lưu thay đổi vào cơ sở dữ liệu
+                _context.SaveChanges();
             }
 
             // Tìm chương trước và chương sau
@@ -147,6 +153,7 @@ namespace WebTAManga.Controllers
 
             return View(chapter);
         }
+
 
         //kiểm tra đã đọc
         public IActionResult ChapterList(int storyId)
@@ -381,140 +388,75 @@ namespace WebTAManga.Controllers
             IEnumerable<Story> GetAllStories();
         }
 
-        // GET: Users/Profile
-        public IActionResult Profile()
+        [HttpPost]
+        [HttpPost]
+        public IActionResult BuyChapter(int chapterId)
         {
             var userId = HttpContext.Session.GetInt32("UsersID");
-
             if (userId == null)
             {
-                return RedirectToAction("Index", "Login");
+                TempData["ErrorMessage"] = "Bạn cần đăng nhập để mua chapter!";
+                return RedirectToAction("Login", "Auth");
             }
 
-            var user = _context.Users
-                .Include(u => u.Rank)
-                .Include(u => u.AvatarFrame) 
-                .FirstOrDefault(u => u.UserId == userId);
+            var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+            var chapter = _context.Chapters.FirstOrDefault(c => c.ChapterId == chapterId);
 
-            if (user == null)
+            if (chapter == null || user == null)
             {
-                return NotFound();
+                TempData["ErrorMessage"] = "Không tìm thấy chapter hoặc người dùng!";
+                return RedirectToAction("ReadChapter", new { id = chapterId });
             }
 
-            ViewBag.AvatarFrames = _context.AvatarFrames.ToList();
-            return View(user);
-        }
+            // Kiểm tra xem user đã mua chapter này chưa
+            bool isAlreadyPurchased = _context.PurchasedChapters
+                .Any(pc => pc.UserId == userId && pc.ChapterId == chapterId);
 
-
-        // POST: Users/Profile
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Profile([Bind("UserId,Username,Email,Level,Avatar,AvatarFrame,Password,RankId")] User user, IFormFile avatarFile, string newPassword)
-        {
-            var currentUserId = HttpContext.Session.GetInt32("UsersID");
-
-            if (currentUserId == null)
+            if (isAlreadyPurchased)
             {
-                return RedirectToAction("Index", "Login");
+                TempData["InfoMessage"] = "Bạn đã mua chapter này rồi!";
+                return RedirectToAction("ReadChapter", new { id = chapterId });
             }
 
-            var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.UserId == currentUserId);
-            if (existingUser == null)
+            // Kiểm tra số xu của người dùng trước khi thực hiện giao dịch
+            if (user.Coins < chapter.Coins)
             {
-                return NotFound();
+                TempData["ErrorMessage"] = "Bạn không có đủ xu để mua chapter này!";
+                return RedirectToAction("ReadChapter", new { id = chapterId });
             }
 
-            // Cập nhật thông tin cá nhân
-            existingUser.Username = user.Username;
-            existingUser.Email = user.Email;
-            existingUser.Level = user.Level;
-            existingUser.AvatarFrame = user.AvatarFrame;
-            existingUser.RankId = user.RankId;
-
-            // Cập nhật ảnh đại diện nếu có
-            if (avatarFile != null && avatarFile.Length > 0)
+            // Nếu đủ xu, tiến hành giao dịch
+            using (var transaction = _context.Database.BeginTransaction())
             {
-                var uploadsFolder = Path.Combine(_environment.WebRootPath, "uploads/avatars");
-                if (!Directory.Exists(uploadsFolder))
+                try
                 {
-                    Directory.CreateDirectory(uploadsFolder);
-                }
+                    // Trừ xu của người dùng
+                    user.Coins -= chapter.Coins;
 
-                var fileName = Path.GetFileName(avatarFile.FileName);
-                var filePath = Path.Combine(uploadsFolder, fileName);
-
-                // Xóa ảnh cũ nếu có
-                if (!string.IsNullOrEmpty(existingUser.Avatar))
-                {
-                    var oldAvatarPath = Path.Combine(uploadsFolder, existingUser.Avatar);
-                    if (System.IO.File.Exists(oldAvatarPath))
+                    // Thêm vào danh sách chương đã mua
+                    _context.PurchasedChapters.Add(new PurchasedChapter
                     {
-                        System.IO.File.Delete(oldAvatarPath);
-                    }
-                }
-
-                // Lưu ảnh mới
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    await avatarFile.CopyToAsync(fileStream);
-                }
-
-                existingUser.Avatar = fileName; // Lưu tên ảnh vào database
-            }
-
-            // Cập nhật mật khẩu nếu có
-            if (!string.IsNullOrEmpty(newPassword))
-            {
-                var passwordHasher = new PasswordHasher<User>();
-                existingUser.Password = passwordHasher.HashPassword(existingUser, newPassword);
-            }
-
-            _context.Update(existingUser);
-            await _context.SaveChangesAsync();
-
-            TempData["SuccessMessage"] = "Your profile has been updated successfully!";
-            return RedirectToAction("Profile");
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult UpdateProfile(User model, IFormFile avatarFile, int avatarFrameId, string newPassword)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = _context.Users.FirstOrDefault(u => u.UserId == model.UserId);
-
-                if (user != null)
-                {
-                    // Xử lý avatar
-                    if (avatarFile != null && avatarFile.Length > 0)
-                    {
-                        var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", "avatars", avatarFile.FileName);
-                        using (var stream = new FileStream(filePath, FileMode.Create))
-                        {
-                            avatarFile.CopyTo(stream);
-                        }
-                        user.Avatar = avatarFile.FileName;
-                    }
-
-                    // Cập nhật khung viền avatar
-                    user.AvatarFrameId = avatarFrameId;
-
-                    // Cập nhật mật khẩu nếu có
-                    if (!string.IsNullOrEmpty(newPassword))
-                    {
-                        user.Password = newPassword;  // Cần mã hóa mật khẩu trước khi lưu.
-                    }
+                        UserId = user.UserId,
+                        ChapterId = chapter.ChapterId,
+                        PurchasedAt = DateTime.Now
+                    });
 
                     _context.SaveChanges();
 
-                    TempData["SuccessMessage"] = "Profile updated successfully.";
-                    return RedirectToAction("Profile");
+                    // Commit transaction
+                    transaction.Commit();
+
+                    TempData["SuccessMessage"] = "Mua chapter thành công!";
+                }
+                catch (Exception ex)
+                {
+                    // Rollback nếu có lỗi
+                    transaction.Rollback();
+                    TempData["ErrorMessage"] = "Có lỗi xảy ra, vui lòng thử lại!";
                 }
             }
 
-            return View(model);
+            return RedirectToAction("ReadChapter", new { id = chapterId });
         }
-
-
     }
 }
