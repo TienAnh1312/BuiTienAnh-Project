@@ -1,0 +1,62 @@
+﻿@model WebTAManga.Models.CategoryRank
+
+@{
+    ViewData["Title"] = "Edit Category Rank";
+}
+
+<h1>Edit Category Rank</h1>
+
+<form asp-action="EditCategoryRank">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="CategoryRankId" />
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="RankId" class="control-label"></label>
+        <select asp-for="RankId" class="form-control" asp-items="ViewBag.RankId"></select>
+        <span asp-validation-for="RankId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Levels (Exp Required)</label>
+        <div id="levels-container">
+            @if (Model.Levels != null && Model.Levels.Any())
+            {
+                foreach (var level in Model.Levels)
+                {
+                    <div class="level-input">
+                        <input type="number" name="expRequired" class="form-control mb-2" value="@level.ExpRequired" placeholder="Enter Exp Required" />
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="level-input">
+                    <input type="number" name="expRequired" class="form-control mb-2" placeholder="Enter Exp Required" />
+                </div>
+            }
+        </div>
+        <button type="button" class="btn btn-secondary mt-2" onclick="addLevel()">Add Another Level</button>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <a asp-action="CategoryRanksByRank" asp-route-id="@Model.RankId" class="btn btn-secondary">Back</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        function addLevel() {
+            const container = document.getElementById('levels-container');
+            const newInput = document.createElement('div');
+            newInput.className = 'level-input';
+            newInput.innerHTML = '<input type="number" name="expRequired" class="form-control mb-2" placeholder="Enter Exp Required" />';
+            container.appendChild(newInput);
+        }
+    </script>
+}

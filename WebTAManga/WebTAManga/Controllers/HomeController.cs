@@ -46,8 +46,8 @@ namespace WebTAManga.Controllers
                                 .Include(s => s.StoryGenres)
                                 .ThenInclude(sg => sg.Genre)
                                 .Include(s => s.Chapters)
-                                .Include(s => s.Comments) // Bao gồm bình luận
-                                .ThenInclude(c => c.User) // Bao gồm người dùng của mỗi bình luận
+                                .Include(s => s.Comments)
+                                .ThenInclude(c => c.User)
                                 .FirstOrDefault(s => s.StoryId == id);
 
             if (story == null)
@@ -55,20 +55,21 @@ namespace WebTAManga.Controllers
                 return NotFound();
             }
 
-            // Lấy danh sách bình luận cha và bình luận trả lời
             var comments = _context.Comments
                                    .Where(c => c.StoryId == id && c.ParentCommentId == null)
                                    .OrderByDescending(c => c.CreatedAt)
                                    .Include(c => c.User)
-                                   .Include(c => c.InverseParentComment) // Bao gồm các bình luận trả lời
+                                   .Include(c => c.InverseParentComment)
                                    .ToList();
 
             ViewBag.Comments = comments;
-            var readingHistories = _context.ReadingHistories
-                                          .Where(r => r.UserId == userId && r.StoryId == id)
-                                          //.Select(r => r.ChapterId)
-                                          .ToList();
-            ViewBag.ReadingHistories = readingHistories;
+            ViewBag.ReadingHistories = _context.ReadingHistories
+                                               .Where(r => r.UserId == userId && r.StoryId == id)
+                                               .ToList();
+            ViewBag.IsFavorited = _context.Favorites.Any(f => f.UserId == userId && f.StoryId == id);
+            ViewBag.IsFollowed = _context.FollowedStories.Any(f => f.UserId == userId && f.StoryId == id);
+            ViewBag.CurrentUserId = userId;
+
             return View(story);
         }
 
@@ -152,7 +153,7 @@ namespace WebTAManga.Controllers
             var userId = HttpContext.Session.GetInt32("UsersID");
             if (userId == null)
             {
-                return RedirectToAction("Index", "Login"); // Chuyển đến trang đăng nhập nếu chưa đăng nhập
+                return Json(new { success = false, redirect = Url.Action("Index", "Login") });
             }
 
             var favorite = _context.Favorites.FirstOrDefault(f => f.UserId == userId && f.StoryId == storyId);
@@ -166,14 +167,10 @@ namespace WebTAManga.Controllers
                 };
                 _context.Favorites.Add(favorite);
                 _context.SaveChanges();
-                TempData["SuccessMessage"] = "The story has been added to your favorites!";
-            }
-            else
-            {
-                TempData["InfoMessage"] = "This story is already in your favorites.";
+                return Json(new { success = true, isFavorited = true, message = "The story has been added to your favorites!" });
             }
 
-            return RedirectToAction("Details", new { id = storyId });
+            return Json(new { success = false, isFavorited = true, message = "This story is already in your favorites." });
         }
 
         //danh sách yêu thích
@@ -201,7 +198,7 @@ namespace WebTAManga.Controllers
             var userId = HttpContext.Session.GetInt32("UsersID");
             if (userId == null)
             {
-                return RedirectToAction("Index", "Login"); // Chuyển đến trang đăng nhập nếu chưa đăng nhập
+                return Json(new { success = false, redirect = Url.Action("Index", "Login") });
             }
 
             var favorite = _context.Favorites.FirstOrDefault(f => f.UserId == userId && f.StoryId == storyId);
@@ -209,9 +206,10 @@ namespace WebTAManga.Controllers
             {
                 _context.Favorites.Remove(favorite);
                 _context.SaveChanges();
+                return Json(new { success = true, isFavorited = false, message = "The story has been removed from your favorites." });
             }
 
-            return RedirectToAction("FavoriteList"); // Quay lại danh sách yêu thích
+            return Json(new { success = false, isFavorited = false, message = "This story is not in your favorites." });
         }
 
         //thêm vào danh sách theo dõi
@@ -221,10 +219,9 @@ namespace WebTAManga.Controllers
             var userId = HttpContext.Session.GetInt32("UsersID");
             if (userId == null)
             {
-                return RedirectToAction("Index", "Login"); // Chuyển đến trang đăng nhập nếu chưa đăng nhập
+                return Json(new { success = false, redirect = Url.Action("Index", "Login") });
             }
 
-            // Kiểm tra nếu câu chuyện đã có trong danh sách theo dõi của người dùng
             var followedStory = _context.FollowedStories.FirstOrDefault(f => f.UserId == userId && f.StoryId == storyId);
             if (followedStory == null)
             {
@@ -232,21 +229,14 @@ namespace WebTAManga.Controllers
                 {
                     UserId = userId.Value,
                     StoryId = storyId,
-                    LastReadChapterId = null, // Chưa có chương nào được đọc
+                    LastReadChapterId = null
                 };
                 _context.FollowedStories.Add(followedStory);
-
-                // Cập nhật lại thông báo
-                TempData["SuccessMessage"] = "The story has been added to your followed stories!";
                 _context.SaveChanges();
-
-            }
-            else
-            {
-                TempData["InfoMessage"] = "This story is already in your followed stories.";
+                return Json(new { success = true, isFollowed = true, message = "The story has been added to your followed stories!" });
             }
 
-            return RedirectToAction("Details", new { id = storyId });
+            return Json(new { success = false, isFollowed = true, message = "This story is already in your followed stories." });
         }
 
         //theo dõi truyện
@@ -266,6 +256,26 @@ namespace WebTAManga.Controllers
                                            .ToList();
 
             return View(followedStories);
+        }
+
+        [HttpPost]
+        public IActionResult Unfollow(int storyId)
+        {
+            var userId = HttpContext.Session.GetInt32("UsersID");
+            if (userId == null)
+            {
+                return Json(new { success = false, redirect = Url.Action("Index", "Login") });
+            }
+
+            var followedStory = _context.FollowedStories.FirstOrDefault(f => f.UserId == userId && f.StoryId == storyId);
+            if (followedStory != null)
+            {
+                _context.FollowedStories.Remove(followedStory);
+                _context.SaveChanges();
+                return Json(new { success = true, isFollowed = false, message = "You have unfollowed this story." });
+            }
+
+            return Json(new { success = false, isFollowed = false, message = "You are not following this story." });
         }
 
         // Thêm bình luận

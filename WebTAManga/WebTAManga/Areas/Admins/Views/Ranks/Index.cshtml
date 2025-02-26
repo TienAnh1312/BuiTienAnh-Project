@@ -1,35 +1,33 @@
 ﻿@model IEnumerable<WebTAManga.Models.Rank>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Ranks";
 }
 
-<h1>Index</h1>
+<h1>Ranks</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th></th>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.RankId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.RankId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.RankId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.RankId" class="btn btn-warning">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.RankId" class="btn btn-info">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.RankId" class="btn btn-danger">Delete</a> |
+                    <a asp-action="CategoryranksByRank" asp-route-id="@item.RankId" class="btn btn-primary">View Category Ranks</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

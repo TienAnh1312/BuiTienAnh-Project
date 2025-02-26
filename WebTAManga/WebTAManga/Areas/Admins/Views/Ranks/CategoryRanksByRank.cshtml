@@ -1,0 +1,52 @@
+﻿@model WebTAManga.Models.Rank
+
+@{
+    ViewData["Title"] = "Category Ranks for " + Model.Name;
+}
+
+<h1>Category Ranks for @Model.Name</h1>
+
+<p>
+    <a asp-action="CreateCategoryRank" asp-route-rankId="@Model.RankId" class="btn btn-success">Create New Category Rank</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Category Rank Name</th>
+            <th>Levels (Exp Required)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var categoryRank in Model.CategoryRanks)
+        {
+            <tr>
+                <td>@categoryRank.Name</td>
+                <td>
+                    <ul>
+                        @foreach (var level in categoryRank.Levels)
+                        {
+                            <li> @level.ExpRequired EXP</li>
+                        }
+                        @if (!categoryRank.Levels.Any())
+                        {
+                            <li>No levels available</li>
+                        }
+                    </ul>
+                </td>
+                <td>
+                    <a asp-action="EditCategoryRank" asp-route-id="@categoryRank.CategoryRankId" class="btn btn-warning">Edit</a>
+                </td>
+            </tr>
+        }
+        @if (!Model.CategoryRanks.Any())
+        {
+            <tr>
+                <td colspan="3">No Category Ranks available for this Rank.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Index" class="btn btn-primary">Back to Ranks</a>

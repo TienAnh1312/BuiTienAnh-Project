@@ -142,9 +142,6 @@
 
                                         <img alt="10" src="./assets/images/star-off.png">
 
-
-
-
                                     </div>
                                     <em class="rate-story__text"></em>
                                     <div class="rate-story__value" itemprop="aggregateRating" itemscope=""
@@ -226,14 +223,12 @@
                                 </p>
 
                                 <div class="d-flex gap-2">
-                                    <form method="post" asp-action="AddToFavorites" asp-controller="Home" class="mr-2">
-                                        <input type="hidden" name="storyId" value="@Model.StoryId" />
-                                        <button type="submit" class="btn btn-warning btn-sm">⭐ Add to Favorites</button>
-                                    </form>
-                                    <form method="post" asp-action="AddToFollowed" asp-controller="Home">
-                                        <input type="hidden" name="storyId" value="@Model.StoryId" />
-                                        <button type="submit" class="btn btn-success btn-sm">✅ Follow</button>
-                                    </form>
+                                    <button class="btn btn-warning btn-sm toggle-favorite" data-story-id="@Model.StoryId" data-is-favorited="@ViewBag.IsFavorited.ToString().ToLower()">
+                                        <i class="fas fa-star"></i> @(ViewBag.IsFavorited ? "Remove from Favorites" : "Add to Favorites")
+                                    </button>
+                                    <button class="btn btn-success btn-sm toggle-follow" data-story-id="@Model.StoryId" data-is-followed="@ViewBag.IsFollowed.ToString().ToLower()">
+                                        <i class="fas fa-check"></i> @(ViewBag.IsFollowed ? "Unfollow" : "Follow")
+                                    </button>
                                 </div>
 
                             </div>
@@ -1232,7 +1227,6 @@
             </div>
 
             <!-- Comments Section -->
-            <!-- Comments Section -->
             <div class="comment-section">
                 <h4><i class="fas fa-comments"></i> Bình luận</h4>
                 @if (ViewBag.Comments != null && (ViewBag.Comments as List<WebTAManga.Models.Comment>)?.Any() == true)
@@ -1319,6 +1313,7 @@
     </div>
 </main>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
         function toggleReplyForm(commentId, grandParentId, username, isCurrentUser) {
         var form = document.getElementById("replyForm-" + commentId);
@@ -1357,4 +1352,66 @@
             toggleButton.innerHTML = '<i class="fas fa-caret-down"></i> Hiện ' + repliesDiv.querySelectorAll(".reply").length + ' bình luận con';
         }
     }
+
+</script>
+<script>
+    $(document).ready(function () {
+        // Xử lý nút Favorite
+        $('.toggle-favorite').on('click', function () {
+            var button = $(this);
+            var storyId = button.data('story-id');
+            var isFavorited = button.data('is-favorited') === true;
+
+            var url = isFavorited ? '@Url.Action("RemoveFromFavorites", "Home")' : '@Url.Action("AddToFavorites", "Home")';
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: { storyId: storyId },
+                success: function (response) {
+                    if (response.success) {
+                        button.data('is-favorited', !isFavorited);
+                        button.html('<i class="fas fa-star"></i> ' + (isFavorited ? 'Add to Favorites' : 'Remove from Favorites'));
+                        alert(response.message);
+                    } else if (response.redirect) {
+                        window.location.href = response.redirect;
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function () {
+                    alert('An error occurred. Please try again.');
+                }
+            });
+        });
+
+        // Xử lý nút Follow
+        $('.toggle-follow').on('click', function () {
+            var button = $(this);
+            var storyId = button.data('story-id');
+            var isFollowed = button.data('is-followed') === true;
+
+            var url = isFollowed ? '@Url.Action("Unfollow", "Home")' : '@Url.Action("AddToFollowed", "Home")';
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: { storyId: storyId },
+                success: function (response) {
+                    if (response.success) {
+                        button.data('is-followed', !isFollowed);
+                        button.html('<i class="fas fa-check"></i> ' + (isFollowed ? 'Follow' : 'Unfollow'));
+                        alert(response.message);
+                    } else if (response.redirect) {
+                        window.location.href = response.redirect;
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function () {
+                    alert('An error occurred. Please try again.');
+                }
+            });
+        });
+    });
 </script>
