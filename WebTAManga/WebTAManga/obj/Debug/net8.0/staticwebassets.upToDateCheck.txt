@@ -1,3 +1,4 @@
+wwwroot\css\home.css
 wwwroot\css\site.css
 wwwroot\dist\css\adminlte.css
 wwwroot\dist\css\adminlte.css.map
@@ -634,4 +635,6 @@ wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js
 wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt
 wwwroot\style\style.css
 wwwroot\uploads\avatars\10.jpeg
+wwwroot\uploads\avatars\29.jpeg
+wwwroot\uploads\avatars\8.jpeg
 wwwroot\uploads\avatars\BanChatCuaChuyenSinh.jfif

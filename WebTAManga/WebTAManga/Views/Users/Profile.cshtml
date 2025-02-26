@@ -4,135 +4,303 @@
     ViewData["Title"] = "User Profile";
 }
 
-<h2 class="text-center">Your Profile</h2>
+<div class="container mt-5">
+    <h2 class="text-center mb-4" style="color: #ffffff; font-weight: bold; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">Your Profile</h2>
 
-<form method="post" enctype="multipart/form-data">
-    @Html.AntiForgeryToken()
+    <form method="post" enctype="multipart/form-data" class="profile-form">
+        @Html.AntiForgeryToken()
 
-    @if (TempData["SuccessMessage"] != null)
-    {
-        <div class="alert alert-success text-center">
-            @TempData["SuccessMessage"]
-        </div>
-    }
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success text-center animate__animated animate__fadeIn">@TempData["SuccessMessage"]</div>
+        }
 
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <!-- Username -->
-            <div class="form-group">
-                <label for="Username">Username</label>
-                <input type="text" class="form-control" id="Username" name="Username" value="@Model.Username" required />
-            </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-sm bg-dark text-light p-4">
+                    <!-- Username -->
+                    <div class="form-group">
+                        <label for="Username" class="form-label">Username</label>
+                        <input type="text" class="form-control bg-secondary text-light border-0" id="Username" name="Username" value="@Model.Username" required />
+                    </div>
 
-            <!-- Email -->
-            <div class="form-group">
-                <label for="Email">Email</label>
-                <input type="email" class="form-control" id="Email" name="Email" value="@Model.Email" required />
-            </div>
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="Email" class="form-label">Email</label>
+                        <input type="email" class="form-control bg-secondary text-light border-0" id="Email" name="Email" value="@Model.Email" required />
+                    </div>
 
-            <!-- Avatar -->
-            <div class="form-group text-center">
-                <label for="Avatar">Avatar</label>
-                <div class="mb-2">
-                    <img src="~/uploads/avatars/@Model.Avatar" alt="Current Avatar" class="avatar-img img-fluid rounded-circle" />
+                    <!-- Avatar -->
+                    <div class="form-group text-center">
+                        <label for="Avatar" class="form-label">Avatar</label>
+                        <div class="mb-3 avatar-container mx-auto">
+                            @if (Model.AvatarFrame != null && !string.IsNullOrEmpty(Model.AvatarFrame.ImagePath))
+                            {
+                                <img src="~/@Model.AvatarFrame.ImagePath" alt="Avatar Frame" class="avatar-frame" />
+                            }
+                            <img src="~/uploads/avatars/@Model.Avatar" alt="Current Avatar" class="avatar-img img-fluid rounded-circle shadow-sm" id="avatarPreview" />
+                        </div>
+                        <!-- Ẩn input file và thay bằng nút máy ảnh -->
+                        <input type="file" class="d-none" id="Avatar" name="avatarFile" onchange="previewAvatar(event)" />
+                        <button type="button" class="btn btn-outline-light btn-camera" onclick="document.getElementById('Avatar').click();">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+
+                    <!-- New Password -->
+                    <div class="form-group">
+                        <label for="Password" class="form-label">New Password</label>
+                        <input type="password" class="form-control bg-secondary text-light border-0" id="Password" name="newPassword" placeholder="Enter new password (optional)" />
+                    </div>
+
+                    <!-- Rank Selection -->
+                    <div class="form-group">
+                        <label class="form-label"><strong>Chọn Rank:</strong></label>
+                        <div class="rank-options">
+                            @foreach (var rank in ViewBag.Ranks as List<WebTAManga.Models.Rank>)
+                            {
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="rank_@rank.RankId" name="selectedRankId" value="@rank.RankId" @(Model.RankId == rank.RankId ? "checked" : "") />
+                                    <label class="form-check-label" for="rank_@rank.RankId">@rank.Name</label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Avatar Frame Selection -->
+                    <div class="form-group">
+                        <label class="form-label"><strong>Chọn Khung Avatar:</strong></label>
+                        <div class="frame-options">
+                            @foreach (var frame in ViewBag.AvatarFrames as List<WebTAManga.Models.AvatarFrame>)
+                            {
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="frame_@frame.AvatarFrameId" name="selectedFrameId" value="@frame.AvatarFrameId" @(Model.AvatarFrameId == frame.AvatarFrameId ? "checked" : "") />
+                                    <label class="form-check-label" for="frame_@frame.AvatarFrameId">
+                                        @frame.Name
+                                        <img src="~/uploads/avatarframes/@frame.ImagePath" alt="@frame.Name" class="frame-preview" />
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="text-center mt-4">
+                        <div class="progress-container">
+                            <span class="level-name">@ViewBag.LevelName (@(Math.Round(ViewBag.ProgressPercentage))%)</span>
+                            <div class="progress shadow-sm">
+                                <div class="progress-bar animate__animated animate__slideInLeft" style="width: @ViewBag.ProgressPercentage%;" aria-valuenow="@ViewBag.ProgressPercentage" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <p class="mt-2"><strong>EXP:</strong> @ViewBag.ExpPoints</p>
+                        </div>
+                    </div>
+
+                    <!-- Nút Lưu -->
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg shadow-sm animate__animated animate__pulse animate__infinite">Lưu</button>
+                    </div>
                 </div>
-                <input type="file" class="form-control-file" id="Avatar" name="avatarFile" />
             </div>
-
-            <!-- New Password -->
-            <div class="form-group">
-                <label for="Password">New Password</label>
-                <input type="password" class="form-control" id="Password" name="newPassword" placeholder="Enter new password (optional)" />
-            </div>
-
-            <button type="submit" class="btn btn-primary btn-block">Update Profile</button>
         </div>
-    </div>
-</form>
-
-<!-- Hiển thị cấp bậc và thanh tiến trình -->
-<div class="text-center mt-3">
-    <div class="progress-container">
-        <span class="level-name">@ViewBag.LevelName (@(Math.Round(ViewBag.ProgressPercentage))% - Đỉnh Phong)</span>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: @ViewBag.ProgressPercentage%;" aria-valuenow="@ViewBag.ProgressPercentage" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-        <p><strong>EXP:</strong> @ViewBag.ExpPoints</p>
-    </div>
+    </form>
 </div>
 
-<!-- Form chọn Rank -->
-<form method="post" asp-action="UpdateRank">
-    <input type="hidden" name="userId" value="@Model.UserId" />
-
-    <label><strong>Chọn Rank:</strong></label>
-    <div>
-        @foreach (var rank in ViewBag.Ranks as List<WebTAManga.Models.Rank>)
-        {
-            <div class="form-check">
-                <input class="form-check-input" type="radio" id="rank_@rank.RankId"
-                       name="selectedRankId" value="@rank.RankId"
-                @(Model.RankId == rank.RankId ? "checked" : "") />
-                <label class="form-check-label" for="rank_@rank.RankId">@rank.Name</label>
-            </div>
-        }
-    </div>
-
-    <button type="submit" class="btn btn-primary mt-2">Cập nhật Rank</button>
-</form>
+<!-- Thêm Animate.css từ CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<!-- Thêm Font Awesome để dùng icon máy ảnh -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
 <style>
-    .avatar-img {
+    body {
+        background: linear-gradient(135deg, #1a1a1a, #2c3e50);
+        min-height: 100vh;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .profile-form .card {
+        border: none;
+        border-radius: 15px;
+        background: rgba(34, 34, 34, 0.95);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .form-label {
+        color: #00ffff;
+        font-weight: bold;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .form-control {
+        background-color: #333 !important;
+        color: #fff !important;
+        border: none !important;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+        .form-control:focus {
+            box-shadow: 0 0 10px #00ffff !important;
+            background-color: #444 !important;
+        }
+
+    .avatar-container {
+        position: relative;
         width: 150px;
         height: 150px;
+        margin: 0 auto;
+    }
+
+    .avatar-img {
+        width: 100%;
+        height: 100%;
         border-radius: 50%;
         object-fit: cover;
-        border: 2px solid #ddd;
+        border: 3px solid #00ffff;
+        transition: transform 0.3s ease;
     }
 
-    .form-control-file {
-        margin-top: 10px;
+        .avatar-img:hover {
+            transform: scale(1.05);
+        }
+
+    .avatar-frame {
+        width: 222px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        pointer-events: none;
+        object-fit: contain;
     }
 
-    .btn-block {
-        margin-top: 20px;
+    .btn-camera {
+        background: transparent;
+        border: 2px solid #00ffff;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        transition: all 0.3s ease;
     }
 
-    .alert {
-        margin-top: 15px;
+        .btn-camera:hover {
+            background: #00ffff;
+            color: #1a1a1a;
+            transform: scale(1.1);
+        }
+
+        .btn-camera i {
+            font-size: 20px;
+        }
+
+    .rank-options, .frame-options {
+        background: #2a2a2a;
+        padding: 10px;
+        border-radius: 8px;
     }
 
-    .text-center {
-        text-align: center;
+    .form-check-label {
+        color: #ddd;
+        transition: color 0.3s ease;
     }
 
-    .form-group {
-        margin-bottom: 20px;
+    .form-check-input:checked + .form-check-label {
+        color: #00ff00;
+    }
+
+    .frame-preview {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-left: 10px;
+        border: 2px solid #ffcc00;
+        vertical-align: middle;
     }
 
     .progress-container {
-        margin: 20px 0;
-        background-color: #1a1a1a;
-        padding: 10px;
-        border-radius: 5px;
+        background: #1a1a1a;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
     .level-name {
-        font-size: 16px;
-        color: #fff;
-        margin-bottom: 5px;
-        display: block;
+        font-size: 18px;
+        color: #00ffff;
+        font-weight: bold;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     }
 
     .progress {
-        height: 20px;
-        background-color: #333;
-        border-radius: 10px;
+        height: 25px;
+        background: #333;
+        border-radius: 12px;
         overflow: hidden;
     }
 
     .progress-bar {
         background: linear-gradient(to right, #00ffff, #00ff00, #ffcc00);
-        transition: width 0.3s ease;
+        transition: width 0.5s ease-in-out;
+    }
+
+    .btn-primary {
+        background: linear-gradient(45deg, #00ffff, #00ff00);
+        border: none;
+        border-radius: 8px;
+        padding: 12px 30px;
+        font-weight: bold;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 255, 255, 0.4);
+        }
+
+    @@media (max-width: 576px) {
+        .avatar-container
+
+    {
+        width: 120px;
+        height: 120px;
+    }
+
+    .avatar-frame {
+        width: 140px;
+        height: 140px;
+    }
+
+    .btn-camera {
+        width: 40px;
+        height: 40px;
+    }
+
+        .btn-camera i {
+            font-size: 16px;
+        }
+
+    .btn-primary {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
     }
 </style>
+
+<script>
+    function previewAvatar(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('avatarPreview').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+</script>

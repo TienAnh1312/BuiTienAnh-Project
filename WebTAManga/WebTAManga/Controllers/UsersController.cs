@@ -86,6 +86,7 @@ namespace WebTAManga.Controllers
             var user = _context.Users
                 .Include(u => u.Rank)
                 .Include(u => u.CategoryRank)
+                .Include(u => u.AvatarFrame) // Thêm Include cho AvatarFrame
                 .FirstOrDefault(u => u.UserId == userId);
 
             if (user == null)
@@ -113,19 +114,17 @@ namespace WebTAManga.Controllers
 
             if (currentLevel != null)
             {
-                // Tìm CategoryRank tương ứng với RankId hiện tại và Level hiện tại
                 var categoryRank = _context.CategoryRanks
                     .FirstOrDefault(cr => cr.RankId == currentRankId && cr.CategoryRankId == currentLevel.CategoryRankId);
 
                 if (categoryRank != null)
                 {
-                    levelName = categoryRank.Name; // Gán tên CategoryRank tương ứng
+                    levelName = categoryRank.Name;
                     user.CategoryRankId = categoryRank.CategoryRankId;
                     user.Level = currentLevel.LevelId;
                 }
                 else
                 {
-                    // Nếu không tìm thấy CategoryRank khớp, tìm CategoryRank phù hợp nhất trong Rank hiện tại dựa trên ExpPoints
                     var matchingCategoryRank = _context.CategoryRanks
                         .Join(_context.Levels,
                             cr => cr.CategoryRankId,
@@ -145,7 +144,6 @@ namespace WebTAManga.Controllers
                     }
                     else
                     {
-                        // Nếu không có CategoryRank nào phù hợp, lấy CategoryRank thấp nhất trong Rank
                         var defaultCategoryRank = _context.CategoryRanks
                             .Where(cr => cr.RankId == currentRankId)
                             .OrderBy(cr => cr.CategoryRankId)
@@ -162,17 +160,16 @@ namespace WebTAManga.Controllers
                     double expRequiredForNext = nextLevel.ExpRequired;
                     double expRequiredForCurrent = currentLevel.ExpRequired;
                     progressPercentage = ((currentExp - expRequiredForCurrent) / (expRequiredForNext - expRequiredForCurrent)) * 100;
-                    if (progressPercentage > 100) progressPercentage = 100; // Đảm bảo không vượt quá 100%
+                    if (progressPercentage > 100) progressPercentage = 100;
                 }
                 else
                 {
-                    progressPercentage = 100; // Đạt cấp tối đa
-                    levelName = "Đỉnh Phong"; // Tên cấp cao nhất
+                    progressPercentage = 100;
+                    levelName = "Đỉnh Phong";
                 }
             }
             else
             {
-                // Nếu không có Level nào phù hợp, lấy CategoryRank thấp nhất trong Rank
                 var defaultCategoryRank = _context.CategoryRanks
                     .Where(cr => cr.RankId == currentRankId)
                     .OrderBy(cr => cr.CategoryRankId)
@@ -182,14 +179,14 @@ namespace WebTAManga.Controllers
                 user.Level = 0;
             }
 
-            // Cập nhật thông tin user vào database
             _context.SaveChanges();
 
             // Truyền dữ liệu vào ViewBag
             ViewBag.LevelName = levelName;
             ViewBag.ProgressPercentage = progressPercentage;
             ViewBag.ExpPoints = user.ExpPoints ?? 0;
-            ViewBag.Ranks = _context.Ranks.ToList(); // Danh sách Rank cho radio button
+            ViewBag.Ranks = _context.Ranks.ToList();
+            ViewBag.AvatarFrames = _context.AvatarFrames.ToList(); // Thêm danh sách AvatarFrames
 
             return View(user);
         }
@@ -197,10 +194,9 @@ namespace WebTAManga.Controllers
         // POST: Users/Profile
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Profile([Bind("UserId,Username,Email,Level,Avatar,AvatarFrame,Password,RankId")] User user, IFormFile avatarFile, string newPassword)
+        public async Task<IActionResult> Profile([Bind("UserId,Username,Email,Level,Avatar,AvatarFrame,Password,RankId")] User user, IFormFile avatarFile, string newPassword, int selectedRankId, int selectedFrameId)
         {
             var currentUserId = HttpContext.Session.GetInt32("UsersID");
-
             if (currentUserId == null)
             {
                 return RedirectToAction("Index", "Login");
@@ -215,11 +211,29 @@ namespace WebTAManga.Controllers
             // Cập nhật thông tin cá nhân
             existingUser.Username = user.Username;
             existingUser.Email = user.Email;
-            existingUser.Level = user.Level;
-            existingUser.AvatarFrame = user.AvatarFrame;
-            existingUser.RankId = user.RankId;
 
-            // Cập nhật ảnh đại diện nếu có
+            // Cập nhật Rank
+            existingUser.RankId = selectedRankId;
+            var currentLevel = _context.Levels
+                .Where(l => l.ExpRequired <= (existingUser.ExpPoints ?? 0))
+                .OrderByDescending(l => l.ExpRequired)
+                .FirstOrDefault();
+
+            if (currentLevel != null)
+            {
+                var categoryRank = _context.CategoryRanks
+                    .FirstOrDefault(cr => cr.RankId == selectedRankId && cr.CategoryRankId == currentLevel.CategoryRankId);
+                existingUser.CategoryRankId = categoryRank?.CategoryRankId ?? _context.CategoryRanks
+                    .Where(cr => cr.RankId == selectedRankId)
+                    .OrderBy(cr => cr.CategoryRankId)
+                    .FirstOrDefault()?.CategoryRankId;
+                existingUser.Level = currentLevel.LevelId;
+            }
+
+            // Cập nhật Avatar Frame
+            existingUser.AvatarFrameId = selectedFrameId;
+
+            // Cập nhật Avatar
             if (avatarFile != null && avatarFile.Length > 0)
             {
                 var uploadsFolder = Path.Combine(_environment.WebRootPath, "uploads/avatars");
@@ -231,7 +245,6 @@ namespace WebTAManga.Controllers
                 var fileName = Path.GetFileName(avatarFile.FileName);
                 var filePath = Path.Combine(uploadsFolder, fileName);
 
-                // Xóa ảnh cũ nếu có
                 if (!string.IsNullOrEmpty(existingUser.Avatar))
                 {
                     var oldAvatarPath = Path.Combine(uploadsFolder, existingUser.Avatar);
@@ -241,16 +254,14 @@ namespace WebTAManga.Controllers
                     }
                 }
 
-                // Lưu ảnh mới
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
                     await avatarFile.CopyToAsync(fileStream);
                 }
-
-                existingUser.Avatar = fileName; // Lưu tên ảnh vào database
+                existingUser.Avatar = fileName;
             }
 
-            // Cập nhật mật khẩu nếu có
+            // Cập nhật mật khẩu
             if (!string.IsNullOrEmpty(newPassword))
             {
                 var passwordHasher = new PasswordHasher<User>();
@@ -260,7 +271,7 @@ namespace WebTAManga.Controllers
             _context.Update(existingUser);
             await _context.SaveChangesAsync();
 
-            TempData["SuccessMessage"] = "Your profile has been updated successfully!";
+            TempData["SuccessMessage"] = "Thông tin đã được cập nhật thành công!";
             return RedirectToAction("Profile");
         }
 
@@ -402,6 +413,22 @@ namespace WebTAManga.Controllers
             }
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateAvatarFrame(int userId, int selectedFrameId)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            user.AvatarFrameId = selectedFrameId;
+            _context.SaveChanges();
+
+            TempData["SuccessMessage"] = "Khung avatar đã được cập nhật thành công!";
+            return RedirectToAction("Profile");
+        }
 
         private bool UserExists(int id)
         {

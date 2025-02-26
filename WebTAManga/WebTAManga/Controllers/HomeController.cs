@@ -75,36 +75,20 @@ namespace WebTAManga.Controllers
         public IActionResult ReadChapter(int id)
         {
             var userId = HttpContext.Session.GetInt32("UsersID");
+            if (userId == null) return RedirectToAction("Index", "Login");
 
-            if (userId == null)
-            {
-                return RedirectToAction("Index", "Login"); // Chuyển đến trang đăng nhập nếu chưa đăng nhập
-            }
-
-            // Lấy thông tin chapter kèm hình ảnh
             var chapter = _context.Chapters
                                   .Include(c => c.ChapterImages)
                                   .FirstOrDefault(c => c.ChapterId == id);
+            if (chapter == null) return NotFound();
 
-            if (chapter == null)
-            {
-                return NotFound(); // Nếu chapter không tồn tại
-            }
-
-            //  Kiểm tra xem user đã mua chưa
-            var isPurchased = _context.PurchasedChapters
-                                    .Any(pc => pc.UserId == userId && pc.ChapterId == id);
-
-            // trạng thái mở khóa chapter
+            var isPurchased = _context.PurchasedChapters.Any(pc => pc.UserId == userId && pc.ChapterId == id);
             chapter.IsUnlocked = isPurchased || chapter.Coins == 0;
-
             ViewBag.IsPurchased = isPurchased;
             ViewBag.IsUnlocked = chapter.IsUnlocked;
 
-            // Kiểm tra nếu chapter chưa được đánh dấu đã đọc
             var readingHistory = _context.ReadingHistories
-                                          .FirstOrDefault(r => r.UserId == userId && r.ChapterId == id);
-
+                                         .FirstOrDefault(r => r.UserId == userId && r.ChapterId == id);
             if (readingHistory == null)
             {
                 _context.ReadingHistories.Add(new ReadingHistory
@@ -113,38 +97,33 @@ namespace WebTAManga.Controllers
                     ChapterId = id,
                     StoryId = chapter.StoryId,
                     StartTime = DateTime.Now,
-                    LastReadAt = DateTime.Now
+                    LastReadAt = DateTime.Now,
+                    EndTime = null 
                 });
                 _context.SaveChanges();
             }
-           
-            // Cập nhật chương cuối cùng đã đọc trong FollowedStory
+
             var followedStory = _context.FollowedStories
                                         .FirstOrDefault(f => f.UserId == userId && f.StoryId == chapter.StoryId);
-
             if (followedStory != null)
             {
                 followedStory.LastReadChapterId = chapter.ChapterId;
                 _context.SaveChanges();
             }
 
-            // Tìm chương trước và chương sau
-            var previousChapter = _context.Chapters
-                                           .Where(c => c.StoryId == chapter.StoryId && c.ChapterId < chapter.ChapterId)
-                                           .OrderByDescending(c => c.ChapterId)
-                                           .FirstOrDefault();
+            ViewBag.PreviousChapter = _context.Chapters
+                                              .Where(c => c.StoryId == chapter.StoryId && c.ChapterId < chapter.ChapterId)
+                                              .OrderByDescending(c => c.ChapterId)
+                                              .FirstOrDefault();
+            ViewBag.NextChapter = _context.Chapters
+                                          .Where(c => c.StoryId == chapter.StoryId && c.ChapterId > chapter.ChapterId)
+                                          .OrderBy(c => c.ChapterId)
+                                          .FirstOrDefault();
 
-            var nextChapter = _context.Chapters
-                                       .Where(c => c.StoryId == chapter.StoryId && c.ChapterId > chapter.ChapterId)
-                                       .OrderBy(c => c.ChapterId)
-                                       .FirstOrDefault();
-
-            ViewBag.PreviousChapter = previousChapter;
-            ViewBag.NextChapter = nextChapter;
 
             return View(chapter);
         }
-
+       
         //kiểm tra đã đọc
         public IActionResult ChapterList(int storyId)
         {
@@ -311,7 +290,7 @@ namespace WebTAManga.Controllers
             user.ExpPoints += 10; // Bình luận cộng 5 EXP
             _context.SaveChanges();
 
-            TempData["SuccessMessage"] = "Bình luận thành công! Bạn đã nhận 5 EXP.";
+            TempData["SuccessMessage"] = "Bình luận thành công!";
 
             return RedirectToAction("Details", "Home", new { id = storyId });
         }
@@ -349,7 +328,7 @@ namespace WebTAManga.Controllers
             var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
             if (user != null)
             {
-                user.ExpPoints += 10; // Cộng 5 EXP khi trả lời bình luận
+                user.ExpPoints += 10; // Cộng EXP khi trả lời bình luận
 
                 // Cập nhật level nếu đủ EXP
                 var newLevel = _context.Levels
@@ -389,23 +368,27 @@ namespace WebTAManga.Controllers
 
             var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
             var readingHistory = _context.ReadingHistories
-                .FirstOrDefault(r => r.UserId == userId && r.ChapterId == chapterId);
+                                         .FirstOrDefault(r => r.UserId == userId && r.ChapterId == chapterId);
 
-            if (user != null && readingHistory != null)
+            if (user != null && readingHistory != null && readingHistory.EndTime == null)
             {
-                TimeSpan minReadingTime = TimeSpan.FromMinutes(2);
-                TimeSpan readingDuration = DateTime.Now - readingHistory.StartTime;
+                readingHistory.EndTime = DateTime.Now; // Đánh dấu hoàn thành
+                user.ExpPoints += 10; 
 
-                if (readingDuration >= minReadingTime)
+                _context.ExpHistories.Add(new ExpHistory
                 {
-                    user.ExpPoints += 10; // Đọc xong 1 chapter cộng 10 EXP
-                    _context.SaveChanges();
-                }
+                    UserId = userId.Value,
+                    ExpAmount = 10,
+                    Reason = "Hoàn thành đọc chương " + chapterId,
+                    CreatedAt = DateTime.Now
+                });
+
+                _context.SaveChanges();
+                UpdateUserLevel(user); // Cập nhật cấp độ nếu đủ EXP
             }
 
             return RedirectToAction("Index", "Home");
         }
-
 
         [HttpPost]
         public IActionResult BuyChapter(int chapterId)
@@ -476,12 +459,13 @@ namespace WebTAManga.Controllers
             return RedirectToAction("ReadChapter", new { id = chapterId });
         }
 
+        //cập nhập cấp độ
         private void UpdateUserLevel(User user)
         {
             var newLevel = _context.Levels
-                .Where(l => l.ExpRequired <= user.ExpPoints)
-                .OrderByDescending(l => l.LevelId)
-                .FirstOrDefault();
+                                  .Where(l => l.ExpRequired <= user.ExpPoints)
+                                  .OrderByDescending(l => l.LevelId)
+                                  .FirstOrDefault();
 
             if (newLevel != null && newLevel.LevelId != user.Level)
             {
@@ -491,6 +475,5 @@ namespace WebTAManga.Controllers
 
             _context.SaveChanges();
         }
-
     }
 }
