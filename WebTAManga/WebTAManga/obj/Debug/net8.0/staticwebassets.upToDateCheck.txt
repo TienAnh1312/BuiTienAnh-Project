@@ -1,3 +1,4 @@
+wwwroot\css\comment.css
 wwwroot\css\home.css
 wwwroot\css\site.css
 wwwroot\dist\css\adminlte.css
@@ -75,7 +76,11 @@ wwwroot\dist\js\pages\dashboard.js
 wwwroot\dist\js\pages\dashboard2.js
 wwwroot\dist\js\pages\dashboard3.js
 wwwroot\favicon.ico
+wwwroot\images\admins\avatarFrames\03e2fca2-2403-4684-a7f9-10532816df30.jfif
 wwwroot\images\admins\avatarFrames\a3ade214-3346-42bf-a1d1-257ec5ae16a9.png
+wwwroot\images\admins\avatarFrames\bb27a831-6149-4cef-ae63-39877d72b90a.png
+wwwroot\images\admins\avatarFrames\f0df4cd6-14d9-4524-9083-7423a9328f65.png
+wwwroot\images\admins\avatarFrames\fcc62373-cdb2-42f6-b4e1-d541e77e66c4.png
 wwwroot\images\admins\cpimages\0.jpg
 wwwroot\images\admins\cpimages\1.jpg
 wwwroot\images\admins\cpimages\10.jpg
@@ -633,6 +638,11 @@ wwwroot\lib\jquery-validation\LICENSE.md
 wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js
 wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js
 wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt
+wwwroot\style\app.css
+wwwroot\style\app.js
+wwwroot\style\chapter.js
+wwwroot\style\common.js
+wwwroot\style\story.js
 wwwroot\style\style.css
 wwwroot\uploads\avatars\10.jpeg
 wwwroot\uploads\avatars\29.jpeg

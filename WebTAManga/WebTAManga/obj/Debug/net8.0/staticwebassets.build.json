@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "hjCEHEBkaCJ4sYTMm7xX6VE0Gm2F7hOCxgKpa+zpOSQ=",
+  "Hash": "DaB4rIqjum2xC1pCzNczJaj0V+Dz7zP3K6e8ittB+hY=",
   "Source": "WebTAManga",
   "BasePath": "_content/WebTAManga",
   "Mode": "Default",
@@ -57,6 +57,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\WebTAManga.bundle.scp.css"
+    },
+    {
+      "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\css\\comment.css",
+      "SourceId": "WebTAManga",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\",
+      "BasePath": "_content/WebTAManga",
+      "RelativePath": "css/comment#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "415ffye9pk",
+      "Integrity": "OB7BTCaCeMtbhJ6LmmQoho9fZVQIVYtxv8Lt4vc1/tY=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\comment.css"
     },
     {
       "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\css\\home.css",
@@ -1676,6 +1697,27 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
+      "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\avatarFrames\\03e2fca2-2403-4684-a7f9-10532816df30.jfif",
+      "SourceId": "WebTAManga",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\",
+      "BasePath": "_content/WebTAManga",
+      "RelativePath": "images/admins/avatarFrames/03e2fca2-2403-4684-a7f9-10532816df30#[.{fingerprint}]?.jfif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "od7pldu3nn",
+      "Integrity": "nBpIwStVrXs+k8Y0goAllx60m/Q3N/2vyAOrbRRSHqU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\admins\\avatarFrames\\03e2fca2-2403-4684-a7f9-10532816df30.jfif"
+    },
+    {
       "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\avatarFrames\\a3ade214-3346-42bf-a1d1-257ec5ae16a9.png",
       "SourceId": "WebTAManga",
       "SourceType": "Discovered",
@@ -1695,6 +1737,69 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\admins\\avatarFrames\\a3ade214-3346-42bf-a1d1-257ec5ae16a9.png"
+    },
+    {
+      "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\avatarFrames\\bb27a831-6149-4cef-ae63-39877d72b90a.png",
+      "SourceId": "WebTAManga",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\",
+      "BasePath": "_content/WebTAManga",
+      "RelativePath": "images/admins/avatarFrames/bb27a831-6149-4cef-ae63-39877d72b90a#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "bw70gs8apm",
+      "Integrity": "+yeMgDwoRB8l0rCTS9OmsJCIu70t0rKAV8hFlxjzcdU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\admins\\avatarFrames\\bb27a831-6149-4cef-ae63-39877d72b90a.png"
+    },
+    {
+      "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\avatarFrames\\f0df4cd6-14d9-4524-9083-7423a9328f65.png",
+      "SourceId": "WebTAManga",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\",
+      "BasePath": "_content/WebTAManga",
+      "RelativePath": "images/admins/avatarFrames/f0df4cd6-14d9-4524-9083-7423a9328f65#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "rlc55tigj0",
+      "Integrity": "8VcRJwok9G3KltyJh4LtQM49MSjWJK5A5rKo09fBPDI=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\admins\\avatarFrames\\f0df4cd6-14d9-4524-9083-7423a9328f65.png"
+    },
+    {
+      "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\avatarFrames\\fcc62373-cdb2-42f6-b4e1-d541e77e66c4.png",
+      "SourceId": "WebTAManga",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\",
+      "BasePath": "_content/WebTAManga",
+      "RelativePath": "images/admins/avatarFrames/fcc62373-cdb2-42f6-b4e1-d541e77e66c4#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "0wynm1qoc5",
+      "Integrity": "YCrt3IDlHlBssoMsmQ/to0e+cnMIRZgOnI7my7tAF8Y=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\admins\\avatarFrames\\fcc62373-cdb2-42f6-b4e1-d541e77e66c4.png"
     },
     {
       "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\cpimages\\0.jpg",
@@ -13394,6 +13499,111 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
+      "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\style\\app.css",
+      "SourceId": "WebTAManga",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\",
+      "BasePath": "_content/WebTAManga",
+      "RelativePath": "style/app#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "sxlk0lg2a9",
+      "Integrity": "EKA5Cu/urhhPrUfHdbI/KUJz1RqFSIcfgKHN11+O8Sw=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\style\\app.css"
+    },
+    {
+      "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\style\\app.js",
+      "SourceId": "WebTAManga",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\",
+      "BasePath": "_content/WebTAManga",
+      "RelativePath": "style/app#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "ogfa4a6n5w",
+      "Integrity": "yHhv6X8ord40MJyiwc/lDvfbW3I8v9ujBb4VuSxBbfk=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\style\\app.js"
+    },
+    {
+      "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\style\\chapter.js",
+      "SourceId": "WebTAManga",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\",
+      "BasePath": "_content/WebTAManga",
+      "RelativePath": "style/chapter#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "v4xvcfp8oz",
+      "Integrity": "gY6HCK97DefQqUEhxSWV7fPt9WjkmnMxfN+jG6ThZDw=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\style\\chapter.js"
+    },
+    {
+      "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\style\\common.js",
+      "SourceId": "WebTAManga",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\",
+      "BasePath": "_content/WebTAManga",
+      "RelativePath": "style/common#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "5w70it5wgh",
+      "Integrity": "9V25TJeBAqU8xLmzI+gWxbHuEIdwVQx+/bX/L236Q9g=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\style\\common.js"
+    },
+    {
+      "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\style\\story.js",
+      "SourceId": "WebTAManga",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\",
+      "BasePath": "_content/WebTAManga",
+      "RelativePath": "style/story#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "a4riohwy5p",
+      "Integrity": "ytWIYEFzGnV4YNi+nralrHWqWP9+kjkw4N5M6Vf19iQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\style\\story.js"
+    },
+    {
       "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\style\\style.css",
       "SourceId": "WebTAManga",
       "SourceType": "Discovered",
@@ -13500,6 +13710,88 @@
     }
   ],
   "Endpoints": [
+    {
+      "Route": "css/comment.415ffye9pk.css",
+      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\css\\comment.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4406"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"OB7BTCaCeMtbhJ6LmmQoho9fZVQIVYtxv8Lt4vc1/tY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Feb 2025 08:25:43 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "415ffye9pk"
+        },
+        {
+          "Name": "label",
+          "Value": "css/comment.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-OB7BTCaCeMtbhJ6LmmQoho9fZVQIVYtxv8Lt4vc1/tY="
+        }
+      ]
+    },
+    {
+      "Route": "css/comment.css",
+      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\css\\comment.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4406"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"OB7BTCaCeMtbhJ6LmmQoho9fZVQIVYtxv8Lt4vc1/tY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Feb 2025 08:25:43 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-OB7BTCaCeMtbhJ6LmmQoho9fZVQIVYtxv8Lt4vc1/tY="
+        }
+      ]
+    },
     {
       "Route": "css/home.css",
       "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\css\\home.css",
@@ -19815,6 +20107,88 @@
       ]
     },
     {
+      "Route": "images/admins/avatarFrames/03e2fca2-2403-4684-a7f9-10532816df30.jfif",
+      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\avatarFrames\\03e2fca2-2403-4684-a7f9-10532816df30.jfif",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "11928"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/pjpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"nBpIwStVrXs+k8Y0goAllx60m/Q3N/2vyAOrbRRSHqU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Feb 2025 08:15:21 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-nBpIwStVrXs+k8Y0goAllx60m/Q3N/2vyAOrbRRSHqU="
+        }
+      ]
+    },
+    {
+      "Route": "images/admins/avatarFrames/03e2fca2-2403-4684-a7f9-10532816df30.od7pldu3nn.jfif",
+      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\avatarFrames\\03e2fca2-2403-4684-a7f9-10532816df30.jfif",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "11928"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/pjpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"nBpIwStVrXs+k8Y0goAllx60m/Q3N/2vyAOrbRRSHqU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Feb 2025 08:15:21 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "od7pldu3nn"
+        },
+        {
+          "Name": "label",
+          "Value": "images/admins/avatarFrames/03e2fca2-2403-4684-a7f9-10532816df30.jfif"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-nBpIwStVrXs+k8Y0goAllx60m/Q3N/2vyAOrbRRSHqU="
+        }
+      ]
+    },
+    {
       "Route": "images/admins/avatarFrames/a3ade214-3346-42bf-a1d1-257ec5ae16a9.2boosbbjlt.png",
       "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\avatarFrames\\a3ade214-3346-42bf-a1d1-257ec5ae16a9.png",
       "Selectors": [],
@@ -19893,6 +20267,252 @@
         {
           "Name": "integrity",
           "Value": "sha256-DqnhmZ6iRkMcvEq4e1/3rvYiFsmjLzSuorTK52UpZA4="
+        }
+      ]
+    },
+    {
+      "Route": "images/admins/avatarFrames/bb27a831-6149-4cef-ae63-39877d72b90a.bw70gs8apm.png",
+      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\avatarFrames\\bb27a831-6149-4cef-ae63-39877d72b90a.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "11729"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"+yeMgDwoRB8l0rCTS9OmsJCIu70t0rKAV8hFlxjzcdU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Feb 2025 08:14:26 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "bw70gs8apm"
+        },
+        {
+          "Name": "label",
+          "Value": "images/admins/avatarFrames/bb27a831-6149-4cef-ae63-39877d72b90a.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-+yeMgDwoRB8l0rCTS9OmsJCIu70t0rKAV8hFlxjzcdU="
+        }
+      ]
+    },
+    {
+      "Route": "images/admins/avatarFrames/bb27a831-6149-4cef-ae63-39877d72b90a.png",
+      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\avatarFrames\\bb27a831-6149-4cef-ae63-39877d72b90a.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "11729"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"+yeMgDwoRB8l0rCTS9OmsJCIu70t0rKAV8hFlxjzcdU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Feb 2025 08:14:26 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-+yeMgDwoRB8l0rCTS9OmsJCIu70t0rKAV8hFlxjzcdU="
+        }
+      ]
+    },
+    {
+      "Route": "images/admins/avatarFrames/f0df4cd6-14d9-4524-9083-7423a9328f65.png",
+      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\avatarFrames\\f0df4cd6-14d9-4524-9083-7423a9328f65.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "123305"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8VcRJwok9G3KltyJh4LtQM49MSjWJK5A5rKo09fBPDI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Feb 2025 08:12:27 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-8VcRJwok9G3KltyJh4LtQM49MSjWJK5A5rKo09fBPDI="
+        }
+      ]
+    },
+    {
+      "Route": "images/admins/avatarFrames/f0df4cd6-14d9-4524-9083-7423a9328f65.rlc55tigj0.png",
+      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\avatarFrames\\f0df4cd6-14d9-4524-9083-7423a9328f65.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "123305"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8VcRJwok9G3KltyJh4LtQM49MSjWJK5A5rKo09fBPDI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Feb 2025 08:12:27 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "rlc55tigj0"
+        },
+        {
+          "Name": "label",
+          "Value": "images/admins/avatarFrames/f0df4cd6-14d9-4524-9083-7423a9328f65.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-8VcRJwok9G3KltyJh4LtQM49MSjWJK5A5rKo09fBPDI="
+        }
+      ]
+    },
+    {
+      "Route": "images/admins/avatarFrames/fcc62373-cdb2-42f6-b4e1-d541e77e66c4.0wynm1qoc5.png",
+      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\avatarFrames\\fcc62373-cdb2-42f6-b4e1-d541e77e66c4.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "28653"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"YCrt3IDlHlBssoMsmQ/to0e+cnMIRZgOnI7my7tAF8Y=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Feb 2025 08:15:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "0wynm1qoc5"
+        },
+        {
+          "Name": "label",
+          "Value": "images/admins/avatarFrames/fcc62373-cdb2-42f6-b4e1-d541e77e66c4.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-YCrt3IDlHlBssoMsmQ/to0e+cnMIRZgOnI7my7tAF8Y="
+        }
+      ]
+    },
+    {
+      "Route": "images/admins/avatarFrames/fcc62373-cdb2-42f6-b4e1-d541e77e66c4.png",
+      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\avatarFrames\\fcc62373-cdb2-42f6-b4e1-d541e77e66c4.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "28653"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"YCrt3IDlHlBssoMsmQ/to0e+cnMIRZgOnI7my7tAF8Y=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Feb 2025 08:15:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-YCrt3IDlHlBssoMsmQ/to0e+cnMIRZgOnI7my7tAF8Y="
         }
       ]
     },
@@ -65567,6 +66187,416 @@
         {
           "Name": "integrity",
           "Value": "sha256-16aFlqtpsG9RyieKZUUUjkJpqTgcJtWXwT312I4Iz1s="
+        }
+      ]
+    },
+    {
+      "Route": "style/app.css",
+      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\style\\app.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "15777"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"EKA5Cu/urhhPrUfHdbI/KUJz1RqFSIcfgKHN11+O8Sw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 02 Oct 2023 14:49:45 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-EKA5Cu/urhhPrUfHdbI/KUJz1RqFSIcfgKHN11+O8Sw="
+        }
+      ]
+    },
+    {
+      "Route": "style/app.js",
+      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\style\\app.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "7988"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"yHhv6X8ord40MJyiwc/lDvfbW3I8v9ujBb4VuSxBbfk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 28 Sep 2023 12:41:05 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-yHhv6X8ord40MJyiwc/lDvfbW3I8v9ujBb4VuSxBbfk="
+        }
+      ]
+    },
+    {
+      "Route": "style/app.ogfa4a6n5w.js",
+      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\style\\app.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "7988"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"yHhv6X8ord40MJyiwc/lDvfbW3I8v9ujBb4VuSxBbfk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 28 Sep 2023 12:41:05 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "ogfa4a6n5w"
+        },
+        {
+          "Name": "label",
+          "Value": "style/app.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-yHhv6X8ord40MJyiwc/lDvfbW3I8v9ujBb4VuSxBbfk="
+        }
+      ]
+    },
+    {
+      "Route": "style/app.sxlk0lg2a9.css",
+      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\style\\app.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "15777"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"EKA5Cu/urhhPrUfHdbI/KUJz1RqFSIcfgKHN11+O8Sw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 02 Oct 2023 14:49:45 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "sxlk0lg2a9"
+        },
+        {
+          "Name": "label",
+          "Value": "style/app.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-EKA5Cu/urhhPrUfHdbI/KUJz1RqFSIcfgKHN11+O8Sw="
+        }
+      ]
+    },
+    {
+      "Route": "style/chapter.js",
+      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\style\\chapter.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2525"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"gY6HCK97DefQqUEhxSWV7fPt9WjkmnMxfN+jG6ThZDw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Oct 2023 14:38:03 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-gY6HCK97DefQqUEhxSWV7fPt9WjkmnMxfN+jG6ThZDw="
+        }
+      ]
+    },
+    {
+      "Route": "style/chapter.v4xvcfp8oz.js",
+      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\style\\chapter.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2525"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"gY6HCK97DefQqUEhxSWV7fPt9WjkmnMxfN+jG6ThZDw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Oct 2023 14:38:03 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "v4xvcfp8oz"
+        },
+        {
+          "Name": "label",
+          "Value": "style/chapter.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-gY6HCK97DefQqUEhxSWV7fPt9WjkmnMxfN+jG6ThZDw="
+        }
+      ]
+    },
+    {
+      "Route": "style/common.5w70it5wgh.js",
+      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\style\\common.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3025"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"9V25TJeBAqU8xLmzI+gWxbHuEIdwVQx+/bX/L236Q9g=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 27 Sep 2023 16:00:51 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5w70it5wgh"
+        },
+        {
+          "Name": "label",
+          "Value": "style/common.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-9V25TJeBAqU8xLmzI+gWxbHuEIdwVQx+/bX/L236Q9g="
+        }
+      ]
+    },
+    {
+      "Route": "style/common.js",
+      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\style\\common.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3025"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"9V25TJeBAqU8xLmzI+gWxbHuEIdwVQx+/bX/L236Q9g=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 27 Sep 2023 16:00:51 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-9V25TJeBAqU8xLmzI+gWxbHuEIdwVQx+/bX/L236Q9g="
+        }
+      ]
+    },
+    {
+      "Route": "style/story.a4riohwy5p.js",
+      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\style\\story.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "710"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ytWIYEFzGnV4YNi+nralrHWqWP9+kjkw4N5M6Vf19iQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Oct 2023 14:39:10 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "a4riohwy5p"
+        },
+        {
+          "Name": "label",
+          "Value": "style/story.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ytWIYEFzGnV4YNi+nralrHWqWP9+kjkw4N5M6Vf19iQ="
+        }
+      ]
+    },
+    {
+      "Route": "style/story.js",
+      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\style\\story.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "710"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ytWIYEFzGnV4YNi+nralrHWqWP9+kjkw4N5M6Vf19iQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Oct 2023 14:39:10 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ytWIYEFzGnV4YNi+nralrHWqWP9+kjkw4N5M6Vf19iQ="
         }
       ]
     },

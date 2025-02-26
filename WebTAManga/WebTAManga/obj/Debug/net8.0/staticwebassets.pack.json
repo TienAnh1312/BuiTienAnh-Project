@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\WebTAManga.e2n0iitn9z.bundle.scp.css"
     },
     {
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\css\\comment.css",
+      "PackagePath": "staticwebassets\\css\\comment.css"
+    },
+    {
       "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\css\\home.css",
       "PackagePath": "staticwebassets\\css\\home.css"
     },
@@ -313,8 +317,24 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\avatarFrames\\03e2fca2-2403-4684-a7f9-10532816df30.jfif",
+      "PackagePath": "staticwebassets\\images\\admins\\avatarFrames\\03e2fca2-2403-4684-a7f9-10532816df30.jfif"
+    },
+    {
       "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\avatarFrames\\a3ade214-3346-42bf-a1d1-257ec5ae16a9.png",
       "PackagePath": "staticwebassets\\images\\admins\\avatarFrames\\a3ade214-3346-42bf-a1d1-257ec5ae16a9.png"
+    },
+    {
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\avatarFrames\\bb27a831-6149-4cef-ae63-39877d72b90a.png",
+      "PackagePath": "staticwebassets\\images\\admins\\avatarFrames\\bb27a831-6149-4cef-ae63-39877d72b90a.png"
+    },
+    {
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\avatarFrames\\f0df4cd6-14d9-4524-9083-7423a9328f65.png",
+      "PackagePath": "staticwebassets\\images\\admins\\avatarFrames\\f0df4cd6-14d9-4524-9083-7423a9328f65.png"
+    },
+    {
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\avatarFrames\\fcc62373-cdb2-42f6-b4e1-d541e77e66c4.png",
+      "PackagePath": "staticwebassets\\images\\admins\\avatarFrames\\fcc62373-cdb2-42f6-b4e1-d541e77e66c4.png"
     },
     {
       "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\cpimages\\0.jpg",
@@ -2543,6 +2563,26 @@
     {
       "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\style\\app.css",
+      "PackagePath": "staticwebassets\\style\\app.css"
+    },
+    {
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\style\\app.js",
+      "PackagePath": "staticwebassets\\style\\app.js"
+    },
+    {
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\style\\chapter.js",
+      "PackagePath": "staticwebassets\\style\\chapter.js"
+    },
+    {
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\style\\common.js",
+      "PackagePath": "staticwebassets\\style\\common.js"
+    },
+    {
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\style\\story.js",
+      "PackagePath": "staticwebassets\\style\\story.js"
     },
     {
       "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\style\\style.css",
