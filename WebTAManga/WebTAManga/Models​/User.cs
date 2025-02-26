@@ -27,9 +27,15 @@ public partial class User
 
     public double? Coins { get; set; }
 
+    public int? CategoryRankId { get; set; }
+
     public virtual AvatarFrame? AvatarFrame { get; set; }
 
+    public virtual CategoryRank? CategoryRank { get; set; }
+
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
+
+    public virtual ICollection<ExpHistory> ExpHistories { get; set; } = new List<ExpHistory>();
 
     public virtual ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
 
@@ -42,4 +48,6 @@ public partial class User
     public virtual ICollection<Rating> Ratings { get; set; } = new List<Rating>();
 
     public virtual ICollection<ReadingHistory> ReadingHistories { get; set; } = new List<ReadingHistory>();
+
+    public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
 }

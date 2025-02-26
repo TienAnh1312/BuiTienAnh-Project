@@ -223,11 +223,7 @@ wwwroot\images\admins\stories\205.jpeg
 wwwroot\images\admins\stories\206.jpeg
 wwwroot\images\admins\stories\207.jpeg
 wwwroot\images\admins\stories\208.jpeg
-wwwroot\images\admins\stories\209.jpeg
 wwwroot\images\admins\stories\21.jpeg
-wwwroot\images\admins\stories\210.jpeg
-wwwroot\images\admins\stories\211.jpeg
-wwwroot\images\admins\stories\212.jpeg
 wwwroot\images\admins\stories\22.jpeg
 wwwroot\images\admins\stories\23.jpeg
 wwwroot\images\admins\stories\24.jpeg
@@ -637,4 +633,5 @@ wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js
 wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js
 wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt
 wwwroot\style\style.css
+wwwroot\uploads\avatars\10.jpeg
 wwwroot\uploads\avatars\BanChatCuaChuyenSinh.jfif

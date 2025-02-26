@@ -905,24 +905,8 @@
       "PackagePath": "staticwebassets\\images\\admins\\stories\\208.jpeg"
     },
     {
-      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\209.jpeg",
-      "PackagePath": "staticwebassets\\images\\admins\\stories\\209.jpeg"
-    },
-    {
       "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\21.jpeg",
       "PackagePath": "staticwebassets\\images\\admins\\stories\\21.jpeg"
-    },
-    {
-      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\210.jpeg",
-      "PackagePath": "staticwebassets\\images\\admins\\stories\\210.jpeg"
-    },
-    {
-      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\211.jpeg",
-      "PackagePath": "staticwebassets\\images\\admins\\stories\\211.jpeg"
-    },
-    {
-      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\212.jpeg",
-      "PackagePath": "staticwebassets\\images\\admins\\stories\\212.jpeg"
     },
     {
       "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\22.jpeg",
@@ -2559,6 +2543,10 @@
     {
       "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\style\\style.css",
       "PackagePath": "staticwebassets\\style\\style.css"
+    },
+    {
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\uploads\\avatars\\10.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\avatars\\10.jpeg"
     },
     {
       "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\uploads\\avatars\\BanChatCuaChuyenSinh.jfif",

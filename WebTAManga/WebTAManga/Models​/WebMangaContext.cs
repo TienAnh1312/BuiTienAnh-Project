@@ -21,11 +21,15 @@ public partial class WebMangaContext : DbContext
 
     public virtual DbSet<AvatarFrame> AvatarFrames { get; set; }
 
+    public virtual DbSet<CategoryRank> CategoryRanks { get; set; }
+
     public virtual DbSet<Chapter> Chapters { get; set; }
 
     public virtual DbSet<ChapterImage> ChapterImages { get; set; }
 
     public virtual DbSet<Comment> Comments { get; set; }
+
+    public virtual DbSet<ExpHistory> ExpHistories { get; set; }
 
     public virtual DbSet<Favorite> Favorites { get; set; }
 
@@ -33,11 +37,11 @@ public partial class WebMangaContext : DbContext
 
     public virtual DbSet<Genre> Genres { get; set; }
 
+    public virtual DbSet<Level> Levels { get; set; }
+
     public virtual DbSet<PurchasedChapter> PurchasedChapters { get; set; }
 
     public virtual DbSet<Rank> Ranks { get; set; }
-
-    public virtual DbSet<RankCategory> RankCategories { get; set; }
 
     public virtual DbSet<Rating> Ratings { get; set; }
 
@@ -46,6 +50,8 @@ public partial class WebMangaContext : DbContext
     public virtual DbSet<Story> Stories { get; set; }
 
     public virtual DbSet<StoryGenre> StoryGenres { get; set; }
+
+    public virtual DbSet<Transaction> Transactions { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
 
@@ -120,6 +126,19 @@ public partial class WebMangaContext : DbContext
             entity.Property(e => e.Name).HasMaxLength(255);
         });
 
+        modelBuilder.Entity<CategoryRank>(entity =>
+        {
+            entity.HasKey(e => e.CategoryRankId).HasName("PK__Category__F6129F6A9BC62E70");
+
+            entity.ToTable("CategoryRank");
+
+            entity.Property(e => e.Name).HasMaxLength(255);
+
+            entity.HasOne(d => d.Rank).WithMany(p => p.CategoryRanks)
+                .HasForeignKey(d => d.RankId)
+                .HasConstraintName("FK__CategoryR__RankI__7755B73D");
+        });
+
         modelBuilder.Entity<Chapter>(entity =>
         {
             entity.HasKey(e => e.ChapterId).HasName("PK__chapters__745EFE8771004EC1");
@@ -190,6 +209,22 @@ public partial class WebMangaContext : DbContext
                 .HasConstraintName("FK__comments__user_i__5BE2A6F2");
         });
 
+        modelBuilder.Entity<ExpHistory>(entity =>
+        {
+            entity.HasKey(e => e.ExpHistoryId).HasName("PK__ExpHisto__8ACA2CD66071C7CE");
+
+            entity.ToTable("ExpHistory");
+
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.Reason).HasMaxLength(500);
+
+            entity.HasOne(d => d.User).WithMany(p => p.ExpHistories)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK__ExpHistor__UserI__0880433F");
+        });
+
         modelBuilder.Entity<Favorite>(entity =>
         {
             entity.HasKey(e => e.FavoriteId).HasName("PK__favorite__46ACF4CB92150085");
@@ -256,6 +291,17 @@ public partial class WebMangaContext : DbContext
                 .HasColumnName("name");
         });
 
+        modelBuilder.Entity<Level>(entity =>
+        {
+            entity.HasKey(e => e.LevelId).HasName("PK__Level__09F03C2610170A60");
+
+            entity.ToTable("Level");
+
+            entity.HasOne(d => d.CategoryRank).WithMany(p => p.Levels)
+                .HasForeignKey(d => d.CategoryRankId)
+                .HasConstraintName("FK__Level__CategoryR__7A3223E8");
+        });
+
         modelBuilder.Entity<PurchasedChapter>(entity =>
         {
             entity.HasKey(e => e.PurchasedChapterId).HasName("PK__Purchase__D253D2F24EED3440");
@@ -277,19 +323,9 @@ public partial class WebMangaContext : DbContext
 
         modelBuilder.Entity<Rank>(entity =>
         {
-            entity.HasKey(e => e.RankId).HasName("PK__Ranks__B37AF8762B6E8448");
+            entity.HasKey(e => e.RankId).HasName("PK__Rank__B37AF876EF567386");
 
-            entity.Property(e => e.Name).HasMaxLength(255);
-
-            entity.HasOne(d => d.Category).WithMany(p => p.Ranks)
-                .HasForeignKey(d => d.CategoryId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Ranks__CategoryI__17F790F9");
-        });
-
-        modelBuilder.Entity<RankCategory>(entity =>
-        {
-            entity.HasKey(e => e.CategoryId).HasName("PK__RankCate__19093A0BA1734DD2");
+            entity.ToTable("Rank");
 
             entity.Property(e => e.Name).HasMaxLength(255);
         });
@@ -397,6 +433,24 @@ public partial class WebMangaContext : DbContext
                 .HasConstraintName("FK__story_gen__story__4CA06362");
         });
 
+        modelBuilder.Entity<Transaction>(entity =>
+        {
+            entity.HasKey(e => e.TransactionId).HasName("PK__Transact__55433A6B91C5C929");
+
+            entity.HasIndex(e => e.VnpayTransactionId, "UQ__Transact__F672E9732F65629D").IsUnique();
+
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.TransactionStatus).HasMaxLength(50);
+            entity.Property(e => e.VnpayTransactionId).HasMaxLength(100);
+
+            entity.HasOne(d => d.User).WithMany(p => p.Transactions)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Transacti__UserI__625A9A57");
+        });
+
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(e => e.UserId).HasName("PK__users__B9BE370FED03E79E");
@@ -431,9 +485,14 @@ public partial class WebMangaContext : DbContext
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("FK_User_AvatarFrame");
 
+            entity.HasOne(d => d.CategoryRank).WithMany(p => p.Users)
+                .HasForeignKey(d => d.CategoryRankId)
+                .HasConstraintName("FK_users_CategoryRank");
+
             entity.HasOne(d => d.Rank).WithMany(p => p.Users)
                 .HasForeignKey(d => d.RankId)
-                .HasConstraintName("FK__users__RankId__19DFD96B");
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("FK_users_Rank");
         });
 
         OnModelCreatingPartial(modelBuilder);

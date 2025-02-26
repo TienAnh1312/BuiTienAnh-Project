@@ -17,7 +17,6 @@ namespace WebTAManga.Controllers
         private readonly IWebHostEnvironment _environment;
         private readonly IWebHostEnvironment _hostingEnvironment;
 
-
         public UsersController(WebMangaContext context, IWebHostEnvironment environment, IWebHostEnvironment hostingEnvironment)
         {
             _context = context;
@@ -76,11 +75,9 @@ namespace WebTAManga.Controllers
             return RedirectToAction("Index", "Login");
         }
 
-        // GET: Users/Profile
         public IActionResult Profile()
         {
             var userId = HttpContext.Session.GetInt32("UsersID");
-
             if (userId == null)
             {
                 return RedirectToAction("Index", "Login");
@@ -88,7 +85,7 @@ namespace WebTAManga.Controllers
 
             var user = _context.Users
                 .Include(u => u.Rank)
-                .Include(u => u.AvatarFrame)
+                .Include(u => u.CategoryRank)
                 .FirstOrDefault(u => u.UserId == userId);
 
             if (user == null)
@@ -96,10 +93,106 @@ namespace WebTAManga.Controllers
                 return NotFound();
             }
 
-            ViewBag.AvatarFrames = _context.AvatarFrames.ToList();
+            // Xác định RankId: nếu chưa chọn thì lấy mặc định (RankId = 1)
+            int currentRankId = user.RankId ?? 1;
+
+            // Tìm Level hiện tại dựa trên ExpPoints trong tất cả Levels
+            var currentLevel = _context.Levels
+                .Where(l => l.ExpRequired <= (user.ExpPoints ?? 0))
+                .OrderByDescending(l => l.ExpRequired)
+                .FirstOrDefault();
+
+            var nextLevel = _context.Levels
+                .Where(l => l.ExpRequired > (user.ExpPoints ?? 0))
+                .OrderBy(l => l.ExpRequired)
+                .FirstOrDefault();
+
+            // Tính tỷ lệ phần trăm tiến trình và xác định levelName
+            double progressPercentage = 0;
+            string levelName = "Chưa xác định";
+
+            if (currentLevel != null)
+            {
+                // Tìm CategoryRank tương ứng với RankId hiện tại và Level hiện tại
+                var categoryRank = _context.CategoryRanks
+                    .FirstOrDefault(cr => cr.RankId == currentRankId && cr.CategoryRankId == currentLevel.CategoryRankId);
+
+                if (categoryRank != null)
+                {
+                    levelName = categoryRank.Name; // Gán tên CategoryRank tương ứng
+                    user.CategoryRankId = categoryRank.CategoryRankId;
+                    user.Level = currentLevel.LevelId;
+                }
+                else
+                {
+                    // Nếu không tìm thấy CategoryRank khớp, tìm CategoryRank phù hợp nhất trong Rank hiện tại dựa trên ExpPoints
+                    var matchingCategoryRank = _context.CategoryRanks
+                        .Join(_context.Levels,
+                            cr => cr.CategoryRankId,
+                            l => l.CategoryRankId,
+                            (cr, l) => new { CategoryRank = cr, Level = l })
+                        .Where(x => x.CategoryRank.RankId == currentRankId && x.Level.ExpRequired <= (user.ExpPoints ?? 0))
+                        .OrderByDescending(x => x.Level.ExpRequired)
+                        .Select(x => x.CategoryRank)
+                        .FirstOrDefault();
+
+                    if (matchingCategoryRank != null)
+                    {
+                        levelName = matchingCategoryRank.Name;
+                        user.CategoryRankId = matchingCategoryRank.CategoryRankId;
+                        user.Level = _context.Levels
+                            .FirstOrDefault(l => l.CategoryRankId == matchingCategoryRank.CategoryRankId && l.ExpRequired <= (user.ExpPoints ?? 0))?.LevelId ?? 0;
+                    }
+                    else
+                    {
+                        // Nếu không có CategoryRank nào phù hợp, lấy CategoryRank thấp nhất trong Rank
+                        var defaultCategoryRank = _context.CategoryRanks
+                            .Where(cr => cr.RankId == currentRankId)
+                            .OrderBy(cr => cr.CategoryRankId)
+                            .FirstOrDefault();
+                        levelName = defaultCategoryRank?.Name ?? "Chưa xác định";
+                        user.CategoryRankId = defaultCategoryRank?.CategoryRankId;
+                        user.Level = 0;
+                    }
+                }
+
+                if (nextLevel != null)
+                {
+                    double currentExp = user.ExpPoints ?? 0;
+                    double expRequiredForNext = nextLevel.ExpRequired;
+                    double expRequiredForCurrent = currentLevel.ExpRequired;
+                    progressPercentage = ((currentExp - expRequiredForCurrent) / (expRequiredForNext - expRequiredForCurrent)) * 100;
+                    if (progressPercentage > 100) progressPercentage = 100; // Đảm bảo không vượt quá 100%
+                }
+                else
+                {
+                    progressPercentage = 100; // Đạt cấp tối đa
+                    levelName = "Đỉnh Phong"; // Tên cấp cao nhất
+                }
+            }
+            else
+            {
+                // Nếu không có Level nào phù hợp, lấy CategoryRank thấp nhất trong Rank
+                var defaultCategoryRank = _context.CategoryRanks
+                    .Where(cr => cr.RankId == currentRankId)
+                    .OrderBy(cr => cr.CategoryRankId)
+                    .FirstOrDefault();
+                levelName = defaultCategoryRank?.Name ?? "Chưa xác định";
+                user.CategoryRankId = defaultCategoryRank?.CategoryRankId;
+                user.Level = 0;
+            }
+
+            // Cập nhật thông tin user vào database
+            _context.SaveChanges();
+
+            // Truyền dữ liệu vào ViewBag
+            ViewBag.LevelName = levelName;
+            ViewBag.ProgressPercentage = progressPercentage;
+            ViewBag.ExpPoints = user.ExpPoints ?? 0;
+            ViewBag.Ranks = _context.Ranks.ToList(); // Danh sách Rank cho radio button
+
             return View(user);
         }
-
 
         // POST: Users/Profile
         [HttpPost]
@@ -170,6 +263,7 @@ namespace WebTAManga.Controllers
             TempData["SuccessMessage"] = "Your profile has been updated successfully!";
             return RedirectToAction("Profile");
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult UpdateProfile(User model, IFormFile avatarFile, int avatarFrameId, string newPassword)
@@ -210,6 +304,103 @@ namespace WebTAManga.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateRank(int userId, int selectedRankId)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            // Cập nhật RankId mới
+            user.RankId = selectedRankId;
+
+            // Tìm Level hiện tại dựa trên ExpPoints trong tất cả Levels
+            var currentLevel = _context.Levels
+                .Where(l => l.ExpRequired <= (user.ExpPoints ?? 0))
+                .OrderByDescending(l => l.ExpRequired)
+                .FirstOrDefault();
+
+            if (currentLevel != null)
+            {
+                // Tìm CategoryRank tương ứng với RankId mới và Level hiện tại
+                var categoryRank = _context.CategoryRanks
+                    .FirstOrDefault(cr => cr.RankId == selectedRankId && cr.CategoryRankId == currentLevel.CategoryRankId);
+
+                if (categoryRank != null)
+                {
+                    user.CategoryRankId = categoryRank.CategoryRankId;
+                    user.Level = currentLevel.LevelId;
+                }
+                else
+                {
+                    // Nếu không tìm thấy CategoryRank khớp với Level hiện tại, tìm CategoryRank phù hợp nhất trong Rank mới dựa trên ExpPoints
+                    var matchingCategoryRank = _context.CategoryRanks
+                        .Join(_context.Levels,
+                            cr => cr.CategoryRankId,
+                            l => l.CategoryRankId,
+                            (cr, l) => new { CategoryRank = cr, Level = l })
+                        .Where(x => x.CategoryRank.RankId == selectedRankId && x.Level.ExpRequired <= (user.ExpPoints ?? 0))
+                        .OrderByDescending(x => x.Level.ExpRequired)
+                        .Select(x => x.CategoryRank)
+                        .FirstOrDefault();
+
+                    if (matchingCategoryRank != null)
+                    {
+                        user.CategoryRankId = matchingCategoryRank.CategoryRankId;
+                        user.Level = _context.Levels
+                            .FirstOrDefault(l => l.CategoryRankId == matchingCategoryRank.CategoryRankId && l.ExpRequired <= (user.ExpPoints ?? 0))?.LevelId ?? 0;
+                    }
+                    else
+                    {
+                        // Nếu không có CategoryRank nào phù hợp, lấy CategoryRank thấp nhất trong Rank mới
+                        var defaultCategoryRank = _context.CategoryRanks
+                            .Where(cr => cr.RankId == selectedRankId)
+                            .OrderBy(cr => cr.CategoryRankId)
+                            .FirstOrDefault();
+                        user.CategoryRankId = defaultCategoryRank?.CategoryRankId;
+                        user.Level = 0;
+                    }
+                }
+            }
+            else
+            {
+                // Nếu không có Level nào phù hợp, lấy CategoryRank thấp nhất trong Rank mới
+                var defaultCategoryRank = _context.CategoryRanks
+                    .Where(cr => cr.RankId == selectedRankId)
+                    .OrderBy(cr => cr.CategoryRankId)
+                    .FirstOrDefault();
+                user.CategoryRankId = defaultCategoryRank?.CategoryRankId;
+                user.Level = 0;
+            }
+
+            _context.SaveChanges();
+
+            TempData["SuccessMessage"] = "Rank và CategoryRank đã được cập nhật!";
+            return RedirectToAction("Profile");
+        }
+
+        private void UpdateCategoryRankByExp(User user)
+        {
+            if (user == null) return;
+
+            // Tìm level phù hợp với EXP của User
+            var level = _context.Levels
+                .Where(l => l.ExpRequired <= user.ExpPoints)
+                .OrderByDescending(l => l.ExpRequired) // Lấy Level cao nhất phù hợp
+                .FirstOrDefault();
+
+            if (level != null)
+            {
+                // Cập nhật Level mới cho User
+                user.Level = level.LevelId;
+
+                // Cập nhật CategoryRank phù hợp với Level mới
+                user.CategoryRankId = level.CategoryRankId;
+            }
+        }
 
 
         private bool UserExists(int id)

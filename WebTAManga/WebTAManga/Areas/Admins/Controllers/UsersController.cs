@@ -86,7 +86,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserId,Username,Email,Password,CreatedAt,Coins")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("UserId,Username,Email,Password,CreatedAt,Coins,ExpPoints")] User user)
 
         {
             if (id != user.UserId)

@@ -93,7 +93,7 @@ namespace WebTAManga.Areas.Admins.Controllers
 
 
         // POST: Admins/Chapters/Edit/5
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ChapterId,StoryId,ChapterTitle,Content,CreatedAt,Coins,IsLocked")] Chapter chapter)
@@ -126,6 +126,7 @@ namespace WebTAManga.Areas.Admins.Controllers
             ViewData["StoryId"] = new SelectList(_context.Stories, "StoryId", "Title", chapter.StoryId);
             return View(chapter);
         }
+
 
         // GET: Admins/Chapters/Delete/5
         public async Task<IActionResult> Delete(int? id)

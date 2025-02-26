@@ -9,7 +9,8 @@ using WebTAManga.Models;
 
 namespace WebTAManga.Areas.Admins.Controllers
 {
-    public class RanksController : BaseController
+    [Area("Admins")]
+    public class RanksController : Controller
     {
         private readonly WebMangaContext _context;
 
@@ -21,8 +22,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         // GET: Admins/Ranks
         public async Task<IActionResult> Index()
         {
-            var webMangaContext = _context.Ranks.Include(r => r.Category);
-            return View(await webMangaContext.ToListAsync());
+            return View(await _context.Ranks.ToListAsync());
         }
 
         // GET: Admins/Ranks/Details/5
@@ -34,7 +34,6 @@ namespace WebTAManga.Areas.Admins.Controllers
             }
 
             var rank = await _context.Ranks
-                .Include(r => r.Category)
                 .FirstOrDefaultAsync(m => m.RankId == id);
             if (rank == null)
             {
@@ -47,16 +46,13 @@ namespace WebTAManga.Areas.Admins.Controllers
         // GET: Admins/Ranks/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.RankCategories, "CategoryId", "CategoryId");
             return View();
         }
 
         // POST: Admins/Ranks/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RankId,Name,MinExp,CategoryId")] Rank rank)
+        public async Task<IActionResult> Create([Bind("RankId,Name")] Rank rank)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +60,6 @@ namespace WebTAManga.Areas.Admins.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.RankCategories, "CategoryId", "CategoryId", rank.CategoryId);
             return View(rank);
         }
 
@@ -81,7 +76,6 @@ namespace WebTAManga.Areas.Admins.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.RankCategories, "CategoryId", "CategoryId", rank.CategoryId);
             return View(rank);
         }
 
@@ -90,7 +84,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RankId,Name,MinExp,CategoryId")] Rank rank)
+        public async Task<IActionResult> Edit(int id, [Bind("RankId,Name")] Rank rank)
         {
             if (id != rank.RankId)
             {
@@ -117,7 +111,6 @@ namespace WebTAManga.Areas.Admins.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.RankCategories, "CategoryId", "CategoryId", rank.CategoryId);
             return View(rank);
         }
 
@@ -130,7 +123,6 @@ namespace WebTAManga.Areas.Admins.Controllers
             }
 
             var rank = await _context.Ranks
-                .Include(r => r.Category)
                 .FirstOrDefaultAsync(m => m.RankId == id);
             if (rank == null)
             {
