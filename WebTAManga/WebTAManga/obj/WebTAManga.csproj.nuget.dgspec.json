@@ -77,6 +77,10 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[8.0.7, )"
+            },
+            "payOS": {
+              "target": "Package",
+              "version": "[1.0.9, )"
             }
           },
           "imports": [

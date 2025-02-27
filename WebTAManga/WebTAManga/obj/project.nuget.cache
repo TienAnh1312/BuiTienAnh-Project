@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "OgwKUlFl2ek=",
+  "dgSpecHash": "j+lw9uaVnic=",
   "success": true,
   "projectFilePath": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\WebTAManga.csproj",
   "expectedPackageFiles": [
@@ -125,6 +125,7 @@
     "C:\\Users\\Admin\\.nuget\\packages\\nuget.projectmodel\\6.11.0\\nuget.projectmodel.6.11.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\nuget.protocol\\6.11.0\\nuget.protocol.6.11.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\nuget.versioning\\6.11.0\\nuget.versioning.6.11.0.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\payos\\1.0.9\\payos.1.0.9.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\system.clientmodel\\1.0.0\\system.clientmodel.1.0.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\system.codedom\\5.0.0\\system.codedom.5.0.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\system.collections.immutable\\7.0.0\\system.collections.immutable.7.0.0.nupkg.sha512",

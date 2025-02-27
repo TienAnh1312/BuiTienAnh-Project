@@ -525,3 +525,4 @@ E:\BuiTienAnh\Học tập\BuiTienAnh-TH\BuiTienAnh-Project\WebTAManga\WebTAManga
 E:\BuiTienAnh\Học tập\BuiTienAnh-TH\BuiTienAnh-Project\WebTAManga\WebTAManga\obj\Debug\net8.0\WebTAManga.pdb
 E:\BuiTienAnh\Học tập\BuiTienAnh-TH\BuiTienAnh-Project\WebTAManga\WebTAManga\obj\Debug\net8.0\WebTAManga.genruntimeconfig.cache
 E:\BuiTienAnh\Học tập\BuiTienAnh-TH\BuiTienAnh-Project\WebTAManga\WebTAManga\obj\Debug\net8.0\ref\WebTAManga.dll
+E:\BuiTienAnh\Học tập\BuiTienAnh-TH\BuiTienAnh-Project\WebTAManga\WebTAManga\bin\Debug\net8.0\payos-lib-backend-dotnet.dll

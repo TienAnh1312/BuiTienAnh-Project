@@ -1,4 +1,5 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Net.payOS;
 using WebTAManga.Models;
 
 namespace WebTAManga
@@ -14,7 +15,17 @@ namespace WebTAManga
 
             builder.Services.AddHttpContextAccessor();
 
-            // C?u h�nh s? d?ng session
+            // Đọc cấu hình PayOS từ appsettings.json
+            var payOsConfig = builder.Configuration.GetSection("PayOS");
+            var clientId = payOsConfig["ClientId"];
+            var apiKey = payOsConfig["ApiKey"];
+            var checksumKey = payOsConfig["ChecksumKey"];
+
+            // Khởi tạo PayOS
+            var payOS = new PayOS(clientId, apiKey, checksumKey);
+            builder.Services.AddSingleton(payOS);
+
+            // C?u hình s? d?ng session
             builder.Services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);

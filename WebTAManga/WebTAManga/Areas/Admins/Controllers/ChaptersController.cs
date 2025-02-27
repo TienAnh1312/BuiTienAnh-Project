@@ -53,16 +53,19 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // POST: Admins/Chapters/Create
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ChapterId,StoryId,ChapterTitle,Content,CreatedAt")] Chapter chapter)
+        public async Task<IActionResult> Create([Bind("ChapterId,StoryId,ChapterTitle,Content,CreatedAt,Coins,IsLocked")] Chapter chapter)
         {
             if (ModelState.IsValid)
             {
+                chapter.CreatedAt = DateTime.Now; // Tự động đặt CreatedAt
                 _context.Add(chapter);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                // Chuyển hướng về action Edit của StoriesController với StoryId
+                return RedirectToAction("Edit", "Stories", new { id = chapter.StoryId, area = "Admins" });
             }
             ViewData["StoryId"] = new SelectList(_context.Stories, "StoryId", "Title", chapter.StoryId);
             return View(chapter);
@@ -121,12 +124,13 @@ namespace WebTAManga.Areas.Admins.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+
+                // Chuyển hướng về action Edit của StoriesController với StoryId
+                return RedirectToAction("Edit", "Stories", new { id = chapter.StoryId, area = "Admins" });
             }
             ViewData["StoryId"] = new SelectList(_context.Stories, "StoryId", "Title", chapter.StoryId);
             return View(chapter);
         }
-
 
         // GET: Admins/Chapters/Delete/5
         public async Task<IActionResult> Delete(int? id)

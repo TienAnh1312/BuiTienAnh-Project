@@ -1,0 +1,33 @@
+﻿<h3>Nạp Xu</h3>
+<form id="rechargeForm">
+    <div class="form-group">
+        <label for="amount">Số xu muốn nạp (1 xu = 1 VNĐ):</label>
+        <input type="number" class="form-control" id="amount" name="amount" min="100" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Nạp ngay</button>
+    <span id="rechargeMessage"></span>
+</form>
+
+@section Scripts {
+    <script>
+        $("#rechargeForm").submit(function (e) {
+            e.preventDefault();
+            var amount = $("#amount").val();
+            $.ajax({
+                url: '@Url.Action("RechargeCoins", "PayOs")',
+                type: 'POST',
+                data: { amount: amount },
+                success: function (response) {
+                    if (response.success) {
+                        window.location.href = response.checkoutUrl; // Chuyển hướng đến link thanh toán
+                    } else {
+                        $("#rechargeMessage").text(response.message || "Đã xảy ra lỗi.");
+                    }
+                },
+                error: function () {
+                    $("#rechargeMessage").text("Lỗi kết nối, vui lòng thử lại.");
+                }
+            });
+        });
+    </script>
+}

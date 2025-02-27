@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Net.payOS.Types;
+using Net.payOS;
 using WebTAManga.Models;
 
 namespace WebTAManga.Controllers
@@ -485,5 +487,7 @@ namespace WebTAManga.Controllers
 
             _context.SaveChanges();
         }
+
+        
     }
 }
