@@ -19,7 +19,7 @@ namespace WebTAManga.Controllers
             return View();
         }
 
-        [HttpPost] // POST -> khi submit form
+        [HttpPost]
         public IActionResult Index(LoginCustomers model)
         {
             if (!ModelState.IsValid)
@@ -34,7 +34,8 @@ namespace WebTAManga.Controllers
             {
                 HttpContext.Session.SetString("usersLogin", model.Email);
                 HttpContext.Session.SetInt32("UsersID", (int)dataLogin.UserId);
-         
+
+                // Ghi nhận lần đăng nhập (nếu cần thiết)
 
                 return RedirectToAction("Index", "Home", new { UsersID = dataLogin.UserId });
             }
@@ -43,8 +44,8 @@ namespace WebTAManga.Controllers
                 ModelState.AddModelError(string.Empty, "Thông tin đăng nhập không chính xác.");
                 return View(model);
             }
-
         }
+
         [HttpGet]// thoát đăng nhập, huỷ session
         public IActionResult Logout()
         {

@@ -81,7 +81,7 @@ namespace WebTAManga.Controllers
                     TempData["ErrorMessage"] = "Có lỗi xảy ra, vui lòng thử lại!";
                 }
             }
-            return RedirectToAction("ReadChapter","Home", new { id = chapterId });
+            return RedirectToAction("ReadChapter", "ReadChapter", new { id = chapterId });
         }
     }
 }

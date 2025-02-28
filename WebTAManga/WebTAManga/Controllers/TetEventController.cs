@@ -2,6 +2,7 @@
 using WebTAManga.Models;
 using System;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebTAManga.Controllers
 {
@@ -14,7 +15,7 @@ namespace WebTAManga.Controllers
             _context = context;
         }
 
-        // Trang hiển thị sự kiện Tết
+        // Trang rung cây và hiển thị nhiệm vụ
         public IActionResult TetTreeShake()
         {
             var userId = HttpContext.Session.GetInt32("UsersID");
@@ -29,13 +30,47 @@ namespace WebTAManga.Controllers
                 return NotFound();
             }
 
-            // Truyền thông tin người dùng vào View
-            ViewBag.Coins = user.Coins ?? 0;
-            ViewBag.ExpPoints = user.ExpPoints ?? 0;
+            // Lấy ngày hiện tại
+            var today = DateOnly.FromDateTime(DateTime.Today);
+            var dailyTasks = _context.UserDailyTasks
+                .Where(udt => udt.UserId == userId && udt.TaskDate == today)
+                .Include(udt => udt.Task)
+                .ToList();
+
+            // Nếu không có nhiệm vụ hôm nay hoặc ngày đã thay đổi, làm mới nhiệm vụ
+            if (!dailyTasks.Any())
+            {
+                // Xóa nhiệm vụ cũ của người dùng (nếu cần)
+                var oldTasks = _context.UserDailyTasks.Where(udt => udt.UserId == userId && udt.TaskDate < today);
+                _context.UserDailyTasks.RemoveRange(oldTasks);
+
+                // Lấy danh sách nhiệm vụ cố định từ DailyTasks
+                var availableTasks = _context.DailyTasks.ToList();
+                foreach (var task in availableTasks)
+                {
+                    _context.UserDailyTasks.Add(new UserDailyTask
+                    {
+                        UserId = userId.Value,
+                        TaskId = task.TaskId,
+                        IsCompleted = false,
+                        TaskDate = today
+                    });
+                }
+                _context.SaveChanges();
+
+                // Lấy lại danh sách nhiệm vụ mới
+                dailyTasks = _context.UserDailyTasks
+                    .Where(udt => udt.UserId == userId && udt.TaskDate == today)
+                    .Include(udt => udt.Task)
+                    .ToList();
+            }
+
+            ViewBag.User = user;
+            ViewBag.DailyTasks = dailyTasks;
             return View();
         }
 
-        // Xử lý rung cây lì xì
+        // Xử lý rung cây
         [HttpPost]
         public IActionResult ShakeTree()
         {
@@ -51,26 +86,19 @@ namespace WebTAManga.Controllers
                 return Json(new { success = false, message = "Không tìm thấy người dùng!" });
             }
 
-            // Kiểm tra giới hạn lượt rung (ví dụ: 3 lượt/ngày)
-            var today = DateTime.Today;
-            var shakeCount = _context.ExpHistories
-                .Count(e => e.UserId == userId && e.CreatedAt >= today && e.Reason == "Rung cây lì xì Tết");
-
-            if (shakeCount >= 3)
+            if ((user.ShakeCount ?? 0) <= 0)
             {
-                return Json(new { success = false, message = "Bạn đã hết lượt rung hôm nay!" });
+                return Json(new { success = false, message = "Bạn đã hết lượt rung! Hoàn thành nhiệm vụ để nhận thêm lượt." });
             }
 
-            // Tạo số ngẫu nhiên cho xu và EXP
+            user.ShakeCount -= 1;
             Random rand = new Random();
-            int coinsReward = rand.Next(10, 51); // Nhận 10-50 xu
-            int expReward = rand.Next(20, 101);  // Nhận 20-100 EXP
+            int coinsReward = rand.Next(10, 51);
+            int expReward = rand.Next(20, 101);
 
-            // Cập nhật thông tin người dùng
             user.Coins = (user.Coins ?? 0) + coinsReward;
             user.ExpPoints = (user.ExpPoints ?? 0) + expReward;
 
-            // Ghi lịch sử EXP
             var expHistory = new ExpHistory
             {
                 UserId = user.UserId,
@@ -79,11 +107,8 @@ namespace WebTAManga.Controllers
                 CreatedAt = DateTime.Now
             };
             _context.ExpHistories.Add(expHistory);
-
-            // Lưu thay đổi
             _context.SaveChanges();
 
-            // Cập nhật level nếu cần
             UpdateUserLevel(user);
 
             return Json(new
@@ -93,11 +118,94 @@ namespace WebTAManga.Controllers
                 exp = expReward,
                 totalCoins = user.Coins,
                 totalExp = user.ExpPoints,
+                shakeCount = user.ShakeCount,
                 message = $"Bạn nhận được {coinsReward} xu và {expReward} EXP!"
             });
         }
 
-        // Hàm cập nhật level dựa trên EXP
+        // Xử lý hoàn thành nhiệm vụ
+        [HttpPost]
+        public IActionResult CompleteDailyTask(int userTaskId)
+        {
+            var userId = HttpContext.Session.GetInt32("UsersID");
+            if (userId == null)
+            {
+                return Json(new { success = false, message = "Vui lòng đăng nhập!" });
+            }
+
+            var userTask = _context.UserDailyTasks
+                .Include(udt => udt.Task)
+                .FirstOrDefault(udt => udt.UserTaskId == userTaskId && udt.UserId == userId);
+
+            if (userTask == null)
+            {
+                return Json(new { success = false, message = "Nhiệm vụ không tồn tại!" });
+            }
+
+            if (userTask.IsCompleted)
+            {
+                return Json(new { success = false, message = "Nhiệm vụ đã được hoàn thành trước đó!" });
+            }
+
+            bool canComplete = CheckTaskCompletion(userTask, userId.Value);
+            if (!canComplete)
+            {
+                return Json(new { success = false, message = "Bạn chưa đáp ứng điều kiện để hoàn thành nhiệm vụ này!" });
+            }
+
+            // Hoàn thành nhiệm vụ
+            userTask.IsCompleted = true;
+            userTask.CompletedAt = DateTime.Now;
+
+            var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+            user.Coins = (user.Coins ?? 0) + userTask.Task.CoinReward;
+            user.ExpPoints = (user.ExpPoints ?? 0) + userTask.Task.ExpReward;
+            user.ShakeCount = (user.ShakeCount ?? 0) + userTask.Task.ShakeReward;
+
+            var expHistory = new ExpHistory
+            {
+                UserId = user.UserId,
+                ExpAmount = userTask.Task.ExpReward,
+                Reason = $"Hoàn thành nhiệm vụ: {userTask.Task.TaskName}",
+                CreatedAt = DateTime.Now
+            };
+            _context.ExpHistories.Add(expHistory);
+
+            _context.SaveChanges();
+            UpdateUserLevel(user);
+
+            return Json(new
+            {
+                success = true,
+                shakeCount = user.ShakeCount,
+                message = $"Nhiệm vụ hoàn thành! Bạn nhận được {userTask.Task.CoinReward} xu, {userTask.Task.ExpReward} EXP và {userTask.Task.ShakeReward} lượt rung!"
+            });
+        }
+
+        // Kiểm tra điều kiện hoàn thành nhiệm vụ (ví dụ)
+        private bool CheckTaskCompletion(UserDailyTask userTask, int userId)
+        {
+            var today = DateTime.Today;
+            switch (userTask.Task.TaskName)
+            {
+                case "Đăng nhập hàng ngày":
+                    // Kiểm tra xem người dùng đã đăng nhập hôm nay chưa
+                    // Giả sử đăng nhập được ghi nhận khi session được thiết lập
+                    return HttpContext.Session.GetInt32("UsersID") == userId;
+
+                case "Đọc 1 chương truyện":
+                    return _context.ReadingHistories
+                        .Any(rh => rh.UserId == userId && rh.LastReadAt >= today);
+
+                case "Bình luận 1 lần":
+                    return _context.Comments
+                        .Any(c => c.UserId == userId && c.CreatedAt >= today);
+
+                default:
+                    return false; // Nếu không khớp nhiệm vụ nào, trả về false
+            }
+        }
+
         private void UpdateUserLevel(User user)
         {
             var nextLevel = _context.Levels
@@ -108,9 +216,11 @@ namespace WebTAManga.Controllers
             if (nextLevel != null && user.Level < nextLevel.LevelId)
             {
                 user.Level = nextLevel.LevelId;
-                user.CategoryRankId = nextLevel.CategoryRankId; // Cập nhật CategoryRank nếu cần
+                user.CategoryRankId = nextLevel.CategoryRankId;
                 _context.SaveChanges();
             }
         }
+
+
     }
 }
