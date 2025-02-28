@@ -108,7 +108,7 @@ namespace WebTAManga.Controllers
             HttpContext.Session.Remove("PendingOrderCode");
             HttpContext.Session.Remove("PendingAmount");
             TempData["ErrorMessage"] = "Giao dịch nạp xu đã bị hủy.";
-            return RedirectToAction("Profile", "Users");
+            return RedirectToAction("Index", "Home");
         }
 
     }

@@ -215,7 +215,7 @@
                                         {
                                             bool isRead = (ViewBag.ReadingHistories != null && ReadingHistories.FirstOrDefault(x => x.ChapterId == chapter.ChapterId) != null);
                                             <li>
-                                                <a href="@Url.Action("ReadChapter", "Home", new { id = chapter.ChapterId })"
+                                                <a href="@Url.Action("ReadChapter", "ReadChapter", new { id = chapter.ChapterId })"
                                                    class="text-decoration-none text-dark hover-title">
                                                     @chapter.ChapterTitle
                                                     @if (isRead)
@@ -1141,7 +1141,7 @@
         <!-- Add New Comment Form -->
         <div class="container">
             <div class="comment-form">
-                <form method="post" asp-action="AddComment" asp-controller="Home">
+                <form method="post" asp-action="AddComment" asp-controller="Comment">
                     <div class="form-group">
                         <textarea class="form-control" name="Content" placeholder="Viết bình luận của bạn..." required></textarea>
                     </div>
@@ -1172,7 +1172,7 @@
 
                                 <!-- Reply Form for Parent Comment -->
                                 <div id="replyForm-@comment.CommentId" class="reply-form" style="display:none;">
-                                    @using (Html.BeginForm("ReplyComment", "Home", FormMethod.Post))
+                                    @using (Html.BeginForm("ReplyComment", "Comment", FormMethod.Post))
                                     {
                                         @Html.AntiForgeryToken()
                                         @Html.Hidden("storyId", comment.StoryId)
@@ -1207,7 +1207,7 @@
                                                     </button>
 
                                                     <div id="replyForm-@reply.CommentId" class="reply-form" style="display:none;">
-                                                        @using (Html.BeginForm("ReplyComment", "Home", FormMethod.Post))
+                                                        @using (Html.BeginForm("ReplyComment", "Comment", FormMethod.Post))
                                                         {
                                                             @Html.AntiForgeryToken()
                                                             @Html.Hidden("storyId", reply.StoryId)
@@ -1283,7 +1283,7 @@
             var storyId = button.data('story-id');
             var isFavorited = button.data('is-favorited') === true;
 
-            var url = isFavorited ? '@Url.Action("RemoveFromFavorites", "Home")' : '@Url.Action("AddToFavorites", "Home")';
+            var url = isFavorited ? '@Url.Action("RemoveFromFavorites", "Favorites")' : '@Url.Action("AddToFavorites", "Favorites")';
 
             $.ajax({
                 url: url,
@@ -1312,7 +1312,7 @@
             var storyId = button.data('story-id');
             var isFollowed = button.data('is-followed') === true;
 
-            var url = isFollowed ? '@Url.Action("Unfollow", "Home")' : '@Url.Action("AddToFollowed", "Home")';
+            var url = isFollowed ? '@Url.Action("Unfollow", "Followed")' : '@Url.Action("AddToFollowed", "Followed")';
 
             $.ajax({
                 url: url,

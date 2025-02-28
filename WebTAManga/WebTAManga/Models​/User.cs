@@ -29,6 +29,8 @@ public partial class User
 
     public int? CategoryRankId { get; set; }
 
+    public int? ShakeCount { get; set; }
+
     public virtual AvatarFrame? AvatarFrame { get; set; }
 
     public virtual CategoryRank? CategoryRank { get; set; }
@@ -50,4 +52,8 @@ public partial class User
     public virtual ICollection<ReadingHistory> ReadingHistories { get; set; } = new List<ReadingHistory>();
 
     public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
+
+    public virtual ICollection<UserDailyTask> UserDailyTasks { get; set; } = new List<UserDailyTask>();
+
+    public virtual ICollection<VnpayTransaction> VnpayTransactions { get; set; } = new List<VnpayTransaction>();
 }

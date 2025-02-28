@@ -29,6 +29,8 @@ public partial class WebMangaContext : DbContext
 
     public virtual DbSet<Comment> Comments { get; set; }
 
+    public virtual DbSet<DailyTask> DailyTasks { get; set; }
+
     public virtual DbSet<ExpHistory> ExpHistories { get; set; }
 
     public virtual DbSet<Favorite> Favorites { get; set; }
@@ -54,6 +56,10 @@ public partial class WebMangaContext : DbContext
     public virtual DbSet<Transaction> Transactions { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
+
+    public virtual DbSet<UserDailyTask> UserDailyTasks { get; set; }
+
+    public virtual DbSet<VnpayTransaction> VnpayTransactions { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -207,6 +213,15 @@ public partial class WebMangaContext : DbContext
             entity.HasOne(d => d.User).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.UserId)
                 .HasConstraintName("FK__comments__user_i__5BE2A6F2");
+        });
+
+        modelBuilder.Entity<DailyTask>(entity =>
+        {
+            entity.HasKey(e => e.TaskId).HasName("PK__DailyTas__7C6949B1341E921F");
+
+            entity.ToTable("DailyTask");
+
+            entity.Property(e => e.TaskName).HasMaxLength(255);
         });
 
         modelBuilder.Entity<ExpHistory>(entity =>
@@ -493,6 +508,43 @@ public partial class WebMangaContext : DbContext
                 .HasForeignKey(d => d.RankId)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("FK_users_Rank");
+        });
+
+        modelBuilder.Entity<UserDailyTask>(entity =>
+        {
+            entity.HasKey(e => e.UserTaskId).HasName("PK__UserDail__4EF5961F6E8C86C0");
+
+            entity.ToTable("UserDailyTask");
+
+            entity.Property(e => e.CompletedAt).HasColumnType("datetime");
+
+            entity.HasOne(d => d.Task).WithMany(p => p.UserDailyTasks)
+                .HasForeignKey(d => d.TaskId)
+                .HasConstraintName("FK_UserDailyTask_DailyTask");
+
+            entity.HasOne(d => d.User).WithMany(p => p.UserDailyTasks)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK_UserDailyTask_Users");
+        });
+
+        modelBuilder.Entity<VnpayTransaction>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__VnpayTra__3214EC072BB1D2C4");
+
+            entity.HasIndex(e => e.TxnRef, "UQ__VnpayTra__DE7ABA53F6D287D2").IsUnique();
+
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.OrderInfo).HasMaxLength(255);
+            entity.Property(e => e.ProcessedAt).HasColumnType("datetime");
+            entity.Property(e => e.ResponseCode).HasMaxLength(10);
+            entity.Property(e => e.Status).HasMaxLength(20);
+            entity.Property(e => e.TxnRef).HasMaxLength(50);
+
+            entity.HasOne(d => d.User).WithMany(p => p.VnpayTransactions)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK_VnpayTransactions_Users");
         });
 
         OnModelCreatingPartial(modelBuilder);
