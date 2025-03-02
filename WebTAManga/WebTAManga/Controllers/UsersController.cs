@@ -83,10 +83,13 @@ namespace WebTAManga.Controllers
                 return RedirectToAction("Index", "Login");
             }
 
+            // Include thêm PurchasedAvatarFrames để lấy danh sách khung đã mua
             var user = _context.Users
                 .Include(u => u.Rank)
                 .Include(u => u.CategoryRank)
-                .Include(u => u.AvatarFrame) // Thêm Include cho AvatarFrame
+                .Include(u => u.AvatarFrame)
+                .Include(u => u.PurchasedAvatarFrames) // Thêm Include cho PurchasedAvatarFrames
+                .ThenInclude(p => p.AvatarFrame)       // Include thông tin khung đã mua
                 .FirstOrDefault(u => u.UserId == userId);
 
             if (user == null)
@@ -186,7 +189,9 @@ namespace WebTAManga.Controllers
             ViewBag.ProgressPercentage = progressPercentage;
             ViewBag.ExpPoints = user.ExpPoints ?? 0;
             ViewBag.Ranks = _context.Ranks.ToList();
-            ViewBag.AvatarFrames = _context.AvatarFrames.ToList(); // Thêm danh sách AvatarFrames
+            ViewBag.AvatarFrames = _context.AvatarFrames.ToList(); // Tất cả khung có sẵn
+            ViewBag.PurchasedFrames = user.PurchasedAvatarFrames.Select(p => p.AvatarFrame).ToList(); // Danh sách khung đã mua
+            ViewBag.UserCoins = user.Coins ?? 0; // Số xu hiện tại của người dùng
 
             return View(user);
         }
@@ -433,6 +438,57 @@ namespace WebTAManga.Controllers
         private bool UserExists(int id)
         {
             return _context.Users.Any(e => e.UserId == id);
+        }
+
+        //kiểm tra người dùng mua khung
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult PurchaseAvatarFrame(int avatarFrameId)
+        {
+            var userId = HttpContext.Session.GetInt32("UsersID");
+            if (userId == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+            var avatarFrame = _context.AvatarFrames.FirstOrDefault(f => f.AvatarFrameId == avatarFrameId);
+
+            if (user == null || avatarFrame == null)
+            {
+                return NotFound();
+            }
+
+            // Kiểm tra xem người dùng đã mua khung này chưa
+            var alreadyPurchased = _context.PurchasedAvatarFrames
+                .Any(p => p.UserId == userId && p.AvatarFrameId == avatarFrameId);
+
+            if (alreadyPurchased)
+            {
+                TempData["ErrorMessage"] = "Bạn đã sở hữu khung này!";
+                return RedirectToAction("Profile");
+            }
+
+            // Kiểm tra số xu
+            if (user.Coins < avatarFrame.Price)
+            {
+                TempData["ErrorMessage"] = "Bạn không đủ xu để mua khung này!";
+                return RedirectToAction("Profile");
+            }
+
+            // Trừ xu và thêm khung vào danh sách đã mua
+            user.Coins -= avatarFrame.Price;
+            _context.PurchasedAvatarFrames.Add(new PurchasedAvatarFrame
+            {
+                UserId = userId.Value,
+                AvatarFrameId = avatarFrameId,
+                PurchasedAt = DateTime.Now
+            });
+
+            _context.SaveChanges();
+
+            TempData["SuccessMessage"] = "Mua khung thành công!";
+            return RedirectToAction("Profile");
         }
     }
 }

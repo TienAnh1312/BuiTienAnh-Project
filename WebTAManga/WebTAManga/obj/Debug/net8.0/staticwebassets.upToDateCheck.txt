@@ -77,9 +77,17 @@ wwwroot\dist\js\pages\dashboard2.js
 wwwroot\dist\js\pages\dashboard3.js
 wwwroot\favicon.ico
 wwwroot\images\admins\avatarFrames\03e2fca2-2403-4684-a7f9-10532816df30.jfif
+wwwroot\images\admins\avatarFrames\0c0d0c07-494a-4aeb-b520-17969f7b419b.png
+wwwroot\images\admins\avatarFrames\0caba127-ea70-449d-9763-ff611014f793.png
+wwwroot\images\admins\avatarFrames\216089ef-0999-4399-9f1a-edc34f153054.gif
+wwwroot\images\admins\avatarFrames\2bf4c532-0dd4-4a38-8a3c-8f5c00417787.png
+wwwroot\images\admins\avatarFrames\518e695e-97df-49d6-ab51-b2034286224f.png
+wwwroot\images\admins\avatarFrames\5ef6bdf9-7517-42b5-8ef5-f2c9f3ca10f8.png
 wwwroot\images\admins\avatarFrames\a3ade214-3346-42bf-a1d1-257ec5ae16a9.png
 wwwroot\images\admins\avatarFrames\bb27a831-6149-4cef-ae63-39877d72b90a.png
+wwwroot\images\admins\avatarFrames\d7629445-5b85-4936-8200-5a7c21c6177e.png
 wwwroot\images\admins\avatarFrames\f0df4cd6-14d9-4524-9083-7423a9328f65.png
+wwwroot\images\admins\avatarFrames\f580426e-407a-4044-86cb-225cfea2660f.png
 wwwroot\images\admins\avatarFrames\fcc62373-cdb2-42f6-b4e1-d541e77e66c4.png
 wwwroot\images\admins\cpimages\0.jpg
 wwwroot\images\admins\cpimages\1.jpg

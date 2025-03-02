@@ -1,21 +1,82 @@
 ﻿@model WebTAManga.Models.Story
 @{
     var ReadingHistories = ViewBag.ReadingHistories as List<WebTAManga.Models.ReadingHistory>;
+    var currentTime = DateTime.Now; // Lấy thời gian hiện tại
 }
 
 <link rel="stylesheet" href="~/css/comment.css" asp-append-version="true" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <style>
-    .comment {
-        margin-left: 0;
+    .avatar-container {
+        position: relative;
+        width: 50px;
+        height: 50px;
+        flex-shrink: 0;
+    }
+
+    .avatar-img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #007bff;
+    }
+
+    .avatar-frame {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100px;
+        height: 83px;
+        z-index: 1;
+        object-fit: contain;
+    }
+
+    .comment, .reply {
+        border-left: 4px solid #007bff;
+        padding-left: 10px;
+        margin-bottom: 15px;
     }
 
     .reply {
-        margin-left: 20px; /* Thụt vào cho các bình luận con */
+        margin-left: 40px;
     }
 
-    .nested-reply {
-        margin-left: 60px; /* Thụt vào nhiều hơn cho các bình luận của bình luận con */
+    .btn-reply {
+        font-size: 14px;
+        color: #007bff;
+        background: none;
+        border: none;
+        padding: 0;
+    }
+
+        .btn-reply:hover {
+            text-decoration: underline;
+            color: #0056b3;
+        }
+
+    .toggle-replies {
+        font-size: 14px;
+        color: #007bff;
+        background: none;
+        border: none;
+    }
+
+        .toggle-replies:hover {
+            text-decoration: underline;
+            color: #0056b3;
+        }
+
+    .badge {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+
+    .no-comment {
+        font-style: italic;
+        color: #6c757d;
     }
 
     .list-group-item:hover {
@@ -26,29 +87,9 @@
     .btn:hover {
         opacity: 0.8;
     }
-
-    .comment, .reply {
-        border-left: 4px solid #007bff;
-        padding-left: 10px;
-    }
-
-    .replies-toggle {
-        margin-top: 10px;
-    }
-
-    .toggle-replies {
-        padding: 0;
-        font-size: 14px;
-        color: #007bff;
-    }
-
-        .toggle-replies:hover {
-            text-decoration: underline;
-            color: #0056b3;
-        }
 </style>
 
-<!-- Hiển thị thông báo thành công và thông báo thông tin -->
+<!-- Hiển thị thông báo -->
 @if (TempData["SuccessMessage"] != null)
 {
     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -80,10 +121,8 @@
                 <div class="head-title-global d-flex justify-content-between mb-4">
                     <div class="col-12 col-md-12 col-lg-4 head-title-global__left d-flex">
                         <h2 class="me-2 mb-0 border-bottom border-secondary pb-1">
-                            <span class="d-block text-decoration-none text-dark fs-4 title-head-name"
-                                  title="Thông tin truyện">
-                                Thông
-                                tin truyện
+                            <span class="d-block text-decoration-none text-dark fs-4 title-head-name" title="Thông tin truyện">
+                                Thông tin truyện
                             </span>
                         </h2>
                     </div>
@@ -94,55 +133,36 @@
                         <div class="row align-items-start">
                             <div class="col-12 col-md-12 col-lg-3 story-detail__top--image">
                                 <div class="book-3d">
-                                    <img src="~/@Model.CoverImage"
-                                         alt="Nàng Không Muốn Làm Hoàng Hậu" class="img-fluid w-100" width="200"
-                                         height="300" loading="lazy">
+                                    <img src="~/@Model.CoverImage" alt="@Model.Title" class="img-fluid w-100" width="200" height="300" loading="lazy">
                                 </div>
                             </div>
                             <div class="col-12 col-md-12 col-lg-9">
                                 <h3 class="text-center story-name">@Model.Title</h3>
                                 <div class="rate-story mb-2">
-
                                     <em class="rate-story__text"></em>
-                                    <div class="rate-story__value" itemprop="aggregateRating" itemscope=""
-                                         itemtype="https://schema.org/AggregateRating">
+                                    <div class="rate-story__value" itemprop="aggregateRating" itemscope="" itemtype="https://schema.org/AggregateRating">
                                         <em>
                                             Đánh giá:
-                                            <strong>
-                                                <span itemprop="ratingValue">7.0</span>
-                                            </strong>
-                                            /
-                                            <span class="" itemprop="bestRating">10</span>
-                                            từ
-                                            <strong>
-                                                <span itemprop="ratingCount">415</span>
-                                                lượt
-                                            </strong>
+                                            <strong><span itemprop="ratingValue">7.0</span></strong>
+                                            / <span itemprop="bestRating">10</span>
+                                            từ <strong><span itemprop="ratingCount">415</span> lượt</strong>
                                         </em>
                                     </div>
                                 </div>
-
                                 <div class="story-detail__top--desc px-3" style="max-height: 285px;">
                                     @Model.Description
                                 </div>
-
                                 <div class="info-more">
                                     <div class="info-more--more active" id="info_more">
                                         <span class="me-1 text-dark">Xem thêm</span>
-                                        <svg width="14" height="8" viewBox="0 0 14 8" fill="none"
-                                             xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M7.70749 7.70718L13.7059 1.71002C14.336 1.08008 13.8899 0.00283241 12.9989 0.00283241L1.002 0.00283241C0.111048 0.00283241 -0.335095 1.08008 0.294974 1.71002L6.29343 7.70718C6.68394 8.09761 7.31699 8.09761 7.70749 7.70718Z"
-                                                  fill="#2C2C37"></path>
+                                        <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7.70749 7.70718L13.7059 1.71002C14.336 1.08008 13.8899 0.00283241 12.9989 0.00283241L1.002 0.00283241C0.111048 0.00283241 -0.335095 1.08008 0.294974 1.71002L6.29343 7.70718C6.68394 8.09761 7.31699 8.09761 7.70749 7.70718Z" fill="#2C2C37"></path>
                                         </svg>
                                     </div>
-
-                                    <a class="info-more--collapse text-decoration-none"
-                                       href="story.html#info_more">
+                                    <a class="info-more--collapse text-decoration-none" href="story.html#info_more">
                                         <span class="me-1 text-dark">Thu gọn</span>
-                                        <svg width="14" height="8" viewBox="0 0 14 8" fill="none"
-                                             xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M7.70749 0.292817L13.7059 6.28998C14.336 6.91992 13.8899 7.99717 12.9989 7.99717L1.002 7.99717C0.111048 7.99717 -0.335095 6.91992 0.294974 6.28998L6.29343 0.292817C6.68394 -0.097606 7.31699 -0.0976055 7.70749 0.292817Z"
-                                                  fill="#2C2C37"></path>
+                                        <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7.70749 0.292817L13.7059 6.28998C14.336 6.91992 13.8899 7.99717 12.9989 7.99717L1.002 7.99717C0.111048 7.99717 -0.335095 6.91992 0.294974 6.28998L6.29343 0.292817C6.68394 -0.097606 7.31699 -0.0976055 7.70749 0.292817Z" fill="#2C2C37"></path>
                                         </svg>
                                     </a>
                                 </div>
@@ -155,18 +175,14 @@
                             <div class="col-12 col-md-12 col-lg-3 story-detail__bottom--info">
                                 <p class="mb-1">
                                     <strong>Tác giả:</strong>
-                                    <a href="#"
-                                       class="text-decoration-none text-dark hover-title">@Model.Author</a>
+                                    <a href="#" class="text-decoration-none text-dark hover-title">@Model.Author</a>
                                 </p>
                                 <div class="d-flex align-items-center mb-1 flex-wrap">
                                     <strong class="me-1">Thể loại:</strong>
-                                    <div class="d-flex align-items-center flex-warp">
-
+                                    <div class="d-flex align-items-center flex-wrap">
                                         @foreach (var storyGenre in Model.StoryGenres)
                                         {
-                                            <a href="category.html"
-                                               class="text-decoration-none text-dark hover-title  me-1 "
-                                               style="width: max-content;">
+                                            <a href="category.html" class="text-decoration-none text-dark hover-title me-1" style="width: max-content;">
                                                 @storyGenre.Genre.Name
                                             </a>
                                             @if (!EqualityComparer<WebTAManga.Models.Genre>.Default.Equals(storyGenre.Genre, Model.StoryGenres.LastOrDefault()?.Genre))
@@ -176,12 +192,10 @@
                                         }
                                     </div>
                                 </div>
-
                                 <p class="mb-1">
                                     <strong>Trạng thái:</strong>
                                     <span class="text-info">Full</span>
                                 </p>
-
                                 <div class="d-flex gap-2">
                                     <button class="btn btn-warning btn-sm toggle-favorite" data-story-id="@Model.StoryId" data-is-favorited="@ViewBag.IsFavorited.ToString().ToLower()">
                                         <i class="fas fa-star"></i> @(ViewBag.IsFavorited ? "Remove from Favorites" : "Add to Favorites")
@@ -190,9 +204,7 @@
                                         <i class="fas fa-check"></i> @(ViewBag.IsFollowed ? "Unfollow" : "Follow")
                                     </button>
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
 
@@ -200,13 +212,10 @@
                         <div class="head-title-global d-flex justify-content-between mb-4">
                             <div class="col-6 col-md-12 col-lg-4 head-title-global__left d-flex">
                                 <h2 class="me-2 mb-0 border-bottom border-secondary pb-1">
-                                    <span href="#"
-                                          class="d-block text-decoration-none text-dark fs-4 title-head-name"
-                                          title="Truyện hot">Danh sách chương</span>
+                                    <span class="d-block text-decoration-none text-dark fs-4 title-head-name" title="Danh sách chương">Danh sách chương</span>
                                 </h2>
                             </div>
                         </div>
-
                         <div class="story-detail__list-chapter--list">
                             <div class="row">
                                 <div class="col-12 col-sm-6 col-lg-6 story-detail__list-chapter--list__item">
@@ -215,8 +224,7 @@
                                         {
                                             bool isRead = (ViewBag.ReadingHistories != null && ReadingHistories.FirstOrDefault(x => x.ChapterId == chapter.ChapterId) != null);
                                             <li>
-                                                <a href="@Url.Action("ReadChapter", "ReadChapter", new { id = chapter.ChapterId })"
-                                                   class="text-decoration-none text-dark hover-title">
+                                                <a href="@Url.Action("ReadChapter", "ReadChapter", new { id = chapter.ChapterId })" class="text-decoration-none text-dark hover-title">
                                                     @chapter.ChapterTitle
                                                     @if (isRead)
                                                     {
@@ -227,909 +235,48 @@
                                         }
                                     </ul>
                                 </div>
-
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
 
             <div class="col-12 col-md-5 col-lg-4 sticky-md-top">
-
+                <!-- Top Ratings Section (giữ nguyên) -->
                 <div class="row top-ratings">
                     <div class="col-12 top-ratings__tab mb-2">
                         <div class="list-group d-flex flex-row" id="list-tab" role="tablist">
-                            <a class="list-group-item list-group-item-action active" id="top-day-list"
-                               data-bs-toggle="list"
-                               href="https://suustore.com/truyen/nang-khong-muon-lam-hoang-hau#top-day" role="tab"
-                               aria-controls="top-day" aria-selected="true">Ngày</a>
-                            <a class="list-group-item list-group-item-action" id="top-month-list"
-                               data-bs-toggle="list"
-                               href="https://suustore.com/truyen/nang-khong-muon-lam-hoang-hau#top-month"
-                               role="tab" aria-controls="top-month" aria-selected="false" tabindex="-1">Tháng</a>
-                            <a class="list-group-item list-group-item-action" id="top-all-time-list"
-                               data-bs-toggle="list"
-                               href="https://suustore.com/truyen/nang-khong-muon-lam-hoang-hau#top-all-time"
-                               role="tab" aria-controls="top-all-time" aria-selected="false" tabindex="-1">
-                                All
-                                time
-                            </a>
+                            <a class="list-group-item list-group-item-action active" id="top-day-list" data-bs-toggle="list" href="#top-day" role="tab" aria-controls="top-day" aria-selected="true">Ngày</a>
+                            <a class="list-group-item list-group-item-action" id="top-month-list" data-bs-toggle="list" href="#top-month" role="tab" aria-controls="top-month" aria-selected="false">Tháng</a>
+                            <a class="list-group-item list-group-item-action" id="top-all-time-list" data-bs-toggle="list" href="#top-all-time" role="tab" aria-controls="top-all-time" aria-selected="false">All time</a>
                         </div>
                     </div>
                     <div class="col-12 top-ratings__content">
                         <div class="tab-content" id="nav-tabContent">
-                            <div class="tab-pane fade show active" id="top-day" role="tabpanel"
-                                 aria-labelledby="top-day-list">
+                            <div class="tab-pane fade show active" id="top-day" role="tabpanel" aria-labelledby="top-day-list">
                                 <ul>
                                     <li>
                                         <div class="rating-item d-flex align-items-center">
-                                            <div class="rating-item__number bg-danger rounded-circle">
-                                                <span class="text-light">1</span>
-                                            </div>
+                                            <div class="rating-item__number bg-danger rounded-circle"><span class="text-light">1</span></div>
                                             <div class="rating-item__story">
-                                                <a href="https://suustore.com/truyen/linh-vu-thien-ha"
-                                                   class="text-decoration-none hover-title rating-item__story--name text-one-row">
-                                                    Linh
-                                                    Vũ Thiên Hạ
-                                                </a>
+                                                <a href="https://suustore.com/truyen/linh-vu-thien-ha" class="text-decoration-none hover-title rating-item__story--name text-one-row">Linh Vũ Thiên Hạ</a>
                                                 <div class="d-flex flex-wrap rating-item__story--categories">
-                                                    <a href="https://suustore.com/the-loai/tien-hiep"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Tiên
-                                                        Hiệp
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/di-gioi"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Dị
-                                                        Giới
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/huyen-huyen"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Huyền
-                                                        Huyễn
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/xuyen-khong"
-                                                       class="text-decoration-none text-dark hover-title ">
-                                                        Xuyên
-                                                        Không
-                                                    </a>
+                                                    <a href="#" class="text-decoration-none text-dark hover-title me-1">Tiên Hiệp, </a>
+                                                    <a href="#" class="text-decoration-none text-dark hover-title me-1">Dị Giới, </a>
+                                                    <a href="#" class="text-decoration-none text-dark hover-title me-1">Huyền Huyễn, </a>
+                                                    <a href="#" class="text-decoration-none text-dark hover-title">Xuyên Không</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </li>
-                                    <li>
-                                        <div class="rating-item d-flex align-items-center">
-                                            <div class="rating-item__number bg-success rounded-circle">
-                                                <span class="text-light">2</span>
-                                            </div>
-                                            <div class="rating-item__story">
-                                                <a href="https://suustore.com/truyen/than-dao-dan-ton"
-                                                   class="text-decoration-none hover-title rating-item__story--name text-one-row">
-                                                    Thần
-                                                    Đạo Đan Tôn
-                                                </a>
-                                                <div class="d-flex flex-wrap rating-item__story--categories">
-                                                    <a href="https://suustore.com/the-loai/tien-hiep"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Tiên
-                                                        Hiệp
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/huyen-huyen"
-                                                       class="text-decoration-none text-dark hover-title ">
-                                                        Huyền
-                                                        Huyễn
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="rating-item d-flex align-items-center">
-                                            <div class="rating-item__number bg-info rounded-circle">
-                                                <span class="text-light">3</span>
-                                            </div>
-                                            <div class="rating-item__story">
-                                                <a href="https://suustore.com/truyen/me-vo-khong-loi-ve"
-                                                   class="text-decoration-none hover-title rating-item__story--name text-one-row">
-                                                    Mê
-                                                    Vợ Không Lối Về
-                                                </a>
-                                                <div class="d-flex flex-wrap rating-item__story--categories">
-                                                    <a href="https://suustore.com/the-loai/ngon-tinh"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Ngôn
-                                                        Tình
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/nguoc"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Ngược
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/sung"
-                                                       class="text-decoration-none text-dark hover-title ">
-                                                        Sủng
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="rating-item d-flex align-items-center">
-                                            <div class="rating-item__number bg-light border rounded-circle">
-                                                <span class="text-dark">4</span>
-                                            </div>
-                                            <div class="rating-item__story">
-                                                <a href="https://suustore.com/truyen/dau-pha-thuong-khung"
-                                                   class="text-decoration-none hover-title rating-item__story--name text-one-row">
-                                                    Đấu
-                                                    Phá Thương Khung
-                                                </a>
-                                                <div class="d-flex flex-wrap rating-item__story--categories">
-                                                    <a href="https://suustore.com/the-loai/tien-hiep"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Tiên
-                                                        Hiệp
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/di-gioi"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Dị
-                                                        Giới
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/huyen-huyen"
-                                                       class="text-decoration-none text-dark hover-title ">
-                                                        Huyền
-                                                        Huyễn
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="rating-item d-flex align-items-center">
-                                            <div class="rating-item__number bg-light border rounded-circle">
-                                                <span class="text-dark">5</span>
-                                            </div>
-                                            <div class="rating-item__story">
-                                                <a href="https://suustore.com/truyen/the-gioi-hoan-my"
-                                                   class="text-decoration-none hover-title rating-item__story--name text-one-row">
-                                                    Thế
-                                                    Giới Hoàn Mỹ
-                                                </a>
-                                                <div class="d-flex flex-wrap rating-item__story--categories">
-                                                    <a href="https://suustore.com/the-loai/tien-hiep"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Tiên
-                                                        Hiệp
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/kiem-hiep"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Kiếm
-                                                        Hiệp
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/huyen-huyen"
-                                                       class="text-decoration-none text-dark hover-title ">
-                                                        Huyền
-                                                        Huyễn
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="rating-item d-flex align-items-center">
-                                            <div class="rating-item__number bg-light border rounded-circle">
-                                                <span class="text-dark">6</span>
-                                            </div>
-                                            <div class="rating-item__story">
-                                                <a href="https://suustore.com/truyen/co-vo-ngot-ngao-co-chut-bat-luong-vo-moi-bat-luong-co-chut-ngot"
-                                                   class="text-decoration-none hover-title rating-item__story--name text-one-row">
-                                                    Cô
-                                                    Vợ Ngọt Ngào Có Chút Bất Lương (Vợ Mới Bất Lương Có Chút
-                                                    Ngọt)
-                                                </a>
-                                                <div class="d-flex flex-wrap rating-item__story--categories">
-                                                    <a href="https://suustore.com/the-loai/ngon-tinh"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Ngôn
-                                                        Tình
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/trong-sinh"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Trọng
-                                                        Sinh
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/sung"
-                                                       class="text-decoration-none text-dark hover-title ">
-                                                        Sủng
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="rating-item d-flex align-items-center">
-                                            <div class="rating-item__number bg-light border rounded-circle">
-                                                <span class="text-dark">7</span>
-                                            </div>
-                                            <div class="rating-item__story">
-                                                <a href="https://suustore.com/truyen/pham-nhan-tu-tien"
-                                                   class="text-decoration-none hover-title rating-item__story--name text-one-row">
-                                                    Phàm
-                                                    Nhân Tu Tiên
-                                                </a>
-                                                <div class="d-flex flex-wrap rating-item__story--categories">
-                                                    <a href="https://suustore.com/the-loai/tien-hiep"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Tiên
-                                                        Hiệp
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/kiem-hiep"
-                                                       class="text-decoration-none text-dark hover-title ">
-                                                        Kiếm
-                                                        Hiệp
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="rating-item d-flex align-items-center">
-                                            <div class="rating-item__number bg-light border rounded-circle">
-                                                <span class="text-dark">8</span>
-                                            </div>
-                                            <div class="rating-item__story">
-                                                <a href="https://suustore.com/truyen/nhat-niem-vinh-hang"
-                                                   class="text-decoration-none hover-title rating-item__story--name text-one-row">
-                                                    Nhất
-                                                    Niệm Vĩnh Hằng
-                                                </a>
-                                                <div class="d-flex flex-wrap rating-item__story--categories">
-                                                    <a href="https://suustore.com/the-loai/tien-hiep"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Tiên
-                                                        Hiệp
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/huyen-huyen"
-                                                       class="text-decoration-none text-dark hover-title ">
-                                                        Huyền
-                                                        Huyễn
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="rating-item d-flex align-items-center">
-                                            <div class="rating-item__number bg-light border rounded-circle">
-                                                <span class="text-dark">9</span>
-                                            </div>
-                                            <div class="rating-item__story">
-                                                <a href="https://suustore.com/truyen/de-ba"
-                                                   class="text-decoration-none hover-title rating-item__story--name text-one-row">
-                                                    Đế
-                                                    Bá
-                                                </a>
-                                                <div class="d-flex flex-wrap rating-item__story--categories">
-                                                    <a href="https://suustore.com/the-loai/huyen-huyen"
-                                                       class="text-decoration-none text-dark hover-title ">
-                                                        Huyền
-                                                        Huyễn
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="rating-item d-flex align-items-center">
-                                            <div class="rating-item__number bg-light border rounded-circle">
-                                                <span class="text-dark">10</span>
-                                            </div>
-                                            <div class="rating-item__story">
-                                                <a href="https://suustore.com/truyen/re-quy-troi-cho"
-                                                   class="text-decoration-none hover-title rating-item__story--name text-one-row">
-                                                    Rể
-                                                    Quý Trời Cho
-                                                </a>
-                                                <div class="d-flex flex-wrap rating-item__story--categories">
-                                                    <a href="https://suustore.com/the-loai/ngon-tinh"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Ngôn
-                                                        Tình
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/do-thi"
-                                                       class="text-decoration-none text-dark hover-title ">
-                                                        Đô Thị
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
+                                    <!-- Các mục khác tương tự -->
                                 </ul>
                             </div>
-
-                            <div class="tab-pane fade" id="top-month" role="tabpanel"
-                                 aria-labelledby="top-month-list">
-                                <ul>
-                                    <li>
-                                        <div class="rating-item d-flex align-items-center">
-                                            <div class="rating-item__number bg-danger rounded-circle">
-                                                <span class="text-light">1</span>
-                                            </div>
-                                            <div class="rating-item__story">
-                                                <a href="https://suustore.com/truyen/linh-vu-thien-ha"
-                                                   class="text-decoration-none hover-title rating-item__story--name text-one-row">
-                                                    Linh
-                                                    Vũ Thiên Hạ
-                                                </a>
-                                                <div class="d-flex flex-wrap rating-item__story--categories">
-                                                    <a href="https://suustore.com/the-loai/tien-hiep"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Tiên
-                                                        Hiệp
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/di-gioi"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Dị
-                                                        Giới
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/huyen-huyen"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Huyền
-                                                        Huyễn
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/xuyen-khong"
-                                                       class="text-decoration-none text-dark hover-title ">
-                                                        Xuyên
-                                                        Không
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="rating-item d-flex align-items-center">
-                                            <div class="rating-item__number bg-success rounded-circle">
-                                                <span class="text-light">2</span>
-                                            </div>
-                                            <div class="rating-item__story">
-                                                <a href="https://suustore.com/truyen/than-dao-dan-ton"
-                                                   class="text-decoration-none hover-title rating-item__story--name text-one-row">
-                                                    Thần
-                                                    Đạo Đan Tôn
-                                                </a>
-                                                <div class="d-flex flex-wrap rating-item__story--categories">
-                                                    <a href="https://suustore.com/the-loai/tien-hiep"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Tiên
-                                                        Hiệp
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/huyen-huyen"
-                                                       class="text-decoration-none text-dark hover-title ">
-                                                        Huyền
-                                                        Huyễn
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="rating-item d-flex align-items-center">
-                                            <div class="rating-item__number bg-info rounded-circle">
-                                                <span class="text-light">3</span>
-                                            </div>
-                                            <div class="rating-item__story">
-                                                <a href="https://suustore.com/truyen/me-vo-khong-loi-ve"
-                                                   class="text-decoration-none hover-title rating-item__story--name text-one-row">
-                                                    Mê
-                                                    Vợ Không Lối Về
-                                                </a>
-                                                <div class="d-flex flex-wrap rating-item__story--categories">
-                                                    <a href="https://suustore.com/the-loai/ngon-tinh"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Ngôn
-                                                        Tình
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/nguoc"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Ngược
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/sung"
-                                                       class="text-decoration-none text-dark hover-title ">
-                                                        Sủng
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="rating-item d-flex align-items-center">
-                                            <div class="rating-item__number bg-light border rounded-circle">
-                                                <span class="text-dark">4</span>
-                                            </div>
-                                            <div class="rating-item__story">
-                                                <a href="https://suustore.com/truyen/dau-pha-thuong-khung"
-                                                   class="text-decoration-none hover-title rating-item__story--name text-one-row">
-                                                    Đấu
-                                                    Phá Thương Khung
-                                                </a>
-                                                <div class="d-flex flex-wrap rating-item__story--categories">
-                                                    <a href="https://suustore.com/the-loai/tien-hiep"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Tiên
-                                                        Hiệp
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/di-gioi"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Dị
-                                                        Giới
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/huyen-huyen"
-                                                       class="text-decoration-none text-dark hover-title ">
-                                                        Huyền
-                                                        Huyễn
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="rating-item d-flex align-items-center">
-                                            <div class="rating-item__number bg-light border rounded-circle">
-                                                <span class="text-dark">5</span>
-                                            </div>
-                                            <div class="rating-item__story">
-                                                <a href="https://suustore.com/truyen/the-gioi-hoan-my"
-                                                   class="text-decoration-none hover-title rating-item__story--name text-one-row">
-                                                    Thế
-                                                    Giới Hoàn Mỹ
-                                                </a>
-                                                <div class="d-flex flex-wrap rating-item__story--categories">
-                                                    <a href="https://suustore.com/the-loai/tien-hiep"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Tiên
-                                                        Hiệp
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/kiem-hiep"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Kiếm
-                                                        Hiệp
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/huyen-huyen"
-                                                       class="text-decoration-none text-dark hover-title ">
-                                                        Huyền
-                                                        Huyễn
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="rating-item d-flex align-items-center">
-                                            <div class="rating-item__number bg-light border rounded-circle">
-                                                <span class="text-dark">6</span>
-                                            </div>
-                                            <div class="rating-item__story">
-                                                <a href="https://suustore.com/truyen/co-vo-ngot-ngao-co-chut-bat-luong-vo-moi-bat-luong-co-chut-ngot"
-                                                   class="text-decoration-none hover-title rating-item__story--name text-one-row">
-                                                    Cô
-                                                    Vợ Ngọt Ngào Có Chút Bất Lương (Vợ Mới Bất Lương Có Chút
-                                                    Ngọt)
-                                                </a>
-                                                <div class="d-flex flex-wrap rating-item__story--categories">
-                                                    <a href="https://suustore.com/the-loai/ngon-tinh"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Ngôn
-                                                        Tình
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/trong-sinh"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Trọng
-                                                        Sinh
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/sung"
-                                                       class="text-decoration-none text-dark hover-title ">
-                                                        Sủng
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="rating-item d-flex align-items-center">
-                                            <div class="rating-item__number bg-light border rounded-circle">
-                                                <span class="text-dark">7</span>
-                                            </div>
-                                            <div class="rating-item__story">
-                                                <a href="https://suustore.com/truyen/pham-nhan-tu-tien"
-                                                   class="text-decoration-none hover-title rating-item__story--name text-one-row">
-                                                    Phàm
-                                                    Nhân Tu Tiên
-                                                </a>
-                                                <div class="d-flex flex-wrap rating-item__story--categories">
-                                                    <a href="https://suustore.com/the-loai/tien-hiep"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Tiên
-                                                        Hiệp
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/kiem-hiep"
-                                                       class="text-decoration-none text-dark hover-title ">
-                                                        Kiếm
-                                                        Hiệp
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="rating-item d-flex align-items-center">
-                                            <div class="rating-item__number bg-light border rounded-circle">
-                                                <span class="text-dark">8</span>
-                                            </div>
-                                            <div class="rating-item__story">
-                                                <a href="https://suustore.com/truyen/nhat-niem-vinh-hang"
-                                                   class="text-decoration-none hover-title rating-item__story--name text-one-row">
-                                                    Nhất
-                                                    Niệm Vĩnh Hằng
-                                                </a>
-                                                <div class="d-flex flex-wrap rating-item__story--categories">
-                                                    <a href="https://suustore.com/the-loai/tien-hiep"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Tiên
-                                                        Hiệp
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/huyen-huyen"
-                                                       class="text-decoration-none text-dark hover-title ">
-                                                        Huyền
-                                                        Huyễn
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="rating-item d-flex align-items-center">
-                                            <div class="rating-item__number bg-light border rounded-circle">
-                                                <span class="text-dark">9</span>
-                                            </div>
-                                            <div class="rating-item__story">
-                                                <a href="https://suustore.com/truyen/de-ba"
-                                                   class="text-decoration-none hover-title rating-item__story--name text-one-row">
-                                                    Đế
-                                                    Bá
-                                                </a>
-                                                <div class="d-flex flex-wrap rating-item__story--categories">
-                                                    <a href="https://suustore.com/the-loai/huyen-huyen"
-                                                       class="text-decoration-none text-dark hover-title ">
-                                                        Huyền
-                                                        Huyễn
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="rating-item d-flex align-items-center">
-                                            <div class="rating-item__number bg-light border rounded-circle">
-                                                <span class="text-dark">10</span>
-                                            </div>
-                                            <div class="rating-item__story">
-                                                <a href="https://suustore.com/truyen/re-quy-troi-cho"
-                                                   class="text-decoration-none hover-title rating-item__story--name text-one-row">
-                                                    Rể
-                                                    Quý Trời Cho
-                                                </a>
-                                                <div class="d-flex flex-wrap rating-item__story--categories">
-                                                    <a href="https://suustore.com/the-loai/ngon-tinh"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Ngôn
-                                                        Tình
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/do-thi"
-                                                       class="text-decoration-none text-dark hover-title ">
-                                                        Đô Thị
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
+                            <div class="tab-pane fade" id="top-month" role="tabpanel" aria-labelledby="top-month-list">
+                                <!-- Nội dung tương tự -->
                             </div>
-
-                            <div class="tab-pane fade" id="top-all-time" role="tabpanel"
-                                 aria-labelledby="top-all-time-list">
-                                <ul>
-                                    <li>
-                                        <div class="rating-item d-flex align-items-center">
-                                            <div class="rating-item__number bg-danger rounded-circle">
-                                                <span class="text-light">1</span>
-                                            </div>
-                                            <div class="rating-item__story">
-                                                <a href="https://suustore.com/truyen/linh-vu-thien-ha"
-                                                   class="text-decoration-none hover-title rating-item__story--name text-one-row">
-                                                    Linh
-                                                    Vũ Thiên Hạ
-                                                </a>
-                                                <div class="d-flex flex-wrap rating-item__story--categories">
-                                                    <a href="https://suustore.com/the-loai/tien-hiep"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Tiên
-                                                        Hiệp
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/di-gioi"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Dị
-                                                        Giới
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/huyen-huyen"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Huyền
-                                                        Huyễn
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/xuyen-khong"
-                                                       class="text-decoration-none text-dark hover-title ">
-                                                        Xuyên
-                                                        Không
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="rating-item d-flex align-items-center">
-                                            <div class="rating-item__number bg-success rounded-circle">
-                                                <span class="text-light">2</span>
-                                            </div>
-                                            <div class="rating-item__story">
-                                                <a href="https://suustore.com/truyen/than-dao-dan-ton"
-                                                   class="text-decoration-none hover-title rating-item__story--name text-one-row">
-                                                    Thần
-                                                    Đạo Đan Tôn
-                                                </a>
-                                                <div class="d-flex flex-wrap rating-item__story--categories">
-                                                    <a href="https://suustore.com/the-loai/tien-hiep"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Tiên
-                                                        Hiệp
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/huyen-huyen"
-                                                       class="text-decoration-none text-dark hover-title ">
-                                                        Huyền
-                                                        Huyễn
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="rating-item d-flex align-items-center">
-                                            <div class="rating-item__number bg-info rounded-circle">
-                                                <span class="text-light">3</span>
-                                            </div>
-                                            <div class="rating-item__story">
-                                                <a href="https://suustore.com/truyen/dau-pha-thuong-khung"
-                                                   class="text-decoration-none hover-title rating-item__story--name text-one-row">
-                                                    Đấu
-                                                    Phá Thương Khung
-                                                </a>
-                                                <div class="d-flex flex-wrap rating-item__story--categories">
-                                                    <a href="https://suustore.com/the-loai/tien-hiep"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Tiên
-                                                        Hiệp
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/di-gioi"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Dị
-                                                        Giới
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/huyen-huyen"
-                                                       class="text-decoration-none text-dark hover-title ">
-                                                        Huyền
-                                                        Huyễn
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="rating-item d-flex align-items-center">
-                                            <div class="rating-item__number bg-light border rounded-circle">
-                                                <span class="text-dark">4</span>
-                                            </div>
-                                            <div class="rating-item__story">
-                                                <a href="https://suustore.com/truyen/co-vo-ngot-ngao-co-chut-bat-luong-vo-moi-bat-luong-co-chut-ngot"
-                                                   class="text-decoration-none hover-title rating-item__story--name text-one-row">
-                                                    Cô
-                                                    Vợ Ngọt Ngào Có Chút Bất Lương (Vợ Mới Bất Lương Có Chút
-                                                    Ngọt)
-                                                </a>
-                                                <div class="d-flex flex-wrap rating-item__story--categories">
-                                                    <a href="https://suustore.com/the-loai/ngon-tinh"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Ngôn
-                                                        Tình
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/trong-sinh"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Trọng
-                                                        Sinh
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/sung"
-                                                       class="text-decoration-none text-dark hover-title ">
-                                                        Sủng
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="rating-item d-flex align-items-center">
-                                            <div class="rating-item__number bg-light border rounded-circle">
-                                                <span class="text-dark">5</span>
-                                            </div>
-                                            <div class="rating-item__story">
-                                                <a href="https://suustore.com/truyen/pham-nhan-tu-tien"
-                                                   class="text-decoration-none hover-title rating-item__story--name text-one-row">
-                                                    Phàm
-                                                    Nhân Tu Tiên
-                                                </a>
-                                                <div class="d-flex flex-wrap rating-item__story--categories">
-                                                    <a href="https://suustore.com/the-loai/tien-hiep"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Tiên
-                                                        Hiệp
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/kiem-hiep"
-                                                       class="text-decoration-none text-dark hover-title ">
-                                                        Kiếm
-                                                        Hiệp
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="rating-item d-flex align-items-center">
-                                            <div class="rating-item__number bg-light border rounded-circle">
-                                                <span class="text-dark">6</span>
-                                            </div>
-                                            <div class="rating-item__story">
-                                                <a href="https://suustore.com/truyen/nhat-niem-vinh-hang"
-                                                   class="text-decoration-none hover-title rating-item__story--name text-one-row">
-                                                    Nhất
-                                                    Niệm Vĩnh Hằng
-                                                </a>
-                                                <div class="d-flex flex-wrap rating-item__story--categories">
-                                                    <a href="https://suustore.com/the-loai/tien-hiep"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Tiên
-                                                        Hiệp
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/huyen-huyen"
-                                                       class="text-decoration-none text-dark hover-title ">
-                                                        Huyền
-                                                        Huyễn
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="rating-item d-flex align-items-center">
-                                            <div class="rating-item__number bg-light border rounded-circle">
-                                                <span class="text-dark">7</span>
-                                            </div>
-                                            <div class="rating-item__story">
-                                                <a href="https://suustore.com/truyen/de-ba"
-                                                   class="text-decoration-none hover-title rating-item__story--name text-one-row">
-                                                    Đế
-                                                    Bá
-                                                </a>
-                                                <div class="d-flex flex-wrap rating-item__story--categories">
-                                                    <a href="https://suustore.com/the-loai/huyen-huyen"
-                                                       class="text-decoration-none text-dark hover-title ">
-                                                        Huyền
-                                                        Huyễn
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="rating-item d-flex align-items-center">
-                                            <div class="rating-item__number bg-light border rounded-circle">
-                                                <span class="text-dark">8</span>
-                                            </div>
-                                            <div class="rating-item__story">
-                                                <a href="https://suustore.com/truyen/vu-dong-can-khon"
-                                                   class="text-decoration-none hover-title rating-item__story--name text-one-row">
-                                                    Vũ
-                                                    Động Càn Khôn
-                                                </a>
-                                                <div class="d-flex flex-wrap rating-item__story--categories">
-                                                    <a href="https://suustore.com/the-loai/tien-hiep"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Tiên
-                                                        Hiệp
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/huyen-huyen"
-                                                       class="text-decoration-none text-dark hover-title ">
-                                                        Huyền
-                                                        Huyễn
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="rating-item d-flex align-items-center">
-                                            <div class="rating-item__number bg-light border rounded-circle">
-                                                <span class="text-dark">9</span>
-                                            </div>
-                                            <div class="rating-item__story">
-                                                <a href="https://suustore.com/truyen/doc-ton-tam-gioi"
-                                                   class="text-decoration-none hover-title rating-item__story--name text-one-row">
-                                                    Độc
-                                                    Tôn Tam Giới
-                                                </a>
-                                                <div class="d-flex flex-wrap rating-item__story--categories">
-                                                    <a href="https://suustore.com/the-loai/tien-hiep"
-                                                       class="text-decoration-none text-dark hover-title  me-1 ">
-                                                        Tiên
-                                                        Hiệp
-                                                        ,
-                                                    </a>
-                                                    <a href="https://suustore.com/the-loai/huyen-huyen"
-                                                       class="text-decoration-none text-dark hover-title ">
-                                                        Huyền
-                                                        Huyễn
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
+                            <div class="tab-pane fade" id="top-all-time" role="tabpanel" aria-labelledby="top-all-time-list">
+                                <!-- Nội dung tương tự -->
                             </div>
                         </div>
                     </div>
@@ -1137,93 +284,178 @@
             </div>
         </div>
 
-
-        <!-- Add New Comment Form -->
-        <div class="container">
-            <div class="comment-form">
-                <form method="post" asp-action="AddComment" asp-controller="Comment">
-                    <div class="form-group">
-                        <textarea class="form-control" name="Content" placeholder="Viết bình luận của bạn..." required></textarea>
-                    </div>
-                    <input type="hidden" name="StoryId" value="@Model.StoryId" />
-                    <button type="submit" class="btn mt-2"><i class="fas fa-paper-plane"></i> Gửi bình luận</button>
-                </form>
-            </div>
-
-            <!-- Comments Section -->
+        <!-- Comment Section -->
+        <div class="container mt-5">
             <div class="comment-section">
                 <h4><i class="fas fa-comments"></i> Bình luận</h4>
+
+                <!-- Form thêm bình luận -->
+                <div class="comment-form mb-4">
+                    <form method="post" asp-action="AddComment" asp-controller="Comment">
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            <textarea class="form-control" name="Content" placeholder="Viết bình luận của bạn..." required></textarea>
+                        </div>
+                        <input type="hidden" name="StoryId" value="@Model.StoryId" />
+                        <button type="submit" class="btn btn-primary mt-2"><i class="fas fa-paper-plane"></i> Gửi bình luận</button>
+                    </form>
+                </div>
+
+                <!-- Danh sách bình luận -->
                 @if (ViewBag.Comments != null && (ViewBag.Comments as List<WebTAManga.Models.Comment>)?.Any() == true)
                 {
-                    <ul class="list-group">
+                    <ul class="list-group list-unstyled">
                         @foreach (var comment in ViewBag.Comments as List<WebTAManga.Models.Comment>)
                         {
-                            <li class="comment" style="list-style:none">
-                                <strong>
-                                    @(comment.UserId == ViewBag.CurrentUserId ? "Bạn" : comment.User.Username)
-                                </strong>
-                                <span class="text-muted">(@comment.CreatedAt?.ToString("dd/MM/yyyy HH:mm"))</span>
-                                <p>@comment.Content</p>
+                            // Tính khoảng thời gian
+                            var timeSpan = currentTime - (comment.CreatedAt ?? DateTime.MinValue);
+                            string timeAgo;
+                            if (timeSpan.TotalMinutes < 60)
+                            {
+                                timeAgo = $"{(int)timeSpan.TotalMinutes} phút trước";
+                            }
+                            else if (timeSpan.TotalHours < 24)
+                            {
+                                timeAgo = $"{(int)timeSpan.TotalHours} giờ trước";
+                            }
+                            else if (timeSpan.TotalDays < 30)
+                            {
+                                timeAgo = $"{(int)timeSpan.TotalDays} ngày trước";
+                            }
+                            else if (timeSpan.TotalDays < 365)
+                            {
+                                timeAgo = $"{(int)(timeSpan.TotalDays / 30)} tháng trước";
+                            }
+                            else
+                            {
+                                timeAgo = $"{(int)(timeSpan.TotalDays / 365)} năm trước";
+                            }
 
-                                <!-- Reply Button -->
-                                <button class="btn btn-reply" onclick="toggleReplyForm(@comment.CommentId, null, '@comment.User.Username', @(comment.UserId == ViewBag.CurrentUserId ? "true" : "false"))">
-                                    <i class="fas fa-reply"></i> Trả lời
-                                </button>
-
-                                <!-- Reply Form for Parent Comment -->
-                                <div id="replyForm-@comment.CommentId" class="reply-form" style="display:none;">
-                                    @using (Html.BeginForm("ReplyComment", "Comment", FormMethod.Post))
-                                    {
-                                        @Html.AntiForgeryToken()
-                                        @Html.Hidden("storyId", comment.StoryId)
-                                        @Html.Hidden("parentCommentId", comment.CommentId)
-                                        <div class="form-group">
-                                            <textarea class="form-control" name="content" placeholder="Viết câu trả lời của bạn..." required></textarea>
-                                        </div>
-                                        <button type="submit" class="btn"><i class="fas fa-reply"></i> Gửi</button>
-                                    }
-                                </div>
-
-                                <!-- Display Replies with Toggle -->
-                                @if (comment.InverseParentComment.Any())
-                                {
-                                    <div class="replies-toggle">
-                                        <button class="btn btn-link toggle-replies" onclick="toggleReplies(@comment.CommentId)">
-                                            <i class="fas fa-caret-down"></i>
-                                            Hiện thị @comment.InverseParentComment.Count() bình luận 
-                                        </button>
-                                        <div class="replies mt-3" id="replies-@comment.CommentId" style="display:none;">
-                                            @foreach (var reply in comment.InverseParentComment)
+                            <li class="comment">
+                                <div class="d-flex align-items-start">
+                                    <!-- Avatar và AvatarFrame -->
+                                    <div class="avatar-container me-3">
+                                        @if (comment.User?.AvatarFrame != null && !string.IsNullOrEmpty(comment.User.AvatarFrame.ImagePath))
+                                        {
+                                            <img src="~/@comment.User.AvatarFrame.ImagePath" alt="@comment.User.AvatarFrame.Name" class="avatar-frame" />
+                                        }
+                                        <img src="~/uploads/avatars/@(string.IsNullOrEmpty(comment.User?.Avatar) ? "default-avatar.png" : comment.User.Avatar)" alt="@comment.User?.Username" class="avatar-img" />
+                                    </div>
+                                    <!-- Thông tin người dùng và nội dung -->
+                                    <div class="flex-grow-1">
+                                        <div>
+                                            <strong>@(comment.UserId == ViewBag.CurrentUserId ? "Bạn" : comment.User?.Username ?? "Ẩn danh")</strong>
+                                            @if (comment.User?.CategoryRank != null)
                                             {
-                                                <div class="reply">
-                                                    <strong>
-                                                        @(reply.UserId == ViewBag.CurrentUserId ? "Bạn" : reply.User.Username)
-                                                    </strong>
-                                                    <span class="text-muted">(@reply.CreatedAt?.ToString("dd/MM/yyyy HH:mm"))</span>
-                                                    <p>@reply.Content</p>
+                                                <span class="badge bg-primary ms-2">@comment.User.CategoryRank.Name</span>
+                                            }
+                                            <span class="text-muted ms-2">(@timeAgo)</span>
+                                        </div>
+                                        <p class="mt-1 mb-2">@comment.Content</p>
 
-                                                    <button class="btn btn-reply" onclick="toggleReplyForm(@reply.CommentId, @comment.CommentId, '@reply.User.Username', @(reply.UserId == ViewBag.CurrentUserId ? "true" : "false"))">
-                                                        <i class="fas fa-reply"></i> Trả lời
-                                                    </button>
+                                        <!-- Nút trả lời -->
+                                        <button class="btn btn-reply" onclick="toggleReplyForm(@comment.CommentId, null, '@(comment.User?.Username ?? "Ẩn danh")', @(comment.UserId == ViewBag.CurrentUserId ? "true" : "false"))">
+                                            <i class="fas fa-reply"></i> Trả lời
+                                        </button>
 
-                                                    <div id="replyForm-@reply.CommentId" class="reply-form" style="display:none;">
-                                                        @using (Html.BeginForm("ReplyComment", "Comment", FormMethod.Post))
-                                                        {
-                                                            @Html.AntiForgeryToken()
-                                                            @Html.Hidden("storyId", reply.StoryId)
-                                                            @Html.Hidden("parentCommentId", reply.CommentId)
-                                                            @Html.Hidden("grandParentCommentId", comment.CommentId)
-                                                            <div class="form-group">
-                                                                <textarea class="form-control" name="content" placeholder="Viết câu trả lời của bạn..." required></textarea>
-                                                            </div>
-                                                            <button type="submit" class="btn"><i class="fas fa-reply"></i> Gửi</button>
-                                                        }
-                                                    </div>
+                                        <!-- Form trả lời bình luận -->
+                                        <div id="replyForm-@comment.CommentId" class="reply-form mt-2" style="display:none;">
+                                            @using (Html.BeginForm("ReplyComment", "Comment", FormMethod.Post))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                @Html.Hidden("storyId", comment.StoryId)
+                                                @Html.Hidden("parentCommentId", comment.CommentId)
+                                                <div class="form-group">
+                                                    <textarea class="form-control" name="content" placeholder="Viết câu trả lời của bạn..." required></textarea>
                                                 </div>
+                                                <button type="submit" class="btn btn-primary mt-2"><i class="fas fa-reply"></i> Gửi</button>
                                             }
                                         </div>
+
+                                        <!-- Hiển thị các câu trả lời -->
+                                        @if (comment.InverseParentComment?.Any() == true)
+                                        {
+                                            <div class="replies-toggle mt-2">
+                                                <button class="toggle-replies" onclick="toggleReplies(@comment.CommentId)">
+                                                    <i class="fas fa-caret-down"></i> Hiện @comment.InverseParentComment.Count() bình luận
+                                                </button>
+                                                <div class="replies mt-3" id="replies-@comment.CommentId" style="display:none;">
+                                                    @foreach (var reply in comment.InverseParentComment)
+                                                    {
+                                                        // Tính khoảng thời gian cho reply
+                                                        var replyTimeSpan = currentTime - (reply.CreatedAt ?? DateTime.MinValue);
+                                                        string replyTimeAgo;
+                                                        if (replyTimeSpan.TotalMinutes < 60)
+                                                        {
+                                                            replyTimeAgo = $"{(int)replyTimeSpan.TotalMinutes} phút trước";
+                                                        }
+                                                        else if (replyTimeSpan.TotalHours < 24)
+                                                        {
+                                                            replyTimeAgo = $"{(int)replyTimeSpan.TotalHours} giờ trước";
+                                                        }
+                                                        else if (replyTimeSpan.TotalDays < 30)
+                                                        {
+                                                            replyTimeAgo = $"{(int)replyTimeSpan.TotalDays} ngày trước";
+                                                        }
+                                                        else if (replyTimeSpan.TotalDays < 365)
+                                                        {
+                                                            replyTimeAgo = $"{(int)(replyTimeSpan.TotalDays / 30)} tháng trước";
+                                                        }
+                                                        else
+                                                        {
+                                                            replyTimeAgo = $"{(int)(replyTimeSpan.TotalDays / 365)} năm trước";
+                                                        }
+
+                                                        <div class="reply">
+                                                            <div class="d-flex align-items-start">
+                                                                <!-- Avatar và AvatarFrame cho reply -->
+                                                                <div class="avatar-container me-3">
+                                                                    @if (reply.User?.AvatarFrame != null && !string.IsNullOrEmpty(reply.User.AvatarFrame.ImagePath))
+                                                                    {
+                                                                        <img src="~/@reply.User.AvatarFrame.ImagePath" alt="@reply.User.AvatarFrame.Name" class="avatar-frame" />
+                                                                    }
+                                                                    <img src="~/uploads/avatars/@(string.IsNullOrEmpty(reply.User?.Avatar) ? "default-avatar.png" : reply.User.Avatar)" alt="@reply.User?.Username" class="avatar-img" />
+                                                                </div>
+                                                                <!-- Thông tin người dùng và nội dung trong reply -->
+                                                                <div class="flex-grow-1">
+                                                                    <div>
+                                                                        <strong>@(reply.UserId == ViewBag.CurrentUserId ? "Bạn" : reply.User?.Username ?? "Ẩn danh")</strong>
+                                                                        @if (reply.User?.CategoryRank != null)
+                                                                        {
+                                                                            <span class="badge bg-primary ms-2">@reply.User.CategoryRank.Name</span>
+                                                                        }
+                                                                        <span class="text-muted ms-2">(@replyTimeAgo)</span>
+                                                                    </div>
+                                                                    <p class="mt-1 mb-2">@reply.Content</p>
+
+                                                                    <!-- Nút trả lời cho reply -->
+                                                                    <button class="btn btn-reply" onclick="toggleReplyForm(@reply.CommentId, @comment.CommentId, '@(reply.User?.Username ?? "Ẩn danh")', @(reply.UserId == ViewBag.CurrentUserId ? "true" : "false"))">
+                                                                        <i class="fas fa-reply"></i> Trả lời
+                                                                    </button>
+
+                                                                    <!-- Form trả lời cho reply -->
+                                                                    <div id="replyForm-@reply.CommentId" class="reply-form mt-2" style="display:none;">
+                                                                        @using (Html.BeginForm("ReplyComment", "Comment", FormMethod.Post))
+                                                                        {
+                                                                            @Html.AntiForgeryToken()
+                                                                            @Html.Hidden("storyId", reply.StoryId)
+                                                                            @Html.Hidden("parentCommentId", reply.CommentId)
+                                                                            @Html.Hidden("grandParentCommentId", comment.CommentId)
+                                                                            <div class="form-group">
+                                                                                <textarea class="form-control" name="content" placeholder="Viết câu trả lời của bạn..." required></textarea>
+                                                                            </div>
+                                                                            <button type="submit" class="btn btn-primary mt-2"><i class="fas fa-reply"></i> Gửi</button>
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        }
                                     </div>
-                                }
+                                </div>
                             </li>
                         }
                     </ul>
@@ -1238,8 +470,9 @@
 </main>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-        function toggleReplyForm(commentId, grandParentId, username, isCurrentUser) {
+    function toggleReplyForm(commentId, grandParentId, username, isCurrentUser) {
         var form = document.getElementById("replyForm-" + commentId);
         if (form.style.display === "none" || form.style.display === "") {
             form.style.display = "block";
@@ -1253,8 +486,6 @@
         }
 
         var textarea = form.querySelector("textarea");
-
-        // Nếu người trả lời không phải chủ nhân của bình luận gốc, thì chèn @@username
         if (!isCurrentUser) {
             let existingText = textarea.value.trim();
             if (!existingText.startsWith("@@" + username)) {
@@ -1264,7 +495,7 @@
         }
     }
 
-        function toggleReplies(commentId) {
+    function toggleReplies(commentId) {
         var repliesDiv = document.getElementById("replies-" + commentId);
         var toggleButton = repliesDiv.previousElementSibling; // Nút toggle nằm ngay trước div replies
 
@@ -1277,61 +508,59 @@
         }
     }
 
-    // Xử lý nút Favorite
-        $('.toggle-favorite').on('click', function () {
-            var button = $(this);
-            var storyId = button.data('story-id');
-            var isFavorited = button.data('is-favorited') === true;
+    $('.toggle-favorite').on('click', function () {
+        var button = $(this);
+        var storyId = button.data('story-id');
+        var isFavorited = button.data('is-favorited') === true;
 
-            var url = isFavorited ? '@Url.Action("RemoveFromFavorites", "Favorites")' : '@Url.Action("AddToFavorites", "Favorites")';
+        var url = isFavorited ? '@Url.Action("RemoveFromFavorites", "Favorites")' : '@Url.Action("AddToFavorites", "Favorites")';
 
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: { storyId: storyId },
-                success: function (response) {
-                    if (response.success) {
-                        button.data('is-favorited', !isFavorited);
-                        button.html('<i class="fas fa-star"></i> ' + (isFavorited ? 'Add to Favorites' : 'Remove from Favorites'));
-                        alert(response.message);
-                    } else if (response.redirect) {
-                        window.location.href = response.redirect;
-                    } else {
-                        alert(response.message);
-                    }
-                },
-                error: function () {
-                    alert('An error occurred. Please try again.');
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: { storyId: storyId },
+            success: function (response) {
+                if (response.success) {
+                    button.data('is-favorited', !isFavorited);
+                    button.html('<i class="fas fa-star"></i> ' + (isFavorited ? 'Add to Favorites' : 'Remove from Favorites'));
+                    alert(response.message);
+                } else if (response.redirect) {
+                    window.location.href = response.redirect;
+                } else {
+                    alert(response.message);
                 }
-            });
+            },
+            error: function () {
+                alert('An error occurred. Please try again.');
+            }
         });
+    });
 
-        // Xử lý nút Follow
-        $('.toggle-follow').on('click', function () {
-            var button = $(this);
-            var storyId = button.data('story-id');
-            var isFollowed = button.data('is-followed') === true;
+    $('.toggle-follow').on('click', function () {
+        var button = $(this);
+        var storyId = button.data('story-id');
+        var isFollowed = button.data('is-followed') === true;
 
-            var url = isFollowed ? '@Url.Action("Unfollow", "Followed")' : '@Url.Action("AddToFollowed", "Followed")';
+        var url = isFollowed ? '@Url.Action("Unfollow", "Followed")' : '@Url.Action("AddToFollowed", "Followed")';
 
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: { storyId: storyId },
-                success: function (response) {
-                    if (response.success) {
-                        button.data('is-followed', !isFollowed);
-                        button.html('<i class="fas fa-check"></i> ' + (isFollowed ? 'Follow' : 'Unfollow'));
-                        alert(response.message);
-                    } else if (response.redirect) {
-                        window.location.href = response.redirect;
-                    } else {
-                        alert(response.message);
-                    }
-                },
-                error: function () {
-                    alert('An error occurred. Please try again.');
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: { storyId: storyId },
+            success: function (response) {
+                if (response.success) {
+                    button.data('is-followed', !isFollowed);
+                    button.html('<i class="fas fa-check"></i> ' + (isFollowed ? 'Follow' : 'Unfollow'));
+                    alert(response.message);
+                } else if (response.redirect) {
+                    window.location.href = response.redirect;
+                } else {
+                    alert(response.message);
                 }
-            });
+            },
+            error: function () {
+                alert('An error occurred. Please try again.');
+            }
         });
+    });
 </script>

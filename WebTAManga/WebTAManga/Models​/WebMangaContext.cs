@@ -41,6 +41,8 @@ public partial class WebMangaContext : DbContext
 
     public virtual DbSet<Level> Levels { get; set; }
 
+    public virtual DbSet<PurchasedAvatarFrame> PurchasedAvatarFrames { get; set; }
+
     public virtual DbSet<PurchasedChapter> PurchasedChapters { get; set; }
 
     public virtual DbSet<Rank> Ranks { get; set; }
@@ -315,6 +317,25 @@ public partial class WebMangaContext : DbContext
             entity.HasOne(d => d.CategoryRank).WithMany(p => p.Levels)
                 .HasForeignKey(d => d.CategoryRankId)
                 .HasConstraintName("FK__Level__CategoryR__7A3223E8");
+        });
+
+        modelBuilder.Entity<PurchasedAvatarFrame>(entity =>
+        {
+            entity.HasKey(e => e.PurchasedAvatarFrameId).HasName("PK__Purchase__162E4245AF898F93");
+
+            entity.ToTable("PurchasedAvatarFrame");
+
+            entity.Property(e => e.PurchasedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+
+            entity.HasOne(d => d.AvatarFrame).WithMany(p => p.PurchasedAvatarFrames)
+                .HasForeignKey(d => d.AvatarFrameId)
+                .HasConstraintName("FK_PurchasedAvatarFrame_AvatarFrame");
+
+            entity.HasOne(d => d.User).WithMany(p => p.PurchasedAvatarFrames)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK_PurchasedAvatarFrame_Users");
         });
 
         modelBuilder.Entity<PurchasedChapter>(entity =>

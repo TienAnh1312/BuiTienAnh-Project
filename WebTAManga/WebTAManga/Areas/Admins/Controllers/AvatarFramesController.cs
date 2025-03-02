@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebTAManga.Models;
 
@@ -49,43 +48,32 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // POST: Admins/AvatarFrames/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AvatarFrameId,Name,ImagePath")] AvatarFrame avatarFrame)
+        public async Task<IActionResult> Create([Bind("Name,Price")] AvatarFrame avatarFrame)
         {
-            // Kiểm tra xem Model có hợp lệ không
             if (ModelState.IsValid)
             {
-                // Kiểm tra nếu có file được upload
                 var files = HttpContext.Request.Form.Files;
                 if (files.Count > 0 && files[0].Length > 0)
                 {
                     var file = files[0];
-                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName); // Tạo tên file duy nhất
-                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images","admins", "avatarFrames", fileName);
+                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "admins", "avatarFrames", fileName);
 
-                    // Lưu file vào thư mục server
                     using (var stream = new FileStream(path, FileMode.Create))
                     {
                         await file.CopyToAsync(stream);
-                        avatarFrame.ImagePath = "images/admins/avatarFrames/" + fileName; // Lưu đường dẫn file vào trong đối tượng AvatarFrame
+                        avatarFrame.ImagePath = "images/admins/avatarFrames/" + fileName;
                     }
                 }
 
-                // Thêm AvatarFrame vào cơ sở dữ liệu
                 _context.Add(avatarFrame);
                 await _context.SaveChangesAsync();
-
-                // Chuyển hướng đến trang Index sau khi thêm thành công
                 return RedirectToAction(nameof(Index));
             }
-
-            // Trả lại view nếu model không hợp lệ
             return View(avatarFrame);
         }
-
 
         // GET: Admins/AvatarFrames/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -104,11 +92,9 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // POST: Admins/AvatarFrames/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AvatarFrameId,Name,ImagePath")] AvatarFrame avatarFrame)
+        public async Task<IActionResult> Edit(int id, [Bind("AvatarFrameId,Name,ImagePath,Price")] AvatarFrame avatarFrame)
         {
             if (id != avatarFrame.AvatarFrameId)
             {
@@ -119,6 +105,40 @@ namespace WebTAManga.Areas.Admins.Controllers
             {
                 try
                 {
+                    var existingFrame = await _context.AvatarFrames.AsNoTracking().FirstOrDefaultAsync(f => f.AvatarFrameId == id);
+                    if (existingFrame == null)
+                    {
+                        return NotFound();
+                    }
+
+                    var files = HttpContext.Request.Form.Files;
+                    if (files.Count > 0 && files[0].Length > 0)
+                    {
+                        var file = files[0];
+                        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "admins", "avatarFrames", fileName);
+
+                        // Xóa file cũ nếu tồn tại
+                        if (!string.IsNullOrEmpty(existingFrame.ImagePath))
+                        {
+                            var oldPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", existingFrame.ImagePath);
+                            if (System.IO.File.Exists(oldPath))
+                            {
+                                System.IO.File.Delete(oldPath);
+                            }
+                        }
+
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                            avatarFrame.ImagePath = "images/admins/avatarFrames/" + fileName;
+                        }
+                    }
+                    else
+                    {
+                        avatarFrame.ImagePath = existingFrame.ImagePath; // Giữ nguyên ảnh cũ nếu không upload ảnh mới
+                    }
+
                     _context.Update(avatarFrame);
                     await _context.SaveChangesAsync();
                 }
@@ -164,10 +184,19 @@ namespace WebTAManga.Areas.Admins.Controllers
             var avatarFrame = await _context.AvatarFrames.FindAsync(id);
             if (avatarFrame != null)
             {
-                _context.AvatarFrames.Remove(avatarFrame);
-            }
+                // Xóa file ảnh nếu tồn tại
+                if (!string.IsNullOrEmpty(avatarFrame.ImagePath))
+                {
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", avatarFrame.ImagePath);
+                    if (System.IO.File.Exists(filePath))
+                    {
+                        System.IO.File.Delete(filePath);
+                    }
+                }
 
-            await _context.SaveChangesAsync();
+                _context.AvatarFrames.Remove(avatarFrame);
+                await _context.SaveChangesAsync();
+            }
             return RedirectToAction(nameof(Index));
         }
 

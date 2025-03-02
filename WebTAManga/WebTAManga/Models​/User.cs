@@ -43,6 +43,8 @@ public partial class User
 
     public virtual ICollection<FollowedStory> FollowedStories { get; set; } = new List<FollowedStory>();
 
+    public virtual ICollection<PurchasedAvatarFrame> PurchasedAvatarFrames { get; set; } = new List<PurchasedAvatarFrame>();
+
     public virtual ICollection<PurchasedChapter> PurchasedChapters { get; set; } = new List<PurchasedChapter>();
 
     public virtual Rank? Rank { get; set; }
