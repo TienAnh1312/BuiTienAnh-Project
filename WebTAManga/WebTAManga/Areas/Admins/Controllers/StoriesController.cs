@@ -58,7 +58,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StoryId,Title,Author,Description,CoverImage,CreatedAt")] Story story, int[] selectedGenres)
+        public async Task<IActionResult> Create([Bind("StoryId,Title,Author,Description,CoverImage,CreatedAt,IsCompleted,LastUpdatedAt,IsHot,IsNew")] Story story, int[] selectedGenres)
         {
             if (ModelState.IsValid)
             {
@@ -149,7 +149,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         // POST: Admins/Stories/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("StoryId,Title,Author,Description,CoverImage,CreatedAt")] Story story, int[] selectedGenres, IFormFile? newCoverImage)
+        public async Task<IActionResult> Edit(int id, [Bind("StoryId,Title,Author,Description,CoverImage,CreatedAt,IsCompleted,LastUpdatedAt,IsHot,IsNew")] Story story, int[] selectedGenres, IFormFile? newCoverImage)
         {
             if (id != story.StoryId)
             {
@@ -182,8 +182,14 @@ namespace WebTAManga.Areas.Admins.Controllers
                             story.CoverImage = existingStory.CoverImage;
                         }
                     }
-                    // Thiết lập ngày tạo và ngày cập nhật tự động
-                    story.CreatedAt = DateTime.Now;
+
+                   
+                    var originalStory = await _context.Stories.AsNoTracking().FirstOrDefaultAsync(s => s.StoryId == id);
+                    if (originalStory != null)
+                    {
+                        story.CreatedAt = originalStory.CreatedAt; // Giữ nguyên ngày tạo
+                    }
+                    story.LastUpdatedAt = DateTime.Now; 
 
                     // Cập nhật thông tin Story
                     _context.Update(story);

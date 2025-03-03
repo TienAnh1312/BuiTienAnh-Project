@@ -443,6 +443,8 @@ public partial class WebMangaContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
             entity.Property(e => e.Description).HasColumnName("description");
+            entity.Property(e => e.IsNew).HasDefaultValue(true);
+            entity.Property(e => e.LastUpdatedAt).HasColumnType("datetime");
             entity.Property(e => e.Title)
                 .HasMaxLength(255)
                 .HasColumnName("title");

@@ -41,37 +41,32 @@ namespace WebTAManga.Controllers
                 return View(user);
             }
 
-            // Kiểm tra nếu email đã tồn tại trong cơ sở dữ liệu (so sánh không phân biệt hoa/thường)
+            // Kiểm tra nếu email đã tồn tại
             var existingEmail = _context.Users
-                                        .FirstOrDefault(x => x.Email.ToLower() == user.Email.ToLower());
-
+                                       .FirstOrDefault(x => x.Email.ToLower() == user.Email.ToLower());
             if (existingEmail != null)
             {
                 ModelState.AddModelError(string.Empty, "Email này đã được đăng ký.");
                 return View(user);
             }
 
-            // Kiểm tra nếu tên đăng nhập đã tồn tại trong cơ sở dữ liệu
+            // Kiểm tra nếu tên đăng nhập đã tồn tại
             var existingUsername = _context.Users
-                                           .FirstOrDefault(x => x.Username.ToLower() == user.Username.ToLower());
-
+                                         .FirstOrDefault(x => x.Username.ToLower() == user.Username.ToLower());
             if (existingUsername != null)
             {
                 ModelState.AddModelError(string.Empty, "Tên đăng nhập này đã có người sử dụng.");
                 return View(user);
             }
 
-            // Mã hóa mật khẩu
+            // Mã hóa mật khẩu bằng PasswordHasher
             var passwordHasher = new PasswordHasher<User>();
-            user.Password = passwordHasher.HashPassword(user, user.Password);
-
-            // Lưu thông tin khách hàng mới vào cơ sở dữ liệu
+            user.Password = passwordHasher.HashPassword(user, user.Password); // Lưu mật khẩu đã mã hóa
             user.CreatedAt = DateTime.Now;
 
             _context.Users.Add(user);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync(); 
 
-            // Sau khi đăng ký thành công, chuyển hướng đến trang đăng nhập
             return RedirectToAction("Index", "Login");
         }
 
@@ -83,12 +78,11 @@ namespace WebTAManga.Controllers
                 return RedirectToAction("Index", "Login");
             }
 
-            // Include thêm PurchasedAvatarFrames để lấy danh sách khung đã mua
             var user = _context.Users
                 .Include(u => u.Rank)
                 .Include(u => u.CategoryRank)
                 .Include(u => u.AvatarFrame)
-                .Include(u => u.PurchasedAvatarFrames) // Thêm Include cho PurchasedAvatarFrames
+                .Include(u => u.PurchasedAvatarFrames) 
                 .ThenInclude(p => p.AvatarFrame)       // Include thông tin khung đã mua
                 .FirstOrDefault(u => u.UserId == userId);
 

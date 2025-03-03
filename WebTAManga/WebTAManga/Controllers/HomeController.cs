@@ -23,6 +23,159 @@ namespace WebTAManga.Controllers
 
         public IActionResult Index()
         {
+            // --- Bảng xếp hạng tiêu xu ---
+
+            // Top Xu theo ngày
+            var coinsByDay = _context.Users
+                .Select(u => new
+                {
+                    u.UserId,
+                    u.Username,
+                    CoinsSpent = _context.PurchasedChapters
+                        .Where(pc => pc.UserId == u.UserId && pc.PurchasedAt >= DateTime.Today)
+                        .Sum(pc => pc.Chapter.Coins ?? 0) +
+                        _context.PurchasedAvatarFrames
+                        .Where(paf => paf.UserId == u.UserId && paf.PurchasedAt >= DateTime.Today)
+                        .Sum(paf => paf.AvatarFrame.Price ?? 0)
+                })
+                .AsEnumerable() // Chuyển sang client-side evaluation
+                .OrderByDescending(u => u.CoinsSpent)
+                .Take(10)
+                .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
+                .ToList();
+
+            // Top Xu theo tháng
+            var coinsByMonth = _context.Users
+                .Select(u => new
+                {
+                    u.UserId,
+                    u.Username,
+                    CoinsSpent = _context.PurchasedChapters
+                        .Where(pc => pc.UserId == u.UserId && pc.PurchasedAt >= DateTime.Today.AddMonths(-1))
+                        .Sum(pc => pc.Chapter.Coins ?? 0) +
+                        _context.PurchasedAvatarFrames
+                        .Where(paf => paf.UserId == u.UserId && paf.PurchasedAt >= DateTime.Today.AddMonths(-1))
+                        .Sum(paf => paf.AvatarFrame.Price ?? 0)
+                })
+                .AsEnumerable()
+                .OrderByDescending(u => u.CoinsSpent)
+                .Take(10)
+                .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
+                .ToList();
+
+            // Top Xu theo năm
+            var coinsByYear = _context.Users
+                .Select(u => new
+                {
+                    u.UserId,
+                    u.Username,
+                    CoinsSpent = _context.PurchasedChapters
+                        .Where(pc => pc.UserId == u.UserId && pc.PurchasedAt >= DateTime.Today.AddYears(-1))
+                        .Sum(pc => pc.Chapter.Coins ?? 0) +
+                        _context.PurchasedAvatarFrames
+                        .Where(paf => paf.UserId == u.UserId && paf.PurchasedAt >= DateTime.Today.AddYears(-1))
+                        .Sum(paf => paf.AvatarFrame.Price ?? 0)
+                })
+                .AsEnumerable()
+                .OrderByDescending(u => u.CoinsSpent)
+                .Take(10)
+                .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
+                .ToList();
+
+            // Top Xu tổng thể
+            var coinsAllTime = _context.Users
+                .Select(u => new
+                {
+                    u.UserId,
+                    u.Username,
+                    CoinsSpent = _context.PurchasedChapters
+                        .Where(pc => pc.UserId == u.UserId)
+                        .Sum(pc => pc.Chapter.Coins ?? 0) +
+                        _context.PurchasedAvatarFrames
+                        .Where(paf => paf.UserId == u.UserId)
+                        .Sum(paf => paf.AvatarFrame.Price ?? 0)
+                })
+                .AsEnumerable()
+                .OrderByDescending(u => u.CoinsSpent)
+                .Take(10)
+                .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
+                .ToList();
+
+            // --- Bảng xếp hạng EXP ---
+
+            // Top EXP theo ngày
+            var expByDay = _context.Users
+                .Select(u => new
+                {
+                    u.UserId,
+                    u.Username,
+                    ExpPoints = _context.ExpHistories
+                        .Where(eh => eh.UserId == u.UserId && eh.CreatedAt >= DateTime.Today)
+                        .Sum(eh => eh.ExpAmount)
+                })
+                .AsEnumerable()
+                .OrderByDescending(u => u.ExpPoints)
+                .Take(10)
+                .Select((u, index) => new { Rank = index + 1, u.Username, u.ExpPoints })
+                .ToList();
+
+            // Top EXP theo tháng
+            var expByMonth = _context.Users
+                .Select(u => new
+                {
+                    u.UserId,
+                    u.Username,
+                    ExpPoints = _context.ExpHistories
+                        .Where(eh => eh.UserId == u.UserId && eh.CreatedAt >= DateTime.Today.AddMonths(-1))
+                        .Sum(eh => eh.ExpAmount)
+                })
+                .AsEnumerable()
+                .OrderByDescending(u => u.ExpPoints)
+                .Take(10)
+                .Select((u, index) => new { Rank = index + 1, u.Username, u.ExpPoints })
+                .ToList();
+
+            // Top EXP theo năm
+            var expByYear = _context.Users
+                .Select(u => new
+                {
+                    u.UserId,
+                    u.Username,
+                    ExpPoints = _context.ExpHistories
+                        .Where(eh => eh.UserId == u.UserId && eh.CreatedAt >= DateTime.Today.AddYears(-1))
+                        .Sum(eh => eh.ExpAmount)
+                })
+                .AsEnumerable()
+                .OrderByDescending(u => u.ExpPoints)
+                .Take(10)
+                .Select((u, index) => new { Rank = index + 1, u.Username, u.ExpPoints })
+                .ToList();
+
+            // Top EXP tổng thể
+            var expAllTime = _context.Users
+                .Select(u => new
+                {
+                    u.UserId,
+                    u.Username,
+                    u.ExpPoints
+                })
+                .AsEnumerable()
+                .OrderByDescending(u => u.ExpPoints)
+                .Take(10)
+                .Select((u, index) => new { Rank = index + 1, u.Username, ExpPoints = u.ExpPoints ?? 0 })
+                .ToList();
+
+            // Truyền dữ liệu vào ViewBag
+            ViewBag.TopCoinsByDay = coinsByDay;
+            ViewBag.TopCoinsByMonth = coinsByMonth;
+            ViewBag.TopCoinsByYear = coinsByYear;
+            ViewBag.TopCoinsAllTime = coinsAllTime;
+
+            ViewBag.TopExpByDay = expByDay;
+            ViewBag.TopExpByMonth = expByMonth;
+            ViewBag.TopExpByYear = expByYear;
+            ViewBag.TopExpAllTime = expAllTime;
+
             var stories = _context.Stories.ToList();
             return View(stories);
         }
@@ -43,10 +196,10 @@ namespace WebTAManga.Controllers
                 .Include(s => s.Chapters)
                 .Include(s => s.Comments)
                 .ThenInclude(c => c.User)
-                .ThenInclude(u => u.AvatarFrame)    // Tải AvatarFrame từ User
-                .Include(s => s.Comments)           // Tải riêng Comments để thêm CategoryRank
+                .ThenInclude(u => u.AvatarFrame)
+                .Include(s => s.Comments)
                 .ThenInclude(c => c.User)
-                .ThenInclude(u => u.CategoryRank)   // Tải CategoryRank từ User
+                .ThenInclude(u => u.CategoryRank)
                 .FirstOrDefault(s => s.StoryId == id);
 
             if (story == null)
@@ -54,20 +207,152 @@ namespace WebTAManga.Controllers
                 return NotFound();
             }
 
-            // Tải danh sách bình luận với thông tin người dùng đầy đủ
+            // Tải danh sách bình luận
             var comments = _context.Comments
                 .Where(c => c.StoryId == id && c.ParentCommentId == null)
                 .OrderByDescending(c => c.CreatedAt)
                 .Include(c => c.User)
-                .ThenInclude(u => u.AvatarFrame)    // Tải AvatarFrame cho User
+                .ThenInclude(u => u.AvatarFrame)
                 .Include(c => c.User)
-                .ThenInclude(u => u.CategoryRank)   // Tải CategoryRank cho User
+                .ThenInclude(u => u.CategoryRank)
                 .Include(c => c.InverseParentComment)
                 .ThenInclude(r => r.User)
-                .ThenInclude(u => u.AvatarFrame)    // Tải AvatarFrame cho reply
+                .ThenInclude(u => u.AvatarFrame)
                 .Include(c => c.InverseParentComment)
                 .ThenInclude(r => r.User)
-                .ThenInclude(u => u.CategoryRank)   // Tải CategoryRank cho reply
+                .ThenInclude(u => u.CategoryRank)
+                .ToList();
+
+            // --- Thêm logic xếp hạng tiêu xu ---
+            var topCoinsByDay = _context.Users
+                .Select(u => new
+                {
+                    u.UserId,
+                    u.Username,
+                    CoinsSpent = _context.PurchasedChapters
+                        .Where(pc => pc.UserId == u.UserId && pc.PurchasedAt >= DateTime.Today)
+                        .Sum(pc => pc.Chapter.Coins ?? 0) +
+                        _context.PurchasedAvatarFrames
+                        .Where(paf => paf.UserId == u.UserId && paf.PurchasedAt >= DateTime.Today)
+                        .Sum(paf => paf.AvatarFrame.Price ?? 0)
+                })
+                .AsEnumerable()
+                .OrderByDescending(u => u.CoinsSpent)
+                .Take(10)
+                .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
+                .ToList();
+
+            var topCoinsByMonth = _context.Users
+                .Select(u => new
+                {
+                    u.UserId,
+                    u.Username,
+                    CoinsSpent = _context.PurchasedChapters
+                        .Where(pc => pc.UserId == u.UserId && pc.PurchasedAt >= DateTime.Today.AddMonths(-1))
+                        .Sum(pc => pc.Chapter.Coins ?? 0) +
+                        _context.PurchasedAvatarFrames
+                        .Where(paf => paf.UserId == u.UserId && paf.PurchasedAt >= DateTime.Today.AddMonths(-1))
+                        .Sum(paf => paf.AvatarFrame.Price ?? 0)
+                })
+                .AsEnumerable()
+                .OrderByDescending(u => u.CoinsSpent)
+                .Take(10)
+                .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
+                .ToList();
+
+            var topCoinsByYear = _context.Users
+                .Select(u => new
+                {
+                    u.UserId,
+                    u.Username,
+                    CoinsSpent = _context.PurchasedChapters
+                        .Where(pc => pc.UserId == u.UserId && pc.PurchasedAt >= DateTime.Today.AddYears(-1))
+                        .Sum(pc => pc.Chapter.Coins ?? 0) +
+                        _context.PurchasedAvatarFrames
+                        .Where(paf => paf.UserId == u.UserId && paf.PurchasedAt >= DateTime.Today.AddYears(-1))
+                        .Sum(paf => paf.AvatarFrame.Price ?? 0)
+                })
+                .AsEnumerable()
+                .OrderByDescending(u => u.CoinsSpent)
+                .Take(10)
+                .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
+                .ToList();
+
+            var topCoinsAllTime = _context.Users
+                .Select(u => new
+                {
+                    u.UserId,
+                    u.Username,
+                    CoinsSpent = _context.PurchasedChapters
+                        .Where(pc => pc.UserId == u.UserId)
+                        .Sum(pc => pc.Chapter.Coins ?? 0) +
+                        _context.PurchasedAvatarFrames
+                        .Where(paf => paf.UserId == u.UserId)
+                        .Sum(paf => paf.AvatarFrame.Price ?? 0)
+                })
+                .AsEnumerable()
+                .OrderByDescending(u => u.CoinsSpent)
+                .Take(10)
+                .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
+                .ToList();
+
+            // --- Thêm logic xếp hạng EXP ---
+            var topExpByDay = _context.Users
+                .Select(u => new
+                {
+                    u.UserId,
+                    u.Username,
+                    ExpPoints = _context.ExpHistories
+                        .Where(eh => eh.UserId == u.UserId && eh.CreatedAt >= DateTime.Today)
+                        .Sum(eh => eh.ExpAmount)
+                })
+                .AsEnumerable()
+                .OrderByDescending(u => u.ExpPoints)
+                .Take(10)
+                .Select((u, index) => new { Rank = index + 1, u.Username, u.ExpPoints })
+                .ToList();
+
+            var topExpByMonth = _context.Users
+                .Select(u => new
+                {
+                    u.UserId,
+                    u.Username,
+                    ExpPoints = _context.ExpHistories
+                        .Where(eh => eh.UserId == u.UserId && eh.CreatedAt >= DateTime.Today.AddMonths(-1))
+                        .Sum(eh => eh.ExpAmount)
+                })
+                .AsEnumerable()
+                .OrderByDescending(u => u.ExpPoints)
+                .Take(10)
+                .Select((u, index) => new { Rank = index + 1, u.Username, u.ExpPoints })
+                .ToList();
+
+            var topExpByYear = _context.Users
+                .Select(u => new
+                {
+                    u.UserId,
+                    u.Username,
+                    ExpPoints = _context.ExpHistories
+                        .Where(eh => eh.UserId == u.UserId && eh.CreatedAt >= DateTime.Today.AddYears(-1))
+                        .Sum(eh => eh.ExpAmount)
+                })
+                .AsEnumerable()
+                .OrderByDescending(u => u.ExpPoints)
+                .Take(10)
+                .Select((u, index) => new { Rank = index + 1, u.Username, u.ExpPoints })
+                .ToList();
+
+            var topExpAllTime = _context.Users
+                .Select(u => new
+                {
+                    u.UserId,
+                    u.Username,
+                    u.ExpPoints
+                })
+                .AsEnumerable()
+                .OrderByDescending(u => u.ExpPoints)
+                .Take(10)
+                .Select((u, index) => new { Rank = index + 1, u.Username, ExpPoints = u.ExpPoints ?? 0 })
                 .ToList();
 
             // Gán dữ liệu vào ViewBag
@@ -78,6 +363,17 @@ namespace WebTAManga.Controllers
             ViewBag.IsFavorited = userId.HasValue && _context.Favorites.Any(f => f.UserId == userId && f.StoryId == id);
             ViewBag.IsFollowed = userId.HasValue && _context.FollowedStories.Any(f => f.UserId == userId && f.StoryId == id);
             ViewBag.CurrentUserId = userId;
+
+            // Gán dữ liệu xếp hạng vào ViewBag
+            ViewBag.TopCoinsByDay = topCoinsByDay;
+            ViewBag.TopCoinsByMonth = topCoinsByMonth;
+            ViewBag.TopCoinsByYear = topCoinsByYear;
+            ViewBag.TopCoinsAllTime = topCoinsAllTime;
+
+            ViewBag.TopExpByDay = topExpByDay;
+            ViewBag.TopExpByMonth = topExpByMonth;
+            ViewBag.TopExpByYear = topExpByYear;
+            ViewBag.TopExpAllTime = topExpAllTime;
 
             return View(story);
         }

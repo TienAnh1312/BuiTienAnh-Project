@@ -1,22 +1,25 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity; // Thêm namespace này cho PasswordHasher
 using WebTAManga.Login.Models;
 using WebTAManga.Models;
 
 namespace WebTAManga.Controllers
 {
-
     public class LoginController : Controller
     {
-        public WebMangaContext _context;
+        private readonly WebMangaContext _context;
+        private readonly PasswordHasher<User> _passwordHasher; // Thêm PasswordHasher
+
         public LoginController(WebMangaContext context)
         {
             _context = context;
+            _passwordHasher = new PasswordHasher<User>(); // Khởi tạo PasswordHasher
         }
 
         public IActionResult Index()
         {
-            return View();
+            return View();  
         }
 
         [HttpPost]
@@ -28,29 +31,29 @@ namespace WebTAManga.Controllers
                 return View(model);
             }
 
-            var pass = model.Password;
-            var dataLogin = _context.Users.FirstOrDefault(x => x.Email.Equals(model.Email) && x.Password.Equals(pass));
-            if (dataLogin != null)
+            // Tìm user theo email
+            var user = _context.Users.FirstOrDefault(x => x.Email.ToLower() == model.Email.ToLower());
+            if (user != null)
             {
-                HttpContext.Session.SetString("usersLogin", model.Email);
-                HttpContext.Session.SetInt32("UsersID", (int)dataLogin.UserId);
+                // Kiểm tra mật khẩu đã mã hóa
+                var verificationResult = _passwordHasher.VerifyHashedPassword(user, user.Password, model.Password);
+                if (verificationResult == PasswordVerificationResult.Success)
+                {
+                    HttpContext.Session.SetString("usersLogin", model.Email);
+                    HttpContext.Session.SetInt32("UsersID", (int)user.UserId);
 
-                // Ghi nhận lần đăng nhập (nếu cần thiết)
+                    return RedirectToAction("Index", "Home", new { UsersID = user.UserId });
+                }
+            }
 
-                return RedirectToAction("Index", "Home", new { UsersID = dataLogin.UserId });
-            }
-            else
-            {
-                ModelState.AddModelError(string.Empty, "Thông tin đăng nhập không chính xác.");
-                return View(model);
-            }
+            ModelState.AddModelError(string.Empty, "Thông tin đăng nhập không chính xác.");
+            return View(model);
         }
 
-        [HttpGet]// thoát đăng nhập, huỷ session
+        [HttpGet]
         public IActionResult Logout()
         {
-            HttpContext.Session.Remove("usersLogin"); // huỷ session với key  đã lưu trước đó
-
+            HttpContext.Session.Remove("usersLogin");
             return RedirectToAction("Index");
         }
     }

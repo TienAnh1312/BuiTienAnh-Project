@@ -89,7 +89,9 @@ namespace WebTAManga.Areas.Admins.Controllers
             if (ImageFiles == null || ImageFiles.Count == 0)
             {
                 ModelState.AddModelError("ImageFiles", "Vui lòng chọn ít nhất một ảnh.");
-                return View();
+                var chapter = await _context.Chapters.FindAsync(chapterId);
+                ViewData["ChapterTitle"] = chapter?.ChapterTitle;
+                return View(new ChapterImage { ChapterId = chapterId });
             }
 
             // Lấy số PageNumber lớn nhất hiện có trong chapter này
@@ -97,14 +99,24 @@ namespace WebTAManga.Areas.Admins.Controllers
                                 .Where(ci => ci.ChapterId == chapterId)
                                 .Max(ci => (int?)ci.PageNumber) ?? 0;
 
+            // Tạo thư mục riêng cho chapter nếu chưa tồn tại
+            var chapterFolder = Path.Combine("images", "admins", "stories", $"chapter_{chapterId}");
+            var fullFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", chapterFolder);
+            if (!Directory.Exists(fullFolderPath))
+            {
+                Directory.CreateDirectory(fullFolderPath);
+            }
+
             foreach (var file in ImageFiles)
             {
                 if (file.Length > 0)
                 {
-                    var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "admins", "stories", fileName);
+                    // Tạo tên file duy nhất bằng cách thêm GUID hoặc timestamp
+                    var fileExtension = Path.GetExtension(file.FileName);
+                    var uniqueFileName = $"{Path.GetFileNameWithoutExtension(file.FileName)}_{Guid.NewGuid()}{fileExtension}";
+                    var filePath = Path.Combine(fullFolderPath, uniqueFileName);
 
-                    using (var stream = new FileStream(path, FileMode.Create))
+                    using (var stream = new FileStream(filePath, FileMode.Create))
                     {
                         await file.CopyToAsync(stream);
                     }
@@ -114,7 +126,7 @@ namespace WebTAManga.Areas.Admins.Controllers
                     {
                         ChapterId = chapterId,
                         PageNumber = ++maxPageNumber, // Tự động tăng số trang
-                        ImageUrl = "images/admins/stories/" + fileName
+                        ImageUrl = Path.Combine(chapterFolder, uniqueFileName).Replace("\\", "/") // Lưu đường dẫn tương đối
                     };
 
                     _context.Add(chapterImage);

@@ -19,5 +19,5 @@ public partial class FollowedStory
 
     public virtual Story? Story { get; set; } = null!;
 
-    public virtual User? User { get; set; } = null!;
+    public virtual User User { get; set; } = null!;
 }

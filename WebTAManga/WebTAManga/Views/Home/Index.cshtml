@@ -362,137 +362,270 @@
 
             <div class="col-12 col-md-4 col-lg-3 sticky-md-top">
                 <div class="row">
-
+                    <!-- Bảng xếp hạng tiêu xu -->
                     <div class="col-12">
                         <div class="section-list-category bg-light p-2 rounded card-custom">
                             <div class="head-title-global mb-2">
                                 <div class="col-12 col-md-12 head-title-global__left">
                                     <h2 class="mb-0 border-bottom border-secondary pb-1">
-                                        <span href="#" class="d-block text-decoration-none text-dark fs-4"
-                                              title="Truyện đang đọc">Thể loại truyện</span>
+                                        <span class="d-block text-decoration-none text-dark fs-4" title="Top Người Tiêu Xu">Top Người Tiêu Xu</span>
                                     </h2>
                                 </div>
                             </div>
                             <div class="row">
-                                <!-- Horizontal under breakpoint -->
-                                <ul class="list-category">
-                                    <li class="">
-                                        <a href="#" class="text-decoration-none text-dark hover-title">Ngôn Tình</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" class="text-decoration-none text-dark hover-title">
-                                            Trọng
-                                            Sinh
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" class="text-decoration-none text-dark hover-title">Cổ Đại</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" class="text-decoration-none text-dark hover-title">Tiên Hiệp</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" class="text-decoration-none text-dark hover-title">Ngược</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" class="text-decoration-none text-dark hover-title">Khác</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" class="text-decoration-none text-dark hover-title">Dị Giới</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" class="text-decoration-none text-dark hover-title">
-                                            Huyền
-                                            Huyễn
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" class="text-decoration-none text-dark hover-title">
-                                            Xuyên
-                                            Không
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" class="text-decoration-none text-dark hover-title">Sủng</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" class="text-decoration-none text-dark hover-title">Cung Đấu</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" class="text-decoration-none text-dark hover-title">Gia Đấu</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" class="text-decoration-none text-dark hover-title">Điền Văn</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" class="text-decoration-none text-dark hover-title">Đô Thị</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" class="text-decoration-none text-dark hover-title">
-                                            Truyện
-                                            Teen
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" class="text-decoration-none text-dark hover-title">Hài Hước</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" class="text-decoration-none text-dark hover-title">Kiếm Hiệp</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" class="text-decoration-none text-dark hover-title">
-                                            Đông
-                                            Phương
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" class="text-decoration-none text-dark hover-title">
-                                            Trinh
-                                            Thám
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" class="text-decoration-none text-dark hover-title">
-                                            Quan
-                                            Trường
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" class="text-decoration-none text-dark hover-title">Linh Dị</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" class="text-decoration-none text-dark hover-title">Đam Mỹ</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" class="text-decoration-none text-dark hover-title">Quân Sự</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" class="text-decoration-none text-dark hover-title">
-                                            Khoa
-                                            Huyễn
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" class="text-decoration-none text-dark hover-title">Mạt Thế</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" class="text-decoration-none text-dark hover-title">
-                                            Xuyên
-                                            Nhanh
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" class="text-decoration-none text-dark hover-title">Hệ Thống</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" class="text-decoration-none text-dark hover-title">Nữ Cường</a>
-                                    </li>
-                                </ul>
+                                <div class="col-12 top-ratings__tab mb-2">
+                                    <div class="list-group d-flex flex-row" id="coins-tab" role="tablist">
+                                        <a class="list-group-item list-group-item-action active" id="coins-day-list" data-bs-toggle="list" href="#coins-day" role="tab" aria-controls="coins-day" aria-selected="true">Ngày</a>
+                                        <a class="list-group-item list-group-item-action" id="coins-month-list" data-bs-toggle="list" href="#coins-month" role="tab" aria-controls="coins-month" aria-selected="false">Tháng</a>
+                                        <a class="list-group-item list-group-item-action" id="coins-year-list" data-bs-toggle="list" href="#coins-year" role="tab" aria-controls="coins-year" aria-selected="false">Năm</a>
+                                        <a class="list-group-item list-group-item-action" id="coins-all-time-list" data-bs-toggle="list" href="#coins-all-time" role="tab" aria-controls="coins-all-time" aria-selected="false">All</a>
+                                    </div>
+                                </div>
+                                <div class="col-12 top-ratings__content">
+                                    <div class="tab-content" id="coins-tabContent">
+                                        <!-- Top Xu theo ngày -->
+                                        <div class="tab-pane fade show active" id="coins-day" role="tabpanel" aria-labelledby="coins-day-list">
+                                            <ul class="list-unstyled">
+                                                @if (ViewBag.TopCoinsByDay != null)
+                                                {
+                                                    @foreach (var user in ViewBag.TopCoinsByDay)
+                                                    {
+                                                        <li class="mb-2">
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="rating-item__number bg-danger rounded-circle me-2" style="width: 25px; height: 25px; line-height: 25px; text-align: center;">
+                                                                    <span class="text-light">@user.Rank</span>
+                                                                </div>
+                                                                <div>
+                                                                    <span class="text-decoration-none text-dark hover-title">@user.Username</span><br />
+                                                                    <small class="text-muted">Xu: @user.CoinsSpent</small>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <li>Không có dữ liệu</li>
+                                                }
+                                            </ul>
+                                        </div>
+                                        <!-- Top Xu theo tháng -->
+                                        <div class="tab-pane fade" id="coins-month" role="tabpanel" aria-labelledby="coins-month-list">
+                                            <ul class="list-unstyled">
+                                                @if (ViewBag.TopCoinsByMonth != null)
+                                                {
+                                                    @foreach (var user in ViewBag.TopCoinsByMonth)
+                                                    {
+                                                        <li class="mb-2">
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="rating-item__number bg-danger rounded-circle me-2" style="width: 25px; height: 25px; line-height: 25px; text-align: center;">
+                                                                    <span class="text-light">@user.Rank</span>
+                                                                </div>
+                                                                <div>
+                                                                    <span class="text-decoration-none text-dark hover-title">@user.Username</span><br />
+                                                                    <small class="text-muted">Xu: @user.CoinsSpent</small>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <li>Không có dữ liệu</li>
+                                                }
+                                            </ul>
+                                        </div>
+                                        <!-- Top Xu theo năm -->
+                                        <div class="tab-pane fade" id="coins-year" role="tabpanel" aria-labelledby="coins-year-list">
+                                            <ul class="list-unstyled">
+                                                @if (ViewBag.TopCoinsByYear != null)
+                                                {
+                                                    @foreach (var user in ViewBag.TopCoinsByYear)
+                                                    {
+                                                        <li class="mb-2">
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="rating-item__number bg-danger rounded-circle me-2" style="width: 25px; height: 25px; line-height: 25px; text-align: center;">
+                                                                    <span class="text-light">@user.Rank</span>
+                                                                </div>
+                                                                <div>
+                                                                    <span class="text-decoration-none text-dark hover-title">@user.Username</span><br />
+                                                                    <small class="text-muted">Xu: @user.CoinsSpent</small>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <li>Không có dữ liệu</li>
+                                                }
+                                            </ul>
+                                        </div>
+                                        <!-- Top Xu tổng thể -->
+                                        <div class="tab-pane fade" id="coins-all-time" role="tabpanel" aria-labelledby="coins-all-time-list">
+                                            <ul class="list-unstyled">
+                                                @if (ViewBag.TopCoinsAllTime != null)
+                                                {
+                                                    @foreach (var user in ViewBag.TopCoinsAllTime)
+                                                    {
+                                                        <li class="mb-2">
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="rating-item__number bg-danger rounded-circle me-2" style="width: 25px; height: 25px; line-height: 25px; text-align: center;">
+                                                                    <span class="text-light">@user.Rank</span>
+                                                                </div>
+                                                                <div>
+                                                                    <span class="text-decoration-none text-dark hover-title">@user.Username</span><br />
+                                                                    <small class="text-muted">Xu: @user.CoinsSpent</small>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <li>Không có dữ liệu</li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bảng xếp hạng EXP -->
+                    <div class="col-12 mt-3">
+                        <div class="section-list-category bg-light p-2 rounded card-custom">
+                            <div class="head-title-global mb-2">
+                                <div class="col-12 col-md-12 head-title-global__left">
+                                    <h2 class="mb-0 border-bottom border-secondary pb-1">
+                                        <span class="d-block text-decoration-none text-dark fs-4" title="Top Người Có Nhiều EXP">Top Người Có Nhiều EXP</span>
+                                    </h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 top-ratings__tab mb-2">
+                                    <div class="list-group d-flex flex-row" id="exp-tab" role="tablist">
+                                        <a class="list-group-item list-group-item-action active" id="exp-day-list" data-bs-toggle="list" href="#exp-day" role="tab" aria-controls="exp-day" aria-selected="true">Ngày</a>
+                                        <a class="list-group-item list-group-item-action" id="exp-month-list" data-bs-toggle="list" href="#exp-month" role="tab" aria-controls="exp-month" aria-selected="false">Tháng</a>
+                                        <a class="list-group-item list-group-item-action" id="exp-year-list" data-bs-toggle="list" href="#exp-year" role="tab" aria-controls="exp-year" aria-selected="false">Năm</a>
+                                        <a class="list-group-item list-group-item-action" id="exp-all-time-list" data-bs-toggle="list" href="#exp-all-time" role="tab" aria-controls="exp-all-time" aria-selected="false">All</a>
+                                    </div>
+                                </div>
+                                <div class="col-12 top-ratings__content">
+                                    <div class="tab-content" id="exp-tabContent">
+                                        <!-- Top EXP theo ngày -->
+                                        <div class="tab-pane fade show active" id="exp-day" role="tabpanel" aria-labelledby="exp-day-list">
+                                            <ul class="list-unstyled">
+                                                @if (ViewBag.TopExpByDay != null)
+                                                {
+                                                    @foreach (var user in ViewBag.TopExpByDay)
+                                                    {
+                                                        <li class="mb-2">
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="rating-item__number bg-danger rounded-circle me-2" style="width: 25px; height: 25px; line-height: 25px; text-align: center;">
+                                                                    <span class="text-light">@user.Rank</span>
+                                                                </div>
+                                                                <div>
+                                                                    <span class="text-decoration-none text-dark hover-title">@user.Username</span><br />
+                                                                    <small class="text-muted">EXP: @user.ExpPoints</small>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <li>Không có dữ liệu</li>
+                                                }
+                                            </ul>
+                                        </div>
+                                        <!-- Top EXP theo tháng -->
+                                        <div class="tab-pane fade" id="exp-month" role="tabpanel" aria-labelledby="exp-month-list">
+                                            <ul class="list-unstyled">
+                                                @if (ViewBag.TopExpByMonth != null)
+                                                {
+                                                    @foreach (var user in ViewBag.TopExpByMonth)
+                                                    {
+                                                        <li class="mb-2">
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="rating-item__number bg-danger rounded-circle me-2" style="width: 25px; height: 25px; line-height: 25px; text-align: center;">
+                                                                    <span class="text-light">@user.Rank</span>
+                                                                </div>
+                                                                <div>
+                                                                    <span class="text-decoration-none text-dark hover-title">@user.Username</span><br />
+                                                                    <small class="text-muted">EXP: @user.ExpPoints</small>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <li>Không có dữ liệu</li>
+                                                }
+                                            </ul>
+                                        </div>
+                                        <!-- Top EXP theo năm -->
+                                        <div class="tab-pane fade" id="exp-year" role="tabpanel" aria-labelledby="exp-year-list">
+                                            <ul class="list-unstyled">
+                                                @if (ViewBag.TopExpByYear != null)
+                                                {
+                                                    @foreach (var user in ViewBag.TopExpByYear)
+                                                    {
+                                                        <li class="mb-2">
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="rating-item__number bg-danger rounded-circle me-2" style="width: 25px; height: 25px; line-height: 25px; text-align: center;">
+                                                                    <span class="text-light">@user.Rank</span>
+                                                                </div>
+                                                                <div>
+                                                                    <span class="text-decoration-none text-dark hover-title">@user.Username</span><br />
+                                                                    <small class="text-muted">EXP: @user.ExpPoints</small>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <li>Không có dữ liệu</li>
+                                                }
+                                            </ul>
+                                        </div>
+                                        <!-- Top EXP tổng thể -->
+                                        <div class="tab-pane fade" id="exp-all-time" role="tabpanel" aria-labelledby="exp-all-time-list">
+                                            <ul class="list-unstyled">
+                                                @if (ViewBag.TopExpAllTime != null)
+                                                {
+                                                    @foreach (var user in ViewBag.TopExpAllTime)
+                                                    {
+                                                        <li class="mb-2">
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="rating-item__number bg-danger rounded-circle me-2" style="width: 25px; height: 25px; line-height: 25px; text-align: center;">
+                                                                    <span class="text-light">@user.Rank</span>
+                                                                </div>
+                                                                <div>
+                                                                    <span class="text-decoration-none text-dark hover-title">@user.Username</span><br />
+                                                                    <small class="text-muted">EXP: @user.ExpPoints</small>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <li>Không có dữ liệu</li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 

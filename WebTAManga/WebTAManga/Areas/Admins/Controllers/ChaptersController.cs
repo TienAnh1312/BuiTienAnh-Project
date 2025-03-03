@@ -20,10 +20,27 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Chapters
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? storyId)
         {
-            var webMangaContext = _context.Chapters.Include(c => c.Story);
-            return View(await webMangaContext.ToListAsync());
+            if (storyId == null)
+            {
+                return NotFound();
+            }
+
+            var chapters = await _context.Chapters
+                .Include(c => c.Story)
+                .Where(c => c.StoryId == storyId)
+                .ToListAsync();
+
+            var story = await _context.Stories.FirstOrDefaultAsync(s => s.StoryId == storyId);
+            if (story == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.StoryId = storyId;
+            ViewBag.StoryTitle = story.Title; // Truyền tiêu đề để hiển thị trong view
+            return View(chapters);
         }
 
         // GET: Admins/Chapters/Details/5

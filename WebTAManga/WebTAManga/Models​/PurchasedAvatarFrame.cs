@@ -15,5 +15,5 @@ public partial class PurchasedAvatarFrame
 
     public virtual AvatarFrame? AvatarFrame { get; set; } = null!;
 
-    public virtual User? User { get; set; } = null!;
+    public virtual User User { get; set; } = null!;
 }

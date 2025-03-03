@@ -17,6 +17,14 @@ public partial class Story
 
     public DateTime? CreatedAt { get; set; }
 
+    public bool IsCompleted { get; set; }
+
+    public DateTime? LastUpdatedAt { get; set; }
+
+    public bool IsHot { get; set; }
+
+    public bool IsNew { get; set; }
+
     public virtual ICollection<Chapter> Chapters { get; set; } = new List<Chapter>();
 
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
