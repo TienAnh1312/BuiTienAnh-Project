@@ -74,7 +74,7 @@
                 $("#chapterImagesContainer").html("<p class='text-muted'>Loading images...</p>");
 
                 $.ajax({
-                    url: "/Admins/Stories/GetChapterImages", // Đường dẫn đến action GetChapterImages
+                    url: "/Admins/Stories/GetChapterImages", 
                     type: "GET",
                     data: { chapterId: chapterId },
                     success: function (data) {

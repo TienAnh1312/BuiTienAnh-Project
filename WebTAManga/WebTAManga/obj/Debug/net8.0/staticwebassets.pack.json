@@ -5541,6 +5541,10 @@
       "PackagePath": "staticwebassets\\images\\admins\\stories\\chapter_8\\tải xuống_d940ec9d-5a27-446f-a83c-e0b165fc175b.jfif"
     },
     {
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\thiet-huyet-kiem-si-hoi-quy_1681531186.jpg",
+      "PackagePath": "staticwebassets\\images\\admins\\stories\\thiet-huyet-kiem-si-hoi-quy_1681531186.jpg"
+    },
+    {
       "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\event\\lixi.png",
       "PackagePath": "staticwebassets\\images\\event\\lixi.png"
     },
@@ -5555,6 +5559,10 @@
     {
       "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\event\\tree3.png",
       "PackagePath": "staticwebassets\\images\\event\\tree3.png"
+    },
+    {
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\stickers\\sticker-cute-la-chona-2.jpg",
+      "PackagePath": "staticwebassets\\images\\stickers\\sticker-cute-la-chona-2.jpg"
     },
     {
       "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\js\\site.js",
@@ -5835,6 +5843,10 @@
     {
       "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\uploads\\avatars\\BanChatCuaChuyenSinh.jfif",
       "PackagePath": "staticwebassets\\uploads\\avatars\\BanChatCuaChuyenSinh.jfif"
+    },
+    {
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\uploads\\avatars\\tải xuống - 2025-02-20T180226.672.jfif",
+      "PackagePath": "staticwebassets\\uploads\\avatars\\tải xuống - 2025-02-20T180226.672.jfif"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.WebTAManga.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",

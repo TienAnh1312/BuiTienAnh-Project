@@ -51,6 +51,8 @@ public partial class WebMangaContext : DbContext
 
     public virtual DbSet<ReadingHistory> ReadingHistories { get; set; }
 
+    public virtual DbSet<Sticker> Stickers { get; set; }
+
     public virtual DbSet<Story> Stories { get; set; }
 
     public virtual DbSet<StoryGenre> StoryGenres { get; set; }
@@ -207,6 +209,11 @@ public partial class WebMangaContext : DbContext
             entity.HasOne(d => d.ParentComment).WithMany(p => p.InverseParentComment)
                 .HasForeignKey(d => d.ParentCommentId)
                 .HasConstraintName("FK__comments__Parent__02FC7413");
+
+            entity.HasOne(d => d.Sticker).WithMany(p => p.Comments)
+                .HasForeignKey(d => d.StickerId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("FK_comments_Sticker");
 
             entity.HasOne(d => d.Story).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.StoryId)
@@ -423,6 +430,16 @@ public partial class WebMangaContext : DbContext
             entity.HasOne(d => d.User).WithMany(p => p.ReadingHistories)
                 .HasForeignKey(d => d.UserId)
                 .HasConstraintName("FK__reading_h__user___5629CD9C");
+        });
+
+        modelBuilder.Entity<Sticker>(entity =>
+        {
+            entity.HasKey(e => e.StickerId).HasName("PK__Sticker__49D93489D60D4508");
+
+            entity.ToTable("Sticker");
+
+            entity.Property(e => e.ImagePath).HasMaxLength(500);
+            entity.Property(e => e.Name).HasMaxLength(255);
         });
 
         modelBuilder.Entity<Story>(entity =>

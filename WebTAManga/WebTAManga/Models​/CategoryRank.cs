@@ -13,7 +13,7 @@ public partial class CategoryRank
 
     public virtual ICollection<Level> Levels { get; set; } = new List<Level>();
 
-    public virtual Rank Rank { get; set; } = null!;
+    public virtual Rank? Rank { get; set; } = null!;
 
     public virtual ICollection<User> Users { get; set; } = new List<User>();
 }

@@ -7,7 +7,7 @@
 <div class="container mt-4">
     <div class="card shadow-lg">
         <div class="card-header bg-primary text-white">
-            <h2 class="mb-0">@Model.Title </h2>
+            <h2 class="mb-0">@Model.Title</h2>
         </div>
         <div class="card-body">
             <div class="row">
@@ -23,11 +23,10 @@
                         <dd class="col-sm-9">@Model.Author</dd>
 
                         <dt class="col-sm-3">Description</dt>
-                        <dd class="col-sm-9">@Model.Description</dd>
+                        <dd class="col-sm-9">@Html.Raw(Model.Description)</dd> <!-- Hiển thị mô tả động -->
 
                         <dt class="col-sm-3">Created At</dt>
-                        @(Model.CreatedAt.HasValue ? Model.CreatedAt.Value.ToString("dd/MM/yyyy") : "N/A")
-
+                        <dd class="col-sm-9">@(Model.CreatedAt.HasValue ? Model.CreatedAt.Value.ToString("dd/MM/yyyy") : "N/A")</dd>
                     </dl>
                 </div>
             </div>

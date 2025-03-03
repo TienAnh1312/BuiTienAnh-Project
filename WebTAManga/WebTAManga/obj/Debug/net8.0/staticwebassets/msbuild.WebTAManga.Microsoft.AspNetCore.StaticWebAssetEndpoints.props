@@ -16572,6 +16572,18 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"nyrfnyuv6l"},{"Name":"integrity","Value":"sha256-seV1JGrDXVWP4HNpqJ/F5sfIjOe9ie0B18Ds/Fb50Og="},{"Name":"label","Value":"_content/WebTAManga/images/admins/stories/ThienTaiDoanMenh.jfif"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"26769"},{"Name":"Content-Type","Value":"image/pjpeg"},{"Name":"ETag","Value":"\u0022seV1JGrDXVWP4HNpqJ/F5sfIjOe9ie0B18Ds/Fb50Og=\u0022"},{"Name":"Last-Modified","Value":"Mon, 20 Jan 2025 14:48:50 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WebTAManga/images/admins/stories/thiet-huyet-kiem-si-hoi-quy_1681531186.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\thiet-huyet-kiem-si-hoi-quy_1681531186.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-BbG7eeU9zHHYWEwS39uv\u002BAuFgMWPEuGDCfRTs6gEnvA="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"17204"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022BbG7eeU9zHHYWEwS39uv\u002BAuFgMWPEuGDCfRTs6gEnvA=\u0022"},{"Name":"Last-Modified","Value":"Mon, 03 Mar 2025 09:13:48 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WebTAManga/images/admins/stories/thiet-huyet-kiem-si-hoi-quy_1681531186.zi1hxv5tos.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\thiet-huyet-kiem-si-hoi-quy_1681531186.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"zi1hxv5tos"},{"Name":"integrity","Value":"sha256-BbG7eeU9zHHYWEwS39uv\u002BAuFgMWPEuGDCfRTs6gEnvA="},{"Name":"label","Value":"_content/WebTAManga/images/admins/stories/thiet-huyet-kiem-si-hoi-quy_1681531186.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"17204"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022BbG7eeU9zHHYWEwS39uv\u002BAuFgMWPEuGDCfRTs6gEnvA=\u0022"},{"Name":"Last-Modified","Value":"Mon, 03 Mar 2025 09:13:48 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/WebTAManga/images/admins/stories/TinhTuKiemSi.jfif">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\TinhTuKiemSi.jfif'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
@@ -16655,6 +16667,18 @@
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"urvhby6m7k"},{"Name":"integrity","Value":"sha256-5rFU83WypfmaBJpgGV8x\u002BkaXUx8dvcP1G\u002B8t2rAq4QQ="},{"Name":"label","Value":"_content/WebTAManga/images/event/tree3.png"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"175263"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u00225rFU83WypfmaBJpgGV8x\u002BkaXUx8dvcP1G\u002B8t2rAq4QQ=\u0022"},{"Name":"Last-Modified","Value":"Fri, 28 Feb 2025 07:33:56 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WebTAManga/images/stickers/sticker-cute-la-chona-2.hvjlqwu67x.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\stickers\sticker-cute-la-chona-2.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"hvjlqwu67x"},{"Name":"integrity","Value":"sha256-I26dVTOBxG7Fdfqf380p1uVZJOptpQol/enWWhZlwoQ="},{"Name":"label","Value":"_content/WebTAManga/images/stickers/sticker-cute-la-chona-2.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"36192"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022I26dVTOBxG7Fdfqf380p1uVZJOptpQol/enWWhZlwoQ=\u0022"},{"Name":"Last-Modified","Value":"Mon, 03 Mar 2025 11:05:18 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WebTAManga/images/stickers/sticker-cute-la-chona-2.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\stickers\sticker-cute-la-chona-2.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-I26dVTOBxG7Fdfqf380p1uVZJOptpQol/enWWhZlwoQ="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"36192"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022I26dVTOBxG7Fdfqf380p1uVZJOptpQol/enWWhZlwoQ=\u0022"},{"Name":"Last-Modified","Value":"Mon, 03 Mar 2025 11:05:18 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/WebTAManga/js/site.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\site.js'))</AssetFile>
@@ -17495,6 +17519,18 @@
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-t\u002BVT/rUFBuI/RYyVm/8BPdcOsX04unI6HeTqPt2aJMQ="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"133057"},{"Name":"Content-Type","Value":"image/pjpeg"},{"Name":"ETag","Value":"\u0022t\u002BVT/rUFBuI/RYyVm/8BPdcOsX04unI6HeTqPt2aJMQ=\u0022"},{"Name":"Last-Modified","Value":"Mon, 17 Feb 2025 07:31:43 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WebTAManga/uploads/avatars/tải xuống - 2025-02-20T180226.672.3a6rv19pm7.jfif">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\avatars\tải xuống - 2025-02-20T180226.672.jfif'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"3a6rv19pm7"},{"Name":"integrity","Value":"sha256-i0uGM9rDpNYKJ4dgMSzxRwPYP2bu9GXBIyuI\u002BcHu86I="},{"Name":"label","Value":"_content/WebTAManga/uploads/avatars/t\u1EA3i xu\u1ED1ng - 2025-02-20T180226.672.jfif"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"98262"},{"Name":"Content-Type","Value":"image/pjpeg"},{"Name":"ETag","Value":"\u0022i0uGM9rDpNYKJ4dgMSzxRwPYP2bu9GXBIyuI\u002BcHu86I=\u0022"},{"Name":"Last-Modified","Value":"Mon, 03 Mar 2025 08:02:35 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WebTAManga/uploads/avatars/tải xuống - 2025-02-20T180226.672.jfif">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\avatars\tải xuống - 2025-02-20T180226.672.jfif'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-i0uGM9rDpNYKJ4dgMSzxRwPYP2bu9GXBIyuI\u002BcHu86I="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"98262"},{"Name":"Content-Type","Value":"image/pjpeg"},{"Name":"ETag","Value":"\u0022i0uGM9rDpNYKJ4dgMSzxRwPYP2bu9GXBIyuI\u002BcHu86I=\u0022"},{"Name":"Last-Modified","Value":"Mon, 03 Mar 2025 08:02:35 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/WebTAManga/WebTAManga.bundle.scp.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\WebTAManga.e2n0iitn9z.bundle.scp.css'))</AssetFile>

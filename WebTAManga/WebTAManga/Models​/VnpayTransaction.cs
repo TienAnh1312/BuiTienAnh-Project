@@ -21,7 +21,7 @@ public partial class VnpayTransaction
 
     public DateTime? ProcessedAt { get; set; }
 
-    public string? Status { get; set; } = null!;
+    public string Status { get; set; } = null!;
 
     public virtual User? User { get; set; } = null!;
 }

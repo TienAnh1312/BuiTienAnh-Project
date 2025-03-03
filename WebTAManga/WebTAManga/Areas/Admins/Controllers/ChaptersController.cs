@@ -70,14 +70,14 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // POST: Admins/Chapters/Create
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ChapterId,StoryId,ChapterTitle,Content,CreatedAt,Coins,IsLocked")] Chapter chapter)
         {
             if (ModelState.IsValid)
             {
-                chapter.CreatedAt = DateTime.Now; // Tự động đặt CreatedAt
+                chapter.CreatedAt = DateTime.Now; // Tự động đặt CreatedAt cho chapter
+
                 _context.Add(chapter);
                 await _context.SaveChangesAsync();
 
@@ -179,7 +179,7 @@ namespace WebTAManga.Areas.Admins.Controllers
                 _context.Chapters.Remove(chapter);
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();  
             return RedirectToAction(nameof(Index));
         }
 

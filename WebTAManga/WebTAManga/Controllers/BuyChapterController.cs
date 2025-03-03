@@ -48,7 +48,7 @@ namespace WebTAManga.Controllers
             if (user.Coins < chapter.Coins)
             {
                 TempData["ErrorMessage"] = "Bạn không có đủ xu để mua chapter này!";
-                return RedirectToAction("ReadChapter", new { id = chapterId });
+                return RedirectToAction("ReadChapter", "ReadChapter", new { id = chapterId });
             }
 
             // Nếu đủ xu, tiến hành giao dịch

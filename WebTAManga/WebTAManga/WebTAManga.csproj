@@ -29,6 +29,7 @@
     <Folder Include="wwwroot\images\admins\cpimages\" />
     <Folder Include="wwwroot\images\admins\avatarFrames\" />
     <Folder Include="wwwroot\images\admins\stories\" />
+    <Folder Include="wwwroot\images\stickers\" />
   </ItemGroup>
 
 </Project>

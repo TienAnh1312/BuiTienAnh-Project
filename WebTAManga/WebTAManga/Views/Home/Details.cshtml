@@ -150,7 +150,7 @@
                                     </div>
                                 </div>
                                 <div class="story-detail__top--desc px-3" style="max-height: 285px;">
-                                    @Model.Description
+                                    @Html.Raw(Model.Description)
                                 </div>
                                 <div class="info-more">
                                     <div class="info-more--more active" id="info_more">
@@ -444,6 +444,20 @@
                             <textarea class="form-control" name="Content" placeholder="Viết bình luận của bạn..." required></textarea>
                         </div>
                         <input type="hidden" name="StoryId" value="@Model.StoryId" />
+
+                        <!-- Dropdown chọn nhãn dán -->
+                        <div class="form-group mt-2">
+                            <label for="StickerId">Chọn nhãn dán (tùy chọn):</label>
+                            <select class="form-control" name="StickerId" id="StickerId">
+                                <option value="">Không chọn nhãn dán</option>
+                                @foreach (var sticker in ViewBag.Stickers)
+                                {
+                                    <option value="@sticker.StickerId" data-image="@sticker.ImagePath">@sticker.Name</option>
+                                }
+                            </select>
+                            <img id="stickerPreview" src="" alt="Xem trước nhãn dán" style="display:none; max-width: 100px; margin-top: 10px;" />
+                        </div>
+
                         <button type="submit" class="btn btn-primary mt-2"><i class="fas fa-paper-plane"></i> Gửi bình luận</button>
                     </form>
                 </div>
@@ -455,7 +469,7 @@
                         @foreach (var comment in ViewBag.Comments as List<WebTAManga.Models.Comment>)
                         {
                             // Tính khoảng thời gian
-                            var timeSpan = currentTime - (comment.CreatedAt ?? DateTime.MinValue);
+                            var timeSpan = DateTime.Now - (comment.CreatedAt ?? DateTime.MinValue); // Sử dụng DateTime.Now thay cho currentTime (giả định)
                             string timeAgo;
                             if (timeSpan.TotalMinutes < 60)
                             {
@@ -499,6 +513,11 @@
                                             <span class="text-muted ms-2">(@timeAgo)</span>
                                         </div>
                                         <p class="mt-1 mb-2">@comment.Content</p>
+                                        <!-- Hiển thị nhãn dán nếu có -->
+                                        @if (comment.Sticker != null && !string.IsNullOrEmpty(comment.Sticker.ImagePath))
+                                        {
+                                            <img src="~/@comment.Sticker.ImagePath" alt="@comment.Sticker.Name" style="max-width: 100px; margin-top: 5px;" />
+                                        }
 
                                         <!-- Nút trả lời -->
                                         <button class="btn btn-reply" onclick="toggleReplyForm(@comment.CommentId, null, '@(comment.User?.Username ?? "Ẩn danh")', @(comment.UserId == ViewBag.CurrentUserId ? "true" : "false"))">
@@ -515,6 +534,18 @@
                                                 <div class="form-group">
                                                     <textarea class="form-control" name="content" placeholder="Viết câu trả lời của bạn..." required></textarea>
                                                 </div>
+                                                <!-- Dropdown chọn nhãn dán cho reply -->
+                                                <div class="form-group mt-2">
+                                                    <label for="StickerId-@comment.CommentId">Chọn nhãn dán (tùy chọn):</label>
+                                                    <select class="form-control" name="StickerId" id="StickerId-@comment.CommentId">
+                                                        <option value="">Không chọn nhãn dán</option>
+                                                        @foreach (var sticker in ViewBag.Stickers)
+                                                        {
+                                                            <option value="@sticker.StickerId" data-image="@sticker.ImagePath">@sticker.Name</option>
+                                                        }
+                                                    </select>
+                                                    <img id="stickerPreview-@comment.CommentId" src="" alt="Xem trước nhãn dán" style="display:none; max-width: 100px; margin-top: 10px;" />
+                                                </div>
                                                 <button type="submit" class="btn btn-primary mt-2"><i class="fas fa-reply"></i> Gửi</button>
                                             }
                                         </div>
@@ -530,7 +561,7 @@
                                                     @foreach (var reply in comment.InverseParentComment)
                                                     {
                                                         // Tính khoảng thời gian cho reply
-                                                        var replyTimeSpan = currentTime - (reply.CreatedAt ?? DateTime.MinValue);
+                                                        var replyTimeSpan = DateTime.Now - (reply.CreatedAt ?? DateTime.MinValue);
                                                         string replyTimeAgo;
                                                         if (replyTimeSpan.TotalMinutes < 60)
                                                         {
@@ -574,6 +605,11 @@
                                                                         <span class="text-muted ms-2">(@replyTimeAgo)</span>
                                                                     </div>
                                                                     <p class="mt-1 mb-2">@reply.Content</p>
+                                                                    <!-- Hiển thị nhãn dán nếu có trong reply -->
+                                                                    @if (reply.Sticker != null && !string.IsNullOrEmpty(reply.Sticker.ImagePath))
+                                                                    {
+                                                                        <img src="~/@reply.Sticker.ImagePath" alt="@reply.Sticker.Name" style="max-width: 100px; margin-top: 5px;" />
+                                                                    }
 
                                                                     <!-- Nút trả lời cho reply -->
                                                                     <button class="btn btn-reply" onclick="toggleReplyForm(@reply.CommentId, @comment.CommentId, '@(reply.User?.Username ?? "Ẩn danh")', @(reply.UserId == ViewBag.CurrentUserId ? "true" : "false"))">
@@ -590,6 +626,18 @@
                                                                             @Html.Hidden("grandParentCommentId", comment.CommentId)
                                                                             <div class="form-group">
                                                                                 <textarea class="form-control" name="content" placeholder="Viết câu trả lời của bạn..." required></textarea>
+                                                                            </div>
+                                                                            <!-- Dropdown chọn nhãn dán cho reply -->
+                                                                            <div class="form-group mt-2">
+                                                                                <label for="StickerId-@reply.CommentId">Chọn nhãn dán (tùy chọn):</label>
+                                                                                <select class="form-control" name="StickerId" id="StickerId-@reply.CommentId">
+                                                                                    <option value="">Không chọn nhãn dán</option>
+                                                                                    @foreach (var sticker in ViewBag.Stickers)
+                                                                                    {
+                                                                                        <option value="@sticker.StickerId" data-image="@sticker.ImagePath">@sticker.Name</option>
+                                                                                    }
+                                                                                </select>
+                                                                                <img id="stickerPreview-@reply.CommentId" src="" alt="Xem trước nhãn dán" style="display:none; max-width: 100px; margin-top: 10px;" />
                                                                             </div>
                                                                             <button type="submit" class="btn btn-primary mt-2"><i class="fas fa-reply"></i> Gửi</button>
                                                                         }
@@ -710,4 +758,20 @@
             }
         });
     });
+
+    // Xem trước nhãn dán cho tất cả dropdown
+     document.querySelectorAll('select[name="StickerId"]').forEach(function (select) {
+         select.addEventListener("change", function () {
+             var selectedOption = this.options[this.selectedIndex];
+             var imagePath = selectedOption.getAttribute("data-image");
+             var preview = document.getElementById("stickerPreview" + (this.id.replace("StickerId", "")));
+
+             if (imagePath) {
+                 preview.src = imagePath;
+                 preview.style.display = "block";
+             } else {
+                 preview.style.display = "none";
+                 preview.src = "";
+             }
+         });
 </script>

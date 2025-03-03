@@ -17,9 +17,13 @@ public partial class Comment
 
     public int? ParentCommentId { get; set; }
 
+    public int? StickerId { get; set; }
+
     public virtual ICollection<Comment> InverseParentComment { get; set; } = new List<Comment>();
 
     public virtual Comment? ParentComment { get; set; }
+
+    public virtual Sticker? Sticker { get; set; }
 
     public virtual Story? Story { get; set; } = null!;
 
