@@ -85,51 +85,6 @@
       ]
     },
     {
-      "Route": "css/comment.415ffye9pk.css",
-      "AssetFile": "css/comment.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "4406"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"OB7BTCaCeMtbhJ6LmmQoho9fZVQIVYtxv8Lt4vc1/tY=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Wed, 26 Feb 2025 08:25:43 GMT"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "415ffye9pk"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-OB7BTCaCeMtbhJ6LmmQoho9fZVQIVYtxv8Lt4vc1/tY="
-        },
-        {
-          "Name": "label",
-          "Value": "css/comment.css"
-        }
-      ]
-    },
-    {
       "Route": "css/comment.css",
       "AssetFile": "css/comment.css",
       "Selectors": [],
@@ -144,7 +99,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "4406"
+          "Value": "4418"
         },
         {
           "Name": "Content-Type",
@@ -152,17 +107,62 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"OB7BTCaCeMtbhJ6LmmQoho9fZVQIVYtxv8Lt4vc1/tY=\""
+          "Value": "\"NcYbgQzJxmJruf0CH4Y9q/qO/45AmIanZlgdh6CSrBk=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 26 Feb 2025 08:25:43 GMT"
+          "Value": "Tue, 04 Mar 2025 07:01:39 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-OB7BTCaCeMtbhJ6LmmQoho9fZVQIVYtxv8Lt4vc1/tY="
+          "Value": "sha256-NcYbgQzJxmJruf0CH4Y9q/qO/45AmIanZlgdh6CSrBk="
+        }
+      ]
+    },
+    {
+      "Route": "css/comment.x5eagortrf.css",
+      "AssetFile": "css/comment.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4418"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"NcYbgQzJxmJruf0CH4Y9q/qO/45AmIanZlgdh6CSrBk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 04 Mar 2025 07:01:39 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "x5eagortrf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-NcYbgQzJxmJruf0CH4Y9q/qO/45AmIanZlgdh6CSrBk="
+        },
+        {
+          "Name": "label",
+          "Value": "css/comment.css"
         }
       ]
     },
@@ -114061,6 +114061,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-I26dVTOBxG7Fdfqf380p1uVZJOptpQol/enWWhZlwoQ="
+        }
+      ]
+    },
+    {
+      "Route": "images/stickers/sticker-cute-la-chona-3.7usqztsgso.jpg",
+      "AssetFile": "images/stickers/sticker-cute-la-chona-3.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "44861"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"f2vu2gl5ZokH8JrmSE9iuWQe6xB1umy9Ndl1FOlUmAY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 04 Mar 2025 06:51:15 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "7usqztsgso"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-f2vu2gl5ZokH8JrmSE9iuWQe6xB1umy9Ndl1FOlUmAY="
+        },
+        {
+          "Name": "label",
+          "Value": "images/stickers/sticker-cute-la-chona-3.jpg"
+        }
+      ]
+    },
+    {
+      "Route": "images/stickers/sticker-cute-la-chona-3.jpg",
+      "AssetFile": "images/stickers/sticker-cute-la-chona-3.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "44861"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"f2vu2gl5ZokH8JrmSE9iuWQe6xB1umy9Ndl1FOlUmAY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 04 Mar 2025 06:51:15 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-f2vu2gl5ZokH8JrmSE9iuWQe6xB1umy9Ndl1FOlUmAY="
         }
       ]
     },

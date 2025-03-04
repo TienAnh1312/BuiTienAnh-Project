@@ -1,16 +1,16 @@
 ﻿<Project>
   <ItemGroup>
-    <StaticWebAssetEndpoint Include="_content/WebTAManga/css/comment.415ffye9pk.css">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\comment.css'))</AssetFile>
-      <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"415ffye9pk"},{"Name":"integrity","Value":"sha256-OB7BTCaCeMtbhJ6LmmQoho9fZVQIVYtxv8Lt4vc1/tY="},{"Name":"label","Value":"_content/WebTAManga/css/comment.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"4406"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022OB7BTCaCeMtbhJ6LmmQoho9fZVQIVYtxv8Lt4vc1/tY=\u0022"},{"Name":"Last-Modified","Value":"Wed, 26 Feb 2025 08:25:43 GMT"}]]]></ResponseHeaders>
-    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/WebTAManga/css/comment.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\comment.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-OB7BTCaCeMtbhJ6LmmQoho9fZVQIVYtxv8Lt4vc1/tY="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"4406"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022OB7BTCaCeMtbhJ6LmmQoho9fZVQIVYtxv8Lt4vc1/tY=\u0022"},{"Name":"Last-Modified","Value":"Wed, 26 Feb 2025 08:25:43 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-NcYbgQzJxmJruf0CH4Y9q/qO/45AmIanZlgdh6CSrBk="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"4418"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022NcYbgQzJxmJruf0CH4Y9q/qO/45AmIanZlgdh6CSrBk=\u0022"},{"Name":"Last-Modified","Value":"Tue, 04 Mar 2025 07:01:39 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WebTAManga/css/comment.x5eagortrf.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\comment.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"x5eagortrf"},{"Name":"integrity","Value":"sha256-NcYbgQzJxmJruf0CH4Y9q/qO/45AmIanZlgdh6CSrBk="},{"Name":"label","Value":"_content/WebTAManga/css/comment.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"4418"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022NcYbgQzJxmJruf0CH4Y9q/qO/45AmIanZlgdh6CSrBk=\u0022"},{"Name":"Last-Modified","Value":"Tue, 04 Mar 2025 07:01:39 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/WebTAManga/css/home.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\home.css'))</AssetFile>
@@ -16679,6 +16679,18 @@
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-I26dVTOBxG7Fdfqf380p1uVZJOptpQol/enWWhZlwoQ="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"36192"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022I26dVTOBxG7Fdfqf380p1uVZJOptpQol/enWWhZlwoQ=\u0022"},{"Name":"Last-Modified","Value":"Mon, 03 Mar 2025 11:05:18 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WebTAManga/images/stickers/sticker-cute-la-chona-3.7usqztsgso.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\stickers\sticker-cute-la-chona-3.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"7usqztsgso"},{"Name":"integrity","Value":"sha256-f2vu2gl5ZokH8JrmSE9iuWQe6xB1umy9Ndl1FOlUmAY="},{"Name":"label","Value":"_content/WebTAManga/images/stickers/sticker-cute-la-chona-3.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"44861"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022f2vu2gl5ZokH8JrmSE9iuWQe6xB1umy9Ndl1FOlUmAY=\u0022"},{"Name":"Last-Modified","Value":"Tue, 04 Mar 2025 06:51:15 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WebTAManga/images/stickers/sticker-cute-la-chona-3.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\stickers\sticker-cute-la-chona-3.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-f2vu2gl5ZokH8JrmSE9iuWQe6xB1umy9Ndl1FOlUmAY="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"44861"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022f2vu2gl5ZokH8JrmSE9iuWQe6xB1umy9Ndl1FOlUmAY=\u0022"},{"Name":"Last-Modified","Value":"Tue, 04 Mar 2025 06:51:15 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/WebTAManga/js/site.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\site.js'))</AssetFile>
