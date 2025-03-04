@@ -438,7 +438,8 @@
 
         <!-- Comment Section -->
         <div class="container mt-5">
-            <div class="comment-section">
+            <!-- Phần bình luận -->
+            <div class="comment-section mt-5">
                 <h4><i class="fas fa-comments"></i> Bình luận</h4>
 
                 <!-- Form thêm bình luận -->
@@ -450,18 +451,15 @@
                         </div>
                         <input type="hidden" name="StoryId" value="@Model.StoryId" />
                         <input type="hidden" name="StickerId" id="selectedStickerId" value="" />
-
-                        <!-- Horizontal sticker selection -->
                         <div class="sticker-selection mt-2">
                             <label>Chọn nhãn dán (tùy chọn):</label>
                             <div class="sticker-row">
                                 @foreach (var sticker in ViewBag.Stickers)
                                 {
-                                    <img src="~/@sticker.ImagePath" alt="@sticker.Name" class="sticker-icon" data-sticker-id="@sticker.StickerId" data-sticker-image="@sticker.ImagePath" style="max-width: 50px; cursor: pointer; margin-right: 10px;" />
+                                    <img src="~/@sticker.ImagePath" alt="@sticker.Name" class="sticker-icon" data-sticker-id="@sticker.StickerId" style="max-width: 50px; cursor: pointer; margin-right: 10px;" />
                                 }
                             </div>
                         </div>
-
                         <button type="submit" class="btn btn-primary mt-2"><i class="fas fa-paper-plane"></i> Gửi bình luận</button>
                     </form>
                 </div>
@@ -472,33 +470,15 @@
                     <ul class="list-group list-unstyled">
                         @foreach (var comment in ViewBag.Comments as List<WebTAManga.Models.Comment>)
                         {
-                            // Tính khoảng thời gian
-                            var timeSpan = DateTime.Now - (comment.CreatedAt ?? DateTime.MinValue); // Sử dụng DateTime.Now thay cho currentTime (giả định)
-                            string timeAgo;
-                            if (timeSpan.TotalMinutes < 60)
-                            {
-                                timeAgo = $"{(int)timeSpan.TotalMinutes} phút trước";
-                            }
-                            else if (timeSpan.TotalHours < 24)
-                            {
-                                timeAgo = $"{(int)timeSpan.TotalHours} giờ trước";
-                            }
-                            else if (timeSpan.TotalDays < 30)
-                            {
-                                timeAgo = $"{(int)timeSpan.TotalDays} ngày trước";
-                            }
-                            else if (timeSpan.TotalDays < 365)
-                            {
-                                timeAgo = $"{(int)(timeSpan.TotalDays / 30)} tháng trước";
-                            }
-                            else
-                            {
-                                timeAgo = $"{(int)(timeSpan.TotalDays / 365)} năm trước";
-                            }
+                            var timeSpan = DateTime.Now - (comment.CreatedAt ?? DateTime.MinValue);
+                            string timeAgo = timeSpan.TotalMinutes < 60 ? $"{(int)timeSpan.TotalMinutes} phút trước" :
+                            timeSpan.TotalHours < 24 ? $"{(int)timeSpan.TotalHours} giờ trước" :
+                            timeSpan.TotalDays < 30 ? $"{(int)timeSpan.TotalDays} ngày trước" :
+                            timeSpan.TotalDays < 365 ? $"{(int)(timeSpan.TotalDays / 30)} tháng trước" :
+                            $"{(int)(timeSpan.TotalDays / 365)} năm trước";
 
                             <li class="comment">
                                 <div class="d-flex align-items-start">
-                                    <!-- Avatar và AvatarFrame -->
                                     <div class="avatar-container me-3">
                                         @if (comment.User?.AvatarFrame != null && !string.IsNullOrEmpty(comment.User.AvatarFrame.ImagePath))
                                         {
@@ -506,7 +486,6 @@
                                         }
                                         <img src="~/uploads/avatars/@(string.IsNullOrEmpty(comment.User?.Avatar) ? "default-avatar.png" : comment.User.Avatar)" alt="@comment.User?.Username" class="avatar-img" />
                                     </div>
-                                    <!-- Thông tin người dùng và nội dung -->
                                     <div class="flex-grow-1">
                                         <div>
                                             <strong>@(comment.UserId == ViewBag.CurrentUserId ? "Bạn" : comment.User?.Username ?? "Ẩn danh")</strong>
@@ -517,30 +496,24 @@
                                             <span class="text-muted ms-2">(@timeAgo)</span>
                                         </div>
                                         <p class="mt-1 mb-2">@comment.Content</p>
-                                        <!-- Hiển thị nhãn dán nếu có -->
                                         @if (comment.Sticker != null && !string.IsNullOrEmpty(comment.Sticker.ImagePath))
                                         {
                                             <img src="~/@comment.Sticker.ImagePath" alt="@comment.Sticker.Name" style="max-width: 100px; margin-top: 5px;" />
                                         }
 
-                                        <!-- Nút trả lời -->
                                         <button class="btn btn-reply" onclick="toggleReplyForm(@comment.CommentId, null, '@(comment.User?.Username ?? "Ẩn danh")', @(comment.UserId == ViewBag.CurrentUserId ? "true" : "false"))">
                                             <i class="fas fa-reply"></i> Trả lời
                                         </button>
 
-                                        <!-- Form trả lời bình luận -->
                                         <div id="replyForm-@comment.CommentId" class="reply-form mt-2" style="display:none;">
                                             @using (Html.BeginForm("ReplyComment", "Comment", FormMethod.Post))
                                             {
                                                 @Html.AntiForgeryToken()
-                                                @Html.Hidden("storyId", comment.StoryId)
+                                                @Html.Hidden("storyId", Model.StoryId)
                                                 @Html.Hidden("parentCommentId", comment.CommentId)
                                                 <div class="form-group">
                                                     <textarea class="form-control" name="content" placeholder="Viết câu trả lời của bạn..." required></textarea>
                                                 </div>
-
-                                                <!-- Dropdown chọn nhãn dán cho reply -->
-                                                <!-- Reply Form Sticker Selection -->
                                                 <div class="sticker-selection mt-2">
                                                     <label>Chọn nhãn dán (tùy chọn):</label>
                                                     <div class="sticker-row">
@@ -555,7 +528,6 @@
                                             }
                                         </div>
 
-                                        <!-- Hiển thị các câu trả lời -->
                                         @if (comment.InverseParentComment?.Any() == true)
                                         {
                                             <div class="replies-toggle mt-2">
@@ -565,33 +537,15 @@
                                                 <div class="replies mt-3" id="replies-@comment.CommentId" style="display:none;">
                                                     @foreach (var reply in comment.InverseParentComment)
                                                     {
-                                                        // Tính khoảng thời gian cho reply
                                                         var replyTimeSpan = DateTime.Now - (reply.CreatedAt ?? DateTime.MinValue);
-                                                        string replyTimeAgo;
-                                                        if (replyTimeSpan.TotalMinutes < 60)
-                                                        {
-                                                            replyTimeAgo = $"{(int)replyTimeSpan.TotalMinutes} phút trước";
-                                                        }
-                                                        else if (replyTimeSpan.TotalHours < 24)
-                                                        {
-                                                            replyTimeAgo = $"{(int)replyTimeSpan.TotalHours} giờ trước";
-                                                        }
-                                                        else if (replyTimeSpan.TotalDays < 30)
-                                                        {
-                                                            replyTimeAgo = $"{(int)replyTimeSpan.TotalDays} ngày trước";
-                                                        }
-                                                        else if (replyTimeSpan.TotalDays < 365)
-                                                        {
-                                                            replyTimeAgo = $"{(int)(replyTimeSpan.TotalDays / 30)} tháng trước";
-                                                        }
-                                                        else
-                                                        {
-                                                            replyTimeAgo = $"{(int)(replyTimeSpan.TotalDays / 365)} năm trước";
-                                                        }
+                                                        string replyTimeAgo = replyTimeSpan.TotalMinutes < 60 ? $"{(int)replyTimeSpan.TotalMinutes} phút trước" :
+                                                        replyTimeSpan.TotalHours < 24 ? $"{(int)replyTimeSpan.TotalHours} giờ trước" :
+                                                        replyTimeSpan.TotalDays < 30 ? $"{(int)replyTimeSpan.TotalDays} ngày trước" :
+                                                        replyTimeSpan.TotalDays < 365 ? $"{(int)(replyTimeSpan.TotalDays / 30)} tháng trước" :
+                                                        $"{(int)(replyTimeSpan.TotalDays / 365)} năm trước";
 
                                                         <div class="reply">
                                                             <div class="d-flex align-items-start">
-                                                                <!-- Avatar và AvatarFrame cho reply -->
                                                                 <div class="avatar-container me-3">
                                                                     @if (reply.User?.AvatarFrame != null && !string.IsNullOrEmpty(reply.User.AvatarFrame.ImagePath))
                                                                     {
@@ -599,7 +553,6 @@
                                                                     }
                                                                     <img src="~/uploads/avatars/@(string.IsNullOrEmpty(reply.User?.Avatar) ? "default-avatar.png" : reply.User.Avatar)" alt="@reply.User?.Username" class="avatar-img" />
                                                                 </div>
-                                                                <!-- Thông tin người dùng và nội dung trong reply -->
                                                                 <div class="flex-grow-1">
                                                                     <div>
                                                                         <strong>@(reply.UserId == ViewBag.CurrentUserId ? "Bạn" : reply.User?.Username ?? "Ẩn danh")</strong>
@@ -608,46 +561,38 @@
                                                                             <span class="badge bg-primary ms-2">@reply.User.CategoryRank.Name</span>
                                                                         }
                                                                         <span class="text-muted ms-2">(@replyTimeAgo)</span>
-                                                                        
                                                                     </div>
                                                                     <p class="mt-1 mb-2">@reply.Content</p>
-                                                                    <!-- Hiển thị nhãn dán nếu có trong reply -->
                                                                     @if (reply.Sticker != null && !string.IsNullOrEmpty(reply.Sticker.ImagePath))
                                                                     {
                                                                         <img src="~/@reply.Sticker.ImagePath" alt="@reply.Sticker.Name" style="max-width: 100px; margin-top: 5px;" />
                                                                     }
-
-                                                                    <!-- Nút trả lời cho reply -->
                                                                     <button class="btn btn-reply" onclick="toggleReplyForm(@reply.CommentId, @comment.CommentId, '@(reply.User?.Username ?? "Ẩn danh")', @(reply.UserId == ViewBag.CurrentUserId ? "true" : "false"))">
                                                                         <i class="fas fa-reply"></i> Trả lời
                                                                     </button>
-
-                                                                    <!-- Form trả lời cho reply -->
                                                                     <div id="replyForm-@reply.CommentId" class="reply-form mt-2" style="display:none;">
                                                                         @using (Html.BeginForm("ReplyComment", "Comment", FormMethod.Post))
                                                                         {
                                                                             @Html.AntiForgeryToken()
-                                                                            @Html.Hidden("storyId", reply.StoryId)
+                                                                            @Html.Hidden("storyId", Model.StoryId)
                                                                             @Html.Hidden("parentCommentId", reply.CommentId)
                                                                             @Html.Hidden("grandParentCommentId", comment.CommentId)
                                                                             <div class="form-group">
                                                                                 <textarea class="form-control" name="content" placeholder="Viết câu trả lời của bạn..." required></textarea>
                                                                             </div>
-                                                                            <!-- Horizontal sticker selection -->
                                                                             <div class="sticker-selection mt-2">
                                                                                 <label>Chọn nhãn dán (tùy chọn):</label>
                                                                                 <div class="sticker-row">
                                                                                     @foreach (var sticker in ViewBag.Stickers)
                                                                                     {
-                                                                                        <img src="~/@sticker.ImagePath" alt="@sticker.Name" class="sticker-icon" data-sticker-id="@sticker.StickerId" data-sticker-image="@sticker.ImagePath" style="max-width: 50px; cursor: pointer; margin-right: 10px;" />
+                                                                                        <img src="~/@sticker.ImagePath" alt="@sticker.Name" class="sticker-icon" data-sticker-id="@sticker.StickerId" style="max-width: 50px; cursor: pointer; margin-right: 10px;" />
                                                                                     }
                                                                                 </div>
-                                                                                <input type="hidden" name="StickerId" value="" />
+                                                                                <input type="hidden" name="StickerId" id="selectedStickerId-@reply.CommentId" value="" />
                                                                             </div>
                                                                             <button type="submit" class="btn btn-primary mt-2"><i class="fas fa-reply"></i> Gửi</button>
                                                                         }
                                                                     </div>
-
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -660,6 +605,27 @@
                             </li>
                         }
                     </ul>
+
+                    <nav aria-label="Page navigation example" class="mt-4">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item @(ViewBag.CurrentCommentPage == 1 ? "disabled" : "")">
+                                <a class="page-link" asp-action="Details" asp-controller="Home" asp-route-id="@Model.StoryId" asp-route-commentPage="@(ViewBag.CurrentCommentPage - 1)" aria-label="Previous">
+                                    <span aria-hidden="true">«</span>
+                                </a>
+                            </li>
+                            @for (int i = 1; i <= ViewBag.TotalCommentPages; i++)
+                            {
+                                <li class="page-item @(i == ViewBag.CurrentCommentPage ? "active" : "")">
+                                    <a class="page-link" asp-action="Details" asp-controller="Home" asp-route-id="@Model.StoryId" asp-route-commentPage="@i">@i</a>
+                                </li>
+                            }
+                            <li class="page-item @(ViewBag.CurrentCommentPage == ViewBag.TotalCommentPages ? "disabled" : "")">
+                                <a class="page-link" asp-action="Details" asp-controller="Home" asp-route-id="@Model.StoryId" asp-route-commentPage="@(ViewBag.CurrentCommentPage + 1)" aria-label="Next">
+                                    <span aria-hidden="true">»</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 }
                 else
                 {

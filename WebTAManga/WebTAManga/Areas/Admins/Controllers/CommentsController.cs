@@ -169,19 +169,58 @@ namespace WebTAManga.Areas.Admins.Controllers
             return View(comment);
         }
 
-        // POST: Admins/Comments/Delete/5
-        [HttpPost, ActionName("Delete")]
+        // POST: Admins/Comments/DeleteMultiple
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteMultiple(int[] commentIds, string returnUrl = null)
         {
-            var comment = await _context.Comments.FindAsync(id);
-            if (comment != null)
+            if (commentIds == null || !commentIds.Any())
             {
-                _context.Comments.Remove(comment);
+                TempData["ErrorMessage"] = "Vui lòng chọn ít nhất một bình luận để xóa.";
+                return RedirectToAction(nameof(Index));
             }
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                // Cập nhật các comment con trước khi xóa
+                var childComments = await _context.Comments
+                    .Where(c => commentIds.Contains((int)c.ParentCommentId))
+                    .ToListAsync();
+
+                foreach (var comment in childComments)
+                {
+                    comment.ParentCommentId = null;
+                }
+
+                // Lấy các comment cần xóa
+                var commentsToDelete = await _context.Comments
+                    .Where(c => commentIds.Contains(c.CommentId))
+                    .ToListAsync();
+
+                if (!commentsToDelete.Any())
+                {
+                    TempData["ErrorMessage"] = "Không tìm thấy bình luận nào để xóa.";
+                    return RedirectToAction(nameof(Index));
+                }
+
+                _context.Comments.RemoveRange(commentsToDelete);
+                await _context.SaveChangesAsync();
+
+                TempData["SuccessMessage"] = $"Đã xóa thành công {commentsToDelete.Count} bình luận.";
+
+                // Quay lại trang trước nếu có returnUrl
+                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Có lỗi xảy ra khi xóa bình luận: " + ex.Message;
+                return RedirectToAction(nameof(Index));
+            }
         }
 
         private bool CommentExists(int id)

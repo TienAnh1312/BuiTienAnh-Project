@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WebTAManga")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b36cc520ce46fa2efd6013d7b90b762f3436efe3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f6ebf3df68f4afaa441ac69633facb3d46a970d7")]
 [assembly: System.Reflection.AssemblyProductAttribute("WebTAManga")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WebTAManga")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

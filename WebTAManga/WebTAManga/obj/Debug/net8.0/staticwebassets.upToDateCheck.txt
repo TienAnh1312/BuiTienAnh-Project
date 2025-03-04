@@ -1389,6 +1389,8 @@ wwwroot\images\event\tree2.png
 wwwroot\images\event\tree3.png
 wwwroot\images\stickers\sticker-cute-la-chona-2.jpg
 wwwroot\images\stickers\sticker-cute-la-chona-3.jpg
+wwwroot\images\stickers\sticker-cute-la-chona-4.jpg
+wwwroot\images\stickers\sticker-cute-la-chona-5.jpg
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap.css
 wwwroot\lib\bootstrap\dist\css\bootstrap.css.map
@@ -1454,9 +1456,14 @@ wwwroot\style\common.js
 wwwroot\style\story.js
 wwwroot\style\style.css
 wwwroot\uploads\avatars\10.jpeg
+wwwroot\uploads\avatars\11.jpg
+wwwroot\uploads\avatars\2.jfif
 wwwroot\uploads\avatars\29.jpeg
+wwwroot\uploads\avatars\3.jfif
 wwwroot\uploads\avatars\35.jpeg
+wwwroot\uploads\avatars\6.jfif
 wwwroot\uploads\avatars\74.jpeg
 wwwroot\uploads\avatars\8.jpeg
 wwwroot\uploads\avatars\BanChatCuaChuyenSinh.jfif
 wwwroot\uploads\avatars\tải xuống - 2025-02-20T180226.672.jfif
+wwwroot\uploads\avatars\VanTraTrieuHoang.jpg

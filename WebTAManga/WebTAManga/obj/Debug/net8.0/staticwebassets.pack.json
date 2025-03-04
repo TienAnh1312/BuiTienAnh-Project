@@ -5569,6 +5569,14 @@
       "PackagePath": "staticwebassets\\images\\stickers\\sticker-cute-la-chona-3.jpg"
     },
     {
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\stickers\\sticker-cute-la-chona-4.jpg",
+      "PackagePath": "staticwebassets\\images\\stickers\\sticker-cute-la-chona-4.jpg"
+    },
+    {
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\stickers\\sticker-cute-la-chona-5.jpg",
+      "PackagePath": "staticwebassets\\images\\stickers\\sticker-cute-la-chona-5.jpg"
+    },
+    {
       "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
@@ -5829,12 +5837,28 @@
       "PackagePath": "staticwebassets\\uploads\\avatars\\10.jpeg"
     },
     {
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\uploads\\avatars\\11.jpg",
+      "PackagePath": "staticwebassets\\uploads\\avatars\\11.jpg"
+    },
+    {
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\uploads\\avatars\\2.jfif",
+      "PackagePath": "staticwebassets\\uploads\\avatars\\2.jfif"
+    },
+    {
       "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\uploads\\avatars\\29.jpeg",
       "PackagePath": "staticwebassets\\uploads\\avatars\\29.jpeg"
     },
     {
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\uploads\\avatars\\3.jfif",
+      "PackagePath": "staticwebassets\\uploads\\avatars\\3.jfif"
+    },
+    {
       "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\uploads\\avatars\\35.jpeg",
       "PackagePath": "staticwebassets\\uploads\\avatars\\35.jpeg"
+    },
+    {
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\uploads\\avatars\\6.jfif",
+      "PackagePath": "staticwebassets\\uploads\\avatars\\6.jfif"
     },
     {
       "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\uploads\\avatars\\74.jpeg",
@@ -5847,6 +5871,10 @@
     {
       "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\uploads\\avatars\\BanChatCuaChuyenSinh.jfif",
       "PackagePath": "staticwebassets\\uploads\\avatars\\BanChatCuaChuyenSinh.jfif"
+    },
+    {
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\uploads\\avatars\\VanTraTrieuHoang.jpg",
+      "PackagePath": "staticwebassets\\uploads\\avatars\\VanTraTrieuHoang.jpg"
     },
     {
       "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\uploads\\avatars\\tải xuống - 2025-02-20T180226.672.jfif",

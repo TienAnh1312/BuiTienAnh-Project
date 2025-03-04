@@ -38,7 +38,7 @@ namespace WebTAManga.Controllers
                 })
                 .AsEnumerable()
                 .OrderByDescending(u => u.CoinsSpent)
-                .Take(10)
+                .Take(5)
                 .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
                 .ToList();
 
@@ -56,7 +56,7 @@ namespace WebTAManga.Controllers
                 })
                 .AsEnumerable()
                 .OrderByDescending(u => u.CoinsSpent)
-                .Take(10)
+                .Take(5)
                 .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
                 .ToList();
 
@@ -74,7 +74,7 @@ namespace WebTAManga.Controllers
                 })
                 .AsEnumerable()
                 .OrderByDescending(u => u.CoinsSpent)
-                .Take(10)
+                .Take(5)
                 .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
                 .ToList();
 
@@ -92,7 +92,7 @@ namespace WebTAManga.Controllers
                 })
                 .AsEnumerable()
                 .OrderByDescending(u => u.CoinsSpent)
-                .Take(10)
+                .Take(5)
                 .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
                 .ToList();
 
@@ -108,7 +108,7 @@ namespace WebTAManga.Controllers
                 })
                 .AsEnumerable()
                 .OrderByDescending(u => u.ExpPoints)
-                .Take(10)
+                .Take(5)
                 .Select((u, index) => new { Rank = index + 1, u.Username, u.ExpPoints })
                 .ToList();
 
@@ -123,7 +123,7 @@ namespace WebTAManga.Controllers
                 })
                 .AsEnumerable()
                 .OrderByDescending(u => u.ExpPoints)
-                .Take(10)
+                .Take(5)
                 .Select((u, index) => new { Rank = index + 1, u.Username, u.ExpPoints })
                 .ToList();
 
@@ -138,7 +138,7 @@ namespace WebTAManga.Controllers
                 })
                 .AsEnumerable()
                 .OrderByDescending(u => u.ExpPoints)
-                .Take(10)
+                .Take(5)
                 .Select((u, index) => new { Rank = index + 1, u.Username, u.ExpPoints })
                 .ToList();
 
@@ -151,7 +151,7 @@ namespace WebTAManga.Controllers
                 })
                 .AsEnumerable()
                 .OrderByDescending(u => u.ExpPoints)
-                .Take(10)
+                .Take(5)
                 .Select((u, index) => new { Rank = index + 1, u.Username, ExpPoints = u.ExpPoints ?? 0 })
                 .ToList();
 
@@ -199,7 +199,7 @@ namespace WebTAManga.Controllers
             return View(stories);
         }
 
-        public IActionResult Details(int? id)
+        public IActionResult Details(int? id, int commentPage = 1)
         {
             var userId = HttpContext.Session.GetInt32("UsersID");
 
@@ -213,14 +213,6 @@ namespace WebTAManga.Controllers
                 .Include(s => s.StoryGenres)
                 .ThenInclude(sg => sg.Genre)
                 .Include(s => s.Chapters)
-                .Include(s => s.Comments)
-                .ThenInclude(c => c.User)
-                .ThenInclude(u => u.AvatarFrame)
-                .Include(s => s.Comments)
-                .ThenInclude(c => c.User)
-                .ThenInclude(u => u.CategoryRank)
-                .Include(s => s.Comments)
-                .ThenInclude(c => c.Sticker)
                 .FirstOrDefault(s => s.StoryId == id);
 
             if (story == null)
@@ -229,12 +221,13 @@ namespace WebTAManga.Controllers
             }
 
             // Tính số đếm cho truyện
-            int favoriteCount = _context.Favorites.Count(f => f.StoryId == id); // Số lượt yêu thích
-            int viewCount = _context.ReadingHistories.Count(r => r.StoryId == id); // Số lượt xem
-            int followerCount = _context.FollowedStories.Count(f => f.StoryId == id); // Số người theo dõi
+            int favoriteCount = _context.Favorites.Count(f => f.StoryId == id);
+            int viewCount = _context.ReadingHistories.Count(r => r.StoryId == id);
+            int followerCount = _context.FollowedStories.Count(f => f.StoryId == id);
 
-            // Tải danh sách bình luận và nhãn dán (như trong mã gốc của bạn)
-            var comments = _context.Comments
+            // Phân trang cho bình luận gốc
+            int pageSize = 6; // Số bình luận mỗi trang
+            var rootCommentsQuery = _context.Comments
                 .Where(c => c.StoryId == id && c.ParentCommentId == null)
                 .OrderByDescending(c => c.CreatedAt)
                 .Include(c => c.User)
@@ -249,13 +242,18 @@ namespace WebTAManga.Controllers
                 .ThenInclude(u => u.CategoryRank)
                 .Include(c => c.Sticker)
                 .Include(c => c.InverseParentComment)
-                .ThenInclude(r => r.Sticker)
+                .ThenInclude(r => r.Sticker);
+
+            var totalRootComments = rootCommentsQuery.Count();
+            var comments = rootCommentsQuery
+                .Skip((commentPage - 1) * pageSize)
+                .Take(pageSize)
                 .ToList();
 
             // Tải danh sách nhãn dán cho form bình luận
             var stickers = _context.Stickers.ToList();
 
-            // Logic bảng xếp hạng (giữ nguyên như mã gốc của bạn)
+            // Logic bảng xếp hạng (giữ nguyên)
             var topCoinsByDay = _context.Users
                 .Select(u => new
                 {
@@ -270,7 +268,7 @@ namespace WebTAManga.Controllers
                 })
                 .AsEnumerable()
                 .OrderByDescending(u => u.CoinsSpent)
-                .Take(10)
+                .Take(5)
                 .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
                 .ToList();
 
@@ -288,7 +286,7 @@ namespace WebTAManga.Controllers
                 })
                 .AsEnumerable()
                 .OrderByDescending(u => u.CoinsSpent)
-                .Take(10)
+                .Take(5)
                 .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
                 .ToList();
 
@@ -306,7 +304,7 @@ namespace WebTAManga.Controllers
                 })
                 .AsEnumerable()
                 .OrderByDescending(u => u.CoinsSpent)
-                .Take(10)
+                .Take(5)
                 .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
                 .ToList();
 
@@ -324,7 +322,7 @@ namespace WebTAManga.Controllers
                 })
                 .AsEnumerable()
                 .OrderByDescending(u => u.CoinsSpent)
-                .Take(10)
+                .Take(5)
                 .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
                 .ToList();
 
@@ -339,7 +337,7 @@ namespace WebTAManga.Controllers
                 })
                 .AsEnumerable()
                 .OrderByDescending(u => u.ExpPoints)
-                .Take(10)
+                .Take(5)
                 .Select((u, index) => new { Rank = index + 1, u.Username, u.ExpPoints })
                 .ToList();
 
@@ -354,7 +352,7 @@ namespace WebTAManga.Controllers
                 })
                 .AsEnumerable()
                 .OrderByDescending(u => u.ExpPoints)
-                .Take(10)
+                .Take(5)
                 .Select((u, index) => new { Rank = index + 1, u.Username, u.ExpPoints })
                 .ToList();
 
@@ -369,7 +367,7 @@ namespace WebTAManga.Controllers
                 })
                 .AsEnumerable()
                 .OrderByDescending(u => u.ExpPoints)
-                .Take(10)
+                .Take(5)
                 .Select((u, index) => new { Rank = index + 1, u.Username, u.ExpPoints })
                 .ToList();
 
@@ -382,17 +380,17 @@ namespace WebTAManga.Controllers
                 })
                 .AsEnumerable()
                 .OrderByDescending(u => u.ExpPoints)
-                .Take(10)
+                .Take(5)
                 .Select((u, index) => new { Rank = index + 1, u.Username, ExpPoints = u.ExpPoints ?? 0 })
                 .ToList();
 
-            // Truyền số đếm vào view qua ViewBag
+            // Truyền dữ liệu vào ViewBag
             ViewBag.FavoriteCount = favoriteCount;
             ViewBag.ViewCount = viewCount;
             ViewBag.FollowerCount = followerCount;
-
-            // Gán các giá trị ViewBag hiện có (không thay đổi)
             ViewBag.Comments = comments;
+            ViewBag.CurrentCommentPage = commentPage;
+            ViewBag.TotalCommentPages = (int)Math.Ceiling(totalRootComments / (double)pageSize);
             ViewBag.ReadingHistories = _context.ReadingHistories
                 .Where(r => r.UserId == userId && r.StoryId == id)
                 .ToList();
@@ -401,12 +399,11 @@ namespace WebTAManga.Controllers
             ViewBag.CurrentUserId = userId;
             ViewBag.Stickers = stickers;
 
-            // Gán dữ liệu bảng xếp hạng (không thay đổi)
+            // Gán dữ liệu bảng xếp hạng
             ViewBag.TopCoinsByDay = topCoinsByDay;
             ViewBag.TopCoinsByMonth = topCoinsByMonth;
             ViewBag.TopCoinsByYear = topCoinsByYear;
             ViewBag.TopCoinsAllTime = topCoinsAllTime;
-
             ViewBag.TopExpByDay = topExpByDay;
             ViewBag.TopExpByMonth = topExpByMonth;
             ViewBag.TopExpByYear = topExpByYear;
@@ -434,6 +431,43 @@ namespace WebTAManga.Controllers
                 .ToList();
 
             return Json(suggestions);
+        }
+
+        [HttpGet]
+        public IActionResult GetComments(int id, int commentPage = 1)
+        {
+            int pageSize = 6;
+            var rootCommentsQuery = _context.Comments
+                .Where(c => c.StoryId == id && c.ParentCommentId == null)
+                .OrderByDescending(c => c.CreatedAt)
+                .Include(c => c.User)
+                .ThenInclude(u => u.AvatarFrame)
+                .Include(c => c.User)
+                .ThenInclude(u => u.CategoryRank)
+                .Include(c => c.InverseParentComment)
+                .ThenInclude(r => r.User)
+                .ThenInclude(u => u.AvatarFrame)
+                .Include(c => c.InverseParentComment)
+                .ThenInclude(r => r.User)
+                .ThenInclude(u => u.CategoryRank)
+                .Include(c => c.Sticker)
+                .Include(c => c.InverseParentComment)
+                .ThenInclude(r => r.Sticker);
+
+            var totalRootComments = rootCommentsQuery.Count();
+            var comments = rootCommentsQuery
+                .Skip((commentPage - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            ViewBag.Comments = comments;
+            ViewBag.CurrentCommentPage = commentPage;
+            ViewBag.TotalCommentPages = (int)Math.Ceiling(totalRootComments / (double)pageSize);
+            ViewBag.StoryId = id;
+            ViewBag.CurrentUserId = HttpContext.Session.GetInt32("UsersID");
+            ViewBag.Stickers = _context.Stickers.ToList();
+
+            return PartialView("_CommentsPartial");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

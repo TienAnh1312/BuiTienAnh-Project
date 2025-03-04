@@ -193,7 +193,7 @@ namespace WebTAManga.Controllers
         // POST: Users/Profile
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Profile([Bind("UserId,Username,Email,Level,Avatar,AvatarFrame,Password,RankId")] User user, IFormFile avatarFile, string newPassword, int selectedRankId, int selectedFrameId)
+        public async Task<IActionResult> Profile([Bind("UserId,Username,Email,Level,Avatar,AvatarFrame,Password,RankId")] User user, IFormFile avatarFile, string newPassword, int selectedRankId, int? selectedFrameId = null)
         {
             var currentUserId = HttpContext.Session.GetInt32("UsersID");
             if (currentUserId == null)
@@ -201,18 +201,26 @@ namespace WebTAManga.Controllers
                 return RedirectToAction("Index", "Login");
             }
 
-            var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.UserId == currentUserId);
+            // Lấy thông tin người dùng hiện tại từ cơ sở dữ liệu
+            var existingUser = await _context.Users
+                .Include(u => u.Rank)
+                .Include(u => u.CategoryRank)
+                .Include(u => u.AvatarFrame)
+                .Include(u => u.PurchasedAvatarFrames)
+                .ThenInclude(p => p.AvatarFrame)
+                .FirstOrDefaultAsync(u => u.UserId == currentUserId);
+
             if (existingUser == null)
             {
                 return NotFound();
             }
 
-            // Cập nhật thông tin cá nhân
+            // Cập nhật thông tin cơ bản (không liên quan đến khung)
             existingUser.Username = user.Username;
             existingUser.Email = user.Email;
-
-            // Cập nhật Rank
             existingUser.RankId = selectedRankId;
+
+            // Xử lý Rank và Level
             var currentLevel = _context.Levels
                 .Where(l => l.ExpRequired <= (existingUser.ExpPoints ?? 0))
                 .OrderByDescending(l => l.ExpRequired)
@@ -229,10 +237,32 @@ namespace WebTAManga.Controllers
                 existingUser.Level = currentLevel.LevelId;
             }
 
-            // Cập nhật Avatar Frame
-            existingUser.AvatarFrameId = selectedFrameId;
+            // Xử lý AvatarFrameId (khung avatar) - chỉ cập nhật nếu người dùng chọn khung
+            if (selectedFrameId.HasValue && selectedFrameId != 0)
+            {
+                // Kiểm tra xem khung có tồn tại và đã được mua không
+                var avatarFrameExists = await _context.AvatarFrames.AnyAsync(af => af.AvatarFrameId == selectedFrameId.Value);
+                var isPurchased = _context.PurchasedAvatarFrames.Any(p => p.UserId == currentUserId && p.AvatarFrameId == selectedFrameId.Value);
 
-            // Cập nhật Avatar
+                if (!avatarFrameExists)
+                {
+                    ModelState.AddModelError("", "Khung avatar được chọn không tồn tại.");
+                    return View(existingUser);
+                }
+                if (!isPurchased)
+                {
+                    ModelState.AddModelError("", "Bạn không sở hữu khung avatar này.");
+                    return View(existingUser);
+                }
+
+                // Nếu hợp lệ, cập nhật AvatarFrameId
+                existingUser.AvatarFrameId = selectedFrameId.Value;
+            }
+            // Nếu không chọn khung (selectedFrameId là null hoặc 0), giữ nguyên giá trị hiện tại của AvatarFrameId
+            // Hoặc có thể đặt thành null nếu bạn muốn cho phép bỏ chọn khung:
+            // existingUser.AvatarFrameId = null;
+
+            // Xử lý cập nhật avatar (nếu có file upload)
             if (avatarFile != null && avatarFile.Length > 0)
             {
                 var uploadsFolder = Path.Combine(_environment.WebRootPath, "uploads/avatars");
@@ -260,17 +290,26 @@ namespace WebTAManga.Controllers
                 existingUser.Avatar = fileName;
             }
 
-            // Cập nhật mật khẩu
+            // Xử lý mật khẩu mới (nếu có)
             if (!string.IsNullOrEmpty(newPassword))
             {
                 var passwordHasher = new PasswordHasher<User>();
                 existingUser.Password = passwordHasher.HashPassword(existingUser, newPassword);
             }
 
-            _context.Update(existingUser);
-            await _context.SaveChangesAsync();
+            // Lưu thay đổi
+            try
+            {
+                _context.Update(existingUser);
+                await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Thông tin đã được cập nhật thành công!";
+            }
+            catch (DbUpdateException ex)
+            {
+                ModelState.AddModelError("", $"Lỗi khi lưu thay đổi: {ex.InnerException?.Message}");
+                return View(existingUser);
+            }
 
-            TempData["SuccessMessage"] = "Thông tin đã được cập nhật thành công!";
             return RedirectToAction("Profile");
         }
 

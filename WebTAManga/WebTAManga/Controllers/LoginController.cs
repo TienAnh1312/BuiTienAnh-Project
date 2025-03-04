@@ -50,11 +50,20 @@ namespace WebTAManga.Controllers
             return View(model);
         }
 
-        [HttpGet]
         public IActionResult Logout()
         {
+            // Lưu thông tin user trước khi xóa (nếu cần)
+            var username = HttpContext.Session.GetString("usersLogin");
+
+            // Xóa session
             HttpContext.Session.Remove("usersLogin");
-            return RedirectToAction("Index");
+            HttpContext.Session.Remove("UsersId");
+
+            // Thêm thông báo thành công
+            TempData["SuccessMessage"] = $"Đăng xuất thành công{(username != null ? " khỏi tài khoản " + username : "")}";
+
+            // Chuyển hướng về trang chủ
+            return RedirectToAction("Index", "Home");
         }
     }
 }
