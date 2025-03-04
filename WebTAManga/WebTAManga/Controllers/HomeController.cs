@@ -208,7 +208,7 @@ namespace WebTAManga.Controllers
                 return NotFound();
             }
 
-            // Tải thông tin truyện với các liên kết cần thiết
+            // Tải thông tin truyện với các mối quan hệ cần thiết
             var story = _context.Stories
                 .Include(s => s.StoryGenres)
                 .ThenInclude(sg => sg.Genre)
@@ -219,8 +219,8 @@ namespace WebTAManga.Controllers
                 .Include(s => s.Comments)
                 .ThenInclude(c => c.User)
                 .ThenInclude(u => u.CategoryRank)
-                .Include(s => s.Comments) // Thêm để lấy nhãn dán nếu có
-                .ThenInclude(c => c.Sticker) // Liên kết với Sticker
+                .Include(s => s.Comments)
+                .ThenInclude(c => c.Sticker)
                 .FirstOrDefault(s => s.StoryId == id);
 
             if (story == null)
@@ -228,7 +228,12 @@ namespace WebTAManga.Controllers
                 return NotFound();
             }
 
-            // Tải danh sách bình luận
+            // Tính số đếm cho truyện
+            int favoriteCount = _context.Favorites.Count(f => f.StoryId == id); // Số lượt yêu thích
+            int viewCount = _context.ReadingHistories.Count(r => r.StoryId == id); // Số lượt xem
+            int followerCount = _context.FollowedStories.Count(f => f.StoryId == id); // Số người theo dõi
+
+            // Tải danh sách bình luận và nhãn dán (như trong mã gốc của bạn)
             var comments = _context.Comments
                 .Where(c => c.StoryId == id && c.ParentCommentId == null)
                 .OrderByDescending(c => c.CreatedAt)
@@ -242,16 +247,15 @@ namespace WebTAManga.Controllers
                 .Include(c => c.InverseParentComment)
                 .ThenInclude(r => r.User)
                 .ThenInclude(u => u.CategoryRank)
-                .Include(c => c.Sticker) // Thêm để lấy thông tin nhãn dán
+                .Include(c => c.Sticker)
                 .Include(c => c.InverseParentComment)
-                .ThenInclude(r => r.Sticker) // Thêm để lấy nhãn dán cho các reply
+                .ThenInclude(r => r.Sticker)
                 .ToList();
 
-            // Lấy danh sách nhãn dán để hiển thị trong form bình luận
+            // Tải danh sách nhãn dán cho form bình luận
             var stickers = _context.Stickers.ToList();
-            ViewBag.Stickers = stickers;
 
-            // --- Thêm logic xếp hạng tiêu xu ---
+            // Logic bảng xếp hạng (giữ nguyên như mã gốc của bạn)
             var topCoinsByDay = _context.Users
                 .Select(u => new
                 {
@@ -324,7 +328,6 @@ namespace WebTAManga.Controllers
                 .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
                 .ToList();
 
-            // --- Thêm logic xếp hạng EXP ---
             var topExpByDay = _context.Users
                 .Select(u => new
                 {
@@ -383,7 +386,12 @@ namespace WebTAManga.Controllers
                 .Select((u, index) => new { Rank = index + 1, u.Username, ExpPoints = u.ExpPoints ?? 0 })
                 .ToList();
 
-            // Gán dữ liệu vào ViewBag
+            // Truyền số đếm vào view qua ViewBag
+            ViewBag.FavoriteCount = favoriteCount;
+            ViewBag.ViewCount = viewCount;
+            ViewBag.FollowerCount = followerCount;
+
+            // Gán các giá trị ViewBag hiện có (không thay đổi)
             ViewBag.Comments = comments;
             ViewBag.ReadingHistories = _context.ReadingHistories
                 .Where(r => r.UserId == userId && r.StoryId == id)
@@ -391,9 +399,9 @@ namespace WebTAManga.Controllers
             ViewBag.IsFavorited = userId.HasValue && _context.Favorites.Any(f => f.UserId == userId && f.StoryId == id);
             ViewBag.IsFollowed = userId.HasValue && _context.FollowedStories.Any(f => f.UserId == userId && f.StoryId == id);
             ViewBag.CurrentUserId = userId;
-            ViewBag.Stickers = stickers; // Truyền danh sách nhãn dán vào ViewBag
+            ViewBag.Stickers = stickers;
 
-            // Gán dữ liệu xếp hạng vào ViewBag
+            // Gán dữ liệu bảng xếp hạng (không thay đổi)
             ViewBag.TopCoinsByDay = topCoinsByDay;
             ViewBag.TopCoinsByMonth = topCoinsByMonth;
             ViewBag.TopCoinsByYear = topCoinsByYear;

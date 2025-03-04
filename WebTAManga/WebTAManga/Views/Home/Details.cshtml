@@ -138,6 +138,20 @@
                             </div>
                             <div class="col-12 col-md-12 col-lg-9">
                                 <h3 class="text-center story-name">@Model.Title</h3>
+                                <div class="story-metrics d-flex justify-content-center mb-3">
+                                    <div class="metric-item d-flex align-items-center me-3">
+                                        <i class="bi bi-star-fill" style=" color: #ffd700;"></i>
+                                        <span class="ms-2">@ViewBag.FavoriteCount</span>
+                                    </div>
+                                    <div class="metric-item d-flex align-items-center me-3">
+                                        <i class="bi bi-eye-fill" style=" color: #000;"></i> 
+                                        <span class="ms-2">@ViewBag.ViewCount</span>
+                                    </div>
+                                    <div class="metric-item d-flex align-items-center">
+                                        <i class="bi bi-person-fill" style=" color: #000;"></i>
+                                        <span class="ms-2">@ViewBag.FollowerCount</span>
+                                    </div>
+                                </div>
                                 <div class="rate-story mb-2">
                                     <em class="rate-story__text"></em>
                                     <div class="rate-story__value" itemprop="aggregateRating" itemscope="" itemtype="https://schema.org/AggregateRating">
@@ -151,20 +165,6 @@
                                 </div>
                                 <div class="story-detail__top--desc px-3" style="max-height: 285px;">
                                     @Html.Raw(Model.Description)
-                                </div>
-                                <div class="info-more">
-                                    <div class="info-more--more active" id="info_more">
-                                        <span class="me-1 text-dark">Xem thêm</span>
-                                        <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M7.70749 7.70718L13.7059 1.71002C14.336 1.08008 13.8899 0.00283241 12.9989 0.00283241L1.002 0.00283241C0.111048 0.00283241 -0.335095 1.08008 0.294974 1.71002L6.29343 7.70718C6.68394 8.09761 7.31699 8.09761 7.70749 7.70718Z" fill="#2C2C37"></path>
-                                        </svg>
-                                    </div>
-                                    <a class="info-more--collapse text-decoration-none" href="story.html#info_more">
-                                        <span class="me-1 text-dark">Thu gọn</span>
-                                        <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M7.70749 0.292817L13.7059 6.28998C14.336 6.91992 13.8899 7.99717 12.9989 7.99717L1.002 7.99717C0.111048 7.99717 -0.335095 6.91992 0.294974 6.28998L6.29343 0.292817C6.68394 -0.097606 7.31699 -0.0976055 7.70749 0.292817Z" fill="#2C2C37"></path>
-                                        </svg>
-                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -758,7 +758,8 @@
             }
         });
     });
-
+</script>
+<script>
     // Xem trước nhãn dán cho tất cả dropdown
      document.querySelectorAll('select[name="StickerId"]').forEach(function (select) {
          select.addEventListener("change", function () {
