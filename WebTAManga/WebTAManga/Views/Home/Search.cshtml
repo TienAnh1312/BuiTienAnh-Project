@@ -1,0 +1,107 @@
+﻿@{
+    ViewData["Title"] = "Kết quả tìm kiếm";
+}
+
+<div class="container mt-5">
+    <!-- Tiêu đề -->
+    <h2 class="text-center mb-4">
+        Kết quả tìm kiếm cho: <span class="text-primary fw-bold">"@ViewBag.SearchQuery"</span>
+    </h2>
+
+    <!-- Thông báo khi không có kết quả -->
+    @if (ViewBag.SearchResults.Count == 0)
+    {
+        <div class="alert alert-warning text-center py-4" role="alert">
+            Không tìm thấy truyện nào phù hợp với từ khóa <strong>"@ViewBag.SearchQuery"</strong>.
+            <p class="mt-2">Hãy thử từ khóa khác hoặc kiểm tra lại chính tả!</p>
+        </div>
+    }
+    else
+    {
+        <!-- Danh sách kết quả -->
+        <div class="row g-4">
+            @foreach (var story in ViewBag.SearchResults)
+            {
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="card h-100 shadow-sm border-0 story-card">
+                        <div class="book-3d text-center">
+                            <a href="/Home/Details?id=@story.StoryId">
+                                <img src="~/@story.CoverImage" alt="@story.Title" class="card-img-top rounded-top img-fluid" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="card-body text-center d-flex flex-column justify-content-between">
+                            <h5 class="card-title story-name mb-2">
+                                <a href="/Home/Details?id=@story.StoryId" class="text-dark text-decoration-none">@story.Title</a>
+                            </h5>
+                            <!-- Thêm nút xem chi tiết -->
+                            <a href="/Home/Details?id=@story.StoryId" class="btn btn-outline-primary btn-sm mt-auto">Xem chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<!-- CSS tùy chỉnh -->
+<style>
+    .col-lg-3 {
+        width: 17% !important;
+    }
+
+    /* Hiệu ứng hover cho card */
+    .story-card {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+
+    .story-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+    }
+
+    /* Hiệu ứng 3D cho ảnh bìa */
+    .book-3d {
+        position: relative;
+        perspective: 1000px;
+    }
+
+    .book-3d img {
+        transition: transform 0.3s ease;
+        max-height: 300px; /* Giới hạn chiều cao ảnh */
+        object-fit: cover; /* Đảm bảo ảnh không bị méo */
+    }
+
+    .book-3d:hover img {
+        transform: rotateY(10deg) scale(1.05);
+    }
+
+    /* Tùy chỉnh tiêu đề truyện */
+    .story-name {
+        font-size: 1.1rem;
+        font-weight: 600;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* Giới hạn 2 dòng */
+        -webkit-box-orient: vertical;
+    }
+
+    /* Responsive adjustments */
+    @@media (max-width: 768px) {
+        .story-name
+
+    {
+        font-size: 1rem;
+    }
+
+        .col-lg-3 {
+            width: 25% !important;
+        }
+
+    .book-3d img {
+        max-height: 250px;
+    }
+
+    }
+</style>

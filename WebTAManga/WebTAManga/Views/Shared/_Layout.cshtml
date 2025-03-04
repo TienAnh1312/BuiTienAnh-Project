@@ -19,6 +19,29 @@
     <!-- Font Awesome cho biểu tượng -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
+    <style>
+        .search-result {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            display: none; /* Ẩn mặc định */
+            width: 100%;
+        }
+
+            .search-result.show {
+                display: block; /* Hiển thị khi có gợi ý */
+            }
+
+        .list-group-item {
+            cursor: pointer;
+            color: black;
+        }
+
+            .list-group-item:hover {
+                background-color: #f0f0f0;
+            }
+    </style>
 </head>
 <body>
     <header class="header d-none d-lg-block">
@@ -125,13 +148,13 @@
                         }
                     </ul>
 
-                    <form class="d-flex header__form-search" action="" method="GET">
+                    <form class="d-flex header__form-search" action="/Home/Search" method="GET">
                         <input class="form-control search-story" type="text" placeholder="Tìm kiếm" name="key_word" value="" autocomplete="off">
                         <div class="col-12 search-result shadow no-result">
                             <div class="card text-white bg-light">
                                 <div class="card-body p-0">
-                                    <ul class="list-group list-group-flush">
-                                        <!-- Gợi ý sẽ được thêm vào đây bởi jQuery UI -->
+                                    <ul class="list-group list-group-flush" id="suggestion-list">
+                                        <!-- Gợi ý sẽ được thêm vào đây -->
                                     </ul>
                                 </div>
                             </div>
@@ -142,6 +165,7 @@
                             </svg>
                         </button>
                     </form>
+
                 </div>
             </div>
         </nav>
@@ -153,7 +177,7 @@
 
     @* footer *@
     @await Html.PartialAsync("_Footer")
-    <
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.14.1/jquery-ui.min.js" integrity="sha512-MSOo1aY+3pXCOCdGAYoBZ6YGI0aragoQsg1mKKBHXCYPIWxamwOE7Drh+N5CPgGI5SA9IEKJiPjdfqWFWmZtRA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js" integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -161,33 +185,67 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     <script>
-                $(document).ready(function () {
-            $(".search-story").autocomplete({
-                source: function (request, response) {
-                    $.ajax({
-                        url: "/Home/SearchSuggestions",
-                        method: "GET",
-                        data: { query: request.term },
-                        dataType: "json",
-                        success: function (data) {
-                            response($.map(data, function (item) {
-                                return {
-                                    label: item.title, // Hiển thị tiêu đề trong gợi ý
-                                    value: item.title, // Giá trị khi chọn
-                                    id: item.storyId   // ID để tạo link
-                                };
-                            }));
-                        },
-                        error: function (xhr, status, error) {
-                            console.error("Error fetching suggestions:", error);
-                            response([]);
-                        }
-                    });
-                },
-                minLength: 1, // Bắt đầu tìm kiếm từ 1 ký tự
-                select: function (event, ui) {
-                    // Chuyển hướng đến trang chi tiết khi chọn gợi ý
-                    window.location.href = "/Home/Details/" + ui.item.id;
+            document.addEventListener("DOMContentLoaded", function () {
+            const searchInput = document.querySelector(".search-story");
+            const suggestionList = document.getElementById("suggestion-list");
+            const searchResultDiv = document.querySelector(".search-result");
+
+            searchInput.addEventListener("input", async function () {
+                const query = this.value.trim();
+
+                if (query.length === 0) {
+                    searchResultDiv.classList.remove("show");
+                    suggestionList.innerHTML = "";
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`/Home/SearchSuggestions?query=${encodeURIComponent(query)}`);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const suggestions = await response.json();
+
+                    if (suggestions.error) {
+                        console.error("Lỗi từ server:", suggestions.error);
+                        suggestionList.innerHTML = `<li class="list-group-item text-danger">Có lỗi xảy ra. Vui lòng thử lại.</li>`;
+                        searchResultDiv.classList.add("show");
+                        return;
+                    }
+
+                    suggestionList.innerHTML = "";
+
+                    if (suggestions.length > 0) {
+                        suggestions.forEach(suggestion => {
+                            const li = document.createElement("li");
+                            li.classList.add("list-group-item");
+                            li.innerHTML = `
+                                <div class="d-flex align-items-center">
+                                    <img src="/${suggestion.coverImage}" alt="${suggestion.title}" class="rounded me-2" style="width: 50px; height: 75px; object-fit: cover;">
+                                    <div>
+                                        <a href="/Home/Details?id=${suggestion.storyId}" class="text-dark text-decoration-none">${suggestion.title}</a>
+                                    </div>
+                                </div>
+                            `;
+                            li.addEventListener("click", function () {
+                                window.location.href = `/Home/Details?id=${suggestion.storyId}`;
+                            });
+                            suggestionList.appendChild(li);
+                        });
+                        searchResultDiv.classList.add("show");
+                    } else {
+                        searchResultDiv.classList.remove("show");
+                    }
+                } catch (error) {
+                    console.error("Lỗi khi gọi API:", error);
+                    suggestionList.innerHTML = `<li class="list-group-item text-danger">Có lỗi xảy ra. Vui lòng thử lại.</li>`;
+                    searchResultDiv.classList.add("show");
+                }
+            });
+
+            document.addEventListener("click", function (e) {
+                if (!searchResultDiv.contains(e.target) && e.target !== searchInput) {
+                    searchResultDiv.classList.remove("show");
                 }
             });
         });

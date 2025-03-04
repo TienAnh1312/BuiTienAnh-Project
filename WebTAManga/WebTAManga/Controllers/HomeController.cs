@@ -415,22 +415,61 @@ namespace WebTAManga.Controllers
         [HttpGet]
         public IActionResult SearchSuggestions(string query)
         {
-            if (string.IsNullOrEmpty(query))
+            try
             {
-                return Json(new List<object>());
+                if (string.IsNullOrEmpty(query))
+                {
+                    return Json(new List<object>());
+                }
+
+                var searchTerm = query.ToLower();
+
+                var suggestions = _context.Stories
+                    .Where(s => !string.IsNullOrEmpty(s.Title) && s.Title.ToLower().Contains(searchTerm))
+                    .Select(s => new
+                    {
+                        
+                        storyId = s.StoryId,
+                        coverImage = s.CoverImage,
+                        title = s.Title
+                    })
+                    .Take(10)
+                    .ToList();
+
+                return Json(suggestions);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in SearchSuggestions for query: {Query}", query);
+                return Json(new { error = "Có lỗi xảy ra khi tìm kiếm gợi ý. Vui lòng thử lại sau." });
+            }
+        }
+
+        //tìm kiếm
+        [HttpGet]
+        public IActionResult Search(string key_word)
+        {
+            if (string.IsNullOrEmpty(key_word))
+            {
+                ViewBag.SearchQuery = "";
+                ViewBag.SearchResults = new List<Story>();
+                return View();
             }
 
-            var suggestions = _context.Stories
-                .Where(s => s.Title.Contains(query, StringComparison.OrdinalIgnoreCase))
-                .Select(s => new
-                {
-                    storyId = s.StoryId,
-                    title = s.Title
-                })
-                .Take(10)
+            // Chuyển key_word về dạng chữ thường để so sánh
+            var searchTerm = key_word.ToLower();
+
+            var searchResults = _context.Stories
+                .Where(s => s.Title.ToLower().Contains(searchTerm))
+                .Include(s => s.Chapters)
+                .Include(s => s.StoryGenres).ThenInclude(sg => sg.Genre)
+                .OrderByDescending(s => s.LastUpdatedAt)
                 .ToList();
 
-            return Json(suggestions);
+            ViewBag.SearchQuery = key_word;
+            ViewBag.SearchResults = searchResults;
+
+            return View();
         }
 
         [HttpGet]
