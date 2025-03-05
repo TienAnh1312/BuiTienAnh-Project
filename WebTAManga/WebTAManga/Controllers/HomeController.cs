@@ -412,6 +412,7 @@ namespace WebTAManga.Controllers
             return View(story);
         }
 
+        // tìm kiếm (nhập giá trị đưa ra gợi ý luôn)
         [HttpGet]
         public IActionResult SearchSuggestions(string query)
         {
@@ -445,31 +446,30 @@ namespace WebTAManga.Controllers
             }
         }
 
-        //tìm kiếm
+        //tìm kiếm (bấm tìm kiếm)
         [HttpGet]
         public IActionResult Search(string key_word)
         {
+            // Xử lý trường hợp key_word là null hoặc rỗng
             if (string.IsNullOrEmpty(key_word))
             {
                 ViewBag.SearchQuery = "";
-                ViewBag.SearchResults = new List<Story>();
-                return View();
+                return View(new List<Story>()); // Trả về danh sách rỗng qua Model
             }
 
             // Chuyển key_word về dạng chữ thường để so sánh
             var searchTerm = key_word.ToLower();
 
+            // Truy vấn dữ liệu, đảm bảo không null
             var searchResults = _context.Stories
-                .Where(s => s.Title.ToLower().Contains(searchTerm))
+                ?.Where(s => s.Title.ToLower().Contains(searchTerm))
                 .Include(s => s.Chapters)
                 .Include(s => s.StoryGenres).ThenInclude(sg => sg.Genre)
                 .OrderByDescending(s => s.LastUpdatedAt)
-                .ToList();
+                .ToList() ?? new List<Story>(); // Trả về danh sách rỗng nếu null
 
             ViewBag.SearchQuery = key_word;
-            ViewBag.SearchResults = searchResults;
-
-            return View();
+            return View(searchResults); // Truyền searchResults qua Model
         }
 
         [HttpGet]
@@ -507,6 +507,32 @@ namespace WebTAManga.Controllers
             ViewBag.Stickers = _context.Stickers.ToList();
 
             return PartialView("_CommentsPartial");
+        }
+
+        // lấy danh sách thể loại 
+        public IActionResult GetGenres()
+        {
+            var genres = _context.Genres.ToList();
+            return PartialView("_GenreDropdown", genres); // Trả về partial view chứa danh sách thể loại
+        }
+
+        // hiển thị truyện theo thể loại
+        public IActionResult StoriesByGenre(int genreId)
+        {
+            var stories = _context.Stories
+                .Include(s => s.StoryGenres)
+                .ThenInclude(sg => sg.Genre)
+                .Where(s => s.StoryGenres.Any(sg => sg.GenreId == genreId))
+                .Include(s => s.Chapters)
+                .OrderByDescending(s => s.LastUpdatedAt)
+                .ToList();
+
+            ViewBag.GenreName = _context.Genres
+                .Where(g => g.GenreId == genreId)
+                .Select(g => g.Name)
+                .FirstOrDefault();
+
+            return View(stories);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

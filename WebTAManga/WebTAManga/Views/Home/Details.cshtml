@@ -186,7 +186,9 @@
                                     <div class="d-flex align-items-center flex-wrap">
                                         @foreach (var storyGenre in Model.StoryGenres)
                                         {
-                                            <a href="category.html" class="text-decoration-none text-dark hover-title me-1" style="width: max-content;">
+                                            <a href="@Url.Action("StoriesByGenre", "Home", new { genreId = storyGenre.GenreId })"
+                                               class="text-decoration-none text-dark hover-title me-1"
+                                               style="width: max-content;">
                                                 @storyGenre.Genre.Name
                                             </a>
                                             @if (!EqualityComparer<WebTAManga.Models.Genre>.Default.Equals(storyGenre.Genre, Model.StoryGenres.LastOrDefault()?.Genre))
