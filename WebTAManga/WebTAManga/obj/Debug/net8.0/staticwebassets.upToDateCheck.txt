@@ -1,6 +1,10 @@
-wwwroot\css\comment.css
+wwwroot\css\details.css
 wwwroot\css\home.css
+wwwroot\css\profile.css
+wwwroot\css\readchapter.css
+wwwroot\css\search.css
 wwwroot\css\site.css
+wwwroot\css\storiesbygenre.css
 wwwroot\dist\css\adminlte.css
 wwwroot\dist\css\adminlte.css.map
 wwwroot\dist\css\adminlte.min.css
@@ -1377,6 +1381,7 @@ wwwroot\images\admins\stories\chapter_8\tải xuống (99)_66f979aa-da17-48d1-ad
 wwwroot\images\admins\stories\chapter_8\tải xuống_d940ec9d-5a27-446f-a83c-e0b165fc175b.jfif
 wwwroot\images\admins\stories\ChuongMonKhiemTonChut.jfif
 wwwroot\images\admins\stories\CuuThienKiemPhap.jfif
+wwwroot\images\admins\stories\nguyen-lai-ta-la-tu-tien-dai-lao_1644166269.jpg
 wwwroot\images\admins\stories\ThatTinh.jpg
 wwwroot\images\admins\stories\ThienTaiDoanMenh.jfif
 wwwroot\images\admins\stories\thiet-huyet-kiem-si-hoi-quy_1681531186.jpg
@@ -1391,6 +1396,7 @@ wwwroot\images\stickers\sticker-cute-la-chona-2.jpg
 wwwroot\images\stickers\sticker-cute-la-chona-3.jpg
 wwwroot\images\stickers\sticker-cute-la-chona-4.jpg
 wwwroot\images\stickers\sticker-cute-la-chona-5.jpg
+wwwroot\js\details.js
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap.css
 wwwroot\lib\bootstrap\dist\css\bootstrap.css.map

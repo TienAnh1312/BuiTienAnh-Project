@@ -526,3 +526,8 @@ E:\BuiTienAnh\Học tập\BuiTienAnh-TH\BuiTienAnh-Project\WebTAManga\WebTAManga
 E:\BuiTienAnh\Học tập\BuiTienAnh-TH\BuiTienAnh-Project\WebTAManga\WebTAManga\obj\Debug\net8.0\WebTAManga.genruntimeconfig.cache
 E:\BuiTienAnh\Học tập\BuiTienAnh-TH\BuiTienAnh-Project\WebTAManga\WebTAManga\obj\Debug\net8.0\ref\WebTAManga.dll
 E:\BuiTienAnh\Học tập\BuiTienAnh-TH\BuiTienAnh-Project\WebTAManga\WebTAManga\bin\Debug\net8.0\payos-lib-backend-dotnet.dll
+E:\BuiTienAnh\Học tập\BuiTienAnh-TH\BuiTienAnh-Project\WebTAManga\WebTAManga\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+E:\BuiTienAnh\Học tập\BuiTienAnh-TH\BuiTienAnh-Project\WebTAManga\WebTAManga\bin\Debug\net8.0\MailKit.dll
+E:\BuiTienAnh\Học tập\BuiTienAnh-TH\BuiTienAnh-Project\WebTAManga\WebTAManga\bin\Debug\net8.0\MimeKit.dll
+E:\BuiTienAnh\Học tập\BuiTienAnh-TH\BuiTienAnh-Project\WebTAManga\WebTAManga\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
+E:\BuiTienAnh\Học tập\BuiTienAnh-TH\BuiTienAnh-Project\WebTAManga\WebTAManga\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll

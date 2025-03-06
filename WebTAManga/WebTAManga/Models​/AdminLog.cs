@@ -7,9 +7,9 @@ public partial class AdminLog
 {
     public int LogId { get; set; }
 
-    public int AdminId { get; set; }
+    public int? AdminId { get; set; }
 
-    public string? Action { get; set; } = null!;
+    public string? Action { get; set; }
 
     public int? TargetId { get; set; }
 
@@ -17,5 +17,5 @@ public partial class AdminLog
 
     public DateTime? CreatedAt { get; set; }
 
-    public virtual Admin? Admin { get; set; } = null!;
+    public virtual Admin? Admin { get; set; }
 }

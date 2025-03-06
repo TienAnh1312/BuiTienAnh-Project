@@ -7,9 +7,9 @@ public partial class DailyTask
 {
     public int TaskId { get; set; }
 
-    public string? TaskName { get; set; } = null!;
+    public string? TaskName { get; set; }
 
-    public string? Description { get; set; } = null!;
+    public string? Description { get; set; }
 
     public int ExpReward { get; set; }
 

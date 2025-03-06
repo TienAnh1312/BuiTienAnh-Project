@@ -111,9 +111,7 @@ namespace WebTAManga.Areas.Admins.Controllers
             return View(chapter);
         }
 
-
         // POST: Admins/Chapters/Edit/5
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ChapterId,StoryId,ChapterTitle,Content,CreatedAt,Coins,IsLocked")] Chapter chapter)
@@ -143,7 +141,7 @@ namespace WebTAManga.Areas.Admins.Controllers
                 }
 
                 // Chuyển hướng về action Edit của StoriesController với StoryId
-                return RedirectToAction("Edit", "Stories", new { id = chapter.StoryId, area = "Admins" });
+                return RedirectToAction("Index", "Stories", new { id = chapter.StoryId, area = "Admins" });
             }
             ViewData["StoryId"] = new SelectList(_context.Stories, "StoryId", "Title", chapter.StoryId);
             return View(chapter);

@@ -4,6 +4,8 @@
     ViewData["Title"] = "Danh sách truyện";
 }
 
+<link rel="stylesheet" href="~/css/storiesbygenre.css" asp-append-version="true" />
+
 <div class="container mt-5">
     <!-- Tiêu đề -->
     <h2 class="text-center mb-4">
@@ -53,84 +55,3 @@
         </div>
     }
 </div>
-
-<!-- CSS tùy chỉnh -->
-<style>
-    .col-lg-3 {
-        width: 20% !important; /* Điều chỉnh để hiển thị 5 cột trên màn hình lớn */
-    }
-
-    /* Hiệu ứng hover cho card */
-    .story-card {
-        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    }
-
-        .story-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
-        }
-
-    /* Hiệu ứng 3D cho ảnh bìa */
-    .book-3d {
-        position: relative;
-        perspective: 1000px;
-    }
-
-        .book-3d img {
-            transition: transform 0.3s ease;
-            max-height: 280px; /* Giới hạn chiều cao ảnh */
-            object-fit: cover; /* Đảm bảo ảnh không bị méo */
-        }
-
-        .book-3d:hover img {
-            transform: rotateY(10deg) scale(1.05); /* Hiệu ứng xoay nhẹ và phóng to */
-        }
-
-    /* Tùy chỉnh tiêu đề truyện */
-    .story-name {
-        font-size: 1.1rem;
-        font-weight: 600;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 2; /* Giới hạn 2 dòng */
-        -webkit-box-orient: vertical;
-    }
-
-    /* Tùy chỉnh badge thể loại */
-    .genres .badge {
-        font-size: 0.8rem;
-        padding: 0.4em 0.6em;
-    }
-
-    /* Responsive adjustments */
-    @@media (max-width: 992px) {
-        .col-lg-3 {
-            width: 25% !important; /* 4 cột trên màn hình vừa */
-        }
-    }
-
-    @@media (max-width: 768px) {
-        .story-name {
-            font-size: 1rem;
-        }
-
-        .col-lg-3 {
-            width: 33.33% !important; /* 3 cột trên màn hình nhỏ */
-        }
-
-        .book-3d img {
-            max-height: 250px;
-        }
-
-        .genres .badge {
-            font-size: 0.7rem;
-        }
-    }
-
-    @@media (max-width: 576px) {
-        .col-lg-3 {
-            width: 50% !important; /* 2 cột trên màn hình rất nhỏ */
-        }
-    }
-</style>

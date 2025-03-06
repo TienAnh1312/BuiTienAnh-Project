@@ -12,7 +12,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-3 text-center">
-                    <img src="~/@Model.CoverImage" alt="Current Image" class="img-fluid rounded shadow-sm" style="max-width: 100%;">
+                    <img src="~/@Model.CoverImage" alt="Cover Image" class="img-fluid rounded shadow-sm" style="max-width: 100%;">
                 </div>
                 <div class="col-md-9">
                     <dl class="row">
@@ -23,34 +23,16 @@
                         <dd class="col-sm-9">@Model.Author</dd>
 
                         <dt class="col-sm-3">Description</dt>
-                        <dd class="col-sm-9">@Html.Raw(Model.Description)</dd> <!-- Hiển thị mô tả động -->
+                        <dd class="col-sm-9">@Html.Raw(Model.Description)</dd>
 
                         <dt class="col-sm-3">Created At</dt>
                         <dd class="col-sm-9">@(Model.CreatedAt.HasValue ? Model.CreatedAt.Value.ToString("dd/MM/yyyy") : "N/A")</dd>
+
+                        <dt class="col-sm-3">Total Chapters</dt>
+                        <dd class="col-sm-9">@(Model.Chapters?.Count ?? 0)</dd>
                     </dl>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="mt-4">
-        <h3 class="text-primary">Chapters</h3>
-        <ul class="list-group">
-            @foreach (var chapter in Model.Chapters)
-            {
-                <li class="list-group-item list-group-item-action chapter-link" data-chapter-id="@chapter.ChapterId">
-                    <i class="bi bi-book"></i> @chapter.ChapterTitle
-                </li>
-            }
-        </ul>
-    </div>
-
-    <div class="mt-4 card shadow-lg">
-        <div class="card-header bg-info text-white">
-            <h3 class="mb-0">Chapter Images</h3>
-        </div>
-        <div class="card-body text-center" id="chapterImagesContainer">
-            <p class="text-muted">Select a chapter to view images.</p>
         </div>
     </div>
 
@@ -60,26 +42,3 @@
         </a>
     </div>
 </div>
-
-@section Scripts {
-    <script>
-        $(document).ready(function () {
-            $(".chapter-link").click(function () {
-                var chapterId = $(this).data("chapter-id");
-                $("#chapterImagesContainer").html("<p class='text-muted'>Loading images...</p>");
-
-                $.ajax({
-                    url: "/Admins/Stories/GetChapterImages",
-                    type: "GET",
-                    data: { chapterId: chapterId },
-                    success: function (data) {
-                        $("#chapterImagesContainer").html(data);
-                    },
-                    error: function () {
-                        $("#chapterImagesContainer").html("<p class='text-danger'>Error loading images.</p>");
-                    }
-                });
-            });
-        });
-    </script>
-}

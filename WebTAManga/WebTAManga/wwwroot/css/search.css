@@ -1,0 +1,72 @@
+.col-lg-3 {
+    width: 17% !important;
+}
+
+.story-card {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+    .story-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+    }
+
+.book-3d {
+    position: relative;
+    perspective: 1000px;
+}
+
+    .book-3d img {
+        transition: transform 0.3s ease;
+        max-height: 300px;
+        object-fit: cover;
+    }
+
+    .book-3d:hover img {
+        transform: rotateY(10deg) scale(1.05);
+    }
+
+.story-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.genres .badge {
+    font-size: 0.8rem;
+    padding: 0.4em 0.6em;
+}
+
+@@media (max-width: 992px) {
+    .col-lg-3 {
+        width: 25% !important;
+    }
+}
+
+@@media (max-width: 768px) {
+    .story-name {
+        font-size: 1rem;
+    }
+
+    .col-lg-3 {
+        width: 33.33% !important;
+    }
+
+    .book-3d img {
+        max-height: 250px;
+    }
+
+    .genres .badge {
+        font-size: 0.7rem;
+    }
+}
+
+@@media (max-width: 576px) {
+    .col-lg-3 {
+        width: 50% !important;
+    }
+}

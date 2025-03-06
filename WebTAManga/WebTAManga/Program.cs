@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Net.payOS;
 using WebTAManga.Models;
+using static WebTAManga.Controllers.UsersController;
 
 namespace WebTAManga
 {
@@ -14,6 +15,8 @@ namespace WebTAManga
             builder.Services.AddDbContext<WebMangaContext>(options => options.UseSqlServer(connectionString));
 
             builder.Services.AddHttpContextAccessor();
+
+            builder.Services.AddScoped<IEmailSender, EmailSender>();
 
             // Đọc cấu hình PayOS từ appsettings.json
             var payOsConfig = builder.Configuration.GetSection("PayOS");

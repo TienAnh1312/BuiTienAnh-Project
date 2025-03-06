@@ -384,10 +384,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/BuiTienAnh/Học tập/BuiTienAnh-TH/BuiTienAnh-Project/WebTAManga/WebTAManga/Views/Home/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
 [E:/BuiTienAnh/Học tập/BuiTienAnh-TH/BuiTienAnh-Project/WebTAManga/WebTAManga/Views/Home/Search.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTZWFyY2guY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -410,6 +406,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [E:/BuiTienAnh/Học tập/BuiTienAnh-TH/BuiTienAnh-Project/WebTAManga/WebTAManga/Views/Shared/Components/Genre/Default.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcR2VucmVcRGVmYXVsdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/BuiTienAnh/Học tập/BuiTienAnh-TH/BuiTienAnh-Project/WebTAManga/WebTAManga/Views/Shared/Components/Genre/_Scripts.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcR2VucmVcX1NjcmlwdHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/BuiTienAnh/Học tập/BuiTienAnh-TH/BuiTienAnh-Project/WebTAManga/WebTAManga/Views/Shared/Error.cshtml]
@@ -438,6 +438,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [E:/BuiTienAnh/Học tập/BuiTienAnh-TH/BuiTienAnh-Project/WebTAManga/WebTAManga/Views/Users/Profile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcUHJvZmlsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/BuiTienAnh/Học tập/BuiTienAnh-TH/BuiTienAnh-Project/WebTAManga/WebTAManga/Views/Users/VerificationPending.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcVmVyaWZpY2F0aW9uUGVuZGluZy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/BuiTienAnh/Học tập/BuiTienAnh-TH/BuiTienAnh-Project/WebTAManga/WebTAManga/Views/_ViewImports.cshtml]

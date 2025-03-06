@@ -1,0 +1,204 @@
+body {
+    background: linear-gradient(135deg, #1a1a1a, #2c3e50);
+    min-height: 100vh;
+    font-family: 'Arial', sans-serif;
+}
+
+.profile-form .card {
+    border: none;
+    border-radius: 15px;
+    background: rgba(34, 34, 34, 0.95);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.form-label {
+    color: #00ffff;
+    font-weight: bold;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.form-control {
+    background-color: #333 !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+    .form-control:focus {
+        box-shadow: 0 0 10px #00ffff !important;
+        background-color: #444 !important;
+    }
+
+.avatar-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #00ffff;
+    transition: transform 0.3s ease;
+}
+
+    .avatar-img:hover {
+        transform: scale(1.05);
+    }
+
+.avatar-frame {
+    width: 250px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    pointer-events: none;
+    object-fit: contain;
+}
+
+.btn-camera {
+    background: transparent;
+    border: 2px solid #00ffff;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    transition: all 0.3s ease;
+}
+
+    .btn-camera:hover {
+        background: #00ffff;
+        color: #1a1a1a;
+        transform: scale(1.1);
+    }
+
+    .btn-camera i {
+        font-size: 20px;
+    }
+
+.rank-options, .frame-options {
+    background: #2a2a2a;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.form-check-label {
+    color: #ddd;
+    transition: color 0.3s ease;
+}
+
+.form-check-input:checked + .form-check-label {
+    color: #00ff00;
+}
+
+.frame-preview {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-left: 10px;
+    border: 2px solid #ffcc00;
+    vertical-align: middle;
+}
+
+.progress-container {
+    background: #1a1a1a;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.level-name {
+    font-size: 18px;
+    color: #00ffff;
+    font-weight: bold;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.progress {
+    height: 25px;
+    background: #333;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    background: linear-gradient(to right, #00ffff, #00ff00, #ffcc00);
+    transition: width 0.5s ease-in-out;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #00ffff, #00ff00);
+    border: none;
+    border-radius: 8px;
+    padding: 12px 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 255, 255, 0.4);
+    }
+
+.btn-warning {
+    background: linear-gradient(45deg, #ffcc00, #ff9900);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+    .btn-warning:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(255, 204, 0, 0.4);
+    }
+
+.frame-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background: #2a2a2a;
+    border-radius: 8px;
+}
+
+.modal-content {
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+@@media (max-width: 576px) {
+    .avatar-container {
+        width: 120px;
+        height: 120px;
+    }
+
+    .avatar-frame {
+        width: 140px;
+        height: 140px;
+    }
+
+    .btn-camera {
+        width: 40px;
+        height: 40px;
+    }
+
+        .btn-camera i {
+            font-size: 16px;
+        }
+
+    .btn-primary {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}

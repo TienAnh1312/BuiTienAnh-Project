@@ -7,11 +7,11 @@ public partial class VnpayTransaction
 {
     public int Id { get; set; }
 
-    public int UserId { get; set; }
+    public int? UserId { get; set; }
 
     public double Amount { get; set; }
 
-    public string? TxnRef { get; set; } = null!;
+    public string? TxnRef { get; set; }
 
     public string? OrderInfo { get; set; }
 
@@ -21,7 +21,7 @@ public partial class VnpayTransaction
 
     public DateTime? ProcessedAt { get; set; }
 
-    public string Status { get; set; } = null!;
+    public string? Status { get; set; }
 
-    public virtual User? User { get; set; } = null!;
+    public virtual User? User { get; set; }
 }

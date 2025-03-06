@@ -7,7 +7,7 @@ public partial class Rank
 {
     public int RankId { get; set; }
 
-    public string? Name { get; set; } = null!;
+    public string? Name { get; set; }
 
     public virtual ICollection<CategoryRank> CategoryRanks { get; set; } = new List<CategoryRank>();
 

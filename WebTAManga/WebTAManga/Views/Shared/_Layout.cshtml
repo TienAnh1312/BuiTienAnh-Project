@@ -6,8 +6,6 @@
     <title>@ViewData["Title"] - WebTAManga</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/WebTAManga.styles.css" asp-append-version="true" />
-    @* <link rel="stylesheet" href="~/style/style.css" asp-append-version="true" /> *@
-    @* <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" /> *@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.14.1/jquery-ui.min.js">
     <link rel="stylesheet" href="~/style/app.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/style/app.js" asp-append-version="true" />
@@ -15,7 +13,7 @@
     <link rel="stylesheet" href="~/style/common.js" asp-append-version="true" />
     <link rel="stylesheet" href="~/style/story.js" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Font Awesome cho biểu tượng -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
@@ -139,6 +137,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/details.js" asp-append-version="true"></script>
 
     <script>
             document.addEventListener("DOMContentLoaded", function () {
@@ -206,7 +205,9 @@
             });
         });
     </script>
-
+    @section Scripts {
+            @Html.PartialAsync("~/Views/Shared/Components/Genre/_Scripts.cshtml");
+    }
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -17,7 +17,6 @@
             <thead class="table-dark">
                 <tr>
                     <th>@Html.DisplayNameFor(model => model.ChapterTitle)</th>
-                    <th>@Html.DisplayNameFor(model => model.Content)</th>
                     <th>@Html.DisplayNameFor(model => model.CreatedAt)</th>
                     <th class="text-center">Actions</th>
                 </tr>
@@ -26,8 +25,7 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td class="fw-bold">@Html.DisplayFor(modelItem => item.ChapterTitle)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Content)</td>
+                        <td class="fw-bold">@Html.DisplayFor(modelItem => item.ChapterTitle)</td>  
                         <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
                         <td class="text-center">
                             <a asp-action="Edit" asp-route-id="@item.ChapterId" class="btn btn-warning btn-sm">

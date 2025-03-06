@@ -7,11 +7,9 @@ public partial class Chapter
 {
     public int ChapterId { get; set; }
 
-    public int StoryId { get; set; }
+    public int? StoryId { get; set; }
 
-    public string? ChapterTitle { get; set; } = null!;
-
-    public string? Content { get; set; } = null!;
+    public string? ChapterTitle { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 
@@ -29,5 +27,5 @@ public partial class Chapter
 
     public virtual ICollection<ReadingHistory> ReadingHistories { get; set; } = new List<ReadingHistory>();
 
-    public virtual Story? Story { get; set; } = null!;
+    public virtual Story? Story { get; set; }
 }

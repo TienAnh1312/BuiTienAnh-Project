@@ -21,8 +21,10 @@ namespace WebTAManga.Controllers
             _hostingEnvironment = hostingEnvironment;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
+            int pageSize = 24; 
+
             // --- Bảng xếp hạng tiêu xu ---
             var coinsByDay = _context.Users
                 .Select(u => new
@@ -173,11 +175,16 @@ namespace WebTAManga.Controllers
                 .Take(5)
                 .ToList();
 
-            // Lấy danh sách truyện mới cập nhật dựa trên CreatedAt của chapter mới nhất
-            var updatedStories = _context.Stories
+            // --- Lấy danh sách truyện mới cập nhật với phân trang ---
+            var updatedStoriesQuery = _context.Stories
                 .Include(s => s.Chapters)
                 .Include(s => s.StoryGenres).ThenInclude(sg => sg.Genre)
-                .OrderByDescending(s => s.Chapters.Max(c => c.CreatedAt ?? DateTime.MinValue))
+                .OrderByDescending(s => s.Chapters.Max(c => c.CreatedAt ?? DateTime.MinValue));
+
+            var totalStories = updatedStoriesQuery.Count();
+            var updatedStories = updatedStoriesQuery
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ToList();
 
             // Truyền dữ liệu vào ViewBag
@@ -194,6 +201,8 @@ namespace WebTAManga.Controllers
             ViewBag.NewStories = newStories;
             ViewBag.HotStories = hotStories;
             ViewBag.UpdatedStories = updatedStories;
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = (int)Math.Ceiling(totalStories / (double)pageSize);
 
             var stories = _context.Stories.ToList();
             return View(stories);

@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Chờ xác nhận email";
+    var email = ViewBag.Email ?? "bạn đã đăng ký";
+}
+
+<h1>Chờ xác nhận email</h1>
+<hr />
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["Message"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<div class="alert alert-info" role="alert">
+    Vui lòng kiểm tra email của <strong>@email</strong> để xác nhận tài khoản.
+    Nếu không thấy email, hãy kiểm tra thư mục spam hoặc
+    <a asp-action="ResendVerification" asp-controller="Users" asp-route-email="@email" class="alert-link">gửi lại email xác nhận</a>.
+</div>
+
+<div>
+    <a asp-action="Index" asp-controller="Home">Quay lại trang chủ</a>
+</div>

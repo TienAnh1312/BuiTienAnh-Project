@@ -7,9 +7,9 @@ public partial class AvatarFrame
 {
     public int AvatarFrameId { get; set; }
 
-    public string? Name { get; set; } = null!;
+    public string? Name { get; set; }
 
-    public string? ImagePath { get; set; } = null!;
+    public string? ImagePath { get; set; }
 
     public double? Price { get; set; }
 

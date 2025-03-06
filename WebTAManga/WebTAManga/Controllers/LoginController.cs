@@ -31,19 +31,25 @@ namespace WebTAManga.Controllers
                 return View(model);
             }
 
-            // Tìm user theo email
             var user = _context.Users.FirstOrDefault(x => x.Email.ToLower() == model.Email.ToLower());
-            if (user != null)
+            if (user == null)
             {
-                // Kiểm tra mật khẩu đã mã hóa
-                var verificationResult = _passwordHasher.VerifyHashedPassword(user, user.Password, model.Password);
-                if (verificationResult == PasswordVerificationResult.Success)
-                {
-                    HttpContext.Session.SetString("usersLogin", model.Email);
-                    HttpContext.Session.SetInt32("UsersID", (int)user.UserId);
+                ModelState.AddModelError(string.Empty, "Thông tin đăng nhập không chính xác.");
+                return View(model);
+            }
 
-                    return RedirectToAction("Index", "Home", new { UsersID = user.UserId });
-                }
+            if (!user.IsEmailVerified)
+            {
+                ModelState.AddModelError(string.Empty, "Tài khoản chưa được xác nhận. Vui lòng kiểm tra email.");
+                return View(model);
+            }
+
+            var verificationResult = _passwordHasher.VerifyHashedPassword(user, user.Password, model.Password);
+            if (verificationResult == PasswordVerificationResult.Success)
+            {
+                HttpContext.Session.SetString("usersLogin", model.Email);
+                HttpContext.Session.SetInt32("UsersID", (int)user.UserId);
+                return RedirectToAction("Index", "Home", new { UsersID = user.UserId });
             }
 
             ModelState.AddModelError(string.Empty, "Thông tin đăng nhập không chính xác.");

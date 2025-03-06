@@ -9,7 +9,7 @@ public partial class Level
 
     public int ExpRequired { get; set; }
 
-    public int CategoryRankId { get; set; }
+    public int? CategoryRankId { get; set; }
 
-    public virtual CategoryRank? CategoryRank { get; set; } = null!;
+    public virtual CategoryRank? CategoryRank { get; set; }
 }

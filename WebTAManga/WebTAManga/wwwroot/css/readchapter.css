@@ -1,0 +1,39 @@
+.chapter-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem;
+}
+
+.chapter-locked {
+    text-align: center;
+    padding: 20px;
+    border: 2px dashed #ff0000;
+    background-color: #ffecec;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+    .chapter-locked p {
+        font-size: 18px;
+        color: #d9534f;
+    }
+
+.btn-unlock {
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+    color: white;
+}
+
+    .btn-unlock:hover {
+        background-color: #4cae4c;
+        border-color: #398439;
+    }

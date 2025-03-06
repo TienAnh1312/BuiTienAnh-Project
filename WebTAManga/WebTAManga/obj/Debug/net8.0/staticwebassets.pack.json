@@ -5,16 +5,32 @@
       "PackagePath": "staticwebassets\\WebTAManga.e2n0iitn9z.bundle.scp.css"
     },
     {
-      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\css\\comment.css",
-      "PackagePath": "staticwebassets\\css\\comment.css"
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\css\\details.css",
+      "PackagePath": "staticwebassets\\css\\details.css"
     },
     {
       "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\css\\home.css",
       "PackagePath": "staticwebassets\\css\\home.css"
     },
     {
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\css\\profile.css",
+      "PackagePath": "staticwebassets\\css\\profile.css"
+    },
+    {
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\css\\readchapter.css",
+      "PackagePath": "staticwebassets\\css\\readchapter.css"
+    },
+    {
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\css\\search.css",
+      "PackagePath": "staticwebassets\\css\\search.css"
+    },
+    {
       "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\css\\storiesbygenre.css",
+      "PackagePath": "staticwebassets\\css\\storiesbygenre.css"
     },
     {
       "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\dist\\css\\adminlte.css",
@@ -5541,6 +5557,10 @@
       "PackagePath": "staticwebassets\\images\\admins\\stories\\chapter_8\\tải xuống_d940ec9d-5a27-446f-a83c-e0b165fc175b.jfif"
     },
     {
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\nguyen-lai-ta-la-tu-tien-dai-lao_1644166269.jpg",
+      "PackagePath": "staticwebassets\\images\\admins\\stories\\nguyen-lai-ta-la-tu-tien-dai-lao_1644166269.jpg"
+    },
+    {
       "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\thiet-huyet-kiem-si-hoi-quy_1681531186.jpg",
       "PackagePath": "staticwebassets\\images\\admins\\stories\\thiet-huyet-kiem-si-hoi-quy_1681531186.jpg"
     },
@@ -5575,6 +5595,10 @@
     {
       "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\stickers\\sticker-cute-la-chona-5.jpg",
       "PackagePath": "staticwebassets\\images\\stickers\\sticker-cute-la-chona-5.jpg"
+    },
+    {
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\js\\details.js",
+      "PackagePath": "staticwebassets\\js\\details.js"
     },
     {
       "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\js\\site.js",

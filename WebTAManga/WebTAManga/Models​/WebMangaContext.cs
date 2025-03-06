@@ -123,6 +123,7 @@ public partial class WebMangaContext : DbContext
 
             entity.HasOne(d => d.Admin).WithMany(p => p.AdminLogs)
                 .HasForeignKey(d => d.AdminId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__admin_log__admin__66603565");
         });
 
@@ -146,6 +147,7 @@ public partial class WebMangaContext : DbContext
 
             entity.HasOne(d => d.Rank).WithMany(p => p.CategoryRanks)
                 .HasForeignKey(d => d.RankId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__CategoryR__RankI__7755B73D");
         });
 
@@ -160,7 +162,6 @@ public partial class WebMangaContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("chapter_title");
             entity.Property(e => e.Coins).HasDefaultValue(0.0);
-            entity.Property(e => e.Content).HasColumnName("content");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
@@ -170,6 +171,7 @@ public partial class WebMangaContext : DbContext
 
             entity.HasOne(d => d.Story).WithMany(p => p.Chapters)
                 .HasForeignKey(d => d.StoryId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__chapters__story___45F365D3");
         });
 
@@ -188,6 +190,7 @@ public partial class WebMangaContext : DbContext
 
             entity.HasOne(d => d.Chapter).WithMany(p => p.ChapterImages)
                 .HasForeignKey(d => d.ChapterId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__chapter_i__chapt__6EF57B66");
         });
 
@@ -217,10 +220,12 @@ public partial class WebMangaContext : DbContext
 
             entity.HasOne(d => d.Story).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.StoryId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__comments__story___5CD6CB2B");
 
             entity.HasOne(d => d.User).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__comments__user_i__5BE2A6F2");
         });
 
@@ -246,6 +251,7 @@ public partial class WebMangaContext : DbContext
 
             entity.HasOne(d => d.User).WithMany(p => p.ExpHistories)
                 .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__ExpHistor__UserI__0880433F");
         });
 
@@ -265,10 +271,12 @@ public partial class WebMangaContext : DbContext
 
             entity.HasOne(d => d.Story).WithMany(p => p.Favorites)
                 .HasForeignKey(d => d.StoryId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__favorites__story__52593CB8");
 
             entity.HasOne(d => d.User).WithMany(p => p.Favorites)
                 .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__favorites__user___5165187F");
         });
 
@@ -294,10 +302,12 @@ public partial class WebMangaContext : DbContext
 
             entity.HasOne(d => d.Story).WithMany(p => p.FollowedStories)
                 .HasForeignKey(d => d.StoryId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__followed___story__6C190EBB");
 
             entity.HasOne(d => d.User).WithMany(p => p.FollowedStories)
                 .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__followed___user___6B24EA82");
         });
 
@@ -323,6 +333,7 @@ public partial class WebMangaContext : DbContext
 
             entity.HasOne(d => d.CategoryRank).WithMany(p => p.Levels)
                 .HasForeignKey(d => d.CategoryRankId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__Level__CategoryR__7A3223E8");
         });
 
@@ -338,10 +349,12 @@ public partial class WebMangaContext : DbContext
 
             entity.HasOne(d => d.AvatarFrame).WithMany(p => p.PurchasedAvatarFrames)
                 .HasForeignKey(d => d.AvatarFrameId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_PurchasedAvatarFrame_AvatarFrame");
 
             entity.HasOne(d => d.User).WithMany(p => p.PurchasedAvatarFrames)
                 .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_PurchasedAvatarFrame_Users");
         });
 
@@ -357,10 +370,12 @@ public partial class WebMangaContext : DbContext
 
             entity.HasOne(d => d.Chapter).WithMany(p => p.PurchasedChapters)
                 .HasForeignKey(d => d.ChapterId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_PurchasedChapter_Chapter");
 
             entity.HasOne(d => d.User).WithMany(p => p.PurchasedChapters)
                 .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_PurchasedChapter_User");
         });
 
@@ -390,10 +405,12 @@ public partial class WebMangaContext : DbContext
 
             entity.HasOne(d => d.Story).WithMany(p => p.Ratings)
                 .HasForeignKey(d => d.StoryId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__ratings__story_i__628FA481");
 
             entity.HasOne(d => d.User).WithMany(p => p.Ratings)
                 .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__ratings__user_id__619B8048");
         });
 
@@ -420,15 +437,16 @@ public partial class WebMangaContext : DbContext
 
             entity.HasOne(d => d.Chapter).WithMany(p => p.ReadingHistories)
                 .HasForeignKey(d => d.ChapterId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__reading_h__chapt__5812160E");
 
             entity.HasOne(d => d.Story).WithMany(p => p.ReadingHistories)
                 .HasForeignKey(d => d.StoryId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__reading_h__story__571DF1D5");
 
             entity.HasOne(d => d.User).WithMany(p => p.ReadingHistories)
                 .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__reading_h__user___5629CD9C");
         });
 
@@ -481,10 +499,12 @@ public partial class WebMangaContext : DbContext
 
             entity.HasOne(d => d.Genre).WithMany(p => p.StoryGenres)
                 .HasForeignKey(d => d.GenreId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__story_gen__genre__4D94879B");
 
             entity.HasOne(d => d.Story).WithMany(p => p.StoryGenres)
                 .HasForeignKey(d => d.StoryId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__story_gen__story__4CA06362");
         });
 
@@ -502,7 +522,6 @@ public partial class WebMangaContext : DbContext
 
             entity.HasOne(d => d.User).WithMany(p => p.Transactions)
                 .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Transacti__UserI__625A9A57");
         });
 
@@ -534,6 +553,8 @@ public partial class WebMangaContext : DbContext
             entity.Property(e => e.Username)
                 .HasMaxLength(50)
                 .HasColumnName("username");
+            entity.Property(e => e.VerificationCode).HasMaxLength(50);
+            entity.Property(e => e.VerificationCodeExpires).HasColumnType("datetime");
 
             entity.HasOne(d => d.AvatarFrame).WithMany(p => p.Users)
                 .HasForeignKey(d => d.AvatarFrameId)
@@ -560,10 +581,12 @@ public partial class WebMangaContext : DbContext
 
             entity.HasOne(d => d.Task).WithMany(p => p.UserDailyTasks)
                 .HasForeignKey(d => d.TaskId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_UserDailyTask_DailyTask");
 
             entity.HasOne(d => d.User).WithMany(p => p.UserDailyTasks)
                 .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_UserDailyTask_Users");
         });
 
@@ -584,6 +607,7 @@ public partial class WebMangaContext : DbContext
 
             entity.HasOne(d => d.User).WithMany(p => p.VnpayTransactions)
                 .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_VnpayTransactions_Users");
         });
 
