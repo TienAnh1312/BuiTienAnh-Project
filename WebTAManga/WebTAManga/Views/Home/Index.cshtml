@@ -189,7 +189,6 @@
                                     <div class="list-group d-flex flex-row" id="coins-tab" role="tablist">
                                         <a class="list-group-item list-group-item-action active" id="coins-day-list" data-bs-toggle="list" href="#coins-day" role="tab" aria-controls="coins-day" aria-selected="true">Ngày</a>
                                         <a class="list-group-item list-group-item-action" id="coins-month-list" data-bs-toggle="list" href="#coins-month" role="tab" aria-controls="coins-month" aria-selected="false">Tháng</a>
-                                        <a class="list-group-item list-group-item-action" id="coins-year-list" data-bs-toggle="list" href="#coins-year" role="tab" aria-controls="coins-year" aria-selected="false">Năm</a>
                                         <a class="list-group-item list-group-item-action" id="coins-all-time-list" data-bs-toggle="list" href="#coins-all-time" role="tab" aria-controls="coins-all-time" aria-selected="false">All</a>
                                     </div>
                                 </div>
@@ -247,32 +246,7 @@
                                                 }
                                             </ul>
                                         </div>
-                                        <!-- Top Xu theo năm -->
-                                        <div class="tab-pane fade" id="coins-year" role="tabpanel" aria-labelledby="coins-year-list">
-                                            <ul class="list-unstyled">
-                                                @if (ViewBag.TopCoinsByYear != null)
-                                                {
-                                                    @foreach (var user in ViewBag.TopCoinsByYear)
-                                                    {
-                                                        <li class="mb-2">
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="rating-item__number bg-danger rounded-circle me-2" style="width: 25px; height: 25px; line-height: 25px; text-align: center;">
-                                                                    <span class="text-light">@user.Rank</span>
-                                                                </div>
-                                                                <div>
-                                                                    <span class="text-decoration-none text-dark hover-title">@user.Username</span><br />
-                                                                    <small class="text-muted">Xu: @user.CoinsSpent</small>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    <li>Không có dữ liệu</li>
-                                                }
-                                            </ul>
-                                        </div>
+                                        
                                         <!-- Top Xu tổng thể -->
                                         <div class="tab-pane fade" id="coins-all-time" role="tabpanel" aria-labelledby="coins-all-time-list">
                                             <ul class="list-unstyled">
@@ -320,7 +294,6 @@
                                     <div class="list-group d-flex flex-row" id="exp-tab" role="tablist">
                                         <a class="list-group-item list-group-item-action active" id="exp-day-list" data-bs-toggle="list" href="#exp-day" role="tab" aria-controls="exp-day" aria-selected="true">Ngày</a>
                                         <a class="list-group-item list-group-item-action" id="exp-month-list" data-bs-toggle="list" href="#exp-month" role="tab" aria-controls="exp-month" aria-selected="false">Tháng</a>
-                                        <a class="list-group-item list-group-item-action" id="exp-year-list" data-bs-toggle="list" href="#exp-year" role="tab" aria-controls="exp-year" aria-selected="false">Năm</a>
                                         <a class="list-group-item list-group-item-action" id="exp-all-time-list" data-bs-toggle="list" href="#exp-all-time" role="tab" aria-controls="exp-all-time" aria-selected="false">All</a>
                                     </div>
                                 </div>
@@ -378,32 +351,7 @@
                                                 }
                                             </ul>
                                         </div>
-                                        <!-- Top EXP theo năm -->
-                                        <div class="tab-pane fade" id="exp-year" role="tabpanel" aria-labelledby="exp-year-list">
-                                            <ul class="list-unstyled">
-                                                @if (ViewBag.TopExpByYear != null)
-                                                {
-                                                    @foreach (var user in ViewBag.TopExpByYear)
-                                                    {
-                                                        <li class="mb-2">
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="rating-item__number bg-danger rounded-circle me-2" style="width: 25px; height: 25px; line-height: 25px; text-align: center;">
-                                                                    <span class="text-light">@user.Rank</span>
-                                                                </div>
-                                                                <div>
-                                                                    <span class="text-decoration-none text-dark hover-title">@user.Username</span><br />
-                                                                    <small class="text-muted">EXP: @user.ExpPoints</small>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    <li>Không có dữ liệu</li>
-                                                }
-                                            </ul>
-                                        </div>
+                                        
                                         <!-- Top EXP tổng thể -->
                                         <div class="tab-pane fade" id="exp-all-time" role="tabpanel" aria-labelledby="exp-all-time-list">
                                             <ul class="list-unstyled">

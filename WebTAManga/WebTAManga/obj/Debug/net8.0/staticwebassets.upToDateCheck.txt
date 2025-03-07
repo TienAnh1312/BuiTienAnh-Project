@@ -1467,6 +1467,7 @@ wwwroot\uploads\avatars\2.jfif
 wwwroot\uploads\avatars\29.jpeg
 wwwroot\uploads\avatars\3.jfif
 wwwroot\uploads\avatars\35.jpeg
+wwwroot\uploads\avatars\4.jfif
 wwwroot\uploads\avatars\6.jfif
 wwwroot\uploads\avatars\74.jpeg
 wwwroot\uploads\avatars\8.jpeg

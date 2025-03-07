@@ -31,7 +31,7 @@ namespace WebTAManga.Controllers
             }
 
             var payOS = HttpContext.RequestServices.GetService<PayOS>();
-            var domain = "https://localhost:7040"; // Lấy từ cấu hình nếu cần
+            var domain = "https://localhost:7040"; 
             long orderCode = DateTimeOffset.Now.ToUnixTimeSeconds(); // Mã đơn hàng duy nhất
             long expirationTime = DateTimeOffset.UtcNow.AddMinutes(30).ToUnixTimeSeconds();
 
@@ -60,7 +60,6 @@ namespace WebTAManga.Controllers
             }
         }
 
-        [HttpGet]
         [HttpGet]
         public IActionResult RechargeSuccess()
         {

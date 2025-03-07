@@ -62,24 +62,6 @@ namespace WebTAManga.Controllers
                 .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
                 .ToList();
 
-            var coinsByYear = _context.Users
-                .Select(u => new
-                {
-                    u.UserId,
-                    u.Username,
-                    CoinsSpent = _context.PurchasedChapters
-                        .Where(pc => pc.UserId == u.UserId && pc.PurchasedAt >= DateTime.Today.AddYears(-1))
-                        .Sum(pc => pc.Chapter.Coins ?? 0) +
-                        _context.PurchasedAvatarFrames
-                        .Where(paf => paf.UserId == u.UserId && paf.PurchasedAt >= DateTime.Today.AddYears(-1))
-                        .Sum(paf => paf.AvatarFrame.Price ?? 0)
-                })
-                .AsEnumerable()
-                .OrderByDescending(u => u.CoinsSpent)
-                .Take(5)
-                .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
-                .ToList();
-
             var coinsAllTime = _context.Users
                 .Select(u => new
                 {
@@ -129,20 +111,6 @@ namespace WebTAManga.Controllers
                 .Select((u, index) => new { Rank = index + 1, u.Username, u.ExpPoints })
                 .ToList();
 
-            var expByYear = _context.Users
-                .Select(u => new
-                {
-                    u.UserId,
-                    u.Username,
-                    ExpPoints = _context.ExpHistories
-                        .Where(eh => eh.UserId == u.UserId && eh.CreatedAt >= DateTime.Today.AddYears(-1))
-                        .Sum(eh => eh.ExpAmount)
-                })
-                .AsEnumerable()
-                .OrderByDescending(u => u.ExpPoints)
-                .Take(5)
-                .Select((u, index) => new { Rank = index + 1, u.Username, u.ExpPoints })
-                .ToList();
 
             var expAllTime = _context.Users
                 .Select(u => new
@@ -190,12 +158,10 @@ namespace WebTAManga.Controllers
             // Truyền dữ liệu vào ViewBag
             ViewBag.TopCoinsByDay = coinsByDay;
             ViewBag.TopCoinsByMonth = coinsByMonth;
-            ViewBag.TopCoinsByYear = coinsByYear;
             ViewBag.TopCoinsAllTime = coinsAllTime;
 
             ViewBag.TopExpByDay = expByDay;
             ViewBag.TopExpByMonth = expByMonth;
-            ViewBag.TopExpByYear = expByYear;
             ViewBag.TopExpAllTime = expAllTime;
 
             ViewBag.NewStories = newStories;
@@ -299,23 +265,6 @@ namespace WebTAManga.Controllers
                 .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
                 .ToList();
 
-            var topCoinsByYear = _context.Users
-                .Select(u => new
-                {
-                    u.UserId,
-                    u.Username,
-                    CoinsSpent = _context.PurchasedChapters
-                        .Where(pc => pc.UserId == u.UserId && pc.PurchasedAt >= DateTime.Today.AddYears(-1))
-                        .Sum(pc => pc.Chapter.Coins ?? 0) +
-                        _context.PurchasedAvatarFrames
-                        .Where(paf => paf.UserId == u.UserId && paf.PurchasedAt >= DateTime.Today.AddYears(-1))
-                        .Sum(paf => paf.AvatarFrame.Price ?? 0)
-                })
-                .AsEnumerable()
-                .OrderByDescending(u => u.CoinsSpent)
-                .Take(5)
-                .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
-                .ToList();
 
             var topCoinsAllTime = _context.Users
                 .Select(u => new
@@ -365,21 +314,6 @@ namespace WebTAManga.Controllers
                 .Select((u, index) => new { Rank = index + 1, u.Username, u.ExpPoints })
                 .ToList();
 
-            var topExpByYear = _context.Users
-                .Select(u => new
-                {
-                    u.UserId,
-                    u.Username,
-                    ExpPoints = _context.ExpHistories
-                        .Where(eh => eh.UserId == u.UserId && eh.CreatedAt >= DateTime.Today.AddYears(-1))
-                        .Sum(eh => eh.ExpAmount)
-                })
-                .AsEnumerable()
-                .OrderByDescending(u => u.ExpPoints)
-                .Take(5)
-                .Select((u, index) => new { Rank = index + 1, u.Username, u.ExpPoints })
-                .ToList();
-
             var topExpAllTime = _context.Users
                 .Select(u => new
                 {
@@ -411,11 +345,9 @@ namespace WebTAManga.Controllers
             // Gán dữ liệu bảng xếp hạng
             ViewBag.TopCoinsByDay = topCoinsByDay;
             ViewBag.TopCoinsByMonth = topCoinsByMonth;
-            ViewBag.TopCoinsByYear = topCoinsByYear;
             ViewBag.TopCoinsAllTime = topCoinsAllTime;
             ViewBag.TopExpByDay = topExpByDay;
             ViewBag.TopExpByMonth = topExpByMonth;
-            ViewBag.TopExpByYear = topExpByYear;
             ViewBag.TopExpAllTime = topExpAllTime;
 
             return View(story);
