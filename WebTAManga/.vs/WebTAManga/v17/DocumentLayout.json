@@ -3,6 +3,22 @@
   "WorkspaceRootPath": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\views\\payos\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\views\\payos\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\controllers\\payoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\controllers\\payoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\models\u200B\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\models\u200B\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\models\u200B\\transaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\models\u200B\\transaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\controllers\\profilecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\controllers\\profilecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -15,20 +31,12 @@
       "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\controllers\\readchaptercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\controllers\\payoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\controllers\\payoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\models\u200B\\level.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\models\u200B\\level.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\models\u200B\\sticker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\models\u200B\\sticker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\models\u200B\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\models\u200B\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\views\\profile\\profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -65,10 +73,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\models\u200B\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\models\u200B\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\models\u200B\\transaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\models\u200B\\transaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\models\u200B\\exphistory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -173,10 +177,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\wwwroot\\css\\storiesbygenre.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
       "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\wwwroot\\css\\storiesbygenre.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\views\\payos\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|solutionrelative:webtamanga\\views\\payos\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6F5D6C3B-4A5C-424B-98FC-F8A870A84C3B}|WebTAManga\\WebTAManga.csproj|e:\\buitienanh\\h\u1ECDc t\u1EADp\\buitienanh-th\\buitienanh-project\\webtamanga\\webtamanga\\models\u200B\\purchasedavatarframe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -474,7 +474,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -486,98 +486,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "PayOsController.cs",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Controllers\\PayOsController.cs",
               "RelativeDocumentMoniker": "WebTAManga\\Controllers\\PayOsController.cs",
               "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Controllers\\PayOsController.cs",
               "RelativeToolTip": "WebTAManga\\Controllers\\PayOsController.cs",
-              "ViewState": "AgIAAGMAAAAAAAAAAAAwwHIAAAA4AAAAAAAAAA==",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAgwFcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-27T10:48:18.401Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "User.cs",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\User.cs",
-              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\User.cs",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\User.cs",
-              "RelativeToolTip": "WebTAManga\\Models\u200B\\User.cs",
-              "ViewState": "AgIAACIAAAAAAAAAAAAqwBAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-14T16:30:16.785Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Profile.cshtml",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Profile\\Profile.cshtml",
-              "RelativeDocumentMoniker": "WebTAManga\\Views\\Profile\\Profile.cshtml",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Profile\\Profile.cshtml",
-              "RelativeToolTip": "WebTAManga\\Views\\Profile\\Profile.cshtml",
-              "ViewState": "AgIAAGUAAAAAAAAAAAAwwHgAAACWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-17T07:23:16.252Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Sticker.cs",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Sticker.cs",
-              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\Sticker.cs",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Sticker.cs",
-              "RelativeToolTip": "WebTAManga\\Models\u200B\\Sticker.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-03T10:41:16.25Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Level.cs",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Level.cs",
-              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\Level.cs",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Level.cs",
-              "RelativeToolTip": "WebTAManga\\Models\u200B\\Level.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-25T08:27:07.228Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
               "Title": "ProfileController.cs",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Controllers\\ProfileController.cs",
               "RelativeDocumentMoniker": "WebTAManga\\Controllers\\ProfileController.cs",
               "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Controllers\\ProfileController.cs",
               "RelativeToolTip": "WebTAManga\\Controllers\\ProfileController.cs",
-              "ViewState": "AgIAALQBAAAAAAAAAAAwwMcBAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAL0BAAAAAAAAAAAgwMcBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-07T06:59:19.074Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ReadChapterController.cs",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Controllers\\ReadChapterController.cs",
-              "RelativeDocumentMoniker": "WebTAManga\\Controllers\\ReadChapterController.cs",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Controllers\\ReadChapterController.cs",
-              "RelativeToolTip": "WebTAManga\\Controllers\\ReadChapterController.cs",
-              "ViewState": "AgIAAFYAAAAAAAAAAADwv34AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T02:36:59.212Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "BuyChapterController.cs",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Controllers\\BuyChapterController.cs",
               "RelativeDocumentMoniker": "WebTAManga\\Controllers\\BuyChapterController.cs",
@@ -585,12 +520,11 @@
               "RelativeToolTip": "WebTAManga\\Controllers\\BuyChapterController.cs",
               "ViewState": "AgIAACEAAAAAAAAAAAAYwBIAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T02:23:28.895Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-28T02:23:28.895Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 10,
               "Title": "appsettings.json",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\appsettings.json",
               "RelativeDocumentMoniker": "WebTAManga\\appsettings.json",
@@ -598,90 +532,11 @@
               "RelativeToolTip": "WebTAManga\\appsettings.json",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABEAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-02-24T09:07:05.315Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-24T09:07:05.315Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Default.cshtml",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Shared\\Components\\Genre\\Default.cshtml",
-              "RelativeDocumentMoniker": "WebTAManga\\Views\\Shared\\Components\\Genre\\Default.cshtml",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Shared\\Components\\Genre\\Default.cshtml",
-              "RelativeToolTip": "WebTAManga\\Views\\Shared\\Components\\Genre\\Default.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-03-05T07:33:38.073Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "WebTAManga\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "WebTAManga\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAACcAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-17T07:24:27.11Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "VipLevelConfig.cs",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\\VipLevelConfig.cs",
-              "RelativeDocumentMoniker": "WebTAManga\\Models\\VipLevelConfig.cs",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\\VipLevelConfig.cs",
-              "RelativeToolTip": "WebTAManga\\Models\\VipLevelConfig.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAABUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-07T07:27:33.408Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "RegisterController.cs",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Controllers\\RegisterController.cs",
-              "RelativeDocumentMoniker": "WebTAManga\\Controllers\\RegisterController.cs",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Controllers\\RegisterController.cs",
-              "RelativeToolTip": "WebTAManga\\Controllers\\RegisterController.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAmwCMAAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-17T07:19:48.101Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "NeverBounceResponse.cs",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\\NeverBounceResponse.cs",
-              "RelativeDocumentMoniker": "WebTAManga\\Models\\NeverBounceResponse.cs",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\\NeverBounceResponse.cs",
-              "RelativeToolTip": "WebTAManga\\Models\\NeverBounceResponse.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-06T09:44:51.041Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "WebMangaContext.cs",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\WebMangaContext.cs",
-              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\WebMangaContext.cs",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\WebMangaContext.cs",
-              "RelativeToolTip": "WebTAManga\\Models\u200B\\WebMangaContext.cs",
-              "ViewState": "AgIAAJQBAAAAAAAAAAAuwKIBAABWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-17T07:08:45.126Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 3,
               "Title": "Transaction.cs",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Transaction.cs",
               "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\Transaction.cs",
@@ -694,7 +549,153 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 2,
+              "Title": "User.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\User.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\User.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\User.cs",
+              "RelativeToolTip": "WebTAManga\\Models\u200B\\User.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAywDkAAABwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-14T16:30:16.785Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Sticker.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Sticker.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\Sticker.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Sticker.cs",
+              "RelativeToolTip": "WebTAManga\\Models\u200B\\Sticker.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-03T10:41:16.25Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\PayOs\\Index.cshtml",
+              "RelativeDocumentMoniker": "WebTAManga\\Views\\PayOs\\Index.cshtml",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\PayOs\\Index.cshtml",
+              "RelativeToolTip": "WebTAManga\\Views\\PayOs\\Index.cshtml",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAACMAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-27T10:51:19.594Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ReadChapterController.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Controllers\\ReadChapterController.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Controllers\\ReadChapterController.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Controllers\\ReadChapterController.cs",
+              "RelativeToolTip": "WebTAManga\\Controllers\\ReadChapterController.cs",
+              "ViewState": "AgIAAFYAAAAAAAAAAADwv34AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-28T02:36:59.212Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Level.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Level.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\Level.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Level.cs",
+              "RelativeToolTip": "WebTAManga\\Models\u200B\\Level.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-25T08:27:07.228Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Profile.cshtml",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Profile\\Profile.cshtml",
+              "RelativeDocumentMoniker": "WebTAManga\\Views\\Profile\\Profile.cshtml",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Profile\\Profile.cshtml",
+              "RelativeToolTip": "WebTAManga\\Views\\Profile\\Profile.cshtml",
+              "ViewState": "AgIAAGUAAAAAAAAAAAAwwHgAAACWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-17T07:23:16.252Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Default.cshtml",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Shared\\Components\\Genre\\Default.cshtml",
+              "RelativeDocumentMoniker": "WebTAManga\\Views\\Shared\\Components\\Genre\\Default.cshtml",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Shared\\Components\\Genre\\Default.cshtml",
+              "RelativeToolTip": "WebTAManga\\Views\\Shared\\Components\\Genre\\Default.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-05T07:33:38.073Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "WebTAManga\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "WebTAManga\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACcAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-17T07:24:27.11Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "VipLevelConfig.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\\VipLevelConfig.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Models\\VipLevelConfig.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\\VipLevelConfig.cs",
+              "RelativeToolTip": "WebTAManga\\Models\\VipLevelConfig.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAABUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-07T07:27:33.408Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "RegisterController.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Controllers\\RegisterController.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Controllers\\RegisterController.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Controllers\\RegisterController.cs",
+              "RelativeToolTip": "WebTAManga\\Controllers\\RegisterController.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAmwCMAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T07:19:48.101Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "NeverBounceResponse.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\\NeverBounceResponse.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Models\\NeverBounceResponse.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\\NeverBounceResponse.cs",
+              "RelativeToolTip": "WebTAManga\\Models\\NeverBounceResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-06T09:44:51.041Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "WebMangaContext.cs",
+              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\WebMangaContext.cs",
+              "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\WebMangaContext.cs",
+              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\WebMangaContext.cs",
+              "RelativeToolTip": "WebTAManga\\Models\u200B\\WebMangaContext.cs",
+              "ViewState": "AgIAAJQBAAAAAAAAAAAuwKIBAABWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T07:08:45.126Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
               "Title": "ExpHistory.cs",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\ExpHistory.cs",
               "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\ExpHistory.cs",
@@ -702,12 +703,11 @@
               "RelativeToolTip": "WebTAManga\\Models\u200B\\ExpHistory.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-25T08:26:39.56Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-25T08:26:39.56Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 17,
               "Title": "Comment.cs",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\Comment.cs",
               "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\Comment.cs",
@@ -715,12 +715,11 @@
               "RelativeToolTip": "WebTAManga\\Models\u200B\\Comment.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAABhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-14T17:32:17.171Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-14T17:32:17.171Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "Create.cshtml",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Register\\Create.cshtml",
               "RelativeDocumentMoniker": "WebTAManga\\Views\\Register\\Create.cshtml",
@@ -728,12 +727,11 @@
               "RelativeToolTip": "WebTAManga\\Views\\Register\\Create.cshtml",
               "ViewState": "AgIAABIAAAAAAAAAAAAAACoAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-03-06T08:17:46.295Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-06T08:17:46.295Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "LoginController.cs",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Controllers\\LoginController.cs",
               "RelativeDocumentMoniker": "WebTAManga\\Controllers\\LoginController.cs",
@@ -741,12 +739,11 @@
               "RelativeToolTip": "WebTAManga\\Controllers\\LoginController.cs",
               "ViewState": "AgIAABMAAAAAAAAAAAA7wEAAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-17T09:21:56.022Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-17T09:21:56.022Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "VerificationPending.cshtml",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Register\\VerificationPending.cshtml",
               "RelativeDocumentMoniker": "WebTAManga\\Views\\Register\\VerificationPending.cshtml",
@@ -754,12 +751,11 @@
               "RelativeToolTip": "WebTAManga\\Views\\Register\\VerificationPending.cshtml",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAAB4AAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-03-06T08:05:06.339Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-06T08:05:06.339Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "EnterVerificationCode.cshtml",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Register\\EnterVerificationCode.cshtml",
               "RelativeDocumentMoniker": "WebTAManga\\Views\\Register\\EnterVerificationCode.cshtml",
@@ -767,12 +763,11 @@
               "RelativeToolTip": "WebTAManga\\Views\\Register\\EnterVerificationCode.cshtml",
               "ViewState": "AgIAABIAAAAAAAAAAAAAACUAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-03-06T09:24:21.323Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-06T09:24:21.323Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "Details.cshtml",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Home\\Details.cshtml",
               "RelativeDocumentMoniker": "WebTAManga\\Views\\Home\\Details.cshtml",
@@ -780,12 +775,11 @@
               "RelativeToolTip": "WebTAManga\\Views\\Home\\Details.cshtml",
               "ViewState": "AgIAABMCAAAAAAAAAAAAACoCAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-01-21T15:23:27.245Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-21T15:23:27.245Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "GenreViewComponent.cs",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Components\\GenreViewComponent.cs",
               "RelativeDocumentMoniker": "WebTAManga\\Components\\GenreViewComponent.cs",
@@ -793,12 +787,11 @@
               "RelativeToolTip": "WebTAManga\\Components\\GenreViewComponent.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-05T07:30:41.41Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-05T07:30:41.41Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "details.js",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\js\\details.js",
               "RelativeDocumentMoniker": "WebTAManga\\wwwroot\\js\\details.js",
@@ -806,12 +799,11 @@
               "RelativeToolTip": "WebTAManga\\wwwroot\\js\\details.js",
               "ViewState": "AgIAAKIAAAAAAAAAAAAowLgAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-03-06T07:24:09.437Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-06T07:24:09.437Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 26,
               "Title": "details.css",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\css\\details.css",
               "RelativeDocumentMoniker": "WebTAManga\\wwwroot\\css\\details.css",
@@ -819,12 +811,11 @@
               "RelativeToolTip": "WebTAManga\\wwwroot\\css\\details.css",
               "ViewState": "AgIAAB0BAAAAAAAAAAAAADcBAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-02-26T08:25:36.78Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-26T08:25:36.78Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 27,
               "Title": "HomeController.cs",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Controllers\\HomeController.cs",
               "RelativeDocumentMoniker": "WebTAManga\\Controllers\\HomeController.cs",
@@ -832,12 +823,11 @@
               "RelativeToolTip": "WebTAManga\\Controllers\\HomeController.cs",
               "ViewState": "AgIAAJ8AAAAAAAAAAAAYwLIAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-14T16:39:27.278Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-14T16:39:27.278Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 28,
               "Title": "Program.cs",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Program.cs",
               "RelativeDocumentMoniker": "WebTAManga\\Program.cs",
@@ -845,12 +835,11 @@
               "RelativeToolTip": "WebTAManga\\Program.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAAQwBwAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-27T08:58:19.175Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-27T08:58:19.175Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 31,
               "Title": "Index.cshtml",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Home\\Index.cshtml",
               "RelativeDocumentMoniker": "WebTAManga\\Views\\Home\\Index.cshtml",
@@ -862,7 +851,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 29,
               "Title": "ErrorViewModel.cs",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\\ErrorViewModel.cs",
               "RelativeDocumentMoniker": "WebTAManga\\Models\\ErrorViewModel.cs",
@@ -874,7 +863,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 30,
               "Title": "UserDailyTask.cs",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Models\u200B\\UserDailyTask.cs",
               "RelativeDocumentMoniker": "WebTAManga\\Models\u200B\\UserDailyTask.cs",
@@ -886,7 +875,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 32,
               "Title": "FollowedController.cs",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Controllers\\FollowedController.cs",
               "RelativeDocumentMoniker": "WebTAManga\\Controllers\\FollowedController.cs",
@@ -898,7 +887,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 33,
               "Title": "ReadChapter.cshtml",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\ReadChapter\\ReadChapter.cshtml",
               "RelativeDocumentMoniker": "WebTAManga\\Views\\ReadChapter\\ReadChapter.cshtml",
@@ -910,7 +899,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 34,
               "Title": "StoriesByGenre.cshtml",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Home\\StoriesByGenre.cshtml",
               "RelativeDocumentMoniker": "WebTAManga\\Views\\Home\\StoriesByGenre.cshtml",
@@ -922,7 +911,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 35,
               "Title": "Search.cshtml",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Home\\Search.cshtml",
               "RelativeDocumentMoniker": "WebTAManga\\Views\\Home\\Search.cshtml",
@@ -934,7 +923,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 36,
               "Title": "profile.css",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\css\\profile.css",
               "RelativeDocumentMoniker": "WebTAManga\\wwwroot\\css\\profile.css",
@@ -946,7 +935,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 37,
               "Title": "readchapter.css",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\css\\readchapter.css",
               "RelativeDocumentMoniker": "WebTAManga\\wwwroot\\css\\readchapter.css",
@@ -958,7 +947,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 38,
               "Title": "_Footer.cshtml",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Shared\\_Footer.cshtml",
               "RelativeDocumentMoniker": "WebTAManga\\Views\\Shared\\_Footer.cshtml",
@@ -970,7 +959,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 39,
               "Title": "_Scripts.cshtml",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Shared\\Components\\Genre\\_Scripts.cshtml",
               "RelativeDocumentMoniker": "WebTAManga\\Views\\Shared\\Components\\Genre\\_Scripts.cshtml",
@@ -982,7 +971,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 40,
               "Title": "search.css",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\css\\search.css",
               "RelativeDocumentMoniker": "WebTAManga\\wwwroot\\css\\search.css",
@@ -994,7 +983,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 41,
               "Title": "FavoriteList.cshtml",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Favorites\\FavoriteList.cshtml",
               "RelativeDocumentMoniker": "WebTAManga\\Views\\Favorites\\FavoriteList.cshtml",
@@ -1006,7 +995,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 42,
               "Title": "FollowedStories.cshtml",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\Followed\\FollowedStories.cshtml",
               "RelativeDocumentMoniker": "WebTAManga\\Views\\Followed\\FollowedStories.cshtml",
@@ -1018,7 +1007,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 43,
               "Title": "storiesbygenre.css",
               "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\css\\storiesbygenre.css",
               "RelativeDocumentMoniker": "WebTAManga\\wwwroot\\css\\storiesbygenre.css",
@@ -1027,18 +1016,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAABSAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
               "WhenOpened": "2025-03-06T07:32:30.512Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 43,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\PayOs\\Index.cshtml",
-              "RelativeDocumentMoniker": "WebTAManga\\Views\\PayOs\\Index.cshtml",
-              "ToolTip": "E:\\BuiTienAnh\\H\u1ECDc t\u1EADp\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\Views\\PayOs\\Index.cshtml",
-              "RelativeToolTip": "WebTAManga\\Views\\PayOs\\Index.cshtml",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAB0AAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-27T10:51:19.594Z"
             },
             {
               "$type": "Document",

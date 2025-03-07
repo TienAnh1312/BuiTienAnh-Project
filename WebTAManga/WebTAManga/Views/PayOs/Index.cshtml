@@ -1,4 +1,5 @@
 ﻿<h3>Nạp Xu</h3>
+<p class="text-success">Nạp lần đầu được x2 số xu!</p>
 <form id="rechargeForm">
     <div class="form-group">
         <label for="amount">Số xu muốn nạp (1 xu = 1 VNĐ):</label>
@@ -29,6 +30,17 @@
                 }
             });
         });
-      
+
+        // Hiển thị thông báo từ TempData nếu có
+        $(document).ready(function () {
+        @if (TempData["SuccessMessage"] != null)
+        {
+            @:$("#rechargeMessage").text('@TempData["SuccessMessage"]').addClass("text-success");
+        }
+        @if (TempData["ErrorMessage"] != null)
+        {
+            @:$("#rechargeMessage").text('@TempData["ErrorMessage"]').addClass("text-danger");
+        }
+        });
     </script>
 }

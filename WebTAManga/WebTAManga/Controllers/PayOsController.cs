@@ -61,6 +61,7 @@ namespace WebTAManga.Controllers
         }
 
         [HttpGet]
+        [HttpGet]
         public IActionResult RechargeSuccess()
         {
             var userId = HttpContext.Session.GetInt32("UsersID");
@@ -76,21 +77,30 @@ namespace WebTAManga.Controllers
             var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
             if (user != null)
             {
-                // Cộng xu vào tài khoản người dùng
-                user.Coins = (user.Coins ?? 0) + amount;
+                // Kiểm tra xem đây có phải lần nạp đầu tiên không
+                bool isFirstRecharge = !_context.Transactions.Any(t => t.UserId == userId && t.TransactionStatus == "Success");
+                double finalCoins = amount; // Số xu cuối cùng sẽ cộng
 
-                // Cập nhật tổng xu đã nạp
+                if (isFirstRecharge)
+                {
+                    finalCoins = amount * 2; // Nhân đôi số xu nếu là lần nạp đầu
+                }
+
+                // Cộng xu vào tài khoản người dùng
+                user.Coins = (user.Coins ?? 0) + finalCoins;
+
+                // Cập nhật tổng xu đã nạp (chỉ tính số tiền thực tế, không tính bonus)
                 user.TotalRechargedCoins += amount;
 
-                // Tính toán cấp VIP mới
+                // Tính toán cấp VIP mới dựa trên số tiền thực tế nạp
                 user.VipLevel = VipLevelConfig.CalculateVipLevel(user.TotalRechargedCoins);
 
                 // Ghi lại lịch sử giao dịch
                 _context.Transactions.Add(new WebTAManga.Models.Transaction
                 {
                     UserId = userId.Value,
-                    Amount = (int)amount,
-                    Coins = (int)amount,
+                    Amount = (int)amount,        // Số tiền thực tế nạp
+                    Coins = (int)finalCoins,     // Số xu thực nhận (bao gồm bonus nếu có)
                     TransactionStatus = "Success",
                     VnpayTransactionId = orderCode.ToString(),
                     CreatedAt = DateTime.Now
@@ -102,10 +112,18 @@ namespace WebTAManga.Controllers
                 HttpContext.Session.Remove("PendingOrderCode");
                 HttpContext.Session.Remove("PendingAmount");
 
-                TempData["SuccessMessage"] = $"Nạp {amount} xu thành công! Cấp VIP hiện tại: {user.VipLevel}";
+                // Thông báo tùy theo trường hợp
+                if (isFirstRecharge)
+                {
+                    TempData["SuccessMessage"] = $"Nạp lần đầu thành công! Bạn nhận được {finalCoins} xu (x2 bonus) với {amount} VNĐ!";
+                }
+                else
+                {
+                    TempData["SuccessMessage"] = $"Nạp {amount} xu thành công! Cấp VIP hiện tại: {user.VipLevel}";
+                }
             }
 
-            return RedirectToAction("Index", "Home"); 
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
