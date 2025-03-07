@@ -79,6 +79,12 @@ namespace WebTAManga.Controllers
                 // Cộng xu vào tài khoản người dùng
                 user.Coins = (user.Coins ?? 0) + amount;
 
+                // Cập nhật tổng xu đã nạp
+                user.TotalRechargedCoins += amount;
+
+                // Tính toán cấp VIP mới
+                user.VipLevel = VipLevelConfig.CalculateVipLevel(user.TotalRechargedCoins);
+
                 // Ghi lại lịch sử giao dịch
                 _context.Transactions.Add(new WebTAManga.Models.Transaction
                 {
@@ -96,10 +102,10 @@ namespace WebTAManga.Controllers
                 HttpContext.Session.Remove("PendingOrderCode");
                 HttpContext.Session.Remove("PendingAmount");
 
-                TempData["SuccessMessage"] = $"Nạp {amount} xu thành công!";
+                TempData["SuccessMessage"] = $"Nạp {amount} xu thành công! Cấp VIP hiện tại: {user.VipLevel}";
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home"); 
         }
 
         [HttpGet]

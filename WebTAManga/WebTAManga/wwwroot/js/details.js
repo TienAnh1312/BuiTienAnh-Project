@@ -1,5 +1,4 @@
-﻿// story-interactions.js
-// IIFE để tránh xung đột biến toàn cục
+﻿
 (function ($) {
     "use strict";
 
@@ -145,9 +144,13 @@
             const form = sticker.closest(".comment-form") || sticker.closest(".reply-form");
             if (!form) return;
 
+            // Xóa lớp selected khỏi tất cả sticker trong form hiện tại
             form.querySelectorAll(".sticker-icon").forEach((s) => s.classList.remove("selected"));
+
+            // Thêm lớp selected vào sticker được chọn
             sticker.classList.add("selected");
 
+            // Cập nhật giá trị StickerId vào input ẩn
             const stickerId = sticker.getAttribute("data-sticker-id");
             const hiddenInput = form.querySelector('input[name="StickerId"]');
             if (hiddenInput) {
@@ -158,6 +161,7 @@
             }
         });
 
+        // Xử lý khi submit form
         document.querySelectorAll("form").forEach((form) =>
             form.addEventListener("submit", function (e) {
                 const selectedSticker = form.querySelector(".sticker-icon.selected");

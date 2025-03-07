@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity; // Thêm namespace này cho PasswordHasher
+using Microsoft.AspNetCore.Identity; 
 using WebTAManga.Login.Models;
 using WebTAManga.Models;
 
@@ -9,12 +9,12 @@ namespace WebTAManga.Controllers
     public class LoginController : Controller
     {
         private readonly WebMangaContext _context;
-        private readonly PasswordHasher<User> _passwordHasher; // Thêm PasswordHasher
+        private readonly PasswordHasher<User> _passwordHasher; 
 
         public LoginController(WebMangaContext context)
         {
             _context = context;
-            _passwordHasher = new PasswordHasher<User>(); // Khởi tạo PasswordHasher
+            _passwordHasher = new PasswordHasher<User>(); 
         }
 
         public IActionResult Index()

@@ -12,12 +12,12 @@
     margin-top: 30px;
 }
 
-    .comment-section h4 {
-        font-weight: bold;
-        color: #007bff;
-        margin-bottom: 20px;
-        text-align: center;
-    }
+.comment-section h4 {
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 20px;
+    text-align: center;
+}
 
 /* Bình luận chính */
 .comment {
@@ -46,10 +46,6 @@
     transition: all 0.3s ease;
 }
 
-/*    .reply:hover {
-        background: #f1f3f5;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-    }*/
 
 /* Bình luận con của con (nested reply) */
 .nested-reply {
@@ -91,15 +87,15 @@
     transition: all 0.3s ease;
 }
 
-    .btn-reply:hover {
-        background: #0056b3;
-        color: #fff;
-        transform: translateY(-2px);
-    }
+.btn-reply:hover {
+    background: #0056b3;
+    color: #fff;
+    transform: translateY(-2px);
+}
 
-    .btn-reply i {
-        margin-right: 5px;
-    }
+.btn-reply i {
+    margin-right: 5px;
+}
 
 /* Form nhập bình luận mới */
 .comment-form {
@@ -110,34 +106,34 @@
     margin-top: 20px;
 }
 
-    .comment-form textarea {
-        border: 1px solid #ced4da;
-        border-radius: 8px;
-        padding: 10px;
-        resize: vertical;
-        transition: all 0.3s ease;
-    }
+.comment-form textarea {
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    padding: 10px;
+    resize: vertical;
+    transition: all 0.3s ease;
+}
 
-        .comment-form textarea:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
-            outline: none;
-        }
+.comment-form textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+    outline: none;
+}
 
-    .comment-form button {
-        background: #007bff;
-        border: none;
-        padding: 8px 20px;
-        border-radius: 20px;
-        color: #fff;
-        font-weight: bold;
-        transition: all 0.3s ease;
-    }
+.comment-form button {
+    background: #007bff;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 20px;
+    color: #fff;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
 
-        .comment-form button:hover {
-            background: #0056b3;
-            transform: translateY(-2px);
-        }
+.comment-form button:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+}
 
 /* Form trả lời */
 .reply-form {
@@ -147,34 +143,34 @@
     border-radius: 8px;
 }
 
-    .reply-form textarea {
-        border: 1px solid #ced4da;
-        border-radius: 8px;
-        padding: 10px;
-        resize: vertical;
-        transition: all 0.3s ease;
-    }
+.reply-form textarea {
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    padding: 10px;
+    resize: vertical;
+    transition: all 0.3s ease;
+}
 
-        .reply-form textarea:focus {
-            border-color: #28a745;
-            box-shadow: 0 0 8px rgba(40, 167, 69, 0.3);
-            outline: none;
-        }
+.reply-form textarea:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 8px rgba(40, 167, 69, 0.3);
+    outline: none;
+}
 
-    .reply-form button {
-        background: #28a745;
-        border: none;
-        padding: 6px 15px;
-        border-radius: 20px;
-        color: #fff;
-        font-weight: bold;
-        transition: all 0.3s ease;
-    }
+.reply-form button {
+    background: #28a745;
+    border: none;
+    padding: 6px 15px;
+    border-radius: 20px;
+    color: #fff;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
 
-        .reply-form button:hover {
-            background: #218838;
-            transform: translateY(-2px);
-        }
+.reply-form button:hover {
+    background: #218838;
+    transform: translateY(-2px);
+}
 
 /* Thông báo khi không có bình luận */
 .no-comment {
@@ -211,9 +207,9 @@
     border: none;
 }
 
-    #toggleDescription:hover {
-        text-decoration: underline;
-    }
+#toggleDescription:hover {
+    text-decoration: underline;
+}
 
 .story-detail__list-chapter--list__item ul {
     max-height: 400px;
@@ -264,10 +260,10 @@
     padding: 0;
 }
 
-    .btn-reply:hover {
-        text-decoration: underline;
-        color: #0056b3;
-    }
+.btn-reply:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
 
 .toggle-replies {
     font-size: 14px;
@@ -276,10 +272,10 @@
     border: none;
 }
 
-    .toggle-replies:hover {
-        text-decoration: underline;
-        color: #0056b3;
-    }
+.toggle-replies:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
 
 .badge {
     font-size: 12px;
@@ -298,4 +294,29 @@
 
 .btn:hover {
     opacity: 0.8;
+}
+
+/*sticker*/
+.sticker-icon {
+    position: relative; /* Để định vị dấu tích tương đối với sticker */
+    max-width: 50px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.sticker-icon.selected::after {
+    content: "\2713"; /* Ký hiệu dấu tích (✓) */
+    position: absolute;
+    top: 2px; /* Điều chỉnh vị trí theo ý muốn */
+    right: 2px; /* Điều chỉnh vị trí theo ý muốn */
+    font-size: 16px; /* Kích thước dấu tích */
+    color: green; /* Màu sắc dấu tích */
+    background-color: white; /* Nền trắng để nổi bật */
+    border-radius: 50%; /* Hình tròn */
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
 }

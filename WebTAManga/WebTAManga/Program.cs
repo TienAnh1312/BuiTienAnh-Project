@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Net.payOS;
 using WebTAManga.Models;
-using static WebTAManga.Controllers.UsersController;
+using static WebTAManga.Controllers.RegisterController;
 
 namespace WebTAManga
 {
@@ -15,6 +15,8 @@ namespace WebTAManga
             builder.Services.AddDbContext<WebMangaContext>(options => options.UseSqlServer(connectionString));
 
             builder.Services.AddHttpContextAccessor();
+
+            builder.Services.AddHttpClient();
 
             builder.Services.AddScoped<IEmailSender, EmailSender>();
 

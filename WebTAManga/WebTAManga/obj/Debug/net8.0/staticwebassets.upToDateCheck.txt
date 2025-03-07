@@ -1472,4 +1472,5 @@ wwwroot\uploads\avatars\74.jpeg
 wwwroot\uploads\avatars\8.jpeg
 wwwroot\uploads\avatars\BanChatCuaChuyenSinh.jfif
 wwwroot\uploads\avatars\tải xuống - 2025-02-20T180226.672.jfif
+wwwroot\uploads\avatars\ThatTinh.jpg
 wwwroot\uploads\avatars\VanTraTrieuHoang.jpg

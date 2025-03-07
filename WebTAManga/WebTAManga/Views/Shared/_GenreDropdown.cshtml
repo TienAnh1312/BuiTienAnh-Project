@@ -1,6 +1,0 @@
-﻿@model List<WebTAManga.Models.Genre>
-
-@foreach (var genre in Model)
-{
-    <li><a class="dropdown-item" asp-controller="Home" asp-action="StoriesByGenre" asp-route-genreId="@genre.GenreId">@genre.Name</a></li>
-}

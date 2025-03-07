@@ -37,6 +37,10 @@ public partial class User
 
     public DateTime? VerificationCodeExpires { get; set; }
 
+    public int VipLevel { get; set; }
+
+    public double TotalRechargedCoins { get; set; }
+
     public virtual AvatarFrame? AvatarFrame { get; set; }
 
     public virtual CategoryRank? CategoryRank { get; set; }
