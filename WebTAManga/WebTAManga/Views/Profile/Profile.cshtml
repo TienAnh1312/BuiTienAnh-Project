@@ -52,12 +52,6 @@
                         </button>
                     </div>
 
-                    <!-- New Password -->
-                    <div class="form-group">
-                        <label for="Password" class="form-label">New Password</label>
-                        <input type="password" class="form-control bg-secondary text-light border-0" id="Password" name="newPassword" placeholder="Enter new password (optional)" />
-                    </div>
-
                     <!-- Rank Selection -->
                     <div class="form-group">
                         <label class="form-label"><strong>Chọn Rank:</strong></label>
@@ -109,16 +103,18 @@
                             <div class="progress shadow-sm">
                                 <div class="progress-bar animate__animated animate__slideInLeft" style="width: @ViewBag.ProgressPercentage%;" aria-valuenow="@ViewBag.ProgressPercentage" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
-                            <p class="mt-2"><strong>EXP:</strong> @ViewBag.ExpPoints - <strong>Xu:</strong> @ViewBag.UserCoins
+                            <p class="mt-2">
+                                <strong>EXP:</strong> @ViewBag.ExpPoints - <strong>Xu:</strong> @ViewBag.UserCoins
                                 <strong>VIP:</strong> @(Model.VipLevel == 0 ? "Không có" : $"VIP {Model.VipLevel}") -
                                 <strong>Tổng xu đã nạp:</strong> @Model.TotalRechargedCoins
                             </p>
                         </div>
                     </div>
 
-                    <!-- Nút Lưu -->
+                    <!-- Nút Lưu và Đổi Mật Khẩu -->
                     <div class="text-center mt-4">
                         <button type="submit" class="btn btn-primary btn-lg shadow-sm animate__animated animate__pulse animate__infinite">Lưu</button>
+                        <a asp-action="ChangePassword" asp-controller="ChangePassword" class="btn btn-outline-warning btn-lg shadow-sm ms-2">Đổi Mật Khẩu</a>
                     </div>
                 </div>
             </div>

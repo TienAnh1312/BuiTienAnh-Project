@@ -3,6 +3,15 @@
     ViewData["Title"] = "Đăng nhập";
     // Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success text-center">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger text-center">@TempData["ErrorMessage"]</div>
+}
+
 @if (!ViewData.ModelState.IsValid)
 {
     <div class="alert alert-danger">
