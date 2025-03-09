@@ -1,0 +1,21 @@
+﻿@model WebTAManga.Models.EnterResetCode
+@{
+    ViewData["Title"] = "Nhập mã xác nhận";
+}
+
+<h2 class="text-center">Nhập mã xác nhận</h2>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+<form asp-action="EnterResetCode" method="post">
+    <input type="hidden" asp-for="Email" />
+    <div class="mb-3">
+        <label>Mã xác nhận</label>
+        <input asp-for="Code" class="form-control" placeholder="Nhập mã xác nhận" />
+        <span asp-validation-for="Code" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Xác nhận</button>
+</form>
