@@ -22,7 +22,7 @@ namespace WebTAManga.Controllers
             if (userId == null)
             {
                 TempData["ErrorMessage"] = "Bạn cần đăng nhập để mua chapter!";
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Login", "Account");
             }
 
             var user = _context.Users.FirstOrDefault(u => u.UserId == userId);

@@ -69,7 +69,7 @@ namespace WebTAManga.Controllers
 
             if (userId == null || orderCode == null || string.IsNullOrEmpty(amountStr))
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Login", "Account");
             }
 
             var amount = double.Parse(amountStr);

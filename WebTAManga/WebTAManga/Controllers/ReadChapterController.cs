@@ -88,7 +88,7 @@ namespace WebTAManga.Controllers
             var userId = HttpContext.Session.GetInt32("UsersID");
             if (userId == null)
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Login", "Account");
             }
 
             var chapters = _context.Chapters.Where(c => c.StoryId == storyId).ToList();
@@ -106,7 +106,7 @@ namespace WebTAManga.Controllers
         public IActionResult CompleteReading(int chapterId)
         {
             var userId = HttpContext.Session.GetInt32("UsersID");
-            if (userId == null) return RedirectToAction("Index", "Login");
+            if (userId == null) return RedirectToAction("Login", "Account");
 
             var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
             var readingHistory = _context.ReadingHistories

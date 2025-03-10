@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Net.payOS;
 using WebTAManga.Models;
-using static WebTAManga.Controllers.RegisterController;
+using static WebTAManga.Controllers.AccountController;
 
 namespace WebTAManga
 {

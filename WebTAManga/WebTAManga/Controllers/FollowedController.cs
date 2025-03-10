@@ -22,7 +22,7 @@ namespace WebTAManga.Controllers
             var userId = HttpContext.Session.GetInt32("UsersID");
             if (userId == null)
             {
-                return Json(new { success = false, redirect = Url.Action("Index", "Login") });
+                return Json(new { success = false, redirect = Url.Action("Login", "Account") });
             }
 
             var followedStory = _context.FollowedStories.FirstOrDefault(f => f.UserId == userId && f.StoryId == storyId);
@@ -48,7 +48,7 @@ namespace WebTAManga.Controllers
             var userId = HttpContext.Session.GetInt32("UsersID");
             if (userId == null)
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Login", "Account");
             }
 
             // Lấy danh sách các câu chuyện mà người dùng đang theo dõi
@@ -67,7 +67,7 @@ namespace WebTAManga.Controllers
             var userId = HttpContext.Session.GetInt32("UsersID");
             if (userId == null)
             {
-                return Json(new { success = false, redirect = Url.Action("Index", "Login") });
+                return Json(new { success = false, redirect = Url.Action("Login", "Account") });
             }
 
             var followedStory = _context.FollowedStories.FirstOrDefault(f => f.UserId == userId && f.StoryId == storyId);

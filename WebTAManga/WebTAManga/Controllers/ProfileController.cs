@@ -23,7 +23,7 @@ namespace WebTAManga.Controllers
             var userId = HttpContext.Session.GetInt32("UsersID");
             if (userId == null)
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Login", "Account");
             }
 
             var user = _context.Users
@@ -146,7 +146,7 @@ namespace WebTAManga.Controllers
             var currentUserId = HttpContext.Session.GetInt32("UsersID");
             if (currentUserId == null)
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Login", "Account");
             }
 
             // Lấy thông tin người dùng hiện tại từ cơ sở dữ liệu
@@ -429,7 +429,7 @@ namespace WebTAManga.Controllers
             var userId = HttpContext.Session.GetInt32("UsersID");
             if (userId == null)
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Login", "Account");
             }
 
             var user = _context.Users.FirstOrDefault(u => u.UserId == userId);

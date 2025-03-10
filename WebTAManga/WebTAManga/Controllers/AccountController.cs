@@ -1,39 +1,86 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using MailKit.Security;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
+using MimeKit;
 using WebTAManga.Models;
 using MailKit.Net.Smtp;
-using MailKit.Security;
-using MimeKit;
-using MimeKit.Text;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 
 namespace WebTAManga.Controllers
 {
-    public class RegisterController : Controller
+    public class AccountController : Controller
     {
         private readonly WebMangaContext _context;
-        private readonly IWebHostEnvironment _environment;
-        private readonly IWebHostEnvironment _hostingEnvironment;
+        private readonly PasswordHasher<User> _passwordHasher;
         private readonly IEmailSender _emailSender;
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public RegisterController(WebMangaContext context, IWebHostEnvironment environment, IWebHostEnvironment hostingEnvironment, IEmailSender emailSender)
+        public AccountController(WebMangaContext context, IWebHostEnvironment hostingEnvironment, IEmailSender emailSender)
         {
             _context = context;
-            _environment = environment;
+            _passwordHasher = new PasswordHasher<User>();
             _hostingEnvironment = hostingEnvironment;
             _emailSender = emailSender;
         }
 
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Login(LoginCustomers model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError(string.Empty, "Thông tin đăng nhập không hợp lệ.");
+                return View(model);
+            }
+
+            var user = _context.Users.FirstOrDefault(x => x.Email.ToLower() == model.Email.ToLower());
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, "Thông tin đăng nhập không chính xác.");
+                return View(model);
+            }
+
+            if (!user.IsEmailVerified)
+            {
+                ModelState.AddModelError(string.Empty, "Tài khoản chưa được xác nhận. Vui lòng kiểm tra email.");
+                return View(model);
+            }
+
+            var verificationResult = _passwordHasher.VerifyHashedPassword(user, user.Password, model.Password);
+            if (verificationResult == PasswordVerificationResult.Success)
+            {
+                HttpContext.Session.SetString("usersLogin", model.Email);
+                HttpContext.Session.SetInt32("UsersID", (int)user.UserId);
+                return RedirectToAction("Index", "Home", new { UsersID = user.UserId });
+            }
+
+            ModelState.AddModelError(string.Empty, "Thông tin đăng nhập không chính xác.");
+            return View(model);
+        }
+
+        public IActionResult Logout()
+        {
+            // Lưu thông tin user trước khi xóa (nếu cần)
+            var username = HttpContext.Session.GetString("usersLogin");
+
+            // Xóa session
+            HttpContext.Session.Remove("usersLogin");
+            HttpContext.Session.Remove("UsersId");
+
+            // Thêm thông báo thành công
+            TempData["SuccessMessage"] = $"Đăng xuất thành công{(username != null ? " khỏi tài khoản " + username : "")}";
+
+            // Chuyển hướng về trang chủ
+            return RedirectToAction("Index", "Home");
+        }
 
         // GET: Users/Create
-        public IActionResult Create()
+        public IActionResult Register()
         {
             return View();
         }
@@ -41,7 +88,7 @@ namespace WebTAManga.Controllers
         // POST: Users/Create - Gửi email xác nhận mà không lưu user ngay
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Username,Email,Password")] User user)
+        public async Task<IActionResult> Register([Bind("Username,Email,Password")] User user)
         {
             if (!ModelState.IsValid)
             {
@@ -135,7 +182,7 @@ namespace WebTAManga.Controllers
             if (string.IsNullOrEmpty(pendingUserJson))
             {
                 TempData["ErrorMessage"] = "Phiên đăng ký đã hết hạn. Vui lòng thử lại.";
-                return RedirectToAction("Create");
+                return RedirectToAction("Register");
             }
 
             var pendingUser = System.Text.Json.JsonSerializer.Deserialize<dynamic>(pendingUserJson);
@@ -162,7 +209,7 @@ namespace WebTAManga.Controllers
                 await _context.SaveChangesAsync();
 
                 TempData["SuccessMessage"] = "Đăng ký tài khoản thành công! Vui lòng đăng nhập.";
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Login", "Account");
             }
             catch (Exception ex)
             {
@@ -184,7 +231,7 @@ namespace WebTAManga.Controllers
             if (user.IsEmailVerified)
             {
                 TempData["SuccessMessage"] = "Tài khoản đã được xác nhận trước đó. Vui lòng đăng nhập.";
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Login", "Account");
             }
 
             if (user.VerificationCode != code || user.VerificationCodeExpires < DateTime.Now)
@@ -200,7 +247,7 @@ namespace WebTAManga.Controllers
             await _context.SaveChangesAsync();
 
             TempData["SuccessMessage"] = "Xác nhận email thành công! Vui lòng đăng nhập.";
-            return RedirectToAction("Index", "Login");
+            return RedirectToAction("Login", "Account");
         }
 
         // GET: Users/ResendVerification - Gửi lại email xác nhận
@@ -287,6 +334,84 @@ namespace WebTAManga.Controllers
                 }
             }
         }
+        // Quên mật khẩu - Nhập email
+        [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(Account model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+            if (user == null)
+            {
+                TempData["ErrorMessage"] = "Email không tồn tại!";
+                return View(model);
+            }
+
+            var resetCode = new Random().Next(100000, 999999).ToString();
+            user.VerificationCode = resetCode;
+            user.VerificationCodeExpires = DateTime.Now.AddMinutes(15);
+            await _context.SaveChangesAsync();
+
+            await _emailSender.SendEmailAsync(user.Email, "Mã xác nhận đặt lại mật khẩu",
+                $"Mã xác nhận của bạn là: <strong>{resetCode}</strong>");
+
+            TempData["Message"] = "Mã xác nhận đã được gửi đến email!";
+            return RedirectToAction("EnterResetCode", new { email = user.Email });
+        }
+
+        // Nhập mã xác nhận
+        [HttpGet]
+        public IActionResult EnterResetCode(string email)
+        {
+            return View(new EnterResetCode { Email = email });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EnterResetCode(EnterResetCode model)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+            if (user == null || user.VerificationCode != model.Code || user.VerificationCodeExpires < DateTime.Now)
+            {
+                TempData["ErrorMessage"] = "Mã xác nhận không hợp lệ!";
+                return View(model);
+            }
+
+            return RedirectToAction("ResetPassword", new { email = user.Email });
+        }
+
+        // Đặt lại mật khẩu
+        [HttpGet]
+        public IActionResult ResetPassword(string email)
+        {
+            return View(new Models.ResetPassword { Email = email });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(Models.ResetPassword model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+            if (user == null)
+            {
+                TempData["ErrorMessage"] = "Email không tồn tại!";
+                return View(model);
+            }
+
+            var passwordHasher = new PasswordHasher<User>();
+            user.Password = passwordHasher.HashPassword(user, model.NewPassword);
+            user.VerificationCode = null;
+            user.VerificationCodeExpires = null;
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Mật khẩu đã được đặt lại thành công!";
+            return RedirectToAction("Login", "Account");
+        }
     }
 }

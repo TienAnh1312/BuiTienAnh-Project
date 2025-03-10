@@ -21,7 +21,7 @@ namespace WebTAManga.Controllers
             var userId = HttpContext.Session.GetInt32("UsersID");
             if (userId == null)
             {
-                return Json(new { success = false, redirect = Url.Action("Index", "Login") });
+                return Json(new { success = false, redirect = Url.Action("Login", "Account") });
             }
 
             var favorite = _context.Favorites.FirstOrDefault(f => f.UserId == userId && f.StoryId == storyId);
@@ -47,7 +47,7 @@ namespace WebTAManga.Controllers
             var userId = HttpContext.Session.GetInt32("UsersID");
             if (userId == null)
             {
-                return RedirectToAction("Index", "Login"); // Chuyển đến trang đăng nhập nếu chưa đăng nhập
+                return RedirectToAction("Login", "Account");
             }
 
             var favorites = _context.Favorites
@@ -66,7 +66,7 @@ namespace WebTAManga.Controllers
             var userId = HttpContext.Session.GetInt32("UsersID");
             if (userId == null)
             {
-                return Json(new { success = false, redirect = Url.Action("Index", "Login") });
+                return Json(new { success = false, redirect = Url.Action("Login", "Account") });
             }
 
             var favorite = _context.Favorites.FirstOrDefault(f => f.UserId == userId && f.StoryId == storyId);

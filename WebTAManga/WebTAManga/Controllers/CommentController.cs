@@ -19,7 +19,7 @@ namespace WebTAManga.Controllers
         public IActionResult AddComment(int storyId, string content, int? stickerId)
         {
             var userId = HttpContext.Session.GetInt32("UsersID");
-            if (userId == null) return RedirectToAction("Index", "Login");
+            if (userId == null) return RedirectToAction("Login", "Account");
 
             var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
             if (user == null) return NotFound();

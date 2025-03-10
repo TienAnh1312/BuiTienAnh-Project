@@ -1,4 +1,4 @@
-﻿@model WebTAManga.Login.Models.LoginCustomers
+﻿@model WebTAManga.Models.LoginCustomers
 @{
     ViewData["Title"] = "Đăng nhập";
     // Layout = "~/Views/Shared/_Layout.cshtml";
@@ -31,7 +31,7 @@
     <h2 class="text-center">Login</h2>
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <form asp-action="Index" method="post"> 
+            <form asp-action="Login" method="post"> 
                 <div class="mb-3">
                     <label for="username" class="form-label">Email</label>
                     <input asp-for="Email" type="email" class="form-control" id="email" placeholder="Enter your email">
@@ -40,7 +40,7 @@
                     <label for="password" class="form-label">Password</label>
                     <input asp-for="Password" type="password" class="form-control" id="password" placeholder="Enter your password">
                 </div>
-                <a asp-controller="ForgotPassword" asp-action="ForgotPassword">Quên mật khẩu?</a>
+                <a asp-controller="Account" asp-action="ForgotPassword">Quên mật khẩu?</a>
 
                 <div class="d-grid">
                     <button type="submit" class="btn btn-primary">Login</button>
