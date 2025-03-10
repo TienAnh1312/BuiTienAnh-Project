@@ -23,6 +23,7 @@ namespace WebTAManga.Models
         public int CustomersID { get; internal set; }
 
     }
+
     public class ChangePassword
     {
         [Required(ErrorMessage = "Vui lòng nhập mật khẩu hiện tại")]

@@ -21,12 +21,11 @@ namespace WebTAManga.Controllers
             _hostingEnvironment = hostingEnvironment;
         }
 
-        public IActionResult Index(int page = 1)
+        // Method gán trực tiếp dữ liệu xếp hạng vào ViewBag
+        private void GetRankings()
         {
-            int pageSize = 24; 
-
-            // --- Bảng xếp hạng tiêu xu ---
-            var coinsByDay = _context.Users
+            // Top Coins
+            ViewBag.TopCoinsByDay = _context.Users
                 .Select(u => new
                 {
                     u.UserId,
@@ -44,7 +43,7 @@ namespace WebTAManga.Controllers
                 .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
                 .ToList();
 
-            var coinsByMonth = _context.Users
+            ViewBag.TopCoinsByMonth = _context.Users
                 .Select(u => new
                 {
                     u.UserId,
@@ -62,7 +61,7 @@ namespace WebTAManga.Controllers
                 .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
                 .ToList();
 
-            var coinsAllTime = _context.Users
+            ViewBag.TopCoinsAllTime = _context.Users
                 .Select(u => new
                 {
                     u.UserId,
@@ -80,8 +79,8 @@ namespace WebTAManga.Controllers
                 .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
                 .ToList();
 
-            // --- Bảng xếp hạng EXP ---
-            var expByDay = _context.Users
+            // Top EXP
+            ViewBag.TopExpByDay = _context.Users
                 .Select(u => new
                 {
                     u.UserId,
@@ -96,7 +95,7 @@ namespace WebTAManga.Controllers
                 .Select((u, index) => new { Rank = index + 1, u.Username, u.ExpPoints })
                 .ToList();
 
-            var expByMonth = _context.Users
+            ViewBag.TopExpByMonth = _context.Users
                 .Select(u => new
                 {
                     u.UserId,
@@ -111,8 +110,7 @@ namespace WebTAManga.Controllers
                 .Select((u, index) => new { Rank = index + 1, u.Username, u.ExpPoints })
                 .ToList();
 
-
-            var expAllTime = _context.Users
+            ViewBag.TopExpAllTime = _context.Users
                 .Select(u => new
                 {
                     u.UserId,
@@ -124,6 +122,14 @@ namespace WebTAManga.Controllers
                 .Take(5)
                 .Select((u, index) => new { Rank = index + 1, u.Username, ExpPoints = u.ExpPoints ?? 0 })
                 .ToList();
+        }
+
+        public IActionResult Index(int page = 1)
+        {
+            int pageSize = 24;
+
+            // Gọi GetRankings để gán dữ liệu vào ViewBag
+            GetRankings();
 
             // Lấy danh sách truyện mới (IsNew = true)
             var newStories = _context.Stories
@@ -143,7 +149,7 @@ namespace WebTAManga.Controllers
                 .Take(5)
                 .ToList();
 
-            // --- Lấy danh sách truyện mới cập nhật với phân trang ---
+            // Lấy danh sách truyện mới cập nhật với phân trang
             var updatedStoriesQuery = _context.Stories
                 .Include(s => s.Chapters)
                 .Include(s => s.StoryGenres).ThenInclude(sg => sg.Genre)
@@ -155,15 +161,7 @@ namespace WebTAManga.Controllers
                 .Take(pageSize)
                 .ToList();
 
-            // Truyền dữ liệu vào ViewBag
-            ViewBag.TopCoinsByDay = coinsByDay;
-            ViewBag.TopCoinsByMonth = coinsByMonth;
-            ViewBag.TopCoinsAllTime = coinsAllTime;
-
-            ViewBag.TopExpByDay = expByDay;
-            ViewBag.TopExpByMonth = expByMonth;
-            ViewBag.TopExpAllTime = expAllTime;
-
+            // Truyền dữ liệu khác vào ViewBag
             ViewBag.NewStories = newStories;
             ViewBag.HotStories = hotStories;
             ViewBag.UpdatedStories = updatedStories;
@@ -183,10 +181,9 @@ namespace WebTAManga.Controllers
                 return NotFound();
             }
 
-            // Tải thông tin truyện với các mối quan hệ cần thiết
+            // Tải thông tin truyện
             var story = _context.Stories
-                .Include(s => s.StoryGenres)
-                .ThenInclude(sg => sg.Genre)
+                .Include(s => s.StoryGenres).ThenInclude(sg => sg.Genre)
                 .Include(s => s.Chapters)
                 .FirstOrDefault(s => s.StoryId == id);
 
@@ -195,29 +192,22 @@ namespace WebTAManga.Controllers
                 return NotFound();
             }
 
-            // Tính số đếm cho truyện
+            // Tính số đếm
             int favoriteCount = _context.Favorites.Count(f => f.StoryId == id);
             int viewCount = _context.ReadingHistories.Count(r => r.StoryId == id);
             int followerCount = _context.FollowedStories.Count(f => f.StoryId == id);
 
-            // Phân trang cho bình luận gốc
-            int pageSize = 6; // Số bình luận mỗi trang
+            // Phân trang bình luận gốc
+            int pageSize = 6;
             var rootCommentsQuery = _context.Comments
                 .Where(c => c.StoryId == id && c.ParentCommentId == null)
                 .OrderByDescending(c => c.CreatedAt)
-                .Include(c => c.User)
-                .ThenInclude(u => u.AvatarFrame)
-                .Include(c => c.User)
-                .ThenInclude(u => u.CategoryRank)
-                .Include(c => c.InverseParentComment)
-                .ThenInclude(r => r.User)
-                .ThenInclude(u => u.AvatarFrame)
-                .Include(c => c.InverseParentComment)
-                .ThenInclude(r => r.User)
-                .ThenInclude(u => u.CategoryRank)
+                .Include(c => c.User).ThenInclude(u => u.AvatarFrame)
+                .Include(c => c.User).ThenInclude(u => u.CategoryRank)
+                .Include(c => c.InverseParentComment).ThenInclude(r => r.User).ThenInclude(u => u.AvatarFrame)
+                .Include(c => c.InverseParentComment).ThenInclude(r => r.User).ThenInclude(u => u.CategoryRank)
                 .Include(c => c.Sticker)
-                .Include(c => c.InverseParentComment)
-                .ThenInclude(r => r.Sticker);
+                .Include(c => c.InverseParentComment).ThenInclude(r => r.Sticker);
 
             var totalRootComments = rootCommentsQuery.Count();
             var comments = rootCommentsQuery
@@ -225,107 +215,11 @@ namespace WebTAManga.Controllers
                 .Take(pageSize)
                 .ToList();
 
-            // Tải danh sách nhãn dán cho form bình luận
+            // Tải danh sách nhãn dán
             var stickers = _context.Stickers.ToList();
 
-            // Logic bảng xếp hạng (giữ nguyên)
-            var topCoinsByDay = _context.Users
-                .Select(u => new
-                {
-                    u.UserId,
-                    u.Username,
-                    CoinsSpent = _context.PurchasedChapters
-                        .Where(pc => pc.UserId == u.UserId && pc.PurchasedAt >= DateTime.Today)
-                        .Sum(pc => pc.Chapter.Coins ?? 0) +
-                        _context.PurchasedAvatarFrames
-                        .Where(paf => paf.UserId == u.UserId && paf.PurchasedAt >= DateTime.Today)
-                        .Sum(paf => paf.AvatarFrame.Price ?? 0)
-                })
-                .AsEnumerable()
-                .OrderByDescending(u => u.CoinsSpent)
-                .Take(5)
-                .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
-                .ToList();
-
-            var topCoinsByMonth = _context.Users
-                .Select(u => new
-                {
-                    u.UserId,
-                    u.Username,
-                    CoinsSpent = _context.PurchasedChapters
-                        .Where(pc => pc.UserId == u.UserId && pc.PurchasedAt >= DateTime.Today.AddMonths(-1))
-                        .Sum(pc => pc.Chapter.Coins ?? 0) +
-                        _context.PurchasedAvatarFrames
-                        .Where(paf => paf.UserId == u.UserId && paf.PurchasedAt >= DateTime.Today.AddMonths(-1))
-                        .Sum(paf => paf.AvatarFrame.Price ?? 0)
-                })
-                .AsEnumerable()
-                .OrderByDescending(u => u.CoinsSpent)
-                .Take(5)
-                .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
-                .ToList();
-
-
-            var topCoinsAllTime = _context.Users
-                .Select(u => new
-                {
-                    u.UserId,
-                    u.Username,
-                    CoinsSpent = _context.PurchasedChapters
-                        .Where(pc => pc.UserId == u.UserId)
-                        .Sum(pc => pc.Chapter.Coins ?? 0) +
-                        _context.PurchasedAvatarFrames
-                        .Where(paf => paf.UserId == u.UserId)
-                        .Sum(paf => paf.AvatarFrame.Price ?? 0)
-                })
-                .AsEnumerable()
-                .OrderByDescending(u => u.CoinsSpent)
-                .Take(5)
-                .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
-                .ToList();
-
-            var topExpByDay = _context.Users
-                .Select(u => new
-                {
-                    u.UserId,
-                    u.Username,
-                    ExpPoints = _context.ExpHistories
-                        .Where(eh => eh.UserId == u.UserId && eh.CreatedAt >= DateTime.Today)
-                        .Sum(eh => eh.ExpAmount)
-                })
-                .AsEnumerable()
-                .OrderByDescending(u => u.ExpPoints)
-                .Take(5)
-                .Select((u, index) => new { Rank = index + 1, u.Username, u.ExpPoints })
-                .ToList();
-
-            var topExpByMonth = _context.Users
-                .Select(u => new
-                {
-                    u.UserId,
-                    u.Username,
-                    ExpPoints = _context.ExpHistories
-                        .Where(eh => eh.UserId == u.UserId && eh.CreatedAt >= DateTime.Today.AddMonths(-1))
-                        .Sum(eh => eh.ExpAmount)
-                })
-                .AsEnumerable()
-                .OrderByDescending(u => u.ExpPoints)
-                .Take(5)
-                .Select((u, index) => new { Rank = index + 1, u.Username, u.ExpPoints })
-                .ToList();
-
-            var topExpAllTime = _context.Users
-                .Select(u => new
-                {
-                    u.UserId,
-                    u.Username,
-                    u.ExpPoints
-                })
-                .AsEnumerable()
-                .OrderByDescending(u => u.ExpPoints)
-                .Take(5)
-                .Select((u, index) => new { Rank = index + 1, u.Username, ExpPoints = u.ExpPoints ?? 0 })
-                .ToList();
+            // Gọi GetRankings để gán dữ liệu vào ViewBag
+            GetRankings();
 
             // Truyền dữ liệu vào ViewBag
             ViewBag.FavoriteCount = favoriteCount;
@@ -342,18 +236,9 @@ namespace WebTAManga.Controllers
             ViewBag.CurrentUserId = userId;
             ViewBag.Stickers = stickers;
 
-            // Gán dữ liệu bảng xếp hạng
-            ViewBag.TopCoinsByDay = topCoinsByDay;
-            ViewBag.TopCoinsByMonth = topCoinsByMonth;
-            ViewBag.TopCoinsAllTime = topCoinsAllTime;
-            ViewBag.TopExpByDay = topExpByDay;
-            ViewBag.TopExpByMonth = topExpByMonth;
-            ViewBag.TopExpAllTime = topExpAllTime;
-
             return View(story);
         }
 
-        // tìm kiếm (nhập giá trị đưa ra gợi ý luôn)
         [HttpGet]
         public IActionResult SearchSuggestions(string query)
         {
@@ -365,12 +250,10 @@ namespace WebTAManga.Controllers
                 }
 
                 var searchTerm = query.ToLower();
-
                 var suggestions = _context.Stories
                     .Where(s => !string.IsNullOrEmpty(s.Title) && s.Title.ToLower().Contains(searchTerm))
                     .Select(s => new
                     {
-                        
                         storyId = s.StoryId,
                         coverImage = s.CoverImage,
                         title = s.Title
@@ -387,30 +270,25 @@ namespace WebTAManga.Controllers
             }
         }
 
-        //tìm kiếm (bấm tìm kiếm)
         [HttpGet]
         public IActionResult Search(string key_word)
         {
-            // Xử lý trường hợp key_word là null hoặc rỗng
             if (string.IsNullOrEmpty(key_word))
             {
                 ViewBag.SearchQuery = "";
-                return View(new List<Story>()); // Trả về danh sách rỗng qua Model
+                return View(new List<Story>());
             }
 
-            // Chuyển key_word về dạng chữ thường để so sánh
             var searchTerm = key_word.ToLower();
-
-            // Truy vấn dữ liệu, đảm bảo không null
             var searchResults = _context.Stories
                 ?.Where(s => s.Title.ToLower().Contains(searchTerm))
                 .Include(s => s.Chapters)
                 .Include(s => s.StoryGenres).ThenInclude(sg => sg.Genre)
                 .OrderByDescending(s => s.LastUpdatedAt)
-                .ToList() ?? new List<Story>(); // Trả về danh sách rỗng nếu null
+                .ToList() ?? new List<Story>();
 
             ViewBag.SearchQuery = key_word;
-            return View(searchResults); // Truyền searchResults qua Model
+            return View(searchResults);
         }
 
         [HttpGet]
@@ -420,19 +298,12 @@ namespace WebTAManga.Controllers
             var rootCommentsQuery = _context.Comments
                 .Where(c => c.StoryId == id && c.ParentCommentId == null)
                 .OrderByDescending(c => c.CreatedAt)
-                .Include(c => c.User)
-                .ThenInclude(u => u.AvatarFrame)
-                .Include(c => c.User)
-                .ThenInclude(u => u.CategoryRank)
-                .Include(c => c.InverseParentComment)
-                .ThenInclude(r => r.User)
-                .ThenInclude(u => u.AvatarFrame)
-                .Include(c => c.InverseParentComment)
-                .ThenInclude(r => r.User)
-                .ThenInclude(u => u.CategoryRank)
+                .Include(c => c.User).ThenInclude(u => u.AvatarFrame)
+                .Include(c => c.User).ThenInclude(u => u.CategoryRank)
+                .Include(c => c.InverseParentComment).ThenInclude(r => r.User).ThenInclude(u => u.AvatarFrame)
+                .Include(c => c.InverseParentComment).ThenInclude(r => r.User).ThenInclude(u => u.CategoryRank)
                 .Include(c => c.Sticker)
-                .Include(c => c.InverseParentComment)
-                .ThenInclude(r => r.Sticker);
+                .Include(c => c.InverseParentComment).ThenInclude(r => r.Sticker);
 
             var totalRootComments = rootCommentsQuery.Count();
             var comments = rootCommentsQuery
@@ -450,19 +321,16 @@ namespace WebTAManga.Controllers
             return PartialView("_CommentsPartial");
         }
 
-        // lấy danh sách thể loại 
         public IActionResult GetGenres()
         {
             var genres = _context.Genres.ToList();
-            return PartialView("_GenreDropdown", genres); // Trả về partial view chứa danh sách thể loại
+            return PartialView("_GenreDropdown", genres);
         }
 
-        // hiển thị truyện theo thể loại
         public IActionResult StoriesByGenre(int genreId)
         {
             var stories = _context.Stories
-                .Include(s => s.StoryGenres)
-                .ThenInclude(sg => sg.Genre)
+                .Include(s => s.StoryGenres).ThenInclude(sg => sg.Genre)
                 .Where(s => s.StoryGenres.Any(sg => sg.GenreId == genreId))
                 .Include(s => s.Chapters)
                 .OrderByDescending(s => s.LastUpdatedAt)
