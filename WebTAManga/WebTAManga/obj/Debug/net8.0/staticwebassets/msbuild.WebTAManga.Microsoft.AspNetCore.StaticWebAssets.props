@@ -66,8 +66,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>rqse2r7nie</Fingerprint>
-      <Integrity>/bgXu7LcWIus2OeolSfDTjCWOdNxCsEEuidkZEmywgA=</Integrity>
+      <Fingerprint>w54hsig1xn</Fingerprint>
+      <Integrity>VJNlcRebj5Vx21s4/3bvEQPmoZt3IEvIXzbnJiITkas=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\readchapter.css'))</OriginalItemSpec>

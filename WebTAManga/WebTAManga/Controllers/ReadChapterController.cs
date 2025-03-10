@@ -19,28 +19,28 @@ namespace WebTAManga.Controllers
             var userId = HttpContext.Session.GetInt32("UsersID");
 
             var chapter = _context.Chapters
-                                   .Include(c => c.ChapterImages)
-                                   .FirstOrDefault(c => c.ChapterId == id);
+                                  .Include(c => c.ChapterImages)
+                                  .FirstOrDefault(c => c.ChapterId == id);
             if (chapter == null) return NotFound();
 
             bool isPurchased = false;
 
-            // Nếu người dùng đã đăng nhập, kiểm tra xem họ đã mua chapter chưa
+            // Nếu người dùng đã đăng nhập, kiểm tra xem họ đã mua chương chưa
             if (userId != null && chapter.Coins > 0)
             {
                 isPurchased = _context.PurchasedChapters.Any(pc => pc.UserId == userId && pc.ChapterId == id);
             }
 
-            // Nếu chapter miễn phí hoặc đã mua thì mở khóa
+            // Xác định chương có được mở khóa không (miễn phí hoặc đã mua)
             chapter.IsUnlocked = isPurchased || chapter.Coins == 0;
             ViewBag.IsPurchased = isPurchased;
             ViewBag.IsUnlocked = chapter.IsUnlocked;
 
-            // Nếu người dùng đăng nhập, cập nhật lịch sử đọc
+            // Nếu người dùng đã đăng nhập, cập nhật lịch sử đọc
             if (userId != null)
             {
                 var readingHistory = _context.ReadingHistories
-                                             .FirstOrDefault(r => r.UserId == userId && r.ChapterId == id);
+                                            .FirstOrDefault(r => r.UserId == userId && r.ChapterId == id);
 
                 if (readingHistory == null)
                 {
@@ -61,7 +61,7 @@ namespace WebTAManga.Controllers
                 _context.SaveChanges();
 
                 var followedStory = _context.FollowedStories
-                                            .FirstOrDefault(f => f.UserId == userId && f.StoryId == chapter.StoryId);
+                                           .FirstOrDefault(f => f.UserId == userId && f.StoryId == chapter.StoryId);
                 if (followedStory != null)
                 {
                     followedStory.LastReadChapterId = chapter.ChapterId;
@@ -78,6 +78,11 @@ namespace WebTAManga.Controllers
                                           .Where(c => c.StoryId == chapter.StoryId && c.ChapterId > chapter.ChapterId)
                                           .OrderBy(c => c.ChapterId)
                                           .FirstOrDefault();
+
+            // Lấy tất cả các chương của câu chuyện để hiển thị trong dropdown
+            ViewBag.AllChapters = _context.Chapters
+                                          .Where(c => c.StoryId == chapter.StoryId)
+                                          .ToList();
 
             return View(chapter);
         }

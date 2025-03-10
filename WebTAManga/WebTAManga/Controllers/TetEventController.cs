@@ -220,7 +220,5 @@ namespace WebTAManga.Controllers
                 _context.SaveChanges();
             }
         }
-
-
     }
 }

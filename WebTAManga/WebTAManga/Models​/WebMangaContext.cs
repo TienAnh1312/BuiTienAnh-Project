@@ -41,6 +41,8 @@ public partial class WebMangaContext : DbContext
 
     public virtual DbSet<Level> Levels { get; set; }
 
+    public virtual DbSet<Notification> Notifications { get; set; }
+
     public virtual DbSet<PurchasedAvatarFrame> PurchasedAvatarFrames { get; set; }
 
     public virtual DbSet<PurchasedChapter> PurchasedChapters { get; set; }
@@ -335,6 +337,27 @@ public partial class WebMangaContext : DbContext
                 .HasForeignKey(d => d.CategoryRankId)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__Level__CategoryR__7A3223E8");
+        });
+
+        modelBuilder.Entity<Notification>(entity =>
+        {
+            entity.HasKey(e => e.NotificationId).HasName("PK__Notifica__20CF2E124DDDFDA5");
+
+            entity.ToTable("Notification");
+
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.Link).HasMaxLength(255);
+
+            entity.HasOne(d => d.Comment).WithMany(p => p.Notifications)
+                .HasForeignKey(d => d.CommentId)
+                .HasConstraintName("FK_Notification_Comments");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Notifications)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_Notification_Users");
         });
 
         modelBuilder.Entity<PurchasedAvatarFrame>(entity =>

@@ -397,7 +397,7 @@
                             timeSpan.TotalDays < 365 ? $"{(int)(timeSpan.TotalDays / 30)} tháng trước" :
                             $"{(int)(timeSpan.TotalDays / 365)} năm trước";
 
-                            <li class="comment">
+                            <li class="comment" id="comment-@comment.CommentId">
                                 <div class="d-flex align-items-start">
                                     <div class="avatar-container me-3">
                                         @if (comment.User?.AvatarFrame != null && !string.IsNullOrEmpty(comment.User.AvatarFrame.ImagePath))

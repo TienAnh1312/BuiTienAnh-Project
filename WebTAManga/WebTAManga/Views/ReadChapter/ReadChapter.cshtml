@@ -2,14 +2,116 @@
 
 <link rel="stylesheet" href="~/css/readchapter.css" asp-append-version="true" />
 
-<div class="container mt-5">
-    <h2>@Model.ChapterTitle</h2>
-    <p class="text-muted">Published on @Model.CreatedAt?.ToString("yyyy-MM-dd")</p>
+<style>
+    .chapter-navigation .btn {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
 
+    .chapter-navigation .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+    .chapter-navigation .btn-primary {
+        background-color: #00c4ff;
+        border-color: #00c4ff;
+    }
+
+    .chapter-selector .form-select {
+        font-size: 16px;
+       
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .bottom-navigation {
+        background-color: rgba(0, 0, 0, 0.9); 
+        z-index: 1000; 
+        width: 100%; 
+        max-width: 600px; 
+        margin: 0 auto; 
+        border-radius: 10px; 
+    }
+
+    .bottom-navigation .btn {
+        color: #fff; 
+        font-size: 14px; 
+        padding: 8px; 
+    }
+    .bottom-navigation .btn i {
+        font-size: 18px;
+    }
+
+    .bottom-navigation .btn i {
+        font-size: 18px; 
+    }
+
+    .bottom-navigation .btn:disabled {
+        opacity: 0.5; 
+    }
+
+    .bottom-navigation .chapter-selector {
+        flex: 1; 
+        min-width: 150px; 
+        max-width: 200px; 
+        margin: 0 5px; 
+    }
+
+    .bottom-navigation .chapter-selector .form-select {
+        background-color: #fff; 
+        color: #000; 
+        font-size: 14px; 
+        padding: 5px; 
+        border-radius: 5px; 
+        border: 1px solid #ccc;
+        text-align: center; 
+    }
+</style>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger mt-3">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success mt-3">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<div class="container mt-5">
+    <!-- Hiển thị tiêu đề chương -->
+    <div class="text-center mt-4">
+        <h2> @Model.ChapterTitle</h2>
+        <p class="text-muted">Published on @Model.CreatedAt?.ToString("yyyy-MM-dd")</p>
+    </div>
+
+    <!-- Thanh điều hướng chương -->
+    <div class="chapter-navigation mt-3 d-flex justify-content-between align-items-center">
+        <div>
+            <a href="@Url.Action("ReadChapter", "ReadChapter", new { id = ViewBag.PreviousChapter?.ChapterId })"
+               class="btn btn-secondary @(ViewBag.PreviousChapter == null ? "disabled" : "")">
+                <i class="fas fa-arrow-left"></i> Chap trước
+            </a>
+        </div>
+        <div>
+            <a href="@Url.Action("ReadChapter", "ReadChapter", new { id = ViewBag.NextChapter?.ChapterId })"
+               class="btn btn-primary @(ViewBag.NextChapter == null ? "disabled" : "")">
+                Chap sau <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+    </div>
+
+    <!-- nội dung chương -->
     <div class="mt-4">
         @if (ViewBag.IsUnlocked || ViewBag.IsPurchased)
         {
-            <!-- Hiển thị nội dung chapter nếu đã mở khóa hoặc đã mua -->
             @if (Model.ChapterImages != null && Model.ChapterImages.Any())
             {
                 <div class="row justify-content-center">
@@ -28,7 +130,6 @@
         }
         else
         {
-            <!-- Thông báo chapter bị khóa và nút mở khóa -->
             <div class="chapter-locked">
                 <p>Chapter này đã bị khóa. Sử dụng <strong>@Model.Coins</strong> xu để mở khóa.</p>
                 <form method="post" asp-controller="BuyChapter" asp-action="BuyChapter" asp-route-chapterId="@Model.ChapterId">
@@ -39,20 +140,36 @@
     </div>
 </div>
 
-
-@if (TempData["ErrorMessage"] != null)
-{
-    <div class="alert alert-danger mt-3">
-        @TempData["ErrorMessage"]
+<!-- Thanh điều hướng dưới cùng -->
+<div class="bottom-navigation fixed-bottom text-white p-2 d-flex justify-content-around align-items-center">
+    <a href="@Url.Action("Index", "Home")" class="btn btn-dark">
+        <i class="fas fa-home"></i>
+    </a>
+    <a href="@Url.Action("ReadChapter", "ReadChapter", new { id = ViewBag.PreviousChapter?.ChapterId })" class="btn btn-dark" @(ViewBag.PreviousChapter == null ? "disabled" : "")>
+        <i class="fas fa-arrow-left"></i>
+    </a>
+    <!-- Dropdown chọn chương -->
+    <div class="chapter-selector">
+        <select onchange="location = this.value;" class="form-select d-inline-block">
+            @foreach (var chapter in (ViewBag.AllChapters as List<Chapter> ?? new List<Chapter>()).OrderBy(c => c.ChapterId))
+            {
+                <option value="@Url.Action("ReadChapter", "ReadChapter", new { id = chapter.ChapterId })"
+                        @@(chapter.ChapterId == Model.ChapterId ? "selected" : "")>
+                    @chapter.ChapterTitle
+                </option>
+            }
+        </select>
     </div>
-}
-
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="alert alert-success mt-3">
-        @TempData["SuccessMessage"]
-    </div>
-}
+    <a href="@Url.Action("ReadChapter", "ReadChapter", new { id = ViewBag.NextChapter?.ChapterId })" class="btn btn-dark" @(ViewBag.NextChapter == null ? "disabled" : "")>
+        <i class="fas fa-arrow-right"></i>
+    </a>
+    <button class="btn btn-dark">
+        <i class="fas fa-undo"></i>
+    </button>
+    <button class="btn btn-dark">
+        <i class="fas fa-heart"></i> Theo dõi
+    </button>
+</div>
 
 <script>
     window.addEventListener("beforeunload", function () {
