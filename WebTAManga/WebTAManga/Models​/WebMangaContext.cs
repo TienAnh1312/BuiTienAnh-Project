@@ -21,6 +21,8 @@ public partial class WebMangaContext : DbContext
 
     public virtual DbSet<AvatarFrame> AvatarFrames { get; set; }
 
+    public virtual DbSet<Banner> Banners { get; set; }
+
     public virtual DbSet<CategoryRank> CategoryRanks { get; set; }
 
     public virtual DbSet<Chapter> Chapters { get; set; }
@@ -64,8 +66,6 @@ public partial class WebMangaContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<UserDailyTask> UserDailyTasks { get; set; }
-
-    public virtual DbSet<VnpayTransaction> VnpayTransactions { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -137,6 +137,17 @@ public partial class WebMangaContext : DbContext
 
             entity.Property(e => e.ImagePath).HasMaxLength(500);
             entity.Property(e => e.Name).HasMaxLength(255);
+        });
+
+        modelBuilder.Entity<Banner>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Banners__3214EC077EBFC59D");
+
+            entity.Property(e => e.Description).HasMaxLength(1000);
+            entity.Property(e => e.ImageUrl).HasMaxLength(500);
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
+            entity.Property(e => e.LinkUrl).HasMaxLength(500);
+            entity.Property(e => e.Title).HasMaxLength(255);
         });
 
         modelBuilder.Entity<CategoryRank>(entity =>
@@ -611,27 +622,6 @@ public partial class WebMangaContext : DbContext
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_UserDailyTask_Users");
-        });
-
-        modelBuilder.Entity<VnpayTransaction>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__VnpayTra__3214EC072BB1D2C4");
-
-            entity.HasIndex(e => e.TxnRef, "UQ__VnpayTra__DE7ABA53F6D287D2").IsUnique();
-
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-            entity.Property(e => e.OrderInfo).HasMaxLength(255);
-            entity.Property(e => e.ProcessedAt).HasColumnType("datetime");
-            entity.Property(e => e.ResponseCode).HasMaxLength(10);
-            entity.Property(e => e.Status).HasMaxLength(20);
-            entity.Property(e => e.TxnRef).HasMaxLength(50);
-
-            entity.HasOne(d => d.User).WithMany(p => p.VnpayTransactions)
-                .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.Cascade)
-                .HasConstraintName("FK_VnpayTransactions_Users");
         });
 
         OnModelCreatingPartial(modelBuilder);

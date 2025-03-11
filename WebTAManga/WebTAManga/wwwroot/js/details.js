@@ -50,6 +50,7 @@
         }
     }
 
+    //Ẩn hiện bình luận
     function toggleReplies(commentId) {
         const repliesDiv = document.getElementById(`replies-${commentId}`);
         if (!repliesDiv) return;

@@ -93,6 +93,12 @@ wwwroot\images\admins\avatarFrames\d7629445-5b85-4936-8200-5a7c21c6177e.png
 wwwroot\images\admins\avatarFrames\f0df4cd6-14d9-4524-9083-7423a9328f65.png
 wwwroot\images\admins\avatarFrames\f580426e-407a-4044-86cb-225cfea2660f.png
 wwwroot\images\admins\avatarFrames\fcc62373-cdb2-42f6-b4e1-d541e77e66c4.png
+wwwroot\images\admins\banner\1jIZYRfOhND23Ztbw3n4bzGz9TFaJJax2.jfif
+wwwroot\images\admins\banner\banner 3.jfif
+wwwroot\images\admins\banner\banner 6.jfif
+wwwroot\images\admins\banner\banner2.jfif
+wwwroot\images\admins\banner\banner4.jfif
+wwwroot\images\admins\banner\banner5.jfif
 wwwroot\images\admins\cpimages\0.jpg
 wwwroot\images\admins\cpimages\1.jpg
 wwwroot\images\admins\cpimages\10.jpg

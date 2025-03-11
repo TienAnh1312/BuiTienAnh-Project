@@ -21,115 +21,21 @@ namespace WebTAManga.Controllers
             _hostingEnvironment = hostingEnvironment;
         }
 
-        // Method gán trực tiếp dữ liệu xếp hạng vào ViewBag
-        private void GetRankings()
-        {
-            // Top Coins
-            ViewBag.TopCoinsByDay = _context.Users
-                .Select(u => new
-                {
-                    u.UserId,
-                    u.Username,
-                    CoinsSpent = _context.PurchasedChapters
-                        .Where(pc => pc.UserId == u.UserId && pc.PurchasedAt >= DateTime.Today)
-                        .Sum(pc => pc.Chapter.Coins ?? 0) +
-                        _context.PurchasedAvatarFrames
-                        .Where(paf => paf.UserId == u.UserId && paf.PurchasedAt >= DateTime.Today)
-                        .Sum(paf => paf.AvatarFrame.Price ?? 0)
-                })
-                .AsEnumerable()
-                .OrderByDescending(u => u.CoinsSpent)
-                .Take(5)
-                .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
-                .ToList();
-
-            ViewBag.TopCoinsByMonth = _context.Users
-                .Select(u => new
-                {
-                    u.UserId,
-                    u.Username,
-                    CoinsSpent = _context.PurchasedChapters
-                        .Where(pc => pc.UserId == u.UserId && pc.PurchasedAt >= DateTime.Today.AddMonths(-1))
-                        .Sum(pc => pc.Chapter.Coins ?? 0) +
-                        _context.PurchasedAvatarFrames
-                        .Where(paf => paf.UserId == u.UserId && paf.PurchasedAt >= DateTime.Today.AddMonths(-1))
-                        .Sum(paf => paf.AvatarFrame.Price ?? 0)
-                })
-                .AsEnumerable()
-                .OrderByDescending(u => u.CoinsSpent)
-                .Take(5)
-                .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
-                .ToList();
-
-            ViewBag.TopCoinsAllTime = _context.Users
-                .Select(u => new
-                {
-                    u.UserId,
-                    u.Username,
-                    CoinsSpent = _context.PurchasedChapters
-                        .Where(pc => pc.UserId == u.UserId)
-                        .Sum(pc => pc.Chapter.Coins ?? 0) +
-                        _context.PurchasedAvatarFrames
-                        .Where(paf => paf.UserId == u.UserId)
-                        .Sum(paf => paf.AvatarFrame.Price ?? 0)
-                })
-                .AsEnumerable()
-                .OrderByDescending(u => u.CoinsSpent)
-                .Take(5)
-                .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
-                .ToList();
-
-            // Top EXP
-            ViewBag.TopExpByDay = _context.Users
-                .Select(u => new
-                {
-                    u.UserId,
-                    u.Username,
-                    ExpPoints = _context.ExpHistories
-                        .Where(eh => eh.UserId == u.UserId && eh.CreatedAt >= DateTime.Today)
-                        .Sum(eh => eh.ExpAmount)
-                })
-                .AsEnumerable()
-                .OrderByDescending(u => u.ExpPoints)
-                .Take(5)
-                .Select((u, index) => new { Rank = index + 1, u.Username, u.ExpPoints })
-                .ToList();
-
-            ViewBag.TopExpByMonth = _context.Users
-                .Select(u => new
-                {
-                    u.UserId,
-                    u.Username,
-                    ExpPoints = _context.ExpHistories
-                        .Where(eh => eh.UserId == u.UserId && eh.CreatedAt >= DateTime.Today.AddMonths(-1))
-                        .Sum(eh => eh.ExpAmount)
-                })
-                .AsEnumerable()
-                .OrderByDescending(u => u.ExpPoints)
-                .Take(5)
-                .Select((u, index) => new { Rank = index + 1, u.Username, u.ExpPoints })
-                .ToList();
-
-            ViewBag.TopExpAllTime = _context.Users
-                .Select(u => new
-                {
-                    u.UserId,
-                    u.Username,
-                    u.ExpPoints
-                })
-                .AsEnumerable()
-                .OrderByDescending(u => u.ExpPoints)
-                .Take(5)
-                .Select((u, index) => new { Rank = index + 1, u.Username, ExpPoints = u.ExpPoints ?? 0 })
-                .ToList();
-        }
-
         public IActionResult Index(int page = 1)
         {
             int pageSize = 24;
 
             // Gọi GetRankings để gán dữ liệu vào ViewBag
             GetRankings();
+
+            // Lấy danh sách banner theo thứ tự DisplayOrder
+            var banners = _context.Banners
+                .Where(b => b.IsActive) // Chỉ lấy các banner đang hoạt động
+                .OrderBy(b => b.DisplayOrder) // Sắp xếp theo DisplayOrder tăng dần
+                .ToList();
+
+            // Truyền dữ liệu vào ViewBag
+            ViewBag.Banners = banners; // Thêm danh sách banner vào ViewBag
 
             // Lấy danh sách truyện mới (IsNew = true)
             var newStories = _context.Stories
@@ -161,7 +67,6 @@ namespace WebTAManga.Controllers
                 .Take(pageSize)
                 .ToList();
 
-            // Truyền dữ liệu khác vào ViewBag
             ViewBag.NewStories = newStories;
             ViewBag.HotStories = hotStories;
             ViewBag.UpdatedStories = updatedStories;
@@ -342,6 +247,109 @@ namespace WebTAManga.Controllers
                 .FirstOrDefault();
 
             return View(stories);
+        }
+
+        // Method gán trực tiếp dữ liệu xếp hạng vào ViewBag
+        private void GetRankings()
+        {
+            // Top Coins
+            ViewBag.TopCoinsByDay = _context.Users
+                .Select(u => new
+                {
+                    u.UserId,
+                    u.Username,
+                    CoinsSpent = _context.PurchasedChapters
+                        .Where(pc => pc.UserId == u.UserId && pc.PurchasedAt >= DateTime.Today)
+                        .Sum(pc => pc.Chapter.Coins ?? 0) +
+                        _context.PurchasedAvatarFrames
+                        .Where(paf => paf.UserId == u.UserId && paf.PurchasedAt >= DateTime.Today)
+                        .Sum(paf => paf.AvatarFrame.Price ?? 0)
+                })
+                .AsEnumerable()
+                .OrderByDescending(u => u.CoinsSpent)
+                .Take(5)
+                .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
+                .ToList();
+
+            ViewBag.TopCoinsByMonth = _context.Users
+                .Select(u => new
+                {
+                    u.UserId,
+                    u.Username,
+                    CoinsSpent = _context.PurchasedChapters
+                        .Where(pc => pc.UserId == u.UserId && pc.PurchasedAt >= DateTime.Today.AddMonths(-1))
+                        .Sum(pc => pc.Chapter.Coins ?? 0) +
+                        _context.PurchasedAvatarFrames
+                        .Where(paf => paf.UserId == u.UserId && paf.PurchasedAt >= DateTime.Today.AddMonths(-1))
+                        .Sum(paf => paf.AvatarFrame.Price ?? 0)
+                })
+                .AsEnumerable()
+                .OrderByDescending(u => u.CoinsSpent)
+                .Take(5)
+                .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
+                .ToList();
+
+            ViewBag.TopCoinsAllTime = _context.Users
+                .Select(u => new
+                {
+                    u.UserId,
+                    u.Username,
+                    CoinsSpent = _context.PurchasedChapters
+                        .Where(pc => pc.UserId == u.UserId)
+                        .Sum(pc => pc.Chapter.Coins ?? 0) +
+                        _context.PurchasedAvatarFrames
+                        .Where(paf => paf.UserId == u.UserId)
+                        .Sum(paf => paf.AvatarFrame.Price ?? 0)
+                })
+                .AsEnumerable()
+                .OrderByDescending(u => u.CoinsSpent)
+                .Take(5)
+                .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
+                .ToList();
+
+            // Top EXP
+            ViewBag.TopExpByDay = _context.Users
+                .Select(u => new
+                {
+                    u.UserId,
+                    u.Username,
+                    ExpPoints = _context.ExpHistories
+                        .Where(eh => eh.UserId == u.UserId && eh.CreatedAt >= DateTime.Today)
+                        .Sum(eh => eh.ExpAmount)
+                })
+                .AsEnumerable()
+                .OrderByDescending(u => u.ExpPoints)
+                .Take(5)
+                .Select((u, index) => new { Rank = index + 1, u.Username, u.ExpPoints })
+                .ToList();
+
+            ViewBag.TopExpByMonth = _context.Users
+                .Select(u => new
+                {
+                    u.UserId,
+                    u.Username,
+                    ExpPoints = _context.ExpHistories
+                        .Where(eh => eh.UserId == u.UserId && eh.CreatedAt >= DateTime.Today.AddMonths(-1))
+                        .Sum(eh => eh.ExpAmount)
+                })
+                .AsEnumerable()
+                .OrderByDescending(u => u.ExpPoints)
+                .Take(5)
+                .Select((u, index) => new { Rank = index + 1, u.Username, u.ExpPoints })
+                .ToList();
+
+            ViewBag.TopExpAllTime = _context.Users
+                .Select(u => new
+                {
+                    u.UserId,
+                    u.Username,
+                    u.ExpPoints
+                })
+                .AsEnumerable()
+                .OrderByDescending(u => u.ExpPoints)
+                .Take(5)
+                .Select((u, index) => new { Rank = index + 1, u.Username, ExpPoints = u.ExpPoints ?? 0 })
+                .ToList();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

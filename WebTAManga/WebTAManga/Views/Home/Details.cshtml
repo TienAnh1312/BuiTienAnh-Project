@@ -450,11 +450,11 @@
 
                                         @if (comment.InverseParentComment?.Any() == true)
                                         {
-                                            <div class="replies-toggle mt-2">
+                                            <div class="replies-toggle mt-2" >
                                                 <button class="toggle-replies" onclick="toggleReplies(@comment.CommentId)">
                                                     <i class="fas fa-caret-down"></i> Hiện @comment.InverseParentComment.Count() bình luận
                                                 </button>
-                                                <div class="replies mt-3" id="replies-@comment.CommentId" style="display:none;">
+                                                <div class="replies mt-3" id="replies-@comment.CommentId" style="display:none;" >
                                                     @foreach (var reply in comment.InverseParentComment)
                                                     {
                                                         var replyTimeSpan = DateTime.Now - (reply.CreatedAt ?? DateTime.MinValue);

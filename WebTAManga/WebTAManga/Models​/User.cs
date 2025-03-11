@@ -68,6 +68,4 @@ public partial class User
     public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
 
     public virtual ICollection<UserDailyTask> UserDailyTasks { get; set; } = new List<UserDailyTask>();
-
-    public virtual ICollection<VnpayTransaction> VnpayTransactions { get; set; } = new List<VnpayTransaction>();
 }
