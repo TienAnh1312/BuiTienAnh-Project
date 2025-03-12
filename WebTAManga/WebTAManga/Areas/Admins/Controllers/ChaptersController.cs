@@ -9,7 +9,6 @@ using WebTAManga.Models;
 
 namespace WebTAManga.Areas.Admins.Controllers
 {
-    
     public class ChaptersController : BaseController
     {
         private readonly WebMangaContext _context;
@@ -63,29 +62,96 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Chapters/Create
-        public IActionResult Create()
+        public IActionResult Create(int? storyId)
         {
-            ViewData["StoryId"] = new SelectList(_context.Stories, "StoryId", "Title");
-            return View();  
+            if (storyId == null)
+            {
+                return NotFound();
+            }
+
+            // Lấy danh sách ChapterTitle và tìm số lớn nhất
+            var chapterTitles = _context.Chapters
+                .Where(c => c.StoryId == storyId)
+                .Select(c => c.ChapterTitle)
+                .Where(t => t.StartsWith("Chương "))
+                .ToList();
+
+            int maxChapterNumber = 0;
+            foreach (var title in chapterTitles)
+            {
+                if (int.TryParse(title.Replace("Chương ", ""), out int num))
+                {
+                    if (num > maxChapterNumber)
+                    {
+                        maxChapterNumber = num;
+                    }
+                }
+            }
+
+            var nextChapterNumber = maxChapterNumber + 1;
+
+            ViewData["StoryId"] = new SelectList(_context.Stories, "StoryId", "Title", storyId);
+            return View(new Chapter { StoryId = storyId.Value, ChapterTitle = $"Chương {nextChapterNumber}" });
         }
 
         // POST: Admins/Chapters/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ChapterId,StoryId,ChapterTitle,Content,CreatedAt,Coins,IsLocked")] Chapter chapter)
+        public async Task<IActionResult> Create(int StoryId, int chapterNumber, List<IFormFile> ImageFiles)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                chapter.CreatedAt = DateTime.Now; // Tự động đặt CreatedAt cho chapter
-
-                _context.Add(chapter);
-                await _context.SaveChangesAsync();
-
-                // Chuyển hướng về action Edit của StoriesController với StoryId
-                return RedirectToAction("Edit", "Stories", new { id = chapter.StoryId, area = "Admins" });
+                ViewData["StoryId"] = new SelectList(_context.Stories, "StoryId", "Title", StoryId);
+                return View(new Chapter { StoryId = StoryId });
             }
-            ViewData["StoryId"] = new SelectList(_context.Stories, "StoryId", "Title", chapter.StoryId);
-            return View(chapter);
+
+            var chapter = new Chapter
+            {
+                StoryId = StoryId,
+                ChapterTitle = $"Chương {chapterNumber}", // Tạo ChapterTitle từ số nhập vào
+                CreatedAt = DateTime.Now
+            };
+
+            _context.Add(chapter);
+            await _context.SaveChangesAsync();
+
+            // Xử lý upload hình ảnh nếu có
+            if (ImageFiles != null && ImageFiles.Count > 0)
+            {
+                var chapterFolder = Path.Combine("images", "admins", "stories", $"chapter_{chapter.ChapterId}");
+                var fullFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", chapterFolder);
+                if (!Directory.Exists(fullFolderPath))
+                {
+                    Directory.CreateDirectory(fullFolderPath);
+                }
+
+                int pageNumber = 1;
+                foreach (var file in ImageFiles)
+                {
+                    if (file.Length > 0)
+                    {
+                        var fileExtension = Path.GetExtension(file.FileName);
+                        var uniqueFileName = $"{chapterNumber}_{pageNumber}_{Guid.NewGuid()}{fileExtension}";
+                        var filePath = Path.Combine(fullFolderPath, uniqueFileName);
+
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
+
+                        var chapterImage = new ChapterImage
+                        {
+                            ChapterId = chapter.ChapterId,
+                            PageNumber = pageNumber++,
+                            ImageUrl = Path.Combine(chapterFolder, uniqueFileName).Replace("\\", "/")
+                        };
+                        _context.ChapterImages.Add(chapterImage);
+                    }
+                }
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Edit", "Stories", new { id = chapter.StoryId, area = "Admins" });
         }
 
         // GET: Admins/Chapters/Edit/5
@@ -166,19 +232,59 @@ namespace WebTAManga.Areas.Admins.Controllers
             return View(chapter);
         }
 
-        // POST: Admins/Chapters/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var chapter = await _context.Chapters.FindAsync(id);
-            if (chapter != null)
+            var chapter = await _context.Chapters
+                .Include(c => c.ChapterImages) // Load danh sách ảnh liên quan
+                .FirstOrDefaultAsync(c => c.ChapterId == id);
+
+            if (chapter == null)
             {
-                _context.Chapters.Remove(chapter);
+                return NotFound();
             }
 
-            await _context.SaveChangesAsync();  
-            return RedirectToAction(nameof(Index));
+            // Xử lý bản ghi trong followed_stories (nếu có từ lỗi trước)
+            var followedStories = await _context.FollowedStories
+                .Where(fs => fs.LastReadChapterId == chapter.ChapterId)
+                .ToListAsync();
+            if (followedStories.Any())
+            {
+                _context.FollowedStories.RemoveRange(followedStories); // Xóa các bản ghi liên quan
+            }
+
+            // Xử lý bản ghi trong reading_history
+            var readingHistories = await _context.ReadingHistories
+                .Where(rh => rh.ChapterId == chapter.ChapterId)
+                .ToListAsync();
+            if (readingHistories.Any())
+            {
+                _context.ReadingHistories.RemoveRange(readingHistories); // Xóa các bản ghi liên quan
+            }
+
+            // Xóa các file ảnh trong thư mục wwwroot
+            if (chapter.ChapterImages != null && chapter.ChapterImages.Any())
+            {
+                foreach (var chapterImage in chapter.ChapterImages)
+                {
+                    if (!string.IsNullOrEmpty(chapterImage.ImageUrl))
+                    {
+                        var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", chapterImage.ImageUrl);
+                        if (System.IO.File.Exists(imagePath))
+                        {
+                            System.IO.File.Delete(imagePath);
+                        }
+                    }
+                }
+                _context.ChapterImages.RemoveRange(chapter.ChapterImages);
+            }
+
+            // Xóa chapter
+            _context.Chapters.Remove(chapter);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index), new { storyId = chapter.StoryId });
         }
 
         private bool ChapterExists(int id)

@@ -21,7 +21,7 @@ namespace WebTAManga.Controllers
             _hostingEnvironment = hostingEnvironment;
         }
 
-        public IActionResult Index(int page = 1)
+        public IActionResult Index(int? id, int page = 1)
         {
             int pageSize = 24;
 
@@ -30,23 +30,46 @@ namespace WebTAManga.Controllers
 
             // Lấy danh sách banner theo thứ tự DisplayOrder
             var banners = _context.Banners
-                .Where(b => b.IsActive) // Chỉ lấy các banner đang hoạt động
-                .OrderBy(b => b.DisplayOrder) // Sắp xếp theo DisplayOrder tăng dần
+                .Where(b => b.IsActive)
+                .OrderBy(b => b.DisplayOrder)
                 .ToList();
 
-            // Truyền dữ liệu vào ViewBag
-            ViewBag.Banners = banners; // Thêm danh sách banner vào ViewBag
+            ViewBag.Banners = banners;
 
-            // Lấy danh sách truyện mới (IsNew = true)
+            // Lấy danh sách truyện mới với dữ liệu bổ sung
             var newStories = _context.Stories
                 .Where(s => s.IsNew)
                 .Include(s => s.Chapters)
                 .Include(s => s.StoryGenres).ThenInclude(sg => sg.Genre)
+                .Include(s => s.Favorites)
+                .Include(s => s.FollowedStories)
+                .Include(s => s.Ratings)
+                .Include(s => s.ReadingHistories)
                 .OrderByDescending(s => s.CreatedAt)
+                .Select(s => new Story
+                {
+                    StoryId = s.StoryId,
+                    Title = s.Title,
+                    Author = s.Author,
+                    Description = s.Description,
+                    CoverImage = s.CoverImage,
+                    CreatedAt = s.CreatedAt,
+                    IsCompleted = s.IsCompleted,
+                    LastUpdatedAt = s.LastUpdatedAt,
+                    IsHot = s.IsHot,
+                    IsNew = s.IsNew,
+                    Chapters = s.Chapters,
+                    StoryGenres = s.StoryGenres,
+                    Favorites = s.Favorites,
+                    FollowedStories = s.FollowedStories,
+                    Ratings = s.Ratings,
+                    ReadingHistories = s.ReadingHistories,
+
+                })
                 .Take(11)
                 .ToList();
 
-            // Lấy danh sách truyện hot (IsHot = true)
+            // Lấy danh sách truyện hot
             var hotStories = _context.Stories
                 .Where(s => s.IsHot)
                 .Include(s => s.Chapters)

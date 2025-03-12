@@ -9,7 +9,6 @@ namespace WebTAManga.Controllers
        
         private readonly WebMangaContext _context;
        
-        // Constructor duy nhất để nhận cả ILogger và WebMangaContext
         public FollowedController(WebMangaContext context)
         {    
             _context = context;
