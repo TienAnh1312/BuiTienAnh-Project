@@ -9,7 +9,7 @@ using WebTAManga.Models;
 
 namespace WebTAManga.Areas.Admins.Controllers
 {
-    
+
     public class ChapterImagesController : BaseController
     {
         private readonly WebMangaContext _context;

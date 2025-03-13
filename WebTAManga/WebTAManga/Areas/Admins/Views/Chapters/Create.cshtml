@@ -26,7 +26,7 @@
             </div>
             <div class="form-group mb-3">
                 <label asp-for="Coins" class="control-label fw-bold">Số xu mở khóa</label>
-                <input asp-for="Coins" class="form-control" />
+                <input asp-for="Coins" class="form-control" type="number" min="0" value="0" />
                 <span asp-validation-for="Coins" class="text-danger"></span>
             </div>
 

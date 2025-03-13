@@ -97,7 +97,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         // POST: Admins/Chapters/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(int StoryId, int chapterNumber, List<IFormFile> ImageFiles)
+        public async Task<IActionResult> Create(int StoryId, int chapterNumber, int Coins, List<IFormFile> ImageFiles)
         {
             if (!ModelState.IsValid)
             {
@@ -108,8 +108,9 @@ namespace WebTAManga.Areas.Admins.Controllers
             var chapter = new Chapter
             {
                 StoryId = StoryId,
-                ChapterTitle = $"Chương {chapterNumber}", // Tạo ChapterTitle từ số nhập vào
-                CreatedAt = DateTime.Now
+                ChapterTitle = $"Chương {chapterNumber}",
+                CreatedAt = DateTime.Now,
+                Coins = Coins // Thêm số xu mở khóa
             };
 
             _context.Add(chapter);
@@ -151,7 +152,7 @@ namespace WebTAManga.Areas.Admins.Controllers
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToAction("Edit", "Stories", new { id = chapter.StoryId, area = "Admins" });
+            return RedirectToAction(nameof(Index), new { storyId = chapter.StoryId });
         }
 
         // GET: Admins/Chapters/Edit/5
@@ -206,8 +207,8 @@ namespace WebTAManga.Areas.Admins.Controllers
                     }
                 }
 
-                // Chuyển hướng về action Edit của StoriesController với StoryId
-                return RedirectToAction("Index", "Stories", new { id = chapter.StoryId, area = "Admins" });
+                // Chuyển hướng về danh sách chapters 
+                return RedirectToAction(nameof(Index), new { storyId = chapter.StoryId });
             }
             ViewData["StoryId"] = new SelectList(_context.Stories, "StoryId", "Title", chapter.StoryId);
             return View(chapter);
