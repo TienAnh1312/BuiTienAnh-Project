@@ -20,7 +20,6 @@
 
     .chapter-selector .form-select {
         font-size: 16px;
-       
         background-color: #fff;
         border: 1px solid #ccc;
         border-radius: 5px;
@@ -42,10 +41,6 @@
     }
     .bottom-navigation .btn i {
         font-size: 18px;
-    }
-
-    .bottom-navigation .btn i {
-        font-size: 18px; 
     }
 
     .bottom-navigation .btn:disabled {
@@ -87,57 +82,74 @@
 <div class="container mt-5">
     <!-- Hiển thị tiêu đề chương -->
     <div class="text-center mt-4">
-        <h2> @Model.ChapterTitle</h2>
+        <h2>@Model.ChapterTitle</h2>
         <p class="text-muted">Published on @Model.CreatedAt?.ToString("yyyy-MM-dd")</p>
     </div>
 
     <!-- Thanh điều hướng chương -->
     <div class="chapter-navigation mt-3 d-flex justify-content-between align-items-center">
         <div>
-            <a href="@Url.Action("ReadChapter", "ReadChapter", new { id = ViewBag.PreviousChapter?.ChapterId })"
-               class="btn btn-secondary @(ViewBag.PreviousChapter == null ? "disabled" : "")">
-                <i class="fas fa-arrow-left"></i> Chap trước
-            </a>
-        </div>
-        <div>
-            <a href="@Url.Action("ReadChapter", "ReadChapter", new { id = ViewBag.NextChapter?.ChapterId })"
-               class="btn btn-primary @(ViewBag.NextChapter == null ? "disabled" : "")">
-                Chap sau <i class="fas fa-arrow-right"></i>
-            </a>
-        </div>
-    </div>
-    </div>
-
-    <!-- nội dung chương -->
-    <div class="mt-4">
-        @if (ViewBag.IsUnlocked || ViewBag.IsPurchased)
-        {
-            @if (Model.ChapterImages != null && Model.ChapterImages.Any())
+            @if (ViewBag.PreviousChapter == null)
             {
-                <div class="row justify-content-center">
-                    @foreach (var image in Model.ChapterImages.OrderBy(i => i.PageNumber))
-                    {
-                        <div class="col-12 text-center">
-                            <img src="~/@image.ImageUrl" alt="Page @image.PageNumber" class="img-fluid chapter-image">
-                        </div>
-                    }
-                </div>
+                <span class="btn btn-secondary disabled">
+                    <i class="fas fa-arrow-left"></i> Chap trước
+                </span>
             }
             else
             {
-                <p>No images available for this chapter.</p>
+                <a href="@Url.Action("ReadChapter", "ReadChapter", new { id = ViewBag.PreviousChapter.ChapterId })"
+                   class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Chap trước
+                </a>
             }
+        </div>
+        <div>
+            @if (ViewBag.NextChapter == null)
+            {
+                <span class="btn btn-primary disabled">
+                    Chap sau <i class="fas fa-arrow-right"></i>
+                </span>
+            }
+            else
+            {
+                <a href="@Url.Action("ReadChapter", "ReadChapter", new { id = ViewBag.NextChapter.ChapterId })"
+                   class="btn btn-primary">
+                    Chap sau <i class="fas fa-arrow-right"></i>
+                </a>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- nội dung chương -->
+<div class="mt-4">
+    @if (ViewBag.IsUnlocked || ViewBag.IsPurchased)
+    {
+        @if (Model.ChapterImages != null && Model.ChapterImages.Any())
+        {
+            <div class="row justify-content-center">
+                @foreach (var image in Model.ChapterImages.OrderBy(i => i.PageNumber))
+                {
+                    <div class="col-12 text-center">
+                        <img src="~/@image.ImageUrl" alt="Page @image.PageNumber" class="img-fluid chapter-image">
+                    </div>
+                }
+            </div>
         }
         else
         {
-            <div class="chapter-locked">
-                <p>Chapter này đã bị khóa. Sử dụng <strong>@Model.Coins</strong> xu để mở khóa.</p>
-                <form method="post" asp-controller="BuyChapter" asp-action="BuyChapter" asp-route-chapterId="@Model.ChapterId">
-                    <button type="submit" class="btn btn-unlock">Mua ngay</button>
-                </form>
-            </div>
+            <p>No images available for this chapter.</p>
         }
-    </div>
+    }
+    else
+    {
+        <div class="chapter-locked">
+            <p>Chapter này đã bị khóa. Sử dụng <strong>@Model.Coins</strong> xu để mở khóa.</p>
+            <form method="post" asp-controller="BuyChapter" asp-action="BuyChapter" asp-route-chapterId="@Model.ChapterId">
+                <button type="submit" class="btn btn-unlock">Mua ngay</button>
+            </form>
+        </div>
+    }
 </div>
 
 <!-- Thanh điều hướng dưới cùng -->
@@ -150,13 +162,23 @@
     </a>
     <!-- Dropdown chọn chương -->
     <div class="chapter-selector">
-        <select onchange="location = this.value;" class="form-select d-inline-block">
-            @foreach (var chapter in (ViewBag.AllChapters as List<Chapter> ?? new List<Chapter>()).OrderBy(c => c.ChapterId))
+        @{
+            var chapters = ViewBag.AllChapters as List<WebTAManga.Models.Chapter> ?? new List<WebTAManga.Models.Chapter>();
+            var orderedChapters = chapters.OrderBy(c => c.ChapterId).ToList();
+        }
+        <select id="chapterSelect" class="form-select d-inline-block">
+            @if (orderedChapters.Any())
             {
-                <option value="@Url.Action("ReadChapter", "ReadChapter", new { id = chapter.ChapterId })"
-                        @@(chapter.ChapterId == Model.ChapterId ? "selected" : "")>
-                    @chapter.ChapterTitle
-                </option>
+                @foreach (var chapter in orderedChapters)
+                {
+                    <option value="@chapter.ChapterId" @@(chapter.ChapterId == Model.ChapterId ? "selected" : "")>
+                        @chapter.ChapterTitle
+                    </option>
+                }
+            }
+            else
+            {
+                <option value="" disabled>Không có chương</option>
             }
         </select>
     </div>
@@ -172,12 +194,42 @@
 </div>
 
 <script>
-    window.addEventListener("beforeunload", function () {
-        let chapterId = @Model.ChapterId;
-        let form = document.createElement("form");
-        form.method = "POST";
-        form.action = "/ReadChapter/CompleteReading/" + chapterId;
-        document.body.appendChild(form);
-        form.submit();
-    });
+// Xử lý dropdown và điều hướng
+document.addEventListener("DOMContentLoaded", function () {
+    var select = document.getElementById('chapterSelect');
+    if (select) {
+        // Đảm bảo chọn đúng chapter khi trang tải
+        var currentChapterId = @Model.ChapterId;
+        for (var i = 0; i < select.options.length; i++) {
+            if (parseInt(select.options[i].value) === currentChapterId) {
+                select.selectedIndex = i;
+                break;
+            }
+        }
+
+        // Xử lý sự kiện thay đổi chapter
+        select.addEventListener('change', function () {
+            var chapterId = this.value;
+            if (chapterId) {
+                console.log("Đang chuyển đến chương ID: " + chapterId); // Gỡ lỗi
+                var url = '/ReadChapter/ReadChapter?id=' + chapterId; // URL cố định
+                window.location.href = url;
+            } else {
+                console.log("Không có chapterId hợp lệ!");
+            }
+        });
+    } else {
+        console.error("Element 'chapterSelect' không được tìm thấy!");
+    }
+});
+
+// Xử lý trước khi rời trang
+window.addEventListener("beforeunload", function () {
+    let chapterId = @Model.ChapterId;
+    let form = document.createElement("form");
+    form.method = "POST";
+    form.action = "/ReadChapter/CompleteReading/" + chapterId;
+    document.body.appendChild(form);
+    form.submit();
+});
 </script>

@@ -5,7 +5,6 @@
 }
 
 <h1>Edit</h1>
-
 <h4>ChapterImage</h4>
 <hr />
 <div class="row">
@@ -13,29 +12,36 @@
         <form asp-action="Edit" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ImageId" />
+            <input type="hidden" asp-for="ChapterId" />
+
             <div class="form-group">
-                <label asp-for="ChapterId" class="control-label"></label>
-                <select asp-for="ChapterId" class="form-control" asp-items="ViewBag.ChapterId" disabled> </select>
-                <span asp-validation-for="ChapterId" class="text-danger"></span>
+                <label class="control-label">Ảnh hiện tại</label>
+                @if (!string.IsNullOrEmpty(ViewData["ImageUrl"]?.ToString()) || !string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <div>
+                        <img src="/@(ViewData["ImageUrl"] ?? Model.ImageUrl)" alt="Current Image" style="max-width: 100%; height: auto;" />
+                    </div>
+                }
+                else
+                {
+                    <p>Chưa có ảnh</p>
+                }
             </div>
 
             <div class="form-group">
-                <label asp-for="ImageUrl" class="control-label"></label>
-                <input asp-for="ImageUrl" type="file" class="form-control" />
-                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                <label class="control-label">Thay ảnh mới (nếu cần)</label>
+                <input type="file" name="ImageUrl" class="form-control" accept="image/*" />
+                <span class="text-danger">@Html.ValidationMessage("ImageUrl")</span>
             </div>
+
             <div class="form-group">
-                <label asp-for="PageNumber" class="control-label"></label>
-                <input asp-for="PageNumber" class="form-control" />
-                <span asp-validation-for="PageNumber" class="text-danger"></span>
+                <label asp-for="PageNumber" class="control-label">Số trang</label>
+                <input asp-for="PageNumber" class="form-control" type="number" min="1" />
+                <span class="text-danger">@Html.ValidationMessage("PageNumber")</span>
             </div>
-           @*  <div class="form-group">
-                <label asp-for="StoryId" class="control-label"></label>
-                <input asp-for="StoryId" class="form-control" />
-                <span asp-validation-for="StoryId" class="text-danger"></span>
-            </div> *@
+
             <div class="form-group">
-                <input type="submit" asp-route-chapterId="@Model.ChapterId" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -45,7 +51,8 @@
     <a asp-action="Index" asp-route-chapterId="@Model.ChapterId">Back to List</a>
 </div>
 
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

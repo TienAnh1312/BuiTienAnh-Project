@@ -99,6 +99,16 @@ namespace WebTAManga.Areas.Admins.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(int StoryId, int chapterNumber, int Coins, List<IFormFile> ImageFiles)
         {
+            string chapterTitle = $"Chương {chapterNumber}";
+
+            var existingChapter = await _context.Chapters
+                .FirstOrDefaultAsync(c => c.StoryId == StoryId && c.ChapterTitle == chapterTitle);
+
+            if (existingChapter != null)
+            {
+                ModelState.AddModelError("chapterNumber", $"Chương {chapterNumber} đã tồn tại cho Truyện này.");
+            }
+
             if (!ModelState.IsValid)
             {
                 ViewData["StoryId"] = new SelectList(_context.Stories, "StoryId", "Title", StoryId);
@@ -108,15 +118,15 @@ namespace WebTAManga.Areas.Admins.Controllers
             var chapter = new Chapter
             {
                 StoryId = StoryId,
-                ChapterTitle = $"Chương {chapterNumber}",
+                ChapterTitle = chapterTitle,
                 CreatedAt = DateTime.Now,
-                Coins = Coins // Thêm số xu mở khóa
+                Coins = Coins
             };
 
             _context.Add(chapter);
             await _context.SaveChangesAsync();
 
-            // Xử lý upload hình ảnh nếu có
+            // Xử lý upload hình ảnh 
             if (ImageFiles != null && ImageFiles.Count > 0)
             {
                 var chapterFolder = Path.Combine("images", "admins", "stories", $"chapter_{chapter.ChapterId}");
@@ -181,17 +191,32 @@ namespace WebTAManga.Areas.Admins.Controllers
         // POST: Admins/Chapters/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ChapterId,StoryId,ChapterTitle,Content,CreatedAt,Coins,IsLocked")] Chapter chapter)
+        public async Task<IActionResult> Edit(int id, int chapterNumber, [Bind("ChapterId,StoryId,Content,CreatedAt,Coins,IsLocked")] Chapter chapter)
         {
             if (id != chapter.ChapterId)
             {
                 return NotFound();
             }
 
+            // Tạo ChapterTitle từ chapterNumber
+            string newChapterTitle = $"Chương {chapterNumber}";
+
+            // Kiểm tra trùng lặp
+            var existingChapter = await _context.Chapters
+                .FirstOrDefaultAsync(c => c.StoryId == chapter.StoryId
+                    && c.ChapterTitle == newChapterTitle
+                    && c.ChapterId != chapter.ChapterId);
+
+            if (existingChapter != null)
+            {
+                ModelState.AddModelError("chapterNumber", $"Chương {chapterNumber} đã tồn tại cho Truyện này.");
+            }
+
             if (ModelState.IsValid)
             {
                 try
                 {
+                    chapter.ChapterTitle = newChapterTitle;
                     _context.Update(chapter);
                     await _context.SaveChangesAsync();
                 }
@@ -206,11 +231,10 @@ namespace WebTAManga.Areas.Admins.Controllers
                         throw;
                     }
                 }
-
-                // Chuyển hướng về danh sách chapters 
                 return RedirectToAction(nameof(Index), new { storyId = chapter.StoryId });
             }
-            ViewData["StoryId"] = new SelectList(_context.Stories, "StoryId", "Title", chapter.StoryId);
+
+            ViewData["StoryId"] = new SelectList(new List<Story> { chapter.Story }, "StoryId", "Title");
             return View(chapter);
         }
 

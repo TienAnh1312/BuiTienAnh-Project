@@ -5,7 +5,6 @@
 }
 
 <h1>Edit</h1>
-
 <h4>Chapter</h4>
 <hr />
 <div class="row">
@@ -13,17 +12,13 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ChapterId" />
+            <input type="hidden" asp-for="StoryId" />
 
             <div class="form-group">
-                <label asp-for="StoryId" class="control-label"></label>
-                <select asp-for="StoryId" class="form-control" asp-items="ViewBag.StoryId" ></select>
-                <span asp-validation-for="StoryId" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="ChapterTitle" class="control-label"></label>
-                <input asp-for="ChapterTitle" class="form-control" />
-                <span asp-validation-for="ChapterTitle" class="text-danger"></span>
+                <label class="control-label">Số chương</label>
+                <input name="chapterNumber" class="form-control" type="number" min="1"
+                       value="@(int.Parse(Model.ChapterTitle.Replace("Chương ", "")))" />
+                <span class="text-danger">@Html.ValidationMessage("chapterNumber")</span>
             </div>
 
             <div class="form-group mb-3">
@@ -48,7 +43,7 @@
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Save" asp-route-storyId="@Model.StoryId" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -59,5 +54,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

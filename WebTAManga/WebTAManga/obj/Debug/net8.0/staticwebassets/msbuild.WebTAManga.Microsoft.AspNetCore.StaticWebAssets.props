@@ -1998,24 +1998,6 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\Cayvannienthanh.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\chapter_30\1_1_2f462050-4d9f-4ef4-9bdf-0fee1e582cb4.jfif'))">
-      <SourceType>Package</SourceType>
-      <SourceId>WebTAManga</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/WebTAManga</BasePath>
-      <RelativePath>images/admins/stories/chapter_30/1_1_2f462050-4d9f-4ef4-9bdf-0fee1e582cb4.jfif</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>wgpaewnmt8</Fingerprint>
-      <Integrity>kCJMhupirP/ZVv/RlMJ5Roh3OJOvdhQhOZp/wpmtQpk=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\chapter_30\1_1_2f462050-4d9f-4ef4-9bdf-0fee1e582cb4.jfif'))</OriginalItemSpec>
-    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\chapter_31\2_1_28b248a0-36e5-4937-9830-9cfa606a0b19.jpg'))">
       <SourceType>Package</SourceType>
       <SourceId>WebTAManga</SourceId>
@@ -2034,30 +2016,30 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\chapter_31\2_1_28b248a0-36e5-4937-9830-9cfa606a0b19.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\chapter_32\3_1_60dab850-36e7-41ea-8df4-3ddc270d24c7.jpg'))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\chapter_32\thiet-huyet-kiem-si-hoi-quy_1681531186_d4897a9e-3bf4-40ae-a390-6f2729cd6974.jpg'))">
       <SourceType>Package</SourceType>
       <SourceId>WebTAManga</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/WebTAManga</BasePath>
-      <RelativePath>images/admins/stories/chapter_32/3_1_60dab850-36e7-41ea-8df4-3ddc270d24c7.jpg</RelativePath>
+      <RelativePath>images/admins/stories/chapter_32/thiet-huyet-kiem-si-hoi-quy_1681531186_d4897a9e-3bf4-40ae-a390-6f2729cd6974.jpg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>lwzhjhafuo</Fingerprint>
-      <Integrity>BQdjGxbQqywLyfr1R3sG9pah7clMAEKqV1zl5seDhdA=</Integrity>
+      <Fingerprint>zi1hxv5tos</Fingerprint>
+      <Integrity>BbG7eeU9zHHYWEwS39uv+AuFgMWPEuGDCfRTs6gEnvA=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\chapter_32\3_1_60dab850-36e7-41ea-8df4-3ddc270d24c7.jpg'))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\chapter_32\thiet-huyet-kiem-si-hoi-quy_1681531186_d4897a9e-3bf4-40ae-a390-6f2729cd6974.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\chapter_33\4_1_9afc03b9-fd62-451a-877e-5caa70e15382.jfif'))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\chapter_32\VinhQuangVoTan_c0c5edd7-fb2e-4c49-a2d3-9463b16f3bd8.jfif'))">
       <SourceType>Package</SourceType>
       <SourceId>WebTAManga</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/WebTAManga</BasePath>
-      <RelativePath>images/admins/stories/chapter_33/4_1_9afc03b9-fd62-451a-877e-5caa70e15382.jfif</RelativePath>
+      <RelativePath>images/admins/stories/chapter_32/VinhQuangVoTan_c0c5edd7-fb2e-4c49-a2d3-9463b16f3bd8.jfif</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -2068,7 +2050,7 @@
       <Integrity>rlo1WgJnpNU5fLUOt4p7HupEr+RQJDEbfL6O3Vpa5Pc=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\chapter_33\4_1_9afc03b9-fd62-451a-877e-5caa70e15382.jfif'))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\chapter_32\VinhQuangVoTan_c0c5edd7-fb2e-4c49-a2d3-9463b16f3bd8.jfif'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\chapter_34\1_1_3d3b8666-0783-4b17-8554-c9117dc892ee.jfif'))">
       <SourceType>Package</SourceType>
@@ -2424,8 +2406,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>fxrn41k92a</Fingerprint>
-      <Integrity>I5U5y3FlhZxt72OUnCD6B52+fQ1rk3m/QkKrKyNnOgI=</Integrity>
+      <Fingerprint>3r8b2a0bt1</Fingerprint>
+      <Integrity>8ZRc1sGeVrPBx4lD717BgRaQekyh78QKV9SKsdt638U=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\site.js'))</OriginalItemSpec>

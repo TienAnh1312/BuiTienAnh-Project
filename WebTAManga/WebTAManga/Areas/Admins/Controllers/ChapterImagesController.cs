@@ -145,11 +145,15 @@ namespace WebTAManga.Areas.Admins.Controllers
                 return NotFound();
             }
 
-            var chapterImage = await _context.ChapterImages.FindAsync(id);
+            var chapterImage = await _context.ChapterImages
+                .Include(ci => ci.Chapter) // thông tin chapter để lấy ChapterId
+                .FirstOrDefaultAsync(ci => ci.ImageId == id);
+
             if (chapterImage == null)
             {
                 return NotFound();
             }
+
             ViewData["ChapterId"] = new SelectList(_context.Chapters, "ChapterId", "ChapterTitle", chapterImage.ChapterId);
             return View(chapterImage);
         }
@@ -157,44 +161,84 @@ namespace WebTAManga.Areas.Admins.Controllers
         // POST: Admins/ChapterImages/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, ChapterImage chapterImage)
+        public async Task<IActionResult> Edit(int id, [Bind("ImageId,ChapterId,PageNumber")] ChapterImage chapterImage, IFormFile ImageUrl)
         {
             if (id != chapterImage.ImageId)
             {
                 return NotFound();
             }
 
+            var existingImage = await _context.ChapterImages.FindAsync(id);
+            if (existingImage == null)
+            {
+                return NotFound();
+            }
+
+            var existingPage = await _context.ChapterImages
+                .FirstOrDefaultAsync(ci => ci.ChapterId == chapterImage.ChapterId
+                    && ci.PageNumber == chapterImage.PageNumber
+                    && ci.ImageId != chapterImage.ImageId);
+
+            if (existingPage != null)
+            {
+                ModelState.AddModelError("PageNumber", $"Số trang {chapterImage.PageNumber} đã tồn tại trong chapter này.");
+            }
+
+            // Loại bỏ lỗi xác thực cho ImageUrl nếu không có file được chọn
+            if (ImageUrl == null || ImageUrl.Length == 0)
+            {
+                ModelState.Remove("ImageUrl");
+            }
+
             if (!ModelState.IsValid)
             {
-                return View(chapterImage);
+                // Bảo toàn ImageUrl hiện tại trong ViewData để hiển thị hình ảnh cũ
+                ViewData["ImageUrl"] = existingImage.ImageUrl;
+                ViewData["ChapterId"] = new SelectList(_context.Chapters, "ChapterId", "ChapterTitle", chapterImage.ChapterId);
+                return View(chapterImage); // Trả về view với dữ liệu hiện tại, giữ nguyên ảnh cũ
             }
 
             try
             {
-                var existingImage = await _context.ChapterImages.FindAsync(id);
-                if (existingImage == null)
-                {
-                    return NotFound();
-                }
+                string newImageUrl = existingImage.ImageUrl; // Giữ nguyên URL cũ mặc định
 
-                var files = HttpContext.Request.Form.Files;
-                if (files.Count > 0 && files[0].Length > 0)
+                // Nếu có file mới được upload
+                if (ImageUrl != null && ImageUrl.Length > 0)
                 {
-                    // Lưu ảnh mới
-                    var file = files[0];
-                    var fileName = file.FileName;
-                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "admins", "stories", fileName);
-
-                    using (var stream = new FileStream(path, FileMode.Create))
+                    // Lưu file mới trước
+                    var chapterFolder = Path.Combine("images", "admins", "stories", $"chapter_{chapterImage.ChapterId}");
+                    var fullFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", chapterFolder);
+                    if (!Directory.Exists(fullFolderPath))
                     {
-                        await file.CopyToAsync(stream);
+                        Directory.CreateDirectory(fullFolderPath);
                     }
 
-                    // Cập nhật đường dẫn ảnh mới
-                    existingImage.ImageUrl = "images/admins/stories/" + fileName;
+                    var fileExtension = Path.GetExtension(ImageUrl.FileName);
+                    var uniqueFileName = $"{Path.GetFileNameWithoutExtension(ImageUrl.FileName)}_{Guid.NewGuid()}{fileExtension}";
+                    var filePath = Path.Combine(fullFolderPath, uniqueFileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await ImageUrl.CopyToAsync(stream);
+                    }
+
+                    newImageUrl = Path.Combine(chapterFolder, uniqueFileName).Replace("\\", "/");
+
+                    // Xóa ảnh cũ sau khi lưu thành công file mới
+                    if (!string.IsNullOrEmpty(existingImage.ImageUrl))
+                    {
+                        var oldImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", existingImage.ImageUrl);
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
                 }
 
-                existingImage.PageNumber = chapterImage.PageNumber; // Cập nhật số trang
+                // Cập nhật thông tin
+                existingImage.PageNumber = chapterImage.PageNumber;
+                existingImage.ImageUrl = newImageUrl;
+                _context.Update(existingImage);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
