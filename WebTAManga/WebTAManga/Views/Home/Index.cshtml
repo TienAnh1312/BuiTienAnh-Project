@@ -18,6 +18,40 @@
         background-size: cover;
     }
 
+    .badge {
+        text-align: left !important;
+        font-size: 10px !important;
+    }
+
+    .blink {
+        animation: blink-animation 1s infinite;
+    }
+
+    @@keyframes blink-animation {
+        0%
+
+    {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+
+    100% {
+        opacity: 1;
+    }
+
+    }
+
+    .story-item .list-badge .badge:last-child {
+        margin-bottom: 5px !important;
+    }
+
+    .story-item .list-badge {   
+        flex-direction: row !important;
+    }
+
 </style>
 
 <main>
@@ -61,29 +95,44 @@
             <div class="row">
                 <div class="col-12">
                     <div class="section-stories-hot__list">
-                        @if (ViewBag.UpdatedStories != null && ViewBag.UpdatedStories.Count > 0)
+                        @if (ViewBag.UpdatedStories != null)
                         {
-                            @foreach (var item in ViewBag.UpdatedStories)
+                            // Ép kiểu ViewBag.storiesupdate thành List<Story>
+                            var storiesupdate = ViewBag.UpdatedStories as List<WebTAManga.Models.Story> ?? new List<WebTAManga.Models.Story>();
+
+                            @foreach (var item in storiesupdate)
                             {
+                                // Lấy thời gian cập nhật chương mới nhất
+                                var latestChapterTime = item.Chapters?.OrderByDescending(c => c.CreatedAt).FirstOrDefault()?.CreatedAt ?? DateTime.MinValue;
+                                string timeDisplay = GetTimeDisplay(latestChapterTime);
+
                                 <div class="story-item">
                                     <a href="@Url.Action("Details", "Home", new { id = item.StoryId })" class="d-block text-decoration-none">
                                         <div class="story-item__image">
                                             <img src="@item.CoverImage" alt="@item.Title" class="img-fluid" width="150" height="230" loading="lazy">
                                         </div>
                                         <h3 class="story-item__name text-one-row story-name">@item.Title</h3>
-                                        <div class="list-badge">
-                                            @if (item.IsCompleted)
+                                        <div class="list-badge d-flex ">
+                                            <!-- Hiển thị thời gian cập nhật chương mới nhất -->
+                                            @if (latestChapterTime > DateTime.MinValue)
                                             {
-                                                <span class="story-item__badge badge text-bg-success">Full</span>
+                                                <span class="story-item__badge badge text-bg-info me-1" style="background-color: #56ccf2;">@timeDisplay</span>
                                             }
+                                           @* @if (item.IsCompleted)
+                                            {
+                                                <span class="story-item__badge badge text-bg-success me-1" style="background-color: #ff2853;width: 40%;">Full</span>
+                                            }*@
+
                                             @if (item.IsHot)
                                             {
-                                                <span class="story-item__badge story-item__badge-hot badge text-bg-danger">Hot</span>
+                                                <span class="story-item__badge story-item__badge-hot badge text-bg-danger me-1 blink" style="background-color: #ff2853;width: 40%;">Hot</span>
                                             }
-                                            @if (item.IsNew)
+
+                                            @* @if (item.IsNew)
                                             {
-                                                <span class="story-item__badge story-item__badge-new badge text-bg-info text-light">New</span>
-                                            }
+                                                <span class="story-item__badge story-item__badge-new badge text-bg-info text-light me-1" style="background-color: #ff2853;width: 40%;">New</span>
+                                            }*@
+                                           
                                         </div>
                                     </a>
                                 </div>
@@ -95,7 +144,7 @@
                         }
                     </div>
 
-                    <!-- Pagination -->
+                    <!-- Phân trang -->
                     @if (ViewBag.TotalPages > 1)
                     {
                         <nav aria-label="Page navigation" class="mt-3">
@@ -128,6 +177,50 @@
                     </div>
                 </div>
             </div>
+
+            @* Hàm hỗ trợ để hiển thị thời gian *@
+            @functions {
+                public string GetTimeDisplay(DateTime latestChapterTime)
+                {
+                    if (latestChapterTime == DateTime.MinValue)
+                    {
+                        return string.Empty;
+                    }
+
+                    var difference = DateTime.Now - latestChapterTime;
+
+                    if (difference.TotalMinutes < 60)
+                    {
+                        int minutes = (int)difference.TotalMinutes;
+                        return $"{minutes} Phút Trước";
+                    }
+                    else if (difference.TotalHours < 24)
+                    {
+                        int hours = (int)difference.TotalHours;
+                        return $"{hours} Giờ Trước";
+                    }
+                    else if (difference.TotalDays < 30)
+                    {
+                        int days = (int)difference.TotalDays;
+                        return $"{days} Ngày Trước";
+                    }
+                    else if (difference.TotalDays < 365)
+                    {
+                        int months = (int)(difference.TotalDays / 30);
+                        return $"{months} Tháng Trước";
+                    }
+                    else if (difference.TotalDays < 365 * 2) // Dưới 2 năm
+                    {
+                        int years = (int)(difference.TotalDays / 365);
+                        return $"{years} Năm Trước";
+                    }
+                    else
+                    {
+                        // Hiển thị ngày tháng năm cụ thể nếu quá lâu (ví dụ: "15/03/2023")
+                        return latestChapterTime.ToString("dd/MM/yyyy");
+                    }
+                }
+            }
         </div>
     </div>
 

@@ -413,5 +413,66 @@ namespace WebTAManga.Controllers
             TempData["SuccessMessage"] = "Mật khẩu đã được đặt lại thành công!";
             return RedirectToAction("Login", "Account");
         }
+
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            var userId = HttpContext.Session.GetInt32("UsersID");
+            if (userId == null)
+            {
+                return RedirectToAction("Index", "Account");
+            }
+            return View(new ChangePassword());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword(ChangePassword model)
+        {
+            var userId = HttpContext.Session.GetInt32("UsersID");
+            if (userId == null)
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserId == userId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var passwordHasher = new PasswordHasher<User>();
+            var verificationResult = passwordHasher.VerifyHashedPassword(user, user.Password, model.CurrentPassword);
+            if (verificationResult != PasswordVerificationResult.Success)
+            {
+                ModelState.AddModelError("CurrentPassword", "Mật khẩu hiện tại không đúng.");
+                return View(model);
+            }
+
+            user.Password = passwordHasher.HashPassword(user, model.NewPassword);
+
+            try
+            {
+                _context.Update(user);
+                await _context.SaveChangesAsync();
+
+                // Đăng xuất: Xóa session
+                HttpContext.Session.Remove("usersLogin");
+                HttpContext.Session.Remove("UsersID");
+
+                TempData["SuccessMessage"] = "Đổi mật khẩu thành công! Vui lòng đăng nhập lại.";
+                return RedirectToAction("Login", "Account"); 
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", $"Có lỗi xảy ra khi đổi mật khẩu: {ex.Message}");
+                return View(model);
+            }
+        }
     }
 }
