@@ -9,7 +9,6 @@ namespace WebTAManga.Controllers
         
         private readonly WebMangaContext _context;
        
-        // Constructor 
         public BuyChapterController(WebMangaContext context)
         {   
             _context = context;
@@ -21,7 +20,7 @@ namespace WebTAManga.Controllers
             var userId = HttpContext.Session.GetInt32("UsersID");
             if (userId == null)
             {
-                TempData["ErrorMessage"] = "Bạn cần đăng nhập để mua chapter!";
+                TempData["ErrorMessage"] = "Bạn cần đăng nhập để mua Chương!";
                 return RedirectToAction("Login", "Account");
             }
 
@@ -30,7 +29,7 @@ namespace WebTAManga.Controllers
 
             if (chapter == null || user == null)
             {
-                TempData["ErrorMessage"] = "Không tìm thấy chapter hoặc người dùng!";
+                TempData["ErrorMessage"] = "Không tìm thấy Chương hoặc người dùng!";
                 return RedirectToAction("ReadChapter", new { id = chapterId });
             }
 
@@ -40,14 +39,14 @@ namespace WebTAManga.Controllers
 
             if (isAlreadyPurchased)
             {
-                TempData["InfoMessage"] = "Bạn đã mua chapter này rồi!";
+                TempData["InfoMessage"] = "Bạn đã mua Chương này rồi!";
                 return RedirectToAction("ReadChapter", new { id = chapterId });
             }
 
             // Kiểm tra số xu của người dùng trước khi thực hiện giao dịch
             if (user.Coins < chapter.Coins)
             {
-                TempData["ErrorMessage"] = "Bạn không có đủ xu để mua chapter này!";
+                TempData["ErrorMessage"] = "Bạn không có đủ xu để mua Chương này!";
                 return RedirectToAction("ReadChapter", "ReadChapter", new { id = chapterId });
             }
 
@@ -72,7 +71,7 @@ namespace WebTAManga.Controllers
                     // Commit transaction
                     transaction.Commit();
 
-                    TempData["SuccessMessage"] = "Mua chapter thành công!";
+                    TempData["SuccessMessage"] = "Mua Chương thành công!";
                 }
                 catch (Exception ex)
                 {

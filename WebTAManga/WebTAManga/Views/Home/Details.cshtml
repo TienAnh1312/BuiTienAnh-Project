@@ -143,15 +143,22 @@
                             <div class="row">
                                 <div class="col-12 col-sm-6 col-lg-6 story-detail__list-chapter--list__item">
                                     <ul style="max-height: 400px; overflow-y: auto;">
-                                        @foreach (var chapter in Model.Chapters)
+                                        @foreach (var chapter in Model.Chapters.OrderByDescending(c => c.CreatedAt))
                                         {
                                             bool isRead = (ViewBag.ReadingHistories != null && ReadingHistories.FirstOrDefault(x => x.ChapterId == chapter.ChapterId) != null);
+                                            bool isPurchased = ViewBag.PurchasedChapters != null && (ViewBag.PurchasedChapters as List<WebTAManga.Models.PurchasedChapter>)?.Any(pc => pc.ChapterId == chapter.ChapterId && pc.UserId == ViewBag.CurrentUserId) == true;
+                                            bool isLocked = chapter.IsLocked == true && !isPurchased;
+
                                             <li>
                                                 <a href="@Url.Action("ReadChapter", "ReadChapter", new { id = chapter.ChapterId })" class="text-decoration-none text-dark hover-title">
                                                     @chapter.ChapterTitle
                                                     @if (isRead)
                                                     {
-                                                        <i class="fas fa-eye text-success"></i>
+                                                        <i class="fas fa-eye text-success ms-2"></i>
+                                                    }
+                                                    @if (isLocked)
+                                                    {
+                                                        <i class="fas fa-lock text-danger ms-2" title="Chapter này bị khóa"></i>
                                                     }
                                                 </a>
                                             </li>

@@ -145,8 +145,8 @@
     {
         <div class="chapter-locked">
             <p>Chapter này đã bị khóa. Sử dụng <strong>@Model.Coins</strong> xu để mở khóa.</p>
-            <form method="post" asp-controller="BuyChapter" asp-action="BuyChapter" asp-route-chapterId="@Model.ChapterId">
-                <button type="submit" class="btn btn-unlock">Mua ngay</button>
+            <form method="post" asp-controller="BuyChapter" asp-action="BuyChapter" asp-route-chapterId="@Model.ChapterId" id="buyChapterForm">
+                <button type="button" class="btn btn-unlock" id="buyChapterBtn">Mua ngay</button>
             </form>
         </div>
     }
@@ -193,6 +193,25 @@
     </button>
 </div>
 
+<!-- Modal xác nhận mua chapter -->
+<div class="modal fade" id="confirmPurchaseModal" tabindex="-1" aria-labelledby="confirmPurchaseModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmPurchaseModalLabel">Xác nhận mua chapter</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bạn có muốn mua chapter "<strong>@Model.ChapterTitle</strong>" với giá <strong>@Model.Coins</strong> xu không?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="confirmPurchaseBtn">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 // Xử lý dropdown và điều hướng
 document.addEventListener("DOMContentLoaded", function () {
@@ -211,8 +230,8 @@ document.addEventListener("DOMContentLoaded", function () {
         select.addEventListener('change', function () {
             var chapterId = this.value;
             if (chapterId) {
-                console.log("Đang chuyển đến chương ID: " + chapterId); // Gỡ lỗi
-                var url = '/ReadChapter/ReadChapter?id=' + chapterId; // URL cố định
+                console.log("Đang chuyển đến chương ID: " + chapterId); 
+                var url = '/ReadChapter/ReadChapter?id=' + chapterId; 
                 window.location.href = url;
             } else {
                 console.log("Không có chapterId hợp lệ!");
@@ -232,4 +251,28 @@ window.addEventListener("beforeunload", function () {
     document.body.appendChild(form);
     form.submit();
 });
+
+
+    // Xử lý sự kiện nhấn nút "Mua ngay"
+    document.addEventListener("DOMContentLoaded", function () {
+        var buyButton = document.getElementById('buyChapterBtn');
+        var confirmButton = document.getElementById('confirmPurchaseBtn');
+        var buyForm = document.getElementById('buyChapterForm');
+
+        if (buyButton && confirmButton && buyForm) {
+            // Khi nhấn "Mua ngay", hiển thị modal
+            buyButton.addEventListener('click', function () {
+                var modal = new bootstrap.Modal(document.getElementById('confirmPurchaseModal'));
+                modal.show();
+            });
+
+            // Khi nhấn "Xác nhận" trong modal, gửi form
+            confirmButton.addEventListener('click', function () {
+                buyForm.submit();
+            });
+        } else {
+            console.error("Không tìm thấy các phần tử cần thiết để xử lý mua chapter!");
+        }
+    });
+
 </script>

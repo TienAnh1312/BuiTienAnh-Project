@@ -125,6 +125,13 @@ namespace WebTAManga.Controllers
             int viewCount = _context.ReadingHistories.Count(r => r.StoryId == id);
             int followerCount = _context.FollowedStories.Count(f => f.StoryId == id);
 
+            // Lấy danh sách PurchasedChapters của người dùng hiện tại
+            var purchasedChapters = userId.HasValue
+                ? _context.PurchasedChapters
+                    .Where(pc => pc.UserId == userId && pc.Chapter.StoryId == id)
+                    .ToList()
+                : new List<PurchasedChapter>();
+
             // Phân trang bình luận gốc
             int pageSize = 6;
             var rootCommentsQuery = _context.Comments
@@ -163,6 +170,7 @@ namespace WebTAManga.Controllers
             ViewBag.IsFollowed = userId.HasValue && _context.FollowedStories.Any(f => f.UserId == userId && f.StoryId == id);
             ViewBag.CurrentUserId = userId;
             ViewBag.Stickers = stickers;
+            ViewBag.PurchasedChapters = purchasedChapters;
 
             return View(story);
         }
