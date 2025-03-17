@@ -1,38 +1,154 @@
 ﻿<h3>Nạp Xu</h3>
-<p class="text-success">Nạp lần đầu được x2 số xu!</p>
+<p class="text-success">Nạp lần đầu nhận thêm 1500 xu!</p>
+
 <form id="rechargeForm">
     <div class="form-group">
-        <label for="amount">Số xu muốn nạp (1 xu = 1 VNĐ):</label>
-        <input type="number" class="form-control" id="amount" name="amount" min="100" required />
+        <label>Chọn gói nạp xu:</label>
+        <div class="recharge-packages">
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="package5k" name="package" value="5000" checked>
+                <label class="form-check-label" for="package5k">5.000 đ (Nhận 500 xu)</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="package10k" name="package" value="10000">
+                <label class="form-check-label" for="package10k">10.000 đ (Nhận 1000 xu)</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="package20k" name="package" value="20000">
+                <label class="form-check-label" for="package20k">20.000 đ (Nhận 2000 xu)</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="package50k" name="package" value="50000">
+                <label class="form-check-label" for="package50k">50.000 đ (Nhận 5000 xu)</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="package100k" name="package" value="100000">
+                <label class="form-check-label" for="package100k">100.000 đ (Nhận 10.000 xu)</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="package200k" name="package" value="200000">
+                <label class="form-check-label" for="package200k">200.000 đ (Nhận 20.000 xu)</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="package500k" name="package" value="500000">
+                <label class="form-check-label" for="package500k">500.000 đ (Nhận 50.000 xu)</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="package1000k" name="package" value="1000000">
+                <label class="form-check-label" for="package1000k">1.000.000 đ (Nhận 100.000 xu)</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="package2000k" name="package" value="2000000">
+                <label class="form-check-label" for="package2000k">2.000.000 đ (Nhận 200.000 xu)</label>
+            </div>
+        </div>
     </div>
     <button type="submit" class="btn btn-primary">Nạp ngay</button>
     <span id="rechargeMessage"></span>
 </form>
 
+<!-- Modal -->
+<div class="modal fade" id="rechargeModal" tabindex="-1" aria-labelledby="rechargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="rechargeModalLabel">Thông tin nạp xu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Tên người dùng:</strong> <span id="modalUsername"></span></p>
+                <p><strong>Email:</strong> <span id="modalEmail"></span></p>
+                <p><strong>Số tiền chọn:</strong> <span id="modalAmount"></span> đ</p>
+                <p><strong>Số xu sẽ nhận:</strong> <span id="modalCoins"></span> xu</p>
+                <p id="modalBonusCoins" style="display: none;"><strong>Số xu nhận thêm:</strong> 1500 xu (Bonus lần đầu)</p>
+                <p><strong>Lưu ý:</strong> Số xu sẽ được cộng theo mốc nạp.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="confirmRecharge">Xác nhận nạp</button>
+            </div>
+        </div>
+    </div>
+</div>
 @section Scripts {
+    @{
+        var username = Context.Session.GetString("Username") ?? "Người dùng";
+        var email = Context.Session.GetString("Email") ?? "email@example.com";
+    }
     <script>
-        $("#rechargeForm").submit(function (e) {
-            e.preventDefault();
-            var amount = $("#amount").val();
-            $.ajax({
-                url: '@Url.Action("RechargeCoins", "PayOs")',
-                type: 'POST',
-                data: { amount: amount },
-                success: function (response) {
-                    if (response.success) {
-                        window.location.href = response.checkoutUrl; // Chuyển hướng đến link thanh toán
-                    } else {
-                        $("#rechargeMessage").text(response.message || "Đã xảy ra lỗi.");
+        $(document).ready(function () {
+            const username = '@Html.Raw(Json.Serialize(username))';
+            const email = '@Html.Raw(Json.Serialize(email))';
+
+            // Xử lý khi form được submit
+            $('#rechargeForm').submit(function (e) {
+                e.preventDefault(); // Ngăn form submit mặc định
+                const amount = $('input[name="package"]:checked').val();
+                let baseCoins = 0;
+
+                // Tính số xu cơ bản dựa trên số tiền
+                switch (parseInt(amount)) {
+                    case 5000: baseCoins = 500; break;
+                    case 10000: baseCoins = 1000; break;
+                    case 20000: baseCoins = 2000; break;
+                    case 50000: baseCoins = 5000; break;
+                    case 100000: baseCoins = 10000; break;
+                    case 200000: baseCoins = 20000; break;
+                    case 500000: baseCoins = 50000; break;
+                    case 1000000: baseCoins = 100000; break;
+                    case 2000000: baseCoins = 200000; break;
+                }
+
+                // Gửi yêu cầu AJAX để kiểm tra lần nạp đầu từ server
+                $.ajax({
+                    url: '@Url.Action("RechargeCoins", "PayOs")',
+                    type: 'POST',
+                    data: { amount: amount },
+                    success: function (response) {
+                        if (response.success) {
+                            const isFirstRecharge = response.isFirstRecharge;
+                            const finalCoins = isFirstRecharge ? baseCoins + 1500 : baseCoins; // Cộng 1500 xu nếu lần đầu
+
+                            // Cập nhật modal
+                            $('#modalUsername').text(username);
+                            $('#modalEmail').text(email);
+                            $('#modalAmount').text(amount);
+                            $('#modalCoins').text(finalCoins);
+
+                            // Hiển thị hoặc ẩn số xu nhận thêm
+                            if (isFirstRecharge) {
+                                $('#modalBonusCoins').show();
+                            } else {
+                                $('#modalBonusCoins').hide();
+                            }
+
+                            // Lưu checkoutUrl để sử dụng khi xác nhận
+                            $('#confirmRecharge').data('checkoutUrl', response.checkoutUrl);
+
+                            // Hiển thị modal
+                            $('#rechargeModal').modal('show');
+                        } else {
+                            $("#rechargeMessage").text(response.message || "Đã xảy ra lỗi.").addClass("text-danger");
+                        }
+                    },
+                    error: function () {
+                        $("#rechargeMessage").text("Lỗi kết nối, vui lòng thử lại.").addClass("text-danger");
                     }
-                },
-                error: function () {
-                    $("#rechargeMessage").text("Lỗi kết nối, vui lòng thử lại.");
+                });
+            });
+
+            // Xử lý khi nhấn xác nhận nạp
+            $('#confirmRecharge').click(function () {
+                const checkoutUrl = $(this).data('checkoutUrl');
+                if (checkoutUrl) {
+                    window.location.href = checkoutUrl; // Chuyển hướng đến link thanh toán
+                } else {
+                    $("#rechargeMessage").text("Không tìm thấy link thanh toán.").addClass("text-danger");
+                    $('#rechargeModal').modal('hide');
                 }
             });
-        });
 
-        // Hiển thị thông báo từ TempData nếu có
-        $(document).ready(function () {
+            // Hiển thị thông báo từ TempData nếu có
         @if (TempData["SuccessMessage"] != null)
         {
             @:$("#rechargeMessage").text('@TempData["SuccessMessage"]').addClass("text-success");

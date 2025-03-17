@@ -2500,13 +2500,13 @@
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\avatars\ThatTinh.jpg'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"dn8tuk54je"},{"Name":"integrity","Value":"sha256-Cc95ay0vKW5YM89HYf75UoX/cNwiBLA2HouVLy2gc6M="},{"Name":"label","Value":"_content/WebTAManga/uploads/avatars/ThatTinh.jpg"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"15444"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022Cc95ay0vKW5YM89HYf75UoX/cNwiBLA2HouVLy2gc6M=\u0022"},{"Name":"Last-Modified","Value":"Sun, 16 Mar 2025 13:16:41 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"15444"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022Cc95ay0vKW5YM89HYf75UoX/cNwiBLA2HouVLy2gc6M=\u0022"},{"Name":"Last-Modified","Value":"Mon, 17 Mar 2025 16:06:58 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/WebTAManga/uploads/avatars/ThatTinh.jpg">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\avatars\ThatTinh.jpg'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-Cc95ay0vKW5YM89HYf75UoX/cNwiBLA2HouVLy2gc6M="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"15444"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022Cc95ay0vKW5YM89HYf75UoX/cNwiBLA2HouVLy2gc6M=\u0022"},{"Name":"Last-Modified","Value":"Sun, 16 Mar 2025 13:16:41 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"15444"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022Cc95ay0vKW5YM89HYf75UoX/cNwiBLA2HouVLy2gc6M=\u0022"},{"Name":"Last-Modified","Value":"Mon, 17 Mar 2025 16:06:58 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/WebTAManga/uploads/avatars/tải xuống - 2025-02-20T180226.672.3a6rv19pm7.jfif">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\avatars\tải xuống - 2025-02-20T180226.672.jfif'))</AssetFile>

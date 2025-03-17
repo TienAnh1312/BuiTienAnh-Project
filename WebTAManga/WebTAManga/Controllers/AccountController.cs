@@ -56,6 +56,8 @@ namespace WebTAManga.Controllers
             {
                 HttpContext.Session.SetString("usersLogin", model.Email);
                 HttpContext.Session.SetInt32("UsersID", (int)user.UserId);
+                HttpContext.Session.SetString("Username", user.Username);
+                HttpContext.Session.SetString("Email", user.Email);
                 return RedirectToAction("Index", "Home", new { UsersID = user.UserId });
             }
 
@@ -71,6 +73,8 @@ namespace WebTAManga.Controllers
             // Xóa session
             HttpContext.Session.Remove("usersLogin");
             HttpContext.Session.Remove("UsersId");
+            HttpContext.Session.Remove("Username");
+            HttpContext.Session.Remove("Email");
 
             // Thêm thông báo thành công
             TempData["SuccessMessage"] = $"Đăng xuất thành công{(username != null ? " khỏi tài khoản " + username : "")}";

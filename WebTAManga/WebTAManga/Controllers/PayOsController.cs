@@ -27,11 +27,18 @@ namespace WebTAManga.Controllers
             var userId = HttpContext.Session.GetInt32("UsersID");
             if (userId == null)
             {
-                return Json(new { success = false, redirect = Url.Action("Index", "Login") });
+                return Json(new { success = false, redirect = Url.Action("Login", "Account") });
+            }
+
+            // Danh sách các gói nạp hợp lệ (tính bằng VND)
+            var validAmounts = new[] { 5000, 10000, 20000, 50000, 100000, 200000, 500000, 1000000, 2000000 };
+            if (!validAmounts.Contains((int)amount))
+            {
+                return Json(new { success = false, message = "Gói nạp không hợp lệ. Vui lòng chọn lại." });
             }
 
             var payOS = HttpContext.RequestServices.GetService<PayOS>();
-            var domain = "https://localhost:7040"; 
+            var domain = "https://localhost:7040";
             long orderCode = DateTimeOffset.Now.ToUnixTimeSeconds(); // Mã đơn hàng duy nhất
             long expirationTime = DateTimeOffset.UtcNow.AddMinutes(30).ToUnixTimeSeconds();
 
@@ -46,13 +53,21 @@ namespace WebTAManga.Controllers
                 expiredAt: expirationTime
             );
 
+            // Kiểm tra xem đây có phải lần nạp đầu không
+            bool isFirstRecharge = !_context.Transactions.Any(t => t.UserId == userId && t.TransactionStatus == "Success");
+
             try
             {
                 var response = await payOS.createPaymentLink(paymentData);
                 HttpContext.Session.SetInt32("PendingOrderCode", (int)orderCode); // Lưu tạm mã đơn để xác nhận sau
                 HttpContext.Session.SetString("PendingAmount", amount.ToString());
 
-                return Json(new { success = true, checkoutUrl = response.checkoutUrl });
+                return Json(new
+                {
+                    success = true,
+                    checkoutUrl = response.checkoutUrl,
+                    isFirstRecharge = isFirstRecharge // Thêm thông tin này vào response
+                });
             }
             catch (Exception ex)
             {
@@ -76,30 +91,35 @@ namespace WebTAManga.Controllers
             var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
             if (user != null)
             {
-                // Kiểm tra xem đây có phải lần nạp đầu tiên không
-                bool isFirstRecharge = !_context.Transactions.Any(t => t.UserId == userId && t.TransactionStatus == "Success");
-                double finalCoins = amount; // Số xu cuối cùng sẽ cộng
-
-                if (isFirstRecharge)
+                // Ánh xạ số tiền VND sang số xu cơ bản
+                double baseCoins = amount switch
                 {
-                    finalCoins = amount * 2; // Nhân đôi số xu nếu là lần nạp đầu
-                }
+                    5000 => 500,
+                    10000 => 1000,
+                    20000 => 2000,
+                    50000 => 5000,
+                    100000 => 10000,
+                    200000 => 20000,
+                    500000 => 50000,
+                    1000000 => 100000,
+                    2000000 => 200000,
+                    _ => amount
+                };
+
+                bool isFirstRecharge = !_context.Transactions.Any(t => t.UserId == userId && t.TransactionStatus == "Success");
+                double finalCoins = isFirstRecharge ? baseCoins + 1500 : baseCoins; // Cộng 1500 xu nếu là lần đầu
 
                 // Cộng xu vào tài khoản người dùng
                 user.Coins = (user.Coins ?? 0) + finalCoins;
-
-                // Cập nhật tổng xu đã nạp (chỉ tính số tiền thực tế, không tính bonus)
-                user.TotalRechargedCoins += amount;
-
-                // Tính toán cấp VIP mới dựa trên số tiền thực tế nạp
+                user.TotalRechargedCoins += baseCoins; 
                 user.VipLevel = VipLevelConfig.CalculateVipLevel(user.TotalRechargedCoins);
 
                 // Ghi lại lịch sử giao dịch
-                _context.Transactions.Add(new WebTAManga.Models.Transaction
+                _context.Transactions.Add(new Models.Transaction
                 {
                     UserId = userId.Value,
-                    Amount = (int)amount,        // Số tiền thực tế nạp
-                    Coins = (int)finalCoins,     // Số xu thực nhận (bao gồm bonus nếu có)
+                    Amount = (int)amount,
+                    Coins = (int)finalCoins,
                     TransactionStatus = "Success",
                     VnpayTransactionId = orderCode.ToString(),
                     CreatedAt = DateTime.Now
@@ -107,18 +127,16 @@ namespace WebTAManga.Controllers
 
                 _context.SaveChanges();
 
-                // Xóa dữ liệu tạm trong session
                 HttpContext.Session.Remove("PendingOrderCode");
                 HttpContext.Session.Remove("PendingAmount");
 
-                // Thông báo tùy theo trường hợp
                 if (isFirstRecharge)
                 {
-                    TempData["SuccessMessage"] = $"Nạp lần đầu thành công! Bạn nhận được {finalCoins} xu (x2 bonus) với {amount} VNĐ!";
+                    TempData["SuccessMessage"] = $"Nạp lần đầu thành công! Bạn nhận được {finalCoins} xu (gồm 1500 xu bonus) với {amount} VNĐ!";
                 }
                 else
                 {
-                    TempData["SuccessMessage"] = $"Nạp {amount} xu thành công! Cấp VIP hiện tại: {user.VipLevel}";
+                    TempData["SuccessMessage"] = $"Nạp {baseCoins} xu thành công! Cấp VIP hiện tại: {user.VipLevel}";
                 }
             }
 
