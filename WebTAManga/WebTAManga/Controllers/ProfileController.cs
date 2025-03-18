@@ -31,7 +31,7 @@ namespace WebTAManga.Controllers
                 .Include(u => u.CategoryRank)
                 .Include(u => u.AvatarFrame)
                 .Include(u => u.PurchasedAvatarFrames)
-                .ThenInclude(p => p.AvatarFrame)       // Include thông tin khung đã mua
+                .ThenInclude(p => p.AvatarFrame)       
                 .FirstOrDefault(u => u.UserId == userId);
 
             if (user == null)

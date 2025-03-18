@@ -206,7 +206,7 @@ namespace WebTAManga.Controllers
                     Email = pendingUser.GetProperty("Email").GetString(),
                     Password = pendingUser.GetProperty("Password").GetString(),
                     CreatedAt = DateTime.Now,
-                    IsEmailVerified = true // Đã xác nhận nên set true
+                    IsEmailVerified = true 
                 };
 
                 _context.Users.Add(user);

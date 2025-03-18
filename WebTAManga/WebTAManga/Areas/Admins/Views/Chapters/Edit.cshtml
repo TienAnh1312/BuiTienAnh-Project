@@ -17,7 +17,7 @@
             <div class="form-group">
                 <label class="control-label">Số chương</label>
                 <input name="chapterNumber" class="form-control" type="number" min="1"
-                       value="@(int.Parse(Model.ChapterTitle.Replace("Chương ", "")))" />
+                       value="@(Model.ChapterTitle != null && Model.ChapterTitle.StartsWith("Chương ") ? int.Parse(Model.ChapterTitle.Replace("Chương ", "")) : 1)" />
                 <span class="text-danger">@Html.ValidationMessage("chapterNumber")</span>
             </div>
 

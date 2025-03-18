@@ -334,7 +334,7 @@ namespace WebTAManga.Areas.Admins.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Index", new { chapterId });
-        }
+        } 
 
         private bool ChapterImageExists(int id)
         {

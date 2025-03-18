@@ -67,74 +67,7 @@
             : `<i class="fas fa-caret-down"></i> Hiện ${replyCount} bình luận`;
     }
 
-    // === Xử lý yêu thích (Favorite) ===
-    function initFavoriteToggle() {
-        $(".toggle-favorite").on("click", function () {
-            const button = $(this);
-            const storyId = button.data("story-id");
-            const isFavorited = button.data("is-favorited") === true;
-            const url = isFavorited
-                ? "@Url.Action('RemoveFromFavorites', 'Favorites')"
-                : "@Url.Action('AddToFavorites', 'Favorites')";
-
-            $.ajax({
-                url: url,
-                type: "POST",
-                data: { storyId: storyId },
-                success: function (response) {
-                    if (response.success) {
-                        button.data("is-favorited", !isFavorited);
-                        button.html(
-                            `<i class="fas fa-star"></i> ${isFavorited ? "Add to Favorites" : "Remove from Favorites"
-                            }`
-                        );
-                        alert(response.message);
-                    } else if (response.redirect) {
-                        window.location.href = response.redirect;
-                    } else {
-                        alert(response.message);
-                    }
-                },
-                error: function () {
-                    alert("An error occurred. Please try again.");
-                },
-            });
-        });
-    }
-
-    // === Xử lý theo dõi (Follow) ===
-    function initFollowToggle() {
-        $(".toggle-follow").on("click", function () {
-            const button = $(this);
-            const storyId = button.data("story-id");
-            const isFollowed = button.data("is-followed") === true;
-            const url = isFollowed
-                ? "@Url.Action('Unfollow', 'Followed')"
-                : "@Url.Action('AddToFollowed', 'Followed')";
-
-            $.ajax({
-                url: url,
-                type: "POST",
-                data: { storyId: storyId },
-                success: function (response) {
-                    if (response.success) {
-                        button.data("is-followed", !isFollowed);
-                        button.html(
-                            `<i class="fas fa-check"></i> ${isFollowed ? "Follow" : "Unfollow"}`
-                        );
-                        alert(response.message);
-                    } else if (response.redirect) {
-                        window.location.href = response.redirect;
-                    } else {
-                        alert(response.message);
-                    }
-                },
-                error: function () {
-                    alert("An error occurred. Please try again.");
-                },
-            });
-        });
-    }
+   
 
     // === Xử lý sticker ===
     function initStickerSelection() {

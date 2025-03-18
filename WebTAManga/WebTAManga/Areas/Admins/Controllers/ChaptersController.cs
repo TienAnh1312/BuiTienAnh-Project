@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WebTAManga.Areas.Admins.Models;
 using WebTAManga.Models;
 
 namespace WebTAManga.Areas.Admins.Controllers
@@ -19,6 +20,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Chapters
+        // GET: Admins/Chapters
         public async Task<IActionResult> Index(int? storyId)
         {
             if (storyId == null)
@@ -28,8 +30,13 @@ namespace WebTAManga.Areas.Admins.Controllers
 
             var chapters = await _context.Chapters
                 .Include(c => c.Story)
+                .Include(c => c.ChapterImages) 
                 .Where(c => c.StoryId == storyId)
                 .ToListAsync();
+
+            var sortedChapters = chapters
+                .OrderByDescending(c => int.TryParse(c.ChapterTitle?.Replace("Chương ", ""), out int num) ? num : 0)
+                .ToList();
 
             var story = await _context.Stories.FirstOrDefaultAsync(s => s.StoryId == storyId);
             if (story == null)
@@ -38,8 +45,8 @@ namespace WebTAManga.Areas.Admins.Controllers
             }
 
             ViewBag.StoryId = storyId;
-            ViewBag.StoryTitle = story.Title; // Truyền tiêu đề để hiển thị trong view
-            return View(chapters);
+            ViewBag.StoryTitle = story.Title;
+            return View(sortedChapters);
         }
 
         // GET: Admins/Chapters/Details/5
@@ -165,6 +172,92 @@ namespace WebTAManga.Areas.Admins.Controllers
             return RedirectToAction(nameof(Index), new { storyId = chapter.StoryId });
         }
 
+        // GET: Admins/Chapters/BulkCreate
+        //Thêm mới nhiều Chương truyện
+        public async Task<IActionResult> BulkCreate(int? storyId)
+        {
+            if (storyId == null)
+            {
+                return NotFound();
+            }
+
+            var story = await _context.Stories.FirstOrDefaultAsync(s => s.StoryId == storyId);
+            if (story == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.StoryId = storyId;
+            ViewBag.StoryTitle = story.Title;
+            return View();
+        }
+
+        // POST: Admins/Chapters/BulkCreate
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> BulkCreate(int storyId, int count, int defaultCoins, bool defaultIsLocked)
+        {
+            if (count < 1)
+            {
+                TempData["Error"] = "Vui lòng nhập số lớn hơn hoặc bằng 1";
+                return RedirectToAction(nameof(Index), new { storyId });
+            }
+
+            if (defaultCoins < 0)
+            {
+                TempData["Error"] = "Số xu không thể âm";
+                return RedirectToAction(nameof(Index), new { storyId });
+            }
+
+            var existingChapters = await _context.Chapters
+                .Where(c => c.StoryId == storyId)
+                .Select(c => c.ChapterTitle)
+                .ToListAsync();
+
+            int maxChapterNumber = 0;
+            foreach (var title in existingChapters)
+            {
+                if (int.TryParse(title.Replace("Chương ", ""), out int num) && num > maxChapterNumber)
+                {
+                    maxChapterNumber = num;
+                }
+            }
+
+            var newChapters = new List<Chapter>();
+            for (int i = 1; i <= count; i++)
+            {
+                var chapterNumber = maxChapterNumber + i;
+                var chapterTitle = $"Chương {chapterNumber}";
+
+                if (existingChapters.Contains(chapterTitle))
+                {
+                    continue;
+                }
+
+                newChapters.Add(new Chapter
+                {
+                    StoryId = storyId,
+                    ChapterTitle = chapterTitle,
+                    CreatedAt = DateTime.Now,
+                    Coins = defaultCoins,
+                    IsLocked = defaultIsLocked
+                });
+            }
+
+            if (newChapters.Any())
+            {
+                _context.Chapters.AddRange(newChapters);
+                await _context.SaveChangesAsync();
+                TempData["Success"] = $"Đã tạo thành công {newChapters.Count} Chương mới";
+            }
+            else
+            {
+                TempData["Error"] = "Không tạo được Chương mới do số chapter đã tồn tại";
+            }
+
+            return RedirectToAction(nameof(Index), new { storyId });
+        }
+
         // GET: Admins/Chapters/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -174,17 +267,15 @@ namespace WebTAManga.Areas.Admins.Controllers
             }
 
             var chapter = await _context.Chapters
-                .Include(c => c.Story) // Load story của chapter đó
+                .Include(c => c.Story) // Tải thông tin Story
                 .FirstOrDefaultAsync(m => m.ChapterId == id);
 
-            if (chapter == null)
+            if (chapter == null || chapter.Story == null) // Kiểm tra cả chapter và Story
             {
                 return NotFound();
             }
 
-            // Chỉ load story của chapter này
             ViewData["StoryId"] = new SelectList(new List<Story> { chapter.Story }, "StoryId", "Title");
-
             return View(chapter);
         }
 
@@ -198,10 +289,7 @@ namespace WebTAManga.Areas.Admins.Controllers
                 return NotFound();
             }
 
-            // Tạo ChapterTitle từ chapterNumber
             string newChapterTitle = $"Chương {chapterNumber}";
-
-            // Kiểm tra trùng lặp
             var existingChapter = await _context.Chapters
                 .FirstOrDefaultAsync(c => c.StoryId == chapter.StoryId
                     && c.ChapterTitle == newChapterTitle
@@ -234,6 +322,12 @@ namespace WebTAManga.Areas.Admins.Controllers
                 return RedirectToAction(nameof(Index), new { storyId = chapter.StoryId });
             }
 
+            // Khi ModelState không hợp lệ, tải lại Story để view có đủ dữ liệu
+            chapter.Story = await _context.Stories.FirstOrDefaultAsync(s => s.StoryId == chapter.StoryId);
+            if (chapter.Story == null)
+            {
+                return NotFound();
+            }
             ViewData["StoryId"] = new SelectList(new List<Story> { chapter.Story }, "StoryId", "Title");
             return View(chapter);
         }
