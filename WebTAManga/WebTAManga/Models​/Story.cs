@@ -25,6 +25,8 @@ public partial class Story
 
     public bool IsNew { get; set; }
 
+    public string? StoryCode { get; set; }
+
     public virtual ICollection<Chapter> Chapters { get; set; } = new List<Chapter>();
 
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();

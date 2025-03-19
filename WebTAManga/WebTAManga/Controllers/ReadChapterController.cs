@@ -20,23 +20,24 @@ namespace WebTAManga.Controllers
 
             // Lấy thông tin chapter hiện tại
             var chapter = _context.Chapters
-                                  .Include(c => c.ChapterImages)
-                                  .FirstOrDefault(c => c.ChapterId == id);
+                .Include(c => c.ChapterImages)
+                .FirstOrDefault(c => c.ChapterId == id);
+
             if (chapter == null) return NotFound();
 
-            bool isPurchased = false;
-
             // Kiểm tra xem chapter đã được mua chưa nếu yêu cầu xu
+            bool isPurchased = false;
             if (userId != null && chapter.Coins > 0)
             {
-                isPurchased = _context.PurchasedChapters.Any(pc => pc.UserId == userId && pc.ChapterId == id);
+                isPurchased = _context.PurchasedChapters
+                    .Any(pc => pc.UserId == userId && pc.ChapterCode == chapter.ChapterCode);
             }
 
             // Xác định trạng thái mở khóa
             chapter.IsUnlocked = isPurchased || chapter.Coins == 0;
             ViewBag.IsPurchased = isPurchased;
             ViewBag.IsUnlocked = chapter.IsUnlocked;
-
+            
             // Cập nhật lịch sử đọc nếu người dùng đăng nhập
             if (userId != null)
             {

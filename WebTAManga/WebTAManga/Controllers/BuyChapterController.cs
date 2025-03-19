@@ -33,9 +33,9 @@ namespace WebTAManga.Controllers
                 return RedirectToAction("ReadChapter", new { id = chapterId });
             }
 
-            // Kiểm tra xem user đã mua chapter này chưa
+            // Kiểm tra xem user đã mua chapter này chưa dựa trên ChapterCode
             bool isAlreadyPurchased = _context.PurchasedChapters
-                .Any(pc => pc.UserId == userId && pc.ChapterId == chapterId);
+                .Any(pc => pc.UserId == userId && pc.ChapterCode == chapter.ChapterCode);
 
             if (isAlreadyPurchased)
             {
@@ -43,39 +43,32 @@ namespace WebTAManga.Controllers
                 return RedirectToAction("ReadChapter", new { id = chapterId });
             }
 
-            // Kiểm tra số xu của người dùng trước khi thực hiện giao dịch
+            // Logic mua chương
             if (user.Coins < chapter.Coins)
             {
                 TempData["ErrorMessage"] = "Bạn không có đủ xu để mua Chương này!";
                 return RedirectToAction("ReadChapter", "ReadChapter", new { id = chapterId });
             }
 
-            // Nếu đủ xu, tiến hành giao dịch
             using (var transaction = _context.Database.BeginTransaction())
             {
                 try
                 {
-                    // Trừ xu của người dùng
                     user.Coins -= chapter.Coins;
-
-                    // Thêm vào danh sách chương đã mua
                     _context.PurchasedChapters.Add(new PurchasedChapter
                     {
                         UserId = user.UserId,
-                        ChapterId = chapter.ChapterId,
+                        ChapterCode = chapter.ChapterCode,
                         PurchasedAt = DateTime.Now
                     });
 
                     _context.SaveChanges();
-
-                    // Commit transaction
                     transaction.Commit();
 
                     TempData["SuccessMessage"] = "Mua Chương thành công!";
                 }
                 catch (Exception ex)
                 {
-                    // Rollback nếu có lỗi
                     transaction.Rollback();
                     TempData["ErrorMessage"] = "Có lỗi xảy ra, vui lòng thử lại!";
                 }

@@ -13,6 +13,8 @@ public partial class PurchasedChapter
 
     public DateTime? PurchasedAt { get; set; }
 
+    public string? ChapterCode { get; set; }
+
     public virtual Chapter? Chapter { get; set; }
 
     public virtual User? User { get; set; }

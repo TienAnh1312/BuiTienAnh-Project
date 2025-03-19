@@ -20,7 +20,6 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Chapters
-        // GET: Admins/Chapters
         public async Task<IActionResult> Index(int? storyId)
         {
             if (storyId == null)
@@ -106,7 +105,14 @@ namespace WebTAManga.Areas.Admins.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(int StoryId, int chapterNumber, int Coins, List<IFormFile> ImageFiles)
         {
+            var story = await _context.Stories.FirstOrDefaultAsync(s => s.StoryId == StoryId);
+            if (story == null)
+            {
+                return NotFound();
+            }
+
             string chapterTitle = $"Chương {chapterNumber}";
+            string chapterCode = $"{story.StoryCode}_C{chapterNumber}"; // Ví dụ: "CH_C1"
 
             var existingChapter = await _context.Chapters
                 .FirstOrDefaultAsync(c => c.StoryId == StoryId && c.ChapterTitle == chapterTitle);
@@ -126,6 +132,7 @@ namespace WebTAManga.Areas.Admins.Controllers
             {
                 StoryId = StoryId,
                 ChapterTitle = chapterTitle,
+                ChapterCode = chapterCode, 
                 CreatedAt = DateTime.Now,
                 Coins = Coins
             };
@@ -197,16 +204,16 @@ namespace WebTAManga.Areas.Admins.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> BulkCreate(int storyId, int count, int defaultCoins, bool defaultIsLocked)
         {
-            if (count < 1)
+            if (count < 1 || defaultCoins < 0)
             {
-                TempData["Error"] = "Vui lòng nhập số lớn hơn hoặc bằng 1";
-                return RedirectToAction(nameof(Index), new { storyId });
+                TempData["Error"] = count < 1 ? "Số lượng phải lớn hơn hoặc bằng 1" : "Số xu không thể âm";
+                return RedirectToAction(nameof(Index), new { storyId }); 
             }
 
-            if (defaultCoins < 0)
+            var story = await _context.Stories.FirstOrDefaultAsync(s => s.StoryId == storyId);
+            if (story == null)
             {
-                TempData["Error"] = "Số xu không thể âm";
-                return RedirectToAction(nameof(Index), new { storyId });
+                return NotFound();
             }
 
             var existingChapters = await _context.Chapters
@@ -228,6 +235,7 @@ namespace WebTAManga.Areas.Admins.Controllers
             {
                 var chapterNumber = maxChapterNumber + i;
                 var chapterTitle = $"Chương {chapterNumber}";
+                var chapterCode = $"{story.StoryCode}_C{chapterNumber}"; // Ví dụ: "CH_C1"
 
                 if (existingChapters.Contains(chapterTitle))
                 {
@@ -238,6 +246,7 @@ namespace WebTAManga.Areas.Admins.Controllers
                 {
                     StoryId = storyId,
                     ChapterTitle = chapterTitle,
+                    ChapterCode = chapterCode, 
                     CreatedAt = DateTime.Now,
                     Coins = defaultCoins,
                     IsLocked = defaultIsLocked
@@ -279,7 +288,6 @@ namespace WebTAManga.Areas.Admins.Controllers
             return View(chapter);
         }
 
-        // POST: Admins/Chapters/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, int chapterNumber, [Bind("ChapterId,StoryId,Content,CreatedAt,Coins,IsLocked")] Chapter chapter)
@@ -304,8 +312,23 @@ namespace WebTAManga.Areas.Admins.Controllers
             {
                 try
                 {
-                    chapter.ChapterTitle = newChapterTitle;
-                    _context.Update(chapter);
+                    // Lấy chapter từ context để cập nhật
+                    var chapterToUpdate = await _context.Chapters
+                        .Include(c => c.Story) // Include Story để lấy StoryCode
+                        .FirstOrDefaultAsync(c => c.ChapterId == id);
+
+                    if (chapterToUpdate == null)
+                    {
+                        return NotFound();
+                    }
+
+                    // Cập nhật ChapterTitle và ChapterCode dựa trên chapterNumber mới
+                    chapterToUpdate.ChapterTitle = newChapterTitle;
+                    chapterToUpdate.ChapterCode = $"{chapterToUpdate.Story.StoryCode}_C{chapterNumber}"; // Tự động cập nhật ChapterCode
+                    chapterToUpdate.CreatedAt = chapter.CreatedAt;
+                    chapterToUpdate.Coins = chapter.Coins;
+                    chapterToUpdate.IsLocked = chapter.IsLocked;
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -322,7 +345,20 @@ namespace WebTAManga.Areas.Admins.Controllers
                 return RedirectToAction(nameof(Index), new { storyId = chapter.StoryId });
             }
 
-            // Khi ModelState không hợp lệ, tải lại Story để view có đủ dữ liệu
+            // Khi ModelState không hợp lệ, lấy ChapterCode gốc từ database
+            var originalChapter = await _context.Chapters
+                .Include(c => c.Story)
+                .FirstOrDefaultAsync(c => c.ChapterId == id);
+
+            if (originalChapter == null)
+            {
+                return NotFound();
+            }
+
+            // Gán lại ChapterCode để hiển thị trong view
+            chapter.ChapterCode = originalChapter.ChapterCode;
+
+            // Tải lại Story để view có đủ dữ liệu
             chapter.Story = await _context.Stories.FirstOrDefaultAsync(s => s.StoryId == chapter.StoryId);
             if (chapter.Story == null)
             {
@@ -356,7 +392,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var chapter = await _context.Chapters
-                .Include(c => c.ChapterImages) // Load danh sách ảnh liên quan
+                .Include(c => c.ChapterImages)
                 .FirstOrDefaultAsync(c => c.ChapterId == id);
 
             if (chapter == null)
@@ -364,36 +400,35 @@ namespace WebTAManga.Areas.Admins.Controllers
                 return NotFound();
             }
 
-            // Xử lý bản ghi trong followed_stories (nếu có từ lỗi trước)
+            // Lưu ChapterCode để sử dụng sau này
+            var chapterCode = chapter.ChapterCode;
+
+            // Xóa các liên kết khác nhưng không xóa PurchasedChapter
             var followedStories = await _context.FollowedStories
                 .Where(fs => fs.LastReadChapterId == chapter.ChapterId)
                 .ToListAsync();
             if (followedStories.Any())
             {
-                _context.FollowedStories.RemoveRange(followedStories); // Xóa các bản ghi liên quan
+                _context.FollowedStories.RemoveRange(followedStories);
             }
 
-            // Xử lý bản ghi trong reading_history
             var readingHistories = await _context.ReadingHistories
                 .Where(rh => rh.ChapterId == chapter.ChapterId)
                 .ToListAsync();
             if (readingHistories.Any())
             {
-                _context.ReadingHistories.RemoveRange(readingHistories); // Xóa các bản ghi liên quan
+                _context.ReadingHistories.RemoveRange(readingHistories);
             }
 
-            // Xóa các file ảnh trong thư mục wwwroot
+            // Xóa ảnh
             if (chapter.ChapterImages != null && chapter.ChapterImages.Any())
             {
                 foreach (var chapterImage in chapter.ChapterImages)
                 {
-                    if (!string.IsNullOrEmpty(chapterImage.ImageUrl))
+                    var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", chapterImage.ImageUrl);
+                    if (System.IO.File.Exists(imagePath))
                     {
-                        var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", chapterImage.ImageUrl);
-                        if (System.IO.File.Exists(imagePath))
-                        {
-                            System.IO.File.Delete(imagePath);
-                        }
+                        System.IO.File.Delete(imagePath);
                     }
                 }
                 _context.ChapterImages.RemoveRange(chapter.ChapterImages);

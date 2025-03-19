@@ -17,6 +17,12 @@
         <input type="hidden" asp-for="StoryId" />
 
         <div class="mb-3">
+            <label asp-for="StoryCode" class="form-label fw-bold"></label>
+            <input asp-for="StoryCode" class="form-control" placeholder="Enter story code (e.g., CH)" required />
+            <span asp-validation-for="StoryCode" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
             <label asp-for="Title" class="form-label fw-bold"></label>
             <input asp-for="Title" class="form-control" placeholder="Enter story title" />
             <span asp-validation-for="Title" class="text-danger"></span>
@@ -65,7 +71,6 @@
             <span asp-validation-for="Description" class="text-danger"></span>
         </div>
 
-        <!-- Thêm trường CreatedAt (chỉ hiển thị, không cho sửa) -->
         <div class="mb-3">
             <label asp-for="CreatedAt" class="form-label fw-bold"></label>
             <input asp-for="CreatedAt" class="form-control" readonly />

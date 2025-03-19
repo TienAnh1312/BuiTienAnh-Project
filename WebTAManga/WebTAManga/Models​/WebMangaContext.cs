@@ -171,6 +171,9 @@ public partial class WebMangaContext : DbContext
             entity.ToTable("chapters");
 
             entity.Property(e => e.ChapterId).HasColumnName("chapter_id");
+            entity.Property(e => e.ChapterCode)
+                .HasMaxLength(50)
+                .HasColumnName("chapterCode");
             entity.Property(e => e.ChapterTitle)
                 .HasMaxLength(255)
                 .HasColumnName("chapter_title");
@@ -398,6 +401,7 @@ public partial class WebMangaContext : DbContext
 
             entity.ToTable("PurchasedChapter");
 
+            entity.Property(e => e.ChapterCode).HasMaxLength(50);
             entity.Property(e => e.PurchasedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
@@ -514,6 +518,9 @@ public partial class WebMangaContext : DbContext
             entity.Property(e => e.Description).HasColumnName("description");
             entity.Property(e => e.IsNew).HasDefaultValue(true);
             entity.Property(e => e.LastUpdatedAt).HasColumnType("datetime");
+            entity.Property(e => e.StoryCode)
+                .HasMaxLength(50)
+                .HasColumnName("storyCode");
             entity.Property(e => e.Title)
                 .HasMaxLength(255)
                 .HasColumnName("title");

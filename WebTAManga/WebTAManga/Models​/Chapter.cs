@@ -19,6 +19,8 @@ public partial class Chapter
 
     public bool IsUnlocked { get; set; }
 
+    public string? ChapterCode { get; set; }
+
     public virtual ICollection<ChapterImage> ChapterImages { get; set; } = new List<ChapterImage>();
 
     public virtual ICollection<FollowedStory> FollowedStories { get; set; } = new List<FollowedStory>();

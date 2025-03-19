@@ -53,57 +53,49 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
 
-        // POST: Admins/Stories/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StoryId,Title,Author,Description,CoverImage,CreatedAt,IsCompleted,LastUpdatedAt,IsHot,IsNew")] Story story, int[] selectedGenres)
+        public async Task<IActionResult> Create([Bind("StoryCode,Title,Author,Description,CoverImage,CreatedAt,IsCompleted,LastUpdatedAt,IsHot,IsNew")] Story story, int[] selectedGenres)
         {
             if (ModelState.IsValid)
             {
-                // Kiểm tra trùng lặp Code khi sửa
-                var existingProductByCode = await _context.Stories
-                    .FirstOrDefaultAsync(p => p.Title == story.Title && p.StoryId != story.StoryId);
+                // Kiểm tra trùng StoryCode
+                var existingStory = await _context.Stories
+                    .FirstOrDefaultAsync(s => s.StoryCode == story.StoryCode && s.StoryId != story.StoryId);
 
-                if (existingProductByCode != null)
+                if (existingStory != null)
                 {
-                    ModelState.AddModelError("Code", "Sản phẩm này đã tồn tại.");
+                    ModelState.AddModelError("StoryCode", "Mã truyện này đã tồn tại.");
                 }
 
                 if (!ModelState.IsValid)
                 {
+                    ViewData["Genres"] = new SelectList(_context.Genres, "GenreId", "Name");
                     return View(story);
                 }
 
-                // Xử lý ảnh, nếu có ảnh mới
+                // Xử lý ảnh bìa 
                 var files = HttpContext.Request.Form.Files;
                 if (files.Count() > 0 && files[0].Length > 0)
                 {
                     var file = files[0];
                     var fileName = file.FileName;
                     var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "admins", "stories", fileName);
-
                     using (var stream = new FileStream(path, FileMode.Create))
                     {
                         file.CopyTo(stream);
-                        story.CoverImage = "images/admins/stories/" + fileName; // Lưu đường dẫn ảnh
+                        story.CoverImage = "images/admins/stories/" + fileName;
                     }
                 }
 
-                // Thiết lập ngày tạo và ngày cập nhật tự động
                 story.CreatedAt = DateTime.Now;
-
-                // Thêm sản phẩm vào cơ sở dữ liệu
                 _context.Add(story);
                 await _context.SaveChangesAsync();
 
-                // Thêm vào bảng StoryGenre
+                // Thêm thể loại (giữ nguyên)
                 foreach (var genreId in selectedGenres)
                 {
-                    _context.StoryGenres.Add(new StoryGenre
-                    {
-                        StoryId = story.StoryId,
-                        GenreId = genreId
-                    });
+                    _context.StoryGenres.Add(new StoryGenre { StoryId = story.StoryId, GenreId = genreId });
                 }
                 await _context.SaveChangesAsync();
 
@@ -115,7 +107,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Stories/Edit/5
-       
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -146,7 +138,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         // POST: Admins/Stories/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("StoryId,Title,Author,Description,CoverImage,CreatedAt,IsCompleted,LastUpdatedAt,IsHot,IsNew")] Story story, int[] selectedGenres, IFormFile? newCoverImage)
+        public async Task<IActionResult> Edit(int id, [Bind("StoryId,StoryCode,Title,Author,Description,CoverImage,CreatedAt,IsCompleted,LastUpdatedAt,IsHot,IsNew")] Story story, int[] selectedGenres, IFormFile? newCoverImage)
         {
             if (id != story.StoryId)
             {
@@ -157,40 +149,65 @@ namespace WebTAManga.Areas.Admins.Controllers
             {
                 try
                 {
+                    // Kiểm tra trùng StoryCode
+                    var existingStoryWithCode = await _context.Stories
+                        .FirstOrDefaultAsync(s => s.StoryCode == story.StoryCode && s.StoryId != story.StoryId);
+                    if (existingStoryWithCode != null)
+                    {
+                        ModelState.AddModelError("StoryCode", "Mã truyện này đã tồn tại.");
+                        ViewData["Genres"] = _context.Genres.ToList();
+                        ViewData["SelectedGenres"] = selectedGenres;
+                        return View(story);
+                    }
+
+                    // Lấy thông tin truyện gốc để so sánh
+                    var originalStory = await _context.Stories
+                        .AsNoTracking()
+                        .FirstOrDefaultAsync(s => s.StoryId == id);
+                    if (originalStory == null)
+                    {
+                        return NotFound();
+                    }
+
                     // Kiểm tra nếu có ảnh mới
                     if (newCoverImage != null && newCoverImage.Length > 0)
                     {
                         var fileName = newCoverImage.FileName;
                         var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "admins", "stories", fileName);
-
                         using (var stream = new FileStream(path, FileMode.Create))
                         {
                             await newCoverImage.CopyToAsync(stream);
                         }
-
-                        story.CoverImage = "images/admins/stories/" + fileName; // Cập nhật ảnh mới
+                        story.CoverImage = "images/admins/stories/" + fileName;
                     }
                     else
                     {
-                        // Nếu không chọn ảnh mới, giữ ảnh cũ
-                        var existingStory = await _context.Stories.AsNoTracking().FirstOrDefaultAsync(s => s.StoryId == id);
-                        if (existingStory != null)
-                        {
-                            story.CoverImage = existingStory.CoverImage;
-                        }
+                        story.CoverImage = originalStory.CoverImage; // Giữ ảnh cũ nếu không upload ảnh mới
                     }
 
-                   
-                    var originalStory = await _context.Stories.AsNoTracking().FirstOrDefaultAsync(s => s.StoryId == id);
-                    if (originalStory != null)
-                    {
-                        story.CreatedAt = originalStory.CreatedAt; // Giữ nguyên ngày tạo
-                    }
-                    story.LastUpdatedAt = DateTime.Now; 
+                    // Giữ nguyên CreatedAt, cập nhật LastUpdatedAt
+                    story.CreatedAt = originalStory.CreatedAt;
+                    story.LastUpdatedAt = DateTime.Now;
 
                     // Cập nhật thông tin Story
                     _context.Update(story);
                     await _context.SaveChangesAsync();
+
+                    // Nếu StoryCode thay đổi, cập nhật tất cả ChapterCode
+                    if (originalStory.StoryCode != story.StoryCode)
+                    {
+                        var chapters = await _context.Chapters
+                            .Where(c => c.StoryId == story.StoryId)
+                            .ToListAsync();
+
+                        foreach (var chapter in chapters)
+                        {
+                            var chapterNumber = int.Parse(chapter.ChapterTitle.Replace("Chương ", ""));
+                            chapter.ChapterCode = $"{story.StoryCode}_{chapterNumber}"; // Ví dụ: "NEWCH_1"
+                        }
+                        _context.Chapters.UpdateRange(chapters);
+                        await _context.SaveChangesAsync();
+                    }
 
                     // Xóa các thể loại cũ
                     var existingGenres = _context.StoryGenres.Where(sg => sg.StoryId == id);
@@ -227,7 +244,6 @@ namespace WebTAManga.Areas.Admins.Controllers
             ViewData["SelectedGenres"] = selectedGenres;
             return View(story);
         }
-
 
         // GET: Admins/Stories/Delete/5
         public async Task<IActionResult> Delete(int? id)
