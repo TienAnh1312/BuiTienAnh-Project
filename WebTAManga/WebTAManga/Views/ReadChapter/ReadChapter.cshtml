@@ -157,14 +157,18 @@
     <a href="@Url.Action("Index", "Home")" class="btn btn-dark">
         <i class="fas fa-home"></i>
     </a>
-    <a href="@Url.Action("ReadChapter", "ReadChapter", new { id = ViewBag.PreviousChapter?.ChapterId })" class="btn btn-dark" @(ViewBag.PreviousChapter == null ? "disabled" : "")>
+    <a href="@Url.Action("ReadChapter", "ReadChapter", new { id = ViewBag.PreviousChapter?.ChapterId })" 
+       class="btn btn-dark" 
+       @(ViewBag.PreviousChapter == null ? "disabled" : "") 
+       onclick="@(ViewBag.PreviousChapter == null ? "alert('Không còn Chương ở trước nữa!'); return false;" : "")">
         <i class="fas fa-arrow-left"></i>
     </a>
     <!-- Dropdown chọn chương -->
     <div class="chapter-selector">
         @{
             var chapters = ViewBag.AllChapters as List<WebTAManga.Models.Chapter> ?? new List<WebTAManga.Models.Chapter>();
-            var orderedChapters = chapters.OrderBy(c => c.ChapterId).ToList();
+            var orderedChapters = chapters.OrderByDescending(c => 
+                int.TryParse(c.ChapterTitle?.Replace("Chương ", ""), out int num) ? num : 0).ToList();
         }
         <select id="chapterSelect" class="form-select d-inline-block">
             @if (orderedChapters.Any())
@@ -182,7 +186,10 @@
             }
         </select>
     </div>
-    <a href="@Url.Action("ReadChapter", "ReadChapter", new { id = ViewBag.NextChapter?.ChapterId })" class="btn btn-dark" @(ViewBag.NextChapter == null ? "disabled" : "")>
+    <a href="@Url.Action("ReadChapter", "ReadChapter", new { id = ViewBag.NextChapter?.ChapterId })" 
+       class="btn btn-dark" 
+       @(ViewBag.NextChapter == null ? "disabled" : "") 
+       onclick="@(ViewBag.NextChapter == null ? "alert('Không còn Chương tiếp theo nữa!'); return false;" : "")">
         <i class="fas fa-arrow-right"></i>
     </a>
     <button class="btn btn-dark">
@@ -252,27 +259,25 @@ window.addEventListener("beforeunload", function () {
     form.submit();
 });
 
+// Xử lý sự kiện nhấn nút "Mua ngay"
+document.addEventListener("DOMContentLoaded", function () {
+    var buyButton = document.getElementById('buyChapterBtn');
+    var confirmButton = document.getElementById('confirmPurchaseBtn');
+    var buyForm = document.getElementById('buyChapterForm');
 
-    // Xử lý sự kiện nhấn nút "Mua ngay"
-    document.addEventListener("DOMContentLoaded", function () {
-        var buyButton = document.getElementById('buyChapterBtn');
-        var confirmButton = document.getElementById('confirmPurchaseBtn');
-        var buyForm = document.getElementById('buyChapterForm');
+    if (buyButton && confirmButton && buyForm) {
+        // Khi nhấn "Mua ngay", hiển thị modal
+        buyButton.addEventListener('click', function () {
+            var modal = new bootstrap.Modal(document.getElementById('confirmPurchaseModal'));
+            modal.show();
+        });
 
-        if (buyButton && confirmButton && buyForm) {
-            // Khi nhấn "Mua ngay", hiển thị modal
-            buyButton.addEventListener('click', function () {
-                var modal = new bootstrap.Modal(document.getElementById('confirmPurchaseModal'));
-                modal.show();
-            });
-
-            // Khi nhấn "Xác nhận" trong modal, gửi form
-            confirmButton.addEventListener('click', function () {
-                buyForm.submit();
-            });
-        } else {
-            console.error("Không tìm thấy các phần tử cần thiết để xử lý mua chapter!");
-        }
-    });
-
+        // Khi nhấn "Xác nhận" trong modal, gửi form
+        confirmButton.addEventListener('click', function () {
+            buyForm.submit();
+        });
+    } else {
+        console.error("Không tìm thấy các phần tử cần thiết để xử lý mua chapter!");
+    }
+});
 </script>

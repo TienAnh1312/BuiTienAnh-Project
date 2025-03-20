@@ -37,12 +37,12 @@ namespace WebTAManga.Controllers
             chapter.IsUnlocked = isPurchased || chapter.Coins == 0;
             ViewBag.IsPurchased = isPurchased;
             ViewBag.IsUnlocked = chapter.IsUnlocked;
-            
+
             // Cập nhật lịch sử đọc nếu người dùng đăng nhập
             if (userId != null)
             {
                 var readingHistory = _context.ReadingHistories
-                                            .FirstOrDefault(r => r.UserId == userId && r.ChapterId == id);
+                    .FirstOrDefault(r => r.UserId == userId && r.ChapterId == id);
 
                 if (readingHistory == null)
                 {
@@ -63,7 +63,7 @@ namespace WebTAManga.Controllers
                 _context.SaveChanges();
 
                 var followedStory = _context.FollowedStories
-                                           .FirstOrDefault(f => f.UserId == userId && f.StoryId == chapter.StoryId);
+                    .FirstOrDefault(f => f.UserId == userId && f.StoryId == chapter.StoryId);
                 if (followedStory != null)
                 {
                     followedStory.LastReadChapterId = chapter.ChapterId;
@@ -71,21 +71,34 @@ namespace WebTAManga.Controllers
                 }
             }
 
-            // Lấy chapter trước và sau
-            ViewBag.PreviousChapter = _context.Chapters
-                                              .Where(c => c.StoryId == chapter.StoryId && c.ChapterId < chapter.ChapterId)
-                                              .OrderByDescending(c => c.ChapterId)
-                                              .FirstOrDefault();
-            ViewBag.NextChapter = _context.Chapters
-                                          .Where(c => c.StoryId == chapter.StoryId && c.ChapterId > chapter.ChapterId)
-                                          .OrderBy(c => c.ChapterId)
-                                          .FirstOrDefault();
+            // Lấy tất cả các chapter của story và tính số thứ tự
+            var allChapters = _context.Chapters
+                .Where(c => c.StoryId == chapter.StoryId)
+                .ToList()
+                .Select(c => new
+                {
+                    Chapter = c,
+                    ChapterNumber = int.TryParse(c.ChapterTitle?.Replace("Chương ", ""), out int num) ? num : 0
+                })
+                .OrderByDescending(c => c.ChapterNumber) // Giữ thứ tự giảm dần cho dropdown
+                .ToList();
 
-            // Lấy tất cả các chapter của story để hiển thị trong dropdown
-            ViewBag.AllChapters = _context.Chapters
-                                           .Where(c => c.StoryId == chapter.StoryId)
-                                           .OrderBy(c => c.ChapterId)
-                                           .ToList();
+            ViewBag.AllChapters = allChapters.Select(c => c.Chapter).ToList();
+
+            // Lấy số thứ tự của chapter hiện tại
+            int currentChapterNumber = int.TryParse(chapter.ChapterTitle?.Replace("Chương ", ""), out int num) ? num : 0;
+
+            // Tìm chapter trước (số nhỏ hơn hiện tại)
+            ViewBag.PreviousChapter = allChapters
+                .Where(c => c.ChapterNumber < currentChapterNumber)
+                .OrderByDescending(c => c.ChapterNumber) // Chương gần nhất nhỏ hơn
+                .FirstOrDefault()?.Chapter;
+
+            // Tìm chapter sau (số lớn hơn hiện tại)
+            ViewBag.NextChapter = allChapters
+                .Where(c => c.ChapterNumber > currentChapterNumber)
+                .OrderBy(c => c.ChapterNumber) // Chương gần nhất lớn hơn
+                .FirstOrDefault()?.Chapter;
 
             // Trả về view với chapter hiện tại
             return View(chapter);

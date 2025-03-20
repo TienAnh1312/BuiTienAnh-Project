@@ -1,75 +1,222 @@
-﻿<h3>Nạp Xu</h3>
-<p class="text-success">Nạp lần đầu nhận thêm 1500 xu!</p>
+﻿<style>
+    .recharge-info {
+        padding: 20px;
+        background: #f8f9fa; /* Màu nền nhạt */
+        border-radius: 5px;
+        border: 1px solid #dee2e6;
+    }
 
-<form id="rechargeForm">
-    <div class="form-group">
-        <label>Chọn gói nạp xu:</label>
-        <div class="recharge-packages">
-            <div class="form-check">
-                <input type="radio" class="form-check-input" id="package5k" name="package" value="5000" checked>
-                <label class="form-check-label" for="package5k">5.000đ (Nhận 500xu)</label>
-            </div>
-            <div class="form-check">
-                <input type="radio" class="form-check-input" id="package10k" name="package" value="10000">
-                <label class="form-check-label" for="package10k">10.000đ (Nhận 1000xu)</label>
-            </div>
-            <div class="form-check">
-                <input type="radio" class="form-check-input" id="package20k" name="package" value="20000">
-                <label class="form-check-label" for="package20k">20.000đ (Nhận 2000xu)</label>
-            </div>
-            <div class="form-check">
-                <input type="radio" class="form-check-input" id="package50k" name="package" value="50000">
-                <label class="form-check-label" for="package50k">50.000đ (Nhận 5000xu)</label>
-            </div>
-            <div class="form-check">
-                <input type="radio" class="form-check-input" id="package100k" name="package" value="100000">
-                <label class="form-check-label" for="package100k">100.000đ (Nhận 10.000xu)</label>
-            </div>
-            <div class="form-check">
-                <input type="radio" class="form-check-input" id="package200k" name="package" value="200000">
-                <label class="form-check-label" for="package200k">200.000đ (Nhận 20.000xu)</label>
-            </div>
-            <div class="form-check">
-                <input type="radio" class="form-check-input" id="package500k" name="package" value="500000">
-                <label class="form-check-label" for="package500k">500.000đ (Nhận 50.000xu)</label>
-            </div>
-            <div class="form-check">
-                <input type="radio" class="form-check-input" id="package1000k" name="package" value="1000000">
-                <label class="form-check-label" for="package1000k">1.000.000đ (Nhận 100.000xu)</label>
-            </div>
-            <div class="form-check">
-                <input type="radio" class="form-check-input" id="package2000k" name="package" value="2000000">
-                <label class="form-check-label" for="package2000k">2.000.000đ (Nhận 200.000xu)</label>
-            </div>
+    .recharge-info-title {
+        font-size: 1.25rem;
+        font-weight: 500;
+        margin-bottom: 15px;
+        color: #2c3e50;
+    }
+
+    .recharge-info-content p {
+        margin-bottom: 10px;
+        color: #34495e;
+    }
+
+    .recharge-info-content p strong {
+        color: #2c3e50;
+    }
+
+    /* Responsive: trên màn hình nhỏ, form và thông tin sẽ xếp chồng */
+    @@media (max-width: 768px) {
+        .recharge-info {
+            margin-top: 20px;
+        }
+    }
+
+    .recharge-title {
+        color: #2c3e50;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .bonus-text {
+        text-align: center;
+        color: #27ae60;
+        font-size: 1.1em;
+        margin-bottom: 25px;
+    }
+
+    .recharge-container {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .package-label {
+        font-weight: 500;
+        margin-bottom: 15px;
+        display: block;
+        color: #34495e;
+    }
+
+    .package-table {
+        display: grid;
+        gap: 10px;
+        border: 1px solid #eee;
+        border-radius: 5px;
+        padding: 10px;
+    }
+
+    .table-header {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        background: #f8f9fa;
+        padding: 10px;
+        font-weight: 500;
+        color: #2c3e50;
+        border-radius: 5px 5px 0 0;
+    }
+
+    .table-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 12px 10px;
+        align-items: center;
+        border-bottom: 1px solid #eee;
+        transition: background 0.2s;
+    }
+
+    .table-row:hover {
+        background: #f5f6f5;
+    }
+
+    .table-row:last-child {
+        border-bottom: none;
+    }
+
+    .table-row input[type="radio"] {
+        margin-right: 8px;
+    }
+
+    .table-row label {
+        cursor: pointer;
+        color: #2c3e50;
+    }
+
+    .form-actions {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .btn-recharge {
+        background: #3498db;
+        border: none;
+        padding: 10px 25px;
+        border-radius: 5px;
+        transition: background 0.3s;
+    }
+
+    .btn-recharge:hover {
+        background: #2980b9;
+    }
+
+    .message-text {
+        font-size: 0.9em;
+    }
+</style>
+
+<script>
+    @if (TempData["SuccessMessage"] != null)
+    {
+        @:$("#rechargeMessage").text('@TempData["SuccessMessage"]').addClass("text-success");
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        @:$("#rechargeMessage").text('@TempData["ErrorMessage"]').addClass("text-danger");
+    }
+</script>
+
+<div class="container recharge-container">
+    <div class="row">
+        <h3>Nạp Xu</h3>
+        <p class="text-success">Nạp lần đầu nhận thêm 1500 xu!</p>
+        <!-- Form nạp xu -->
+        <div class="col-md-6">
+            <form id="rechargeForm" class="recharge-form">
+                <div class="form-group">
+                    <div class="recharge-packages">
+                        <div class="package-table">
+                            <label class="package-label">Chọn gói nạp xu:</label>
+                            <div class="table-header">
+                                <div>Số tiền</div>
+                                <div>Số xu nhận</div>
+                            </div>
+                            <div class="table-row">
+                                <div><input type="radio" id="package5k" name="package" value="5000" checked> <label for="package5k">5.000đ</label></div>
+                                <div>Số xu x 500</div>
+                            </div>
+                            <div class="table-row">
+                                <div><input type="radio" id="package10k" name="package" value="10000"> <label for="package10k">10.000đ</label></div>
+                                <div>Số xu x 1.000</div>
+                            </div>
+                            <div class="table-row">
+                                <div><input type="radio" id="package20k" name="package" value="20000"> <label for="package20k">20.000đ</label></div>
+                                <div>Số xu x 2.000</div>
+                            </div>
+                            <div class="table-row">
+                                <div><input type="radio" id="package50k" name="package" value="50000"> <label for="package50k">50.000đ</label></div>
+                                <div>Số xu x 5.000</div>
+                            </div>
+                            <div class="table-row">
+                                <div><input type="radio" id="package100k" name="package" value="100000"> <label for="package100k">100.000đ</label></div>
+                                <div>Số xu x 10.000</div>
+                            </div>
+                            <div class="table-row">
+                                <div><input type="radio" id="package200k" name="package" value="200000"> <label for="package200k">200.000đ</label></div>
+                                <div>Số xu x 20.000</div>
+                            </div>
+                            <div class="table-row">
+                                <div><input type="radio" id="package500k" name="package" value="500000"> <label for="package500k">500.000đ</label></div>
+                                <div>Số xu x 50.000</div>
+                            </div>
+                            <div class="table-row">
+                                <div><input type="radio" id="package1000k" name="package" value="1000000"> <label for="package1000k">1.000.000đ</label></div>
+                                <div>Số xu x 100.000</div>
+                            </div>
+                            <div class="table-row">
+                                <div><input type="radio" id="package2000k" name="package" value="2000000"> <label for="package2000k">2.000.000đ</label></div>
+                                <div>Số xu x 200.000</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </form>
         </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Nạp ngay</button>
-    <span id="rechargeMessage"></span>
-</form>
 
-<!-- Modal -->
-<div class="modal fade" id="rechargeModal" tabindex="-1" aria-labelledby="rechargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="rechargeModalLabel">Thông tin nạp xu</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p><strong>Tên người dùng:</strong> <span id="modalUsername"></span></p>
-                <p><strong>Email:</strong> <span id="modalEmail"></span></p>
-                <p><strong>Số tiền chọn:</strong> <span id="modalAmount"></span> đ</p>
-                <p><strong>Số xu sẽ nhận:</strong> <span id="modalCoins"></span> xu</p>
-                <p id="modalBonusCoins" style="display: none;"><strong>Số xu nhận thêm:</strong> 1500 xu (Bonus lần đầu)</p>
-                <p><strong>Lưu ý:</strong> Số xu sẽ được cộng theo mốc nạp.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                <button type="button" class="btn btn-primary" id="confirmRecharge">Xác nhận nạp</button>
+        <!-- Khu vực hiển thị thông tin nạp xu -->
+        <div class="col-md-6">
+            <div class="recharge-info">
+                <h5 class="recharge-info-title">Chi tiết giao dịch</h5>
+                <div class="recharge-info-content">
+                    <p><strong>Tên người dùng:</strong> <span id="infoUsername"></span></p>
+                    <p><strong>Email:</strong> <span id="infoEmail"></span></p>
+                    <p><strong>Số tiền chọn:</strong> <span id="infoAmount"></span> đ</p>
+                    <p><strong>Số xu sẽ nhận:</strong> <span id="infoCoins"></span> xu</p>
+                    <p id="infoBonusCoins" style="display: none;"><strong>Số xu nhận thêm:</strong> 1500 xu (Bonus lần đầu)</p>
+                    <p><strong>Lưu ý:</strong> Số xu sẽ được cộng theo mốc nạp.</p>
+                    <button type="button" class="btn btn-recharge" id="confirmRecharge">Nạp ngay</button>
+                    <div class="form-actions">
+                        <span id="rechargeMessage" class="message-text"></span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 @section Scripts {
     @{
         var username = Context.Session.GetString("Username") ?? "Người dùng";
@@ -80,10 +227,54 @@
             const username = '@Html.Raw(Json.Serialize(username))';
             const email = '@Html.Raw(Json.Serialize(email))';
 
-            // Xử lý khi form được submit
-            $('#rechargeForm').submit(function (e) {
-                e.preventDefault(); // Ngăn form submit mặc định
-                const amount = $('input[name="package"]:checked').val();
+            // Hàm cập nhật thông tin nạp xu
+            function updateRechargeInfo(amount, baseCoins, isFirstRecharge) {
+                const finalCoins = isFirstRecharge ? baseCoins + 1500 : baseCoins; // Cộng 1500 xu nếu lần đầu
+
+                // Cập nhật thông tin
+                $('#infoUsername').text(username);
+                $('#infoEmail').text(email);
+                $('#infoAmount').text(amount);
+                $('#infoCoins').text(finalCoins);
+
+                // Hiển thị hoặc ẩn số xu nhận thêm
+                if (isFirstRecharge) {
+                    $('#infoBonusCoins').show();
+                } else {
+                    $('#infoBonusCoins').hide();
+                }
+            }
+
+            // Hiển thị thông tin mặc định khi trang tải (dựa trên mốc được chọn mặc định)
+            let initialAmount = $('input[name="package"]:checked').val();
+            let initialBaseCoins = 0;
+            switch (parseInt(initialAmount)) {
+                case 5000: initialBaseCoins = 500; break;
+                case 10000: initialBaseCoins = 1000; break;
+                case 20000: initialBaseCoins = 2000; break;
+                case 50000: initialBaseCoins = 5000; break;
+                case 100000: initialBaseCoins = 10000; break;
+                case 200000: initialBaseCoins = 20000; break;
+                case 500000: initialBaseCoins = 50000; break;
+                case 1000000: initialBaseCoins = 100000; break;
+                case 2000000: initialBaseCoins = 200000; break;
+            }
+            // Gửi yêu cầu AJAX để kiểm tra lần nạp đầu (cho lần đầu tiên)
+            $.ajax({
+                url: '@Url.Action("RechargeCoins", "PayOs")',
+                type: 'POST',
+                data: { amount: initialAmount },
+                success: function (response) {
+                    if (response.success) {
+                        const isFirstRecharge = response.isFirstRecharge;
+                        updateRechargeInfo(initialAmount, initialBaseCoins, isFirstRecharge);
+                    }
+                }
+            });
+
+            // Xử lý khi người dùng chọn mốc nạp
+            $('input[name="package"]').change(function () {
+                const amount = $(this).val();
                 let baseCoins = 0;
 
                 // Tính số xu cơ bản dựa trên số tiền
@@ -99,7 +290,7 @@
                     case 2000000: baseCoins = 200000; break;
                 }
 
-                // Gửi yêu cầu AJAX để kiểm tra lần nạp đầu từ server
+                // Gửi yêu cầu AJAX để kiểm tra lần nạp đầu
                 $.ajax({
                     url: '@Url.Action("RechargeCoins", "PayOs")',
                     type: 'POST',
@@ -107,26 +298,29 @@
                     success: function (response) {
                         if (response.success) {
                             const isFirstRecharge = response.isFirstRecharge;
-                            const finalCoins = isFirstRecharge ? baseCoins + 1500 : baseCoins; // Cộng 1500 xu nếu lần đầu
+                            updateRechargeInfo(amount, baseCoins, isFirstRecharge);
+                        }
+                    }
+                });
+            });
 
-                            // Cập nhật modal
-                            $('#modalUsername').text(username);
-                            $('#modalEmail').text(email);
-                            $('#modalAmount').text(amount);
-                            $('#modalCoins').text(finalCoins);
+            // Xử lý khi nhấn nút "Nạp ngay" trong recharge-info-content
+            $('#confirmRecharge').click(function () {
+                const amount = $('input[name="package"]:checked').val();
 
-                            // Hiển thị hoặc ẩn số xu nhận thêm
-                            if (isFirstRecharge) {
-                                $('#modalBonusCoins').show();
+                // Gửi yêu cầu AJAX để lấy link thanh toán
+                $.ajax({
+                    url: '@Url.Action("RechargeCoins", "PayOs")',
+                    type: 'POST',
+                    data: { amount: amount },
+                    success: function (response) {
+                        if (response.success) {
+                            const checkoutUrl = response.checkoutUrl;
+                            if (checkoutUrl) {
+                                window.location.href = checkoutUrl; // Chuyển hướng đến link thanh toán
                             } else {
-                                $('#modalBonusCoins').hide();
+                                $("#rechargeMessage").text("Không tìm thấy link thanh toán.").addClass("text-danger");
                             }
-
-                            // Lưu checkoutUrl để sử dụng khi xác nhận
-                            $('#confirmRecharge').data('checkoutUrl', response.checkoutUrl);
-
-                            // Hiển thị modal
-                            $('#rechargeModal').modal('show');
                         } else {
                             $("#rechargeMessage").text(response.message || "Đã xảy ra lỗi.").addClass("text-danger");
                         }
@@ -136,27 +330,7 @@
                     }
                 });
             });
-
-            // Xử lý khi nhấn xác nhận nạp
-            $('#confirmRecharge').click(function () {
-                const checkoutUrl = $(this).data('checkoutUrl');
-                if (checkoutUrl) {
-                    window.location.href = checkoutUrl; // Chuyển hướng đến link thanh toán
-                } else {
-                    $("#rechargeMessage").text("Không tìm thấy link thanh toán.").addClass("text-danger");
-                    $('#rechargeModal').modal('hide');
-                }
-            });
-
-            // Hiển thị thông báo từ TempData nếu có
-        @if (TempData["SuccessMessage"] != null)
-        {
-            @:$("#rechargeMessage").text('@TempData["SuccessMessage"]').addClass("text-success");
-        }
-        @if (TempData["ErrorMessage"] != null)
-        {
-            @:$("#rechargeMessage").text('@TempData["ErrorMessage"]').addClass("text-danger");
-        }
         });
     </script>
 }
+

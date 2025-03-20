@@ -68,10 +68,8 @@
                         <div class="carousel-inner">
                             @foreach (var banner in banners)
                             {
-                                <div class="carousel-item @(banners.First() == banner ? "active" : "")">
-                                    <a href="#" target="_blank">
-                                        <img src="~/@banner.LinkUrl" class="d-block w-100" alt="@banner.Title" style="max-height: 450px; object-fit: cover;">
-                                    </a>
+                                <div class="carousel-item @(banners.First() == banner ? "active" : "")">    
+                                     <img src="~/@banner.LinkUrl" class="d-block w-100" alt="@banner.Title" style="max-height: 450px; object-fit: cover;">                             
                                 </div>
                             }
                         </div>

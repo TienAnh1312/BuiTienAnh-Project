@@ -4,6 +4,12 @@
     ViewData["Title"] = "BulkCreate";
 }
 
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger mt-3" role="alert">
+        @TempData["Error"]
+    </div>
+}
 <div class="container mt-4">
     <h1 class="mb-4">Thêm Nhiều Chapter</h1>
     <h4 class="text-muted">Story: @ViewBag.StoryTitle</h4>
@@ -50,12 +56,6 @@
         </div>
     </div>
 
-    @if (TempData["Error"] != null)
-    {
-        <div class="alert alert-danger mt-3" role="alert">
-            @TempData["Error"]
-        </div>
-    }
 </div>
 
 @section Scripts {

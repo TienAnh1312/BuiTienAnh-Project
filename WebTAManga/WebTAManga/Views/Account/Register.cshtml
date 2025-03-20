@@ -4,41 +4,165 @@
     ViewData["Title"] = "Đăng ký tài khoản";
 }
 
-<h1>Đăng ký tài khoản</h1>
-<hr />
+<style>
+    /* Container for the login page */
+    .login-container {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: url('https://wallpapers.com/images/hd/anime-cherry-blossom-background-99q9j0o6ap26ngdx.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        padding: 20px;
+    }
 
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Register">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Username" class="control-label"></label>
-                <input asp-for="Username" class="form-control" />
+    /* Card styles */
+    .card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        padding: 30px;
+        max-width: 400px;
+        width: 100%;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        animation: slideUp 0.5s ease-in-out;
+    }
+
+    /* Keyframes for card animation */
+    @@keyframes slideUp {
+        from {
+            transform: translateY(50px);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    /* Form input styles */
+    .form-control {
+        border-radius: 8px;
+        border: 1px solid #ced4da;
+        padding: 10px;
+        font-size: 16px;
+        margin-bottom: 15px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+        outline: none;
+    }
+
+    /* Placeholder styles */
+    .form-control::placeholder {
+        color: #6c757d;
+        opacity: 1;
+    }
+
+    /* Button styles */
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        border-radius: 8px;
+        padding: 10px;
+        font-size: 16px;
+        width: 100%;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    /* Error message styles */
+    .text-danger {
+        color: #dc3545;
+        font-size: 14px;
+        margin-top: -10px;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    /* Heading styles */
+    h2 {
+        color: #007bff;
+        font-weight: bold;
+        margin-bottom: 25px;
+        font-size: 24px;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    /* Link styles */
+    a {
+        color: #6c757d;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    a:hover {
+        color: #007bff;
+    }
+</style>
+
+<!-- Trang Register -->
+<div class="login-container">
+    <div class="card">
+        <h2>Đăng ký ngay</h2>
+        <form asp-action="Register" method="post">
+            <!-- UserName input -->
+            <div>
+                <input asp-for="Username" id="username" class="form-control" placeholder="Tên người dùng" />
                 <span asp-validation-for="Username" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
+
+            <!-- Email input -->
+            <div>
+                <input asp-for="Email" id="email" type="email" class="form-control" placeholder="Địa chỉ Email" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" type="password" />
+
+            <!-- Password input -->
+            <div>
+                <input asp-for="Password" id="password" type="password" class="form-control" placeholder="Mật khẩu" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Đăng ký" class="btn btn-primary" />
+
+            <!-- Confirm Password input -->
+            <div>
+                <input asp-for="ConfirmPassword" id="confirmPassword" type="password" class="form-control" placeholder="Xác nhận mật khẩu" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
+
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary">Đăng Ký</button>
         </form>
+        <div style="margin-top: 15px; text-align: center;">
+            <a asp-action="Index" asp-controller="Home">Quay lại trang chủ</a>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index" asp-controller="Home">Quay lại trang chủ</a>
-</div>
-
 @section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#confirmPassword').on('input', function () {
+                var password = $('#password').val();
+                var confirmPassword = $(this).val();
+                if (password !== confirmPassword) {
+                    $(this).next('.text-danger').text('Mật khẩu xác nhận không khớp với mật khẩu');
+                } else {
+                    $(this).next('.text-danger').text('');
+                }
+            });
+        });
+    </script>
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }   
+    }
 }

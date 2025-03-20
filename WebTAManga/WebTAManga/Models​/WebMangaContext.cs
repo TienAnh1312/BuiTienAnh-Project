@@ -579,6 +579,7 @@ public partial class WebMangaContext : DbContext
             entity.Property(e => e.UserId).HasColumnName("user_id");
             entity.Property(e => e.Avatar).HasMaxLength(255);
             entity.Property(e => e.Coins).HasDefaultValue(0.0);
+            entity.Property(e => e.ConfirmPassword).HasMaxLength(255);
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")

@@ -41,6 +41,8 @@ public partial class User
 
     public double TotalRechargedCoins { get; set; }
 
+    public string? ConfirmPassword { get; set; }
+
     public virtual AvatarFrame? AvatarFrame { get; set; }
 
     public virtual CategoryRank? CategoryRank { get; set; }

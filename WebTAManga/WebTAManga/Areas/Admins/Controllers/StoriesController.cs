@@ -193,19 +193,42 @@ namespace WebTAManga.Areas.Admins.Controllers
                     _context.Update(story);
                     await _context.SaveChangesAsync();
 
-                    // Nếu StoryCode thay đổi, cập nhật tất cả ChapterCode
+                    // Nếu StoryCode thay đổi, cập nhật tất cả ChapterCode và PurchasedChapters
                     if (originalStory.StoryCode != story.StoryCode)
                     {
                         var chapters = await _context.Chapters
                             .Where(c => c.StoryId == story.StoryId)
                             .ToListAsync();
 
+                        // Khai báo danh sách allPurchasedChapters ở phạm vi ngoài vòng lặp
+                        var allPurchasedChapters = new List<PurchasedChapter>();
+
                         foreach (var chapter in chapters)
                         {
                             var chapterNumber = int.Parse(chapter.ChapterTitle.Replace("Chương ", ""));
-                            chapter.ChapterCode = $"{story.StoryCode}_{chapterNumber}"; // Ví dụ: "NEWCH_1"
+                            var oldChapterCode = chapter.ChapterCode; // Lưu mã cũ để tìm trong PurchasedChapters
+                            chapter.ChapterCode = $"{story.StoryCode}_C{chapterNumber}"; // Cập nhật ChapterCode mới
+
+                            // Tìm và cập nhật PurchasedChapters
+                            var purchasedChapters = await _context.PurchasedChapters
+                                .Where(pc => pc.ChapterCode == oldChapterCode)
+                                .ToListAsync();
+
+                            foreach (var purchasedChapter in purchasedChapters)
+                            {
+                                purchasedChapter.ChapterCode = chapter.ChapterCode; // Cập nhật sang mã mới
+                            }
+
+                            // Thêm vào danh sách tổng
+                            allPurchasedChapters.AddRange(purchasedChapters);
                         }
+
+                        // Cập nhật cả Chapters và PurchasedChapters trong database
                         _context.Chapters.UpdateRange(chapters);
+                        if (allPurchasedChapters.Any())
+                        {
+                            _context.PurchasedChapters.UpdateRange(allPurchasedChapters);
+                        }
                         await _context.SaveChangesAsync();
                     }
 
