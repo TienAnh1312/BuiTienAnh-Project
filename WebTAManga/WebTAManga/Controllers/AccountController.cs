@@ -6,6 +6,9 @@ using MimeKit;
 using WebTAManga.Models;
 using MailKit.Net.Smtp;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
 
 namespace WebTAManga.Controllers
 {
@@ -92,10 +95,17 @@ namespace WebTAManga.Controllers
         // POST: Users/Create - Gửi email xác nhận mà không lưu user ngay
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register([Bind("Username,Email,Password")] User user)
+        public async Task<IActionResult> Register([Bind("Username,Email,Password,ConfirmPassword")] User user)
         {
             if (!ModelState.IsValid)
             {
+                return View(user);
+            }
+
+            // Kiểm tra Password và ConfirmPassword có khớp nhau không
+            if (user.Password != user.ConfirmPassword)
+            {
+                ModelState.AddModelError("ConfirmPassword", "Mật khẩu xác nhận không khớp với mật khẩu.");
                 return View(user);
             }
 
@@ -106,7 +116,7 @@ namespace WebTAManga.Controllers
                 return View(user);
             }
 
-            // Kiểm tra email có trong danh sách admin không (giả sử có bảng Admins)
+            // Kiểm tra email có trong danh sách admin không
             if (await _context.Admins.AnyAsync(a => a.Email.ToLower() == user.Email.ToLower()))
             {
                 ModelState.AddModelError("Email", "Email này không được phép đăng ký tài khoản người dùng.");
@@ -129,7 +139,7 @@ namespace WebTAManga.Controllers
                 var passwordHasher = new PasswordHasher<User>();
                 user.Password = passwordHasher.HashPassword(user, user.Password);
 
-                // Lưu thông tin tạm thời vào TempData hoặc session để sử dụng sau khi xác nhận
+                // Lưu thông tin tạm thời vào TempData
                 TempData["PendingUser"] = System.Text.Json.JsonSerializer.Serialize(new
                 {
                     Username = user.Username,
@@ -140,10 +150,10 @@ namespace WebTAManga.Controllers
 
                 // Gửi email xác nhận
                 var emailContent = $@"
-                <h2>Xác nhận email đăng ký</h2>
-                <p>Mã xác nhận của bạn là: <strong>{verificationCode}</strong></p>
-                <p>Vui lòng nhập mã này để hoàn tất đăng ký.</p>
-                <p>Mã này sẽ hết hạn sau 24 giờ.</p>";
+                                    <h2>Xác nhận email đăng ký</h2>
+                                    <p>Mã xác nhận của bạn là: <strong>{verificationCode}</strong></p>
+                                    <p>Vui lòng nhập mã này để hoàn tất đăng ký.</p>
+                                    <p>Mã này sẽ hết hạn sau 24 giờ.</p>";
 
                 await _emailSender.SendEmailAsync(user.Email, "Xác nhận đăng ký tài khoản", emailContent);
 
