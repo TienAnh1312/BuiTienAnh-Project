@@ -535,4 +535,3 @@ E:\BuiTienAnh\Học tập\BuiTienAnh-TH\BuiTienAnh-Project\WebTAManga\WebTAManga
 E:\BuiTienAnh\Học tập\BuiTienAnh-TH\BuiTienAnh-Project\WebTAManga\WebTAManga\bin\Debug\net8.0\AngleSharp.Css.dll
 E:\BuiTienAnh\Học tập\BuiTienAnh-TH\BuiTienAnh-Project\WebTAManga\WebTAManga\bin\Debug\net8.0\HtmlSanitizer.dll
 E:\BuiTienAnh\Học tập\BuiTienAnh-TH\BuiTienAnh-Project\WebTAManga\WebTAManga\bin\Debug\net8.0\System.Collections.Immutable.dll
-E:\BuiTienAnh\Học tập\BuiTienAnh-TH\BuiTienAnh-Project\WebTAManga\WebTAManga\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.Google.dll
