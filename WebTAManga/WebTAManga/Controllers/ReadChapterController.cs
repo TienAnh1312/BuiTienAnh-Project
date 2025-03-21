@@ -60,6 +60,7 @@ namespace WebTAManga.Controllers
                 {
                     readingHistory.LastReadAt = DateTime.Now;
                 }
+               
                 _context.SaveChanges();
 
                 var followedStory = _context.FollowedStories

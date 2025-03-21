@@ -524,6 +524,7 @@ public partial class WebMangaContext : DbContext
             entity.Property(e => e.Title)
                 .HasMaxLength(255)
                 .HasColumnName("title");
+            entity.Property(e => e.View).HasColumnName("view");
         });
 
         modelBuilder.Entity<StoryGenre>(entity =>

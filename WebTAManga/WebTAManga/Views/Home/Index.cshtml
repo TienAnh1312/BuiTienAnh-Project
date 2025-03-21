@@ -235,39 +235,37 @@
             </div>
         </div>
 
-        <div class="row align-items-start">
-            <!-- Cột 1: Bảng xếp hạng tiêu xu -->
-            <div class="col-12 col-md-6">
-                <div class="section-list-category bg-light p-2 rounded card-custom">
-                    <div class="head-title-global mb-2">
-                        <h2 class="mb-0 border-bottom border-secondary pb-1">
-                            <span class="d-block text-decoration-none text-dark fs-4" title="Top Người Tiêu Xu">Top Người Tiêu Xu</span>
-                        </h2>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 top-ratings__tab mb-2">
-                            <div class="list-group d-flex flex-row justify-content-center" id="coins-tab" role="tablist">
+        <div class="container">
+            
+            <div class="row">
+                <!-- Cột 1: Top Người Tiêu Xu -->
+                <div class="col-4">
+                    <div class="top-ratings mb-4">
+                        <h4 class="mb-2">Top Người Tiêu Xu</h4>
+                        <div class="top-ratings__tab mb-2">
+                            <div class="list-group d-flex flex-row" id="coins-tab" role="tablist">
                                 <a class="list-group-item list-group-item-action active" id="coins-day-list" data-bs-toggle="list" href="#coins-day" role="tab" aria-controls="coins-day" aria-selected="true">Ngày</a>
                                 <a class="list-group-item list-group-item-action" id="coins-month-list" data-bs-toggle="list" href="#coins-month" role="tab" aria-controls="coins-month" aria-selected="false">Tháng</a>
                                 <a class="list-group-item list-group-item-action" id="coins-all-time-list" data-bs-toggle="list" href="#coins-all-time" role="tab" aria-controls="coins-all-time" aria-selected="false">All</a>
                             </div>
                         </div>
-                        <div class="col-12 top-ratings__content">
+                        <div class="top-ratings__content">
                             <div class="tab-content" id="coins-tabContent">
+                                <!-- Top Xu theo ngày -->
                                 <div class="tab-pane fade show active" id="coins-day" role="tabpanel" aria-labelledby="coins-day-list">
-                                    <ul class="list-unstyled">
+                                    <ul>
                                         @if (ViewBag.TopCoinsByDay != null)
                                         {
                                             @foreach (var user in ViewBag.TopCoinsByDay)
                                             {
-                                                <li class="mb-2">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="rating-item__number bg-danger rounded-circle me-2" style="width: 25px; height: 25px; line-height: 25px; text-align: center;">
-                                                            <span class="text-light">@user.Rank</span>
-                                                        </div>
-                                                        <div>
-                                                            <span class="text-decoration-none text-dark hover-title">@user.Username</span><br />
-                                                            <small class="text-muted">Xu: @user.CoinsSpent</small>
+                                                <li>
+                                                    <div class="rating-item d-flex align-items-center">
+                                                        <div class="rating-item__number bg-danger rounded-circle"><span class="text-light">@user.Rank</span></div>
+                                                        <div class="rating-item__story">
+                                                            <span class="text-decoration-none hover-title rating-item__story--name text-one-row">@user.Username</span>
+                                                            <div class="d-flex flex-wrap rating-item__story--categories">
+                                                                <span class="text-dark">Xu tiêu: @user.CoinsSpent</span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -279,20 +277,21 @@
                                         }
                                     </ul>
                                 </div>
+                                <!-- Top Xu theo tháng -->
                                 <div class="tab-pane fade" id="coins-month" role="tabpanel" aria-labelledby="coins-month-list">
-                                    <ul class="list-unstyled">
+                                    <ul>
                                         @if (ViewBag.TopCoinsByMonth != null)
                                         {
                                             @foreach (var user in ViewBag.TopCoinsByMonth)
                                             {
-                                                <li class="mb-2">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="rating-item__number bg-danger rounded-circle me-2" style="width: 25px; height: 25px; line-height: 25px; text-align: center;">
-                                                            <span class="text-light">@user.Rank</span>
-                                                        </div>
-                                                        <div>
-                                                            <span class="text-decoration-none text-dark hover-title">@user.Username</span><br />
-                                                            <small class="text-muted">Xu: @user.CoinsSpent</small>
+                                                <li>
+                                                    <div class="rating-item d-flex align-items-center">
+                                                        <div class="rating-item__number bg-danger rounded-circle"><span class="text-light">@user.Rank</span></div>
+                                                        <div class="rating-item__story">
+                                                            <span class="text-decoration-none hover-title rating-item__story--name text-one-row">@user.Username</span>
+                                                            <div class="d-flex flex-wrap rating-item__story--categories">
+                                                                <span class="text-dark">Xu tiêu: @user.CoinsSpent</span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -304,20 +303,21 @@
                                         }
                                     </ul>
                                 </div>
+                                <!-- Top Xu tổng thể -->
                                 <div class="tab-pane fade" id="coins-all-time" role="tabpanel" aria-labelledby="coins-all-time-list">
-                                    <ul class="list-unstyled">
+                                    <ul>
                                         @if (ViewBag.TopCoinsAllTime != null)
                                         {
                                             @foreach (var user in ViewBag.TopCoinsAllTime)
                                             {
-                                                <li class="mb-2">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="rating-item__number bg-danger rounded-circle me-2" style="width: 25px; height: 25px; line-height: 25px; text-align: center;">
-                                                            <span class="text-light">@user.Rank</span>
-                                                        </div>
-                                                        <div>
-                                                            <span class="text-decoration-none text-dark hover-title">@user.Username</span><br />
-                                                            <small class="text-muted">Xu: @user.CoinsSpent</small>
+                                                <li>
+                                                    <div class="rating-item d-flex align-items-center">
+                                                        <div class="rating-item__number bg-danger rounded-circle"><span class="text-light">@user.Rank</span></div>
+                                                        <div class="rating-item__story">
+                                                            <span class="text-decoration-none hover-title rating-item__story--name text-one-row">@user.Username</span>
+                                                            <div class="d-flex flex-wrap rating-item__story--categories">
+                                                                <span class="text-dark">Xu tiêu: @user.CoinsSpent</span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -333,40 +333,35 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Cột 2: Bảng xếp hạng EXP -->
-            <div class="col-12 col-md-6">
-                <div class="section-list-category bg-light p-2 rounded card-custom">
-                    <div class="head-title-global mb-2">
-                        <h2 class="mb-0 border-bottom border-secondary pb-1">
-                            <span class="d-block text-decoration-none text-dark fs-4" title="Top Người Có Nhiều EXP">Top Người Có Nhiều EXP</span>
-                        </h2>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 top-ratings__tab mb-2">
-                            <div class="list-group d-flex flex-row justify-content-center" id="exp-tab" role="tablist">
+                <!-- Cột 2: Top Người Có Nhiều EXP -->
+                <div class="col-4">
+                    <div class="top-ratings mb-4">
+                        <h4 class="mb-2">Top Người Có Nhiều EXP</h4>
+                        <div class="top-ratings__tab mb-2">
+                            <div class="list-group d-flex flex-row" id="exp-tab" role="tablist">
                                 <a class="list-group-item list-group-item-action active" id="exp-day-list" data-bs-toggle="list" href="#exp-day" role="tab" aria-controls="exp-day" aria-selected="true">Ngày</a>
                                 <a class="list-group-item list-group-item-action" id="exp-month-list" data-bs-toggle="list" href="#exp-month" role="tab" aria-controls="exp-month" aria-selected="false">Tháng</a>
                                 <a class="list-group-item list-group-item-action" id="exp-all-time-list" data-bs-toggle="list" href="#exp-all-time" role="tab" aria-controls="exp-all-time" aria-selected="false">All</a>
                             </div>
                         </div>
-                        <div class="col-12 top-ratings__content">
+                        <div class="top-ratings__content">
                             <div class="tab-content" id="exp-tabContent">
+                                <!-- Top EXP theo ngày -->
                                 <div class="tab-pane fade show active" id="exp-day" role="tabpanel" aria-labelledby="exp-day-list">
-                                    <ul class="list-unstyled">
+                                    <ul>
                                         @if (ViewBag.TopExpByDay != null)
                                         {
                                             @foreach (var user in ViewBag.TopExpByDay)
                                             {
-                                                <li class="mb-2">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="rating-item__number bg-danger rounded-circle me-2" style="width: 25px; height: 25px; line-height: 25px; text-align: center;">
-                                                            <span class="text-light">@user.Rank</span>
-                                                        </div>
-                                                        <div>
-                                                            <span class="text-decoration-none text-dark hover-title">@user.Username</span><br />
-                                                            <small class="text-muted">EXP: @user.ExpPoints</small>
+                                                <li>
+                                                    <div class="rating-item d-flex align-items-center">
+                                                        <div class="rating-item__number bg-danger rounded-circle"><span class="text-light">@user.Rank</span></div>
+                                                        <div class="rating-item__story">
+                                                            <span class="text-decoration-none hover-title rating-item__story--name text-one-row">@user.Username</span>
+                                                            <div class="d-flex flex-wrap rating-item__story--categories">
+                                                                <span class="text-dark">EXP: @user.ExpPoints</span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -378,20 +373,21 @@
                                         }
                                     </ul>
                                 </div>
+                                <!-- Top EXP theo tháng -->
                                 <div class="tab-pane fade" id="exp-month" role="tabpanel" aria-labelledby="exp-month-list">
-                                    <ul class="list-unstyled">
+                                    <ul>
                                         @if (ViewBag.TopExpByMonth != null)
                                         {
                                             @foreach (var user in ViewBag.TopExpByMonth)
                                             {
-                                                <li class="mb-2">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="rating-item__number bg-danger rounded-circle me-2" style="width: 25px; height: 25px; line-height: 25px; text-align: center;">
-                                                            <span class="text-light">@user.Rank</span>
-                                                        </div>
-                                                        <div>
-                                                            <span class="text-decoration-none text-dark hover-title">@user.Username</span><br />
-                                                            <small class="text-muted">EXP: @user.ExpPoints</small>
+                                                <li>
+                                                    <div class="rating-item d-flex align-items-center">
+                                                        <div class="rating-item__number bg-danger rounded-circle"><span class="text-light">@user.Rank</span></div>
+                                                        <div class="rating-item__story">
+                                                            <span class="text-decoration-none hover-title rating-item__story--name text-one-row">@user.Username</span>
+                                                            <div class="d-flex flex-wrap rating-item__story--categories">
+                                                                <span class="text-dark">EXP: @user.ExpPoints</span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -403,20 +399,117 @@
                                         }
                                     </ul>
                                 </div>
+                                <!-- Top EXP tổng thể -->
                                 <div class="tab-pane fade" id="exp-all-time" role="tabpanel" aria-labelledby="exp-all-time-list">
-                                    <ul class="list-unstyled">
+                                    <ul>
                                         @if (ViewBag.TopExpAllTime != null)
                                         {
                                             @foreach (var user in ViewBag.TopExpAllTime)
                                             {
-                                                <li class="mb-2">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="rating-item__number bg-danger rounded-circle me-2" style="width: 25px; height: 25px; line-height: 25px; text-align: center;">
-                                                            <span class="text-light">@user.Rank</span>
+                                                <li>
+                                                    <div class="rating-item d-flex align-items-center">
+                                                        <div class="rating-item__number bg-danger rounded-circle"><span class="text-light">@user.Rank</span></div>
+                                                        <div class="rating-item__story">
+                                                            <span class="text-decoration-none hover-title rating-item__story--name text-one-row">@user.Username</span>
+                                                            <div class="d-flex flex-wrap rating-item__story--categories">
+                                                                <span class="text-dark">EXP: @user.ExpPoints</span>
+                                                            </div>
                                                         </div>
-                                                        <div>
-                                                            <span class="text-decoration-none text-dark hover-title">@user.Username</span><br />
-                                                            <small class="text-muted">EXP: @user.ExpPoints</small>
+                                                    </div>
+                                                </li>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <li>Không có dữ liệu</li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cột 3: Top Story Có Nhiều Lượt Xem -->
+                <div class="col-4">
+                    <div class="top-ratings mb-4">
+                        <h4 class="mb-2">Top Story Có Nhiều Lượt Xem</h4>
+                        <div class="top-ratings__tab mb-2">
+                            <div class="list-group d-flex flex-row" id="views-tab" role="tablist">
+                                <a class="list-group-item list-group-item-action active" id="views-day-list" data-bs-toggle="list" href="#views-day" role="tab" aria-controls="views-day" aria-selected="true">Ngày</a>
+                                <a class="list-group-item list-group-item-action" id="views-month-list" data-bs-toggle="list" href="#views-month" role="tab" aria-controls="views-month" aria-selected="false">Tháng</a>
+                                <a class="list-group-item list-group-item-action" id="views-all-time-list" data-bs-toggle="list" href="#views-all-time" role="tab" aria-controls="views-all-time" aria-selected="false">All</a>
+                            </div>
+                        </div>
+                        <div class="top-ratings__content">
+                            <div class="tab-content" id="views-tabContent">
+                                <!-- Top Views theo ngày -->
+                                <div class="tab-pane fade show active" id="views-day" role="tabpanel" aria-labelledby="views-day-list">
+                                    <ul>
+                                        @if (ViewBag.TopViewsByDay != null)
+                                        {
+                                            @foreach (var story in ViewBag.TopViewsByDay)
+                                            {
+                                                <li>
+                                                    <div class="rating-item d-flex align-items-center">
+                                                        <div class="rating-item__number bg-danger rounded-circle"><span class="text-light">@story.Rank</span></div>
+                                                        <div class="rating-item__story">
+                                                            <span class="text-decoration-none hover-title rating-item__story--name text-one-row">@story.Title</span>
+                                                            <div class="d-flex flex-wrap rating-item__story--categories">
+                                                                <span class="text-dark">Lượt xem: @story.Views</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <li>Không có dữ liệu</li>
+                                        }
+                                    </ul>
+                                </div>
+                                <!-- Top Views theo tháng -->
+                                <div class="tab-pane fade" id="views-month" role="tabpanel" aria-labelledby="views-month-list">
+                                    <ul>
+                                        @if (ViewBag.TopViewsByMonth != null)
+                                        {
+                                            @foreach (var story in ViewBag.TopViewsByMonth)
+                                            {
+                                                <li>
+                                                    <div class="rating-item d-flex align-items-center">
+                                                        <div class="rating-item__number bg-danger rounded-circle"><span class="text-light">@story.Rank</span></div>
+                                                        <div class="rating-item__story">
+                                                            <span class="text-decoration-none hover-title rating-item__story--name text-one-row">@story.Title</span>
+                                                            <div class="d-flex flex-wrap rating-item__story--categories">
+                                                                <span class="text-dark">Lượt xem: @story.Views</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <li>Không có dữ liệu</li>
+                                        }
+                                    </ul>
+                                </div>
+                                <!-- Top Views tổng thể -->
+                                <div class="tab-pane fade" id="views-all-time" role="tabpanel" aria-labelledby="views-all-time-list">
+                                    <ul>
+                                        @if (ViewBag.TopViewsAllTime != null)
+                                        {
+                                            @foreach (var story in ViewBag.TopViewsAllTime)
+                                            {
+                                                <li>
+                                                    <div class="rating-item d-flex align-items-center">
+                                                        <div class="rating-item__number bg-danger rounded-circle"><span class="text-light">@story.Rank</span></div>
+                                                        <div class="rating-item__story">
+                                                            <span class="text-decoration-none hover-title rating-item__story--name text-one-row">@story.Title</span>
+                                                            <div class="d-flex flex-wrap rating-item__story--categories">
+                                                                <span class="text-dark">Lượt xem: @story.Views</span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -434,6 +527,5 @@
                 </div>
             </div>
         </div>
-
     </div>
 </main>

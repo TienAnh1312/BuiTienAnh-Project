@@ -31,7 +31,6 @@ namespace WebTAManga.Controllers
         {
             return View();
         }
-
         [HttpPost]
         public IActionResult Login(LoginCustomers model)
         {
@@ -70,19 +69,12 @@ namespace WebTAManga.Controllers
 
         public IActionResult Logout()
         {
-            // Lưu thông tin user trước khi xóa (nếu cần)
             var username = HttpContext.Session.GetString("usersLogin");
-
-            // Xóa session
             HttpContext.Session.Remove("usersLogin");
             HttpContext.Session.Remove("UsersId");
             HttpContext.Session.Remove("Username");
             HttpContext.Session.Remove("Email");
-
-            // Thêm thông báo thành công
             TempData["SuccessMessage"] = $"Đăng xuất thành công{(username != null ? " khỏi tài khoản " + username : "")}";
-
-            // Chuyển hướng về trang chủ
             return RedirectToAction("Index", "Home");
         }
 
@@ -92,7 +84,7 @@ namespace WebTAManga.Controllers
             return View();
         }
 
-        // POST: Users/Create - Gửi email xác nhận mà không lưu user ngay
+        // POST: Users/Create - Lưu user trực tiếp mà không gửi email xác nhận
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register([Bind("Username,Email,Password,ConfirmPassword")] User user)
@@ -132,37 +124,24 @@ namespace WebTAManga.Controllers
 
             try
             {
-                // Tạo mã xác nhận ngẫu nhiên
-                var verificationCode = Guid.NewGuid().ToString("N").Substring(0, 6);
-
                 // Hash mật khẩu
                 var passwordHasher = new PasswordHasher<User>();
                 user.Password = passwordHasher.HashPassword(user, user.Password);
 
-                // Lưu thông tin tạm thời vào TempData
-                TempData["PendingUser"] = System.Text.Json.JsonSerializer.Serialize(new
-                {
-                    Username = user.Username,
-                    Email = user.Email,
-                    Password = user.Password,
-                    VerificationCode = verificationCode
-                });
+                // Đặt IsEmailVerified = true ngay từ đầu
+                user.IsEmailVerified = true;
+                user.CreatedAt = DateTime.Now;
 
-                // Gửi email xác nhận
-                var emailContent = $@"
-                                    <h2>Xác nhận email đăng ký</h2>
-                                    <p>Mã xác nhận của bạn là: <strong>{verificationCode}</strong></p>
-                                    <p>Vui lòng nhập mã này để hoàn tất đăng ký.</p>
-                                    <p>Mã này sẽ hết hạn sau 24 giờ.</p>";
+                // Lưu user trực tiếp vào cơ sở dữ liệu
+                _context.Users.Add(user);
+                await _context.SaveChangesAsync();
 
-                await _emailSender.SendEmailAsync(user.Email, "Xác nhận đăng ký tài khoản", emailContent);
-
-                TempData["Message"] = "Vui lòng kiểm tra email để lấy mã xác nhận!";
-                return RedirectToAction("EnterVerificationCode", new { email = user.Email });
+                TempData["SuccessMessage"] = "Đăng ký tài khoản thành công! Vui lòng đăng nhập.";
+                return RedirectToAction("Login", "Account");
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", $"Có lỗi xảy ra khi gửi mã xác nhận: {ex.Message}");
+                ModelState.AddModelError("", $"Có lỗi xảy ra khi đăng ký: {ex.Message}");
                 return View(user);
             }
         }

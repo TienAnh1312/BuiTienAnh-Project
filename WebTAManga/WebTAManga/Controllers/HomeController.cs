@@ -381,6 +381,86 @@ namespace WebTAManga.Controllers
                 .Take(5)
                 .Select((u, index) => new { Rank = index + 1, u.Username, ExpPoints = u.ExpPoints ?? 0 })
                 .ToList();
+
+            // Top Views Theo Ngày
+            ViewBag.TopViewsByDay = _context.ReadingHistories
+                .Where(r => r.StartTime >= DateTime.Today)
+                .Include(r => r.Story).ThenInclude(s => s.Chapters) 
+                .GroupBy(r => r.StoryId)
+                .Select(g => new
+                {
+                    StoryId = g.Key,
+                    ViewCount = g.Count(),
+                    Story = g.First().Story
+                })
+                .OrderByDescending(g => g.ViewCount)
+                .Take(5)
+                .AsEnumerable()
+                .Select((g, index) => new
+                {
+                    Rank = index + 1,
+                    Title = g.Story.Title,
+                    Views = g.ViewCount,
+                    CoverImage = g.Story.CoverImage,
+                    ChapterNumber = g.Story.Chapters
+                        .OrderByDescending(c => c.ChapterTitle)
+                        .Select(c => c.ChapterTitle)
+                        .FirstOrDefault()
+                })
+                .ToList();
+
+            // Top Views Theo Tháng
+            ViewBag.TopViewsByMonth = _context.ReadingHistories
+                .Where(r => r.StartTime >= DateTime.Today.AddMonths(-1))
+                .Include(r => r.Story).ThenInclude(s => s.Chapters) 
+                .GroupBy(r => r.StoryId)
+                .Select(g => new
+                {
+                    StoryId = g.Key,
+                    ViewCount = g.Count(),
+                    Story = g.First().Story
+                })
+                .OrderByDescending(g => g.ViewCount)
+                .Take(5)
+                .AsEnumerable()
+                .Select((g, index) => new
+                {
+                    Rank = index + 1,
+                    Title = g.Story.Title,
+                    Views = g.ViewCount,
+                    CoverImage = g.Story.CoverImage,
+                    ChapterNumber = g.Story.Chapters
+                        .OrderByDescending(c => c.ChapterTitle)
+                        .Select(c => c.ChapterTitle)
+                        .FirstOrDefault()
+                })
+                .ToList();
+
+            // Top Views Tổng Thể
+            ViewBag.TopViewsAllTime = _context.ReadingHistories
+                .Include(r => r.Story).ThenInclude(s => s.Chapters)
+                .GroupBy(r => r.StoryId)
+                .Select(g => new
+                {
+                    StoryId = g.Key,
+                    ViewCount = g.Count(),
+                    Story = g.First().Story
+                })
+                .OrderByDescending(g => g.ViewCount)
+                .Take(5)
+                .AsEnumerable()
+                .Select((g, index) => new
+                {
+                    Rank = index + 1,
+                    Title = g.Story.Title,
+                    Views = g.ViewCount,
+                    CoverImage = g.Story.CoverImage,
+                    ChapterNumber = g.Story.Chapters
+                        .OrderByDescending(c => c.ChapterTitle)
+                        .Select(c => c.ChapterTitle)
+                        .FirstOrDefault()
+                })
+                .ToList();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
