@@ -165,6 +165,73 @@
     .list-group-item {
         text-align: center;
     }
+
+    .text-ellipsis {
+        white-space: nowrap; 
+        overflow: hidden;
+        text-overflow: ellipsis; 
+        max-width: 150px; 
+    }
+
+    /* Màn hình lớn (Desktop, >1200px) */
+    @@media (min-width: 1200px) {
+        .text-ellipsis
+        {
+            max-width: 150px; 
+        }
+
+        .text-one-row {
+            max-width: 160px; 
+        }
+
+    }
+
+    /* Màn hình trung bình lớn (Laptop, 992px - 1199px) */
+    @@media (min-width: 992px) and (max-width: 1199px) {
+        .text-ellipsis
+        {
+            max-width: 60px;
+        }
+
+    }
+
+    /* Màn hình trung bình (Tablet, 768px - 991px) */
+    @@media (min-width: 768px) and (max-width: 991px) {
+        .text-ellipsis
+        {
+            max-width: 100px; 
+        }
+
+        .text-one-row {
+            max-width: 200px;
+        }
+
+    }
+
+    /* Màn hình nhỏ (Mobile lớn, 576px - 767px) */
+    @@media (min-width: 576px) and (max-width: 767px) {
+        .text-ellipsis
+        {
+            max-width: 150px; 
+        }
+
+        .text-one-row {
+            max-width: 300px;
+        }
+
+    }
+
+    @@media (max-width: 575px) {
+        .text-ellipsis
+        {
+            max-width: 150px; 
+        }
+
+        .text-one-row {
+            max-width: 285px;
+        }
+
+    }
 </style>
 
 <main>
@@ -506,9 +573,9 @@
             <!-- Cột 4: Top Người Có Nhiều EXP -->
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="top-ratings p-3 rounded shadow-sm">
-                    <h4 class="mb-2 text-center text-md-start" style="font-size:20px">Top Tu Vi</h4>
+                    <h4 class="mb-2 text-center text-md-start" style="font-size:20px">Top Tu Vi (EXP)</h4>
                     <hr />
-                    <div class="top-ratings__content">
+                    <div class="top-ratings__content" style="padding:7px 0;">
                         <ul class="list-unstyled">
                             @if (ViewBag.TopExpAllTime != null)
                             {
@@ -517,10 +584,27 @@
                                     <li class="mb-2">
                                         <div class="rating-item d-flex align-items-center">
                                             <div class="rating-item__number text-primary fw-bold me-2" style="min-width: 25px;">@user.Rank</div>
-                                            <div class="rating-item__story flex-grow-1">
+                                            <div class="rating-item__image me-2 position-relative" style="width: 48px; height: 48px;">
+                                                <!-- Avatar của người dùng -->
+                                                @if (!string.IsNullOrEmpty(user.Avatar))
+                                                {
+                                                    <img src="~/uploads/avatars/@user.Avatar" alt="@user.Username's avatar" class="img-fluid rounded-circle position-absolute avatar-image" style="width: 40px; height: 40px; top: 4px; left: 4px; object-fit: cover;" loading="lazy">
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/uploads/avatars/defaultAvts.avif" alt="Default avatar" class="img-fluid rounded-circle position-absolute avatar-image" style="width: 40px; height: 40px; top: 4px; left: 4px; object-fit: cover;" loading="lazy">
+                                                }
+                                                <!-- Khung avatar -->
+                                                @if (!string.IsNullOrEmpty(user.AvatarFramePath))
+                                                {
+                                                    <img src="~/@user.AvatarFramePath" alt="@user.Username's avatar frame" class="position-absolute avatar-frame" style="width: 71px; height: 70px; top: -10px; left: -11px;" loading="lazy">
+                                                }
+                                            </div>
+                                            <div class="rating-item__story flex-grow-1 d-flex flex-column justify-content-center">
                                                 <span class="rating-item__story--name text-one-row">@user.Username</span>
-                                                <div class="rating-item__story--categories small text-muted">
-                                                    <span>EXP: @user.ExpPoints</span>
+                                                <div class="rating-item__story--categories small text-muted d-flex align-items-center">
+                                                    <span class="me-2 border border-danger rounded px-1 py-1" style="font-size: 10px;">@FormatNumber(user.ExpPoints) </span>
+                                                    <span class="border border-danger rounded px-1 py-1 text-ellipsis" style="font-size: 10px;">@user.CategoryRankName</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -535,6 +619,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </main>

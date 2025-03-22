@@ -290,9 +290,9 @@ namespace WebTAManga.Controllers
                 {
                     u.UserId,
                     u.Username,
-                    u.VipLevel, // Cấp VIP
-                    u.ExpPoints, // Điểm EXP
-                    u.Avatar, // Avatar của người dùng
+                    u.VipLevel, 
+                    u.ExpPoints,
+                    u.Avatar,
                     AvatarFramePath = u.AvatarFrame != null ? u.AvatarFrame.ImagePath : null, 
                     CoinsSpent = _context.PurchasedChapters
                         .Where(pc => pc.UserId == u.UserId)
@@ -318,16 +318,29 @@ namespace WebTAManga.Controllers
 
             // Top EXP
             ViewBag.TopExpAllTime = _context.Users
+                .Include(u => u.CategoryRank)  
+                .Include(u => u.AvatarFrame)   
                 .Select(u => new
                 {
                     u.UserId,
                     u.Username,
-                    u.ExpPoints
+                    u.ExpPoints,
+                    CategoryRankName = u.CategoryRank != null ? u.CategoryRank.Name : "Chưa có hạng",
+                    u.Avatar,                   
+                    AvatarFramePath = u.AvatarFrame != null ? u.AvatarFrame.ImagePath : null  
                 })
                 .AsEnumerable()
                 .OrderByDescending(u => u.ExpPoints)
-                .Take(8)
-                .Select((u, index) => new { Rank = index + 1, u.Username, ExpPoints = u.ExpPoints ?? 0 })
+                .Take(7)
+                .Select((u, index) => new
+                {
+                    Rank = index + 1,
+                    u.Username,
+                    ExpPoints = u.ExpPoints ?? 0,
+                    u.CategoryRankName,
+                    u.Avatar,
+                    u.AvatarFramePath
+                })
                 .ToList();
 
             // Top Truyện Yêu Thích Nhất 
