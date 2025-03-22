@@ -284,47 +284,16 @@ namespace WebTAManga.Controllers
         private void GetRankings()
         {
             // Top Coins
-            ViewBag.TopCoinsByDay = _context.Users
-                .Select(u => new
-                {
-                    u.UserId,
-                    u.Username,
-                    CoinsSpent = _context.PurchasedChapters
-                        .Where(pc => pc.UserId == u.UserId && pc.PurchasedAt >= DateTime.Today)
-                        .Sum(pc => pc.Chapter.Coins ?? 0) +
-                        _context.PurchasedAvatarFrames
-                        .Where(paf => paf.UserId == u.UserId && paf.PurchasedAt >= DateTime.Today)
-                        .Sum(paf => paf.AvatarFrame.Price ?? 0)
-                })
-                .AsEnumerable()
-                .OrderByDescending(u => u.CoinsSpent)
-                .Take(5)
-                .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
-                .ToList();
-
-            ViewBag.TopCoinsByMonth = _context.Users
-                .Select(u => new
-                {
-                    u.UserId,
-                    u.Username,
-                    CoinsSpent = _context.PurchasedChapters
-                        .Where(pc => pc.UserId == u.UserId && pc.PurchasedAt >= DateTime.Today.AddMonths(-1))
-                        .Sum(pc => pc.Chapter.Coins ?? 0) +
-                        _context.PurchasedAvatarFrames
-                        .Where(paf => paf.UserId == u.UserId && paf.PurchasedAt >= DateTime.Today.AddMonths(-1))
-                        .Sum(paf => paf.AvatarFrame.Price ?? 0)
-                })
-                .AsEnumerable()
-                .OrderByDescending(u => u.CoinsSpent)
-                .Take(5)
-                .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
-                .ToList();
-
             ViewBag.TopCoinsAllTime = _context.Users
+                .Include(u => u.AvatarFrame)
                 .Select(u => new
                 {
                     u.UserId,
                     u.Username,
+                    u.VipLevel, // Cấp VIP
+                    u.ExpPoints, // Điểm EXP
+                    u.Avatar, // Avatar của người dùng
+                    AvatarFramePath = u.AvatarFrame != null ? u.AvatarFrame.ImagePath : null, 
                     CoinsSpent = _context.PurchasedChapters
                         .Where(pc => pc.UserId == u.UserId)
                         .Sum(pc => pc.Chapter.Coins ?? 0) +
@@ -334,41 +303,20 @@ namespace WebTAManga.Controllers
                 })
                 .AsEnumerable()
                 .OrderByDescending(u => u.CoinsSpent)
-                .Take(5)
-                .Select((u, index) => new { Rank = index + 1, u.Username, u.CoinsSpent })
+                .Take(7)
+                .Select((u, index) => new
+                {
+                    Rank = index + 1,
+                    u.Username,
+                    u.CoinsSpent,
+                    u.VipLevel,
+                    ExpPoints = u.ExpPoints ?? 0,
+                    u.Avatar,
+                    u.AvatarFramePath 
+                })
                 .ToList();
 
             // Top EXP
-            ViewBag.TopExpByDay = _context.Users
-                .Select(u => new
-                {
-                    u.UserId,
-                    u.Username,
-                    ExpPoints = _context.ExpHistories
-                        .Where(eh => eh.UserId == u.UserId && eh.CreatedAt >= DateTime.Today)
-                        .Sum(eh => eh.ExpAmount)
-                })
-                .AsEnumerable()
-                .OrderByDescending(u => u.ExpPoints)
-                .Take(5)
-                .Select((u, index) => new { Rank = index + 1, u.Username, u.ExpPoints })
-                .ToList();
-
-            ViewBag.TopExpByMonth = _context.Users
-                .Select(u => new
-                {
-                    u.UserId,
-                    u.Username,
-                    ExpPoints = _context.ExpHistories
-                        .Where(eh => eh.UserId == u.UserId && eh.CreatedAt >= DateTime.Today.AddMonths(-1))
-                        .Sum(eh => eh.ExpAmount)
-                })
-                .AsEnumerable()
-                .OrderByDescending(u => u.ExpPoints)
-                .Take(5)
-                .Select((u, index) => new { Rank = index + 1, u.Username, u.ExpPoints })
-                .ToList();
-
             ViewBag.TopExpAllTime = _context.Users
                 .Select(u => new
                 {
@@ -378,8 +326,36 @@ namespace WebTAManga.Controllers
                 })
                 .AsEnumerable()
                 .OrderByDescending(u => u.ExpPoints)
-                .Take(5)
+                .Take(8)
                 .Select((u, index) => new { Rank = index + 1, u.Username, ExpPoints = u.ExpPoints ?? 0 })
+                .ToList();
+
+            // Top Truyện Yêu Thích Nhất 
+            ViewBag.TopFavoritesAllTime = _context.Favorites
+                .GroupBy(f => f.StoryId)
+                .Select(g => new
+                {
+                    StoryId = g.Key,
+                    FavoriteCount = g.Count(),
+                    Story = _context.Stories
+                        .Include(s => s.Chapters)
+                        .FirstOrDefault(s => s.StoryId == g.Key)
+                })
+                .OrderByDescending(g => g.FavoriteCount)
+                .Take(6)
+                .AsEnumerable()
+                .Select((g, index) => new
+                {
+                    Rank = index + 1,
+                    StoryId = g.StoryId,
+                    Title = g.Story.Title,
+                    Favorites = g.FavoriteCount,
+                    CoverImage = g.Story.CoverImage,
+                    ChapterNumber = g.Story.Chapters
+                        .OrderByDescending(c => c.ChapterTitle)
+                        .Select(c => c.ChapterTitle)
+                        .FirstOrDefault()
+                })
                 .ToList();
 
             // Top Views Theo Ngày
@@ -399,6 +375,7 @@ namespace WebTAManga.Controllers
                 .Select((g, index) => new
                 {
                     Rank = index + 1,
+                    StoryId = g.StoryId,
                     Title = g.Story.Title,
                     Views = g.ViewCount,
                     CoverImage = g.Story.CoverImage,
@@ -426,6 +403,7 @@ namespace WebTAManga.Controllers
                 .Select((g, index) => new
                 {
                     Rank = index + 1,
+                    StoryId = g.StoryId,
                     Title = g.Story.Title,
                     Views = g.ViewCount,
                     CoverImage = g.Story.CoverImage,
@@ -452,6 +430,7 @@ namespace WebTAManga.Controllers
                 .Select((g, index) => new
                 {
                     Rank = index + 1,
+                    StoryId = g.StoryId,
                     Title = g.Story.Title,
                     Views = g.ViewCount,
                     CoverImage = g.Story.CoverImage,

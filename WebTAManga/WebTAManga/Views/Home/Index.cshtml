@@ -4,9 +4,67 @@
     var newStories = ViewBag.NewStories as List<WebTAManga.Models.Story> ?? new List<WebTAManga.Models.Story>();
     var hotStories = ViewBag.HotStories as List<WebTAManga.Models.Story> ?? new List<WebTAManga.Models.Story>();
     var updatedStories = ViewBag.UpdatedStories as List<WebTAManga.Models.Story> ?? new List<WebTAManga.Models.Story>();
-    var banners = ViewBag.Banners as List<WebTAManga.Models.Banner> ?? new List<WebTAManga.Models.Banner>(); // Define banners here
+    var banners = ViewBag.Banners as List<WebTAManga.Models.Banner> ?? new List<WebTAManga.Models.Banner>();
+}
+@* Hàm hỗ trợ để hiển thị thời gian *@
+@functions {
+    public string GetTimeDisplay(DateTime latestChapterTime)
+    {
+        if (latestChapterTime == DateTime.MinValue)
+        {
+            return string.Empty;
+        }
+
+        var difference = DateTime.Now - latestChapterTime;
+
+        if (difference.TotalMinutes < 60)
+        {
+            int minutes = (int)difference.TotalMinutes;
+            return $"{minutes} Phút Trước";
+        }
+        else if (difference.TotalHours < 24)
+        {
+            int hours = (int)difference.TotalHours;
+            return $"{hours} Giờ Trước";
+        }
+        else if (difference.TotalDays < 30)
+        {
+            int days = (int)difference.TotalDays;
+            return $"{days} Ngày Trước";
+        }
+        else if (difference.TotalDays < 365)
+        {
+            int months = (int)(difference.TotalDays / 30);
+            return $"{months} Tháng Trước";
+        }
+        else if (difference.TotalDays < 365 * 2) // Dưới 2 năm
+        {
+            int years = (int)(difference.TotalDays / 365);
+            return $"{years} Năm Trước";
+        }
+        else
+        {
+            // Hiển thị ngày tháng năm cụ thể nếu quá lâu (ví dụ: "15/03/2023")
+            return latestChapterTime.ToString("dd/MM/yyyy");
+        }
+    }
 }
 
+@* Fomat xu đã tiêu *@
+@functions {
+    public string FormatNumber(double number)
+    {
+        if (number >= 1000000)
+        {
+            return $"{(number / 1000000):0.##}M";
+        }
+        else if (number >= 1000)
+        {
+            return $"{(number / 1000):0.##}K";
+        }
+        return number.ToString("N0");
+    }
+}
 <style>
     .carousel-inner {
        background-color: white;
@@ -52,6 +110,61 @@
         flex-direction: row !important;
     }
 
+    .top-ratings {
+        background-color: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .list-group-item {
+        border: 1px solid #e0e0e0;
+        background-color: #f8f9fa;
+        color: #6c757d;
+        padding: 5px 10px;
+        font-size: 14px;
+    }
+
+    .list-group-item.active {
+        background-color: #6f42c1;
+        border-color: #6f42c1;
+        color: #fff;
+    }
+
+    .rating-item__number {
+        font-size: 16px;
+    }
+
+    .rating-item__story--name {
+        font-size: 14px;
+        font-weight: 500;
+        color: #333;
+    }
+
+    .rating-item__story--name:hover {
+        color: #007bff;
+    }
+
+    .rating-item__story--categories {
+        font-size: 12px;
+        color: #6c757d;
+    }
+
+    .text-one-row {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 160px;
+    }
+
+    .text-one-rows {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 160px;
+    }
+    .list-group-item {
+        text-align: center;
+    }
 </style>
 
 <main>
@@ -109,7 +222,7 @@
                                         <div class="story-item__image">
                                             <img src="@item.CoverImage" alt="@item.Title" class="img-fluid" width="150" height="230" loading="lazy">
                                         </div>
-                                        <h3 class="story-item__name text-one-row story-name">@item.Title</h3>
+                                        <h3 class="story-item__name text-one-rows story-name">@item.Title</h3>
                                         <div class="list-badge d-flex ">
                                             <!-- Hiển thị thời gian cập nhật chương mới nhất -->
                                             @if (latestChapterTime > DateTime.MinValue)
@@ -175,354 +288,250 @@
                     </div>
                 </div>
             </div>
-
-            @* Hàm hỗ trợ để hiển thị thời gian *@
-            @functions {
-                public string GetTimeDisplay(DateTime latestChapterTime)
-                {
-                    if (latestChapterTime == DateTime.MinValue)
-                    {
-                        return string.Empty;
-                    }
-
-                    var difference = DateTime.Now - latestChapterTime;
-
-                    if (difference.TotalMinutes < 60)
-                    {
-                        int minutes = (int)difference.TotalMinutes;
-                        return $"{minutes} Phút Trước";
-                    }
-                    else if (difference.TotalHours < 24)
-                    {
-                        int hours = (int)difference.TotalHours;
-                        return $"{hours} Giờ Trước";
-                    }
-                    else if (difference.TotalDays < 30)
-                    {
-                        int days = (int)difference.TotalDays;
-                        return $"{days} Ngày Trước";
-                    }
-                    else if (difference.TotalDays < 365)
-                    {
-                        int months = (int)(difference.TotalDays / 30);
-                        return $"{months} Tháng Trước";
-                    }
-                    else if (difference.TotalDays < 365 * 2) // Dưới 2 năm
-                    {
-                        int years = (int)(difference.TotalDays / 365);
-                        return $"{years} Năm Trước";
-                    }
-                    else
-                    {
-                        // Hiển thị ngày tháng năm cụ thể nếu quá lâu (ví dụ: "15/03/2023")
-                        return latestChapterTime.ToString("dd/MM/yyyy");
-                    }
-                }
-            }
         </div>
     </div>
-
-    <div class="container">
-        <div class="row mt-3">
-            <div class="head-title-global d-flex justify-content-between mb-2">
-                <div class="col-6 col-md-4 col-lg-4 head-title-global__left d-flex align-items-center">
+        
+    <div class="container mt-4">
+        <div class="row">
+            <div class="head-title-global d-flex justify-content-between align-items-center mb-3">
+                <div class="col-12 col-md-6 col-lg-4 head-title-global__left d-flex align-items-center">
                     <h2 class="me-2 mb-0 border-bottom border-secondary pb-1">
-                        <a href="#" class="d-block text-decoration-none text-dark fs-4 story-name"
-                           title="Truyện Mới Cập Nhật">Bảng xếp hạng</a>
+                        <a href="#" class="d-block text-decoration-none text-dark fs-4 story-name" title="Bảng xếp hạng">Bảng xếp hạng</a>
                     </h2>
-                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <i class="fa-solid fa-trophy"></i>
                 </div>
             </div>
         </div>
 
-        <div class="container">
-            
-            <div class="row">
-                <!-- Cột 1: Top Người Tiêu Xu -->
-                <div class="col-4">
-                    <div class="top-ratings mb-4">
-                        <h4 class="mb-2">Top Người Tiêu Xu</h4>
-                        <div class="top-ratings__tab mb-2">
-                            <div class="list-group d-flex flex-row" id="coins-tab" role="tablist">
-                                <a class="list-group-item list-group-item-action active" id="coins-day-list" data-bs-toggle="list" href="#coins-day" role="tab" aria-controls="coins-day" aria-selected="true">Ngày</a>
-                                <a class="list-group-item list-group-item-action" id="coins-month-list" data-bs-toggle="list" href="#coins-month" role="tab" aria-controls="coins-month" aria-selected="false">Tháng</a>
-                                <a class="list-group-item list-group-item-action" id="coins-all-time-list" data-bs-toggle="list" href="#coins-all-time" role="tab" aria-controls="coins-all-time" aria-selected="false">All</a>
-                            </div>
+        <div class="row g-3">
+            <!-- Cột 1: Top Truyện Có Nhiều Lượt Xem -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="top-ratings p-3 rounded shadow-sm">
+                    <h4 class="mb-2 text-center text-md-start" style="font-size:20px">Top Lượt Xem</h4>
+                    <hr />
+                    <div class="top-ratings__tab mb-2">
+                        <div class="list-group list-group-horizontal justify-content-center justify-content-md-start" id="views-tab" role="tablist">
+                            <a class="list-group-item list-group-item-action active" id="views-all-time-list" data-bs-toggle="list" href="#views-all-time" role="tab" aria-controls="views-all-time">All</a>
+                            <a class="list-group-item list-group-item-action" id="views-month-list" data-bs-toggle="list" href="#views-month" role="tab" aria-controls="views-month">Tháng</a>
+                            <a class="list-group-item list-group-item-action" id="views-day-list" data-bs-toggle="list" href="#views-day" role="tab" aria-controls="views-day">Ngày</a>
                         </div>
-                        <div class="top-ratings__content">
-                            <div class="tab-content" id="coins-tabContent">
-                                <!-- Top Xu theo ngày -->
-                                <div class="tab-pane fade show active" id="coins-day" role="tabpanel" aria-labelledby="coins-day-list">
-                                    <ul>
-                                        @if (ViewBag.TopCoinsByDay != null)
+                    </div>
+
+                    <div class="top-ratings__content" style="padding: 17px 0">
+                        <div class="tab-content" id="views-tabContent">
+                            <!-- Top Views Tổng Thể -->
+                            <div class="tab-pane fade show active" id="views-all-time" role="tabpanel" aria-labelledby="views-all-time-list">
+                                <ul class="list-unstyled">
+                                    @if (ViewBag.TopViewsAllTime != null)
+                                    {
+                                        @foreach (var story in ViewBag.TopViewsAllTime)
                                         {
-                                            @foreach (var user in ViewBag.TopCoinsByDay)
-                                            {
-                                                <li>
-                                                    <div class="rating-item d-flex align-items-center">
-                                                        <div class="rating-item__number bg-danger rounded-circle"><span class="text-light">@user.Rank</span></div>
-                                                        <div class="rating-item__story">
-                                                            <span class="text-decoration-none hover-title rating-item__story--name text-one-row">@user.Username</span>
-                                                            <div class="d-flex flex-wrap rating-item__story--categories">
-                                                                <span class="text-dark">Xu tiêu: @user.CoinsSpent</span>
-                                                            </div>
+                                            <li class="mb-2">
+                                                <div class="rating-item d-flex align-items-center">
+                                                    <div class="rating-item__number text-primary fw-bold me-2" style="min-width: 25px;">@story.Rank</div>
+                                                    <div class="rating-item__image me-2">
+                                                        <img src="~/@story.CoverImage" alt="@story.Title" class="img-fluid rounded" style="width: 40px; height: 60px; object-fit: cover;" loading="lazy">
+                                                    </div>
+                                                    <div class="rating-item__story flex-grow-1">
+                                                        <a href="@Url.Action("Details", "Home", new { id = story.StoryId })" class="text-decoration-none rating-item__story--name text-one-row">@story.Title</a>
+                                                        <div class="rating-item__story--categories small text-muted">
+                                                            <span class="me-2">@story.ChapterNumber</span>
+                                                            <span><i class="bi bi-eye"></i> @story.Views</span>
                                                         </div>
                                                     </div>
-                                                </li>
-                                            }
+                                                </div>
+                                            </li>
                                         }
-                                        else
+                                    }
+                                    else
+                                    {
+                                        <li class="text-center text-muted">Không có dữ liệu</li>
+                                    }
+                                </ul>
+                            </div>
+
+                            <!-- Top Views theo tháng -->
+                            <div class="tab-pane fade" id="views-month" role="tabpanel" aria-labelledby="views-month-list">
+                                <ul class="list-unstyled">
+                                    @if (ViewBag.TopViewsAllTime != null)
+                                    {
+                                        @foreach (var story in ViewBag.TopViewsByMonth)
                                         {
-                                            <li>Không có dữ liệu</li>
-                                        }
-                                    </ul>
-                                </div>
-                                <!-- Top Xu theo tháng -->
-                                <div class="tab-pane fade" id="coins-month" role="tabpanel" aria-labelledby="coins-month-list">
-                                    <ul>
-                                        @if (ViewBag.TopCoinsByMonth != null)
-                                        {
-                                            @foreach (var user in ViewBag.TopCoinsByMonth)
-                                            {
-                                                <li>
-                                                    <div class="rating-item d-flex align-items-center">
-                                                        <div class="rating-item__number bg-danger rounded-circle"><span class="text-light">@user.Rank</span></div>
-                                                        <div class="rating-item__story">
-                                                            <span class="text-decoration-none hover-title rating-item__story--name text-one-row">@user.Username</span>
-                                                            <div class="d-flex flex-wrap rating-item__story--categories">
-                                                                <span class="text-dark">Xu tiêu: @user.CoinsSpent</span>
-                                                            </div>
+                                            <li class="mb-2">
+                                                <div class="rating-item d-flex align-items-center">
+                                                    <div class="rating-item__number text-primary fw-bold me-2" style="min-width: 25px;">@story.Rank</div>
+                                                    <div class="rating-item__image me-2">
+                                                        <img src="~/@story.CoverImage" alt="@story.Title" class="img-fluid rounded" style="width: 40px; height: 60px; object-fit: cover;" loading="lazy">
+                                                    </div>
+                                                    <div class="rating-item__story flex-grow-1">
+                                                        <a href="@Url.Action("Details", "Home", new { id = story.StoryId })" class="text-decoration-none rating-item__story--name text-one-row">@story.Title</a>
+                                                        <div class="rating-item__story--categories small text-muted">
+                                                            <span class="me-2">@story.ChapterNumber</span>
+                                                            <span><i class="bi bi-eye"></i> @story.Views</span>
                                                         </div>
                                                     </div>
-                                                </li>
-                                            }
+                                                </div>
+                                            </li>
                                         }
-                                        else
+                                    }
+                                    else
+                                    {
+                                        <li class="text-center text-muted">Không có dữ liệu</li>
+                                    }
+                                </ul>
+                            </div>
+
+                            <!-- Top Views Theo ngày -->
+                            <div class="tab-pane fade" id="views-day" role="tabpanel" aria-labelledby="views-day-list">
+                                <ul class="list-unstyled">
+                                    @if (ViewBag.TopViewsAllTime != null)
+                                    {
+                                        @foreach (var story in ViewBag.TopViewsByDay)
                                         {
-                                            <li>Không có dữ liệu</li>
-                                        }
-                                    </ul>
-                                </div>
-                                <!-- Top Xu tổng thể -->
-                                <div class="tab-pane fade" id="coins-all-time" role="tabpanel" aria-labelledby="coins-all-time-list">
-                                    <ul>
-                                        @if (ViewBag.TopCoinsAllTime != null)
-                                        {
-                                            @foreach (var user in ViewBag.TopCoinsAllTime)
-                                            {
-                                                <li>
-                                                    <div class="rating-item d-flex align-items-center">
-                                                        <div class="rating-item__number bg-danger rounded-circle"><span class="text-light">@user.Rank</span></div>
-                                                        <div class="rating-item__story">
-                                                            <span class="text-decoration-none hover-title rating-item__story--name text-one-row">@user.Username</span>
-                                                            <div class="d-flex flex-wrap rating-item__story--categories">
-                                                                <span class="text-dark">Xu tiêu: @user.CoinsSpent</span>
-                                                            </div>
+                                            <li class="mb-2">
+                                                <div class="rating-item d-flex align-items-center">
+                                                    <div class="rating-item__number text-primary fw-bold me-2" style="min-width: 25px;">@story.Rank</div>
+                                                    <div class="rating-item__image me-2">
+                                                        <img src="~/@story.CoverImage" alt="@story.Title" class="img-fluid rounded" style="width: 40px; height: 60px; object-fit: cover;" loading="lazy">
+                                                    </div>
+                                                    <div class="rating-item__story flex-grow-1">
+                                                        <a href="@Url.Action("Details", "Home", new { id = story.StoryId })" class="text-decoration-none rating-item__story--name text-one-row">@story.Title</a>
+                                                        <div class="rating-item__story--categories small text-muted">
+                                                            <span class="me-2">@story.ChapterNumber</span>
+                                                            <span><i class="bi bi-eye"></i> @story.Views</span>
                                                         </div>
                                                     </div>
-                                                </li>
-                                            }
+                                                </div>
+                                            </li>
                                         }
-                                        else
-                                        {
-                                            <li>Không có dữ liệu</li>
-                                        }
-                                    </ul>
-                                </div>
+                                    }
+                                    else
+                                    {
+                                        <li class="text-center text-muted">Không có dữ liệu</li>
+                                    }
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Cột 2: Top Người Có Nhiều EXP -->
-                <div class="col-4">
-                    <div class="top-ratings mb-4">
-                        <h4 class="mb-2">Top Người Có Nhiều EXP</h4>
-                        <div class="top-ratings__tab mb-2">
-                            <div class="list-group d-flex flex-row" id="exp-tab" role="tablist">
-                                <a class="list-group-item list-group-item-action active" id="exp-day-list" data-bs-toggle="list" href="#exp-day" role="tab" aria-controls="exp-day" aria-selected="true">Ngày</a>
-                                <a class="list-group-item list-group-item-action" id="exp-month-list" data-bs-toggle="list" href="#exp-month" role="tab" aria-controls="exp-month" aria-selected="false">Tháng</a>
-                                <a class="list-group-item list-group-item-action" id="exp-all-time-list" data-bs-toggle="list" href="#exp-all-time" role="tab" aria-controls="exp-all-time" aria-selected="false">All</a>
-                            </div>
-                        </div>
-                        <div class="top-ratings__content">
-                            <div class="tab-content" id="exp-tabContent">
-                                <!-- Top EXP theo ngày -->
-                                <div class="tab-pane fade show active" id="exp-day" role="tabpanel" aria-labelledby="exp-day-list">
-                                    <ul>
-                                        @if (ViewBag.TopExpByDay != null)
-                                        {
-                                            @foreach (var user in ViewBag.TopExpByDay)
-                                            {
-                                                <li>
-                                                    <div class="rating-item d-flex align-items-center">
-                                                        <div class="rating-item__number bg-danger rounded-circle"><span class="text-light">@user.Rank</span></div>
-                                                        <div class="rating-item__story">
-                                                            <span class="text-decoration-none hover-title rating-item__story--name text-one-row">@user.Username</span>
-                                                            <div class="d-flex flex-wrap rating-item__story--categories">
-                                                                <span class="text-dark">EXP: @user.ExpPoints</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            }
-                                        }
-                                        else
-                                        {
-                                            <li>Không có dữ liệu</li>
-                                        }
-                                    </ul>
-                                </div>
-                                <!-- Top EXP theo tháng -->
-                                <div class="tab-pane fade" id="exp-month" role="tabpanel" aria-labelledby="exp-month-list">
-                                    <ul>
-                                        @if (ViewBag.TopExpByMonth != null)
-                                        {
-                                            @foreach (var user in ViewBag.TopExpByMonth)
-                                            {
-                                                <li>
-                                                    <div class="rating-item d-flex align-items-center">
-                                                        <div class="rating-item__number bg-danger rounded-circle"><span class="text-light">@user.Rank</span></div>
-                                                        <div class="rating-item__story">
-                                                            <span class="text-decoration-none hover-title rating-item__story--name text-one-row">@user.Username</span>
-                                                            <div class="d-flex flex-wrap rating-item__story--categories">
-                                                                <span class="text-dark">EXP: @user.ExpPoints</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            }
-                                        }
-                                        else
-                                        {
-                                            <li>Không có dữ liệu</li>
-                                        }
-                                    </ul>
-                                </div>
-                                <!-- Top EXP tổng thể -->
-                                <div class="tab-pane fade" id="exp-all-time" role="tabpanel" aria-labelledby="exp-all-time-list">
-                                    <ul>
-                                        @if (ViewBag.TopExpAllTime != null)
-                                        {
-                                            @foreach (var user in ViewBag.TopExpAllTime)
-                                            {
-                                                <li>
-                                                    <div class="rating-item d-flex align-items-center">
-                                                        <div class="rating-item__number bg-danger rounded-circle"><span class="text-light">@user.Rank</span></div>
-                                                        <div class="rating-item__story">
-                                                            <span class="text-decoration-none hover-title rating-item__story--name text-one-row">@user.Username</span>
-                                                            <div class="d-flex flex-wrap rating-item__story--categories">
-                                                                <span class="text-dark">EXP: @user.ExpPoints</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            }
-                                        }
-                                        else
-                                        {
-                                            <li>Không có dữ liệu</li>
-                                        }
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+            <!-- Cột 2: Top Truyện Yêu Thích Nhất -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="top-ratings p-3 rounded shadow-sm">
+                    <h4 class="mb-2 text-center text-md-start" style="font-size:20px">Top Yêu Thích</h4>
+                    <hr />
+                    <div class="top-ratings__content" style="padding: 1px 0">
+                        <ul class="list-unstyled">
+                            @if (ViewBag.TopFavoritesAllTime != null)
+                            {
+                                @foreach (var story in ViewBag.TopFavoritesAllTime)
+                                {
+                                    <li class="mb-2">
+                                        <div class="rating-item d-flex align-items-center">
+                                            <div class="rating-item__number text-primary fw-bold me-2" style="min-width: 25px;">@story.Rank</div>
+                                            <div class="rating-item__image me-2">
+                                                <img src="~/@story.CoverImage" alt="@story.Title" class="img-fluid rounded" style="width: 40px; height: 60px; object-fit: cover;" loading="lazy">
+                                            </div>
+                                            <div class="rating-item__story flex-grow-1">
+                                                <a href="@Url.Action("Details", "Home", new { id = story.StoryId })" class="text-decoration-none rating-item__story--name text-one-row">@story.Title</a>
+                                                <div class="rating-item__story--categories small text-muted">
+                                                    <span class="me-2">@story.ChapterNumber</span>
+                                                    <span><i class="bi bi-heart-fill"></i> @story.Favorites</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            }
+                            else
+                            {
+                                <li class="text-center text-muted">Không có dữ liệu</li>
+                            }
+                        </ul>
                     </div>
                 </div>
+            </div>
 
-                <!-- Cột 3: Top Story Có Nhiều Lượt Xem -->
-                <div class="col-4">
-                    <div class="top-ratings mb-4">
-                        <h4 class="mb-2">Top Story Có Nhiều Lượt Xem</h4>
-                        <div class="top-ratings__tab mb-2">
-                            <div class="list-group d-flex flex-row" id="views-tab" role="tablist">
-                                <a class="list-group-item list-group-item-action active" id="views-day-list" data-bs-toggle="list" href="#views-day" role="tab" aria-controls="views-day" aria-selected="true">Ngày</a>
-                                <a class="list-group-item list-group-item-action" id="views-month-list" data-bs-toggle="list" href="#views-month" role="tab" aria-controls="views-month" aria-selected="false">Tháng</a>
-                                <a class="list-group-item list-group-item-action" id="views-all-time-list" data-bs-toggle="list" href="#views-all-time" role="tab" aria-controls="views-all-time" aria-selected="false">All</a>
-                            </div>
-                        </div>
-                        <div class="top-ratings__content">
-                            <div class="tab-content" id="views-tabContent">
-                                <!-- Top Views theo ngày -->
-                                <div class="tab-pane fade show active" id="views-day" role="tabpanel" aria-labelledby="views-day-list">
-                                    <ul>
-                                        @if (ViewBag.TopViewsByDay != null)
-                                        {
-                                            @foreach (var story in ViewBag.TopViewsByDay)
-                                            {
-                                                <li>
-                                                    <div class="rating-item d-flex align-items-center">
-                                                        <div class="rating-item__number bg-danger rounded-circle"><span class="text-light">@story.Rank</span></div>
-                                                        <div class="rating-item__story">
-                                                            <span class="text-decoration-none hover-title rating-item__story--name text-one-row">@story.Title</span>
-                                                            <div class="d-flex flex-wrap rating-item__story--categories">
-                                                                <span class="text-dark">Lượt xem: @story.Views</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            }
-                                        }
-                                        else
-                                        {
-                                            <li>Không có dữ liệu</li>
-                                        }
-                                    </ul>
-                                </div>
-                                <!-- Top Views theo tháng -->
-                                <div class="tab-pane fade" id="views-month" role="tabpanel" aria-labelledby="views-month-list">
-                                    <ul>
-                                        @if (ViewBag.TopViewsByMonth != null)
-                                        {
-                                            @foreach (var story in ViewBag.TopViewsByMonth)
-                                            {
-                                                <li>
-                                                    <div class="rating-item d-flex align-items-center">
-                                                        <div class="rating-item__number bg-danger rounded-circle"><span class="text-light">@story.Rank</span></div>
-                                                        <div class="rating-item__story">
-                                                            <span class="text-decoration-none hover-title rating-item__story--name text-one-row">@story.Title</span>
-                                                            <div class="d-flex flex-wrap rating-item__story--categories">
-                                                                <span class="text-dark">Lượt xem: @story.Views</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            }
-                                        }
-                                        else
-                                        {
-                                            <li>Không có dữ liệu</li>
-                                        }
-                                    </ul>
-                                </div>
-                                <!-- Top Views tổng thể -->
-                                <div class="tab-pane fade" id="views-all-time" role="tabpanel" aria-labelledby="views-all-time-list">
-                                    <ul>
-                                        @if (ViewBag.TopViewsAllTime != null)
-                                        {
-                                            @foreach (var story in ViewBag.TopViewsAllTime)
-                                            {
-                                                <li>
-                                                    <div class="rating-item d-flex align-items-center">
-                                                        <div class="rating-item__number bg-danger rounded-circle"><span class="text-light">@story.Rank</span></div>
-                                                        <div class="rating-item__story">
-                                                            <span class="text-decoration-none hover-title rating-item__story--name text-one-row">@story.Title</span>
-                                                            <div class="d-flex flex-wrap rating-item__story--categories">
-                                                                <span class="text-dark">Lượt xem: @story.Views</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            }
-                                        }
-                                        else
-                                        {
-                                            <li>Không có dữ liệu</li>
-                                        }
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+            <!-- Cột 3: Top Người Tiêu Xu -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="top-ratings p-3 rounded shadow-sm">
+                    <h4 class="mb-2 text-center text-md-start" style="font-size:20px">Top Tiêu Xu</h4>
+                    <hr />
+                    <div class="top-ratings__content" style="padding:7px 0;">
+                        <ul class="list-unstyled">
+                            @if (ViewBag.TopCoinsAllTime != null)
+                            {
+                                @foreach (var user in ViewBag.TopCoinsAllTime)
+                                {
+                                    <li class="mb-2">
+                                        <div class="rating-item d-flex align-items-center">
+                                            <div class="rating-item__number text-primary fw-bold me-2" style="min-width: 25px;">@user.Rank</div>
+                                            <div class="rating-item__image me-2 position-relative" style="width: 48px; height: 48px;">
+                                                <!-- Avatar của người dùng -->
+                                                @if (!string.IsNullOrEmpty(user.Avatar))
+                                                {
+                                                    <img src="~/uploads/avatars/@user.Avatar" alt="@user.Username's avatar" class="img-fluid rounded-circle position-absolute avatar-image" style="width: 40px; height: 40px; top: 4px; left: 4px; object-fit: cover;" loading="lazy">
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/uploads/avatars/defaultAvts.avif" alt="Default avatar" class="img-fluid rounded-circle position-absolute avatar-image" style="width: 40px; height: 40px; top: 4px; left: 4px; object-fit: cover;" loading="lazy">
+                                                }
+                                                <!-- Khung avatar -->
+                                                @if (!string.IsNullOrEmpty(user.AvatarFramePath))
+                                                {
+                                                    <img src="~/@user.AvatarFramePath" alt="@user.Username's avatar frame" class="position-absolute avatar-frame" style="width: 71px; height: 70px; top: -10px; left: -11px;" loading="lazy">
+                                                }
+                                            </div>
+                                            <div class="rating-item__story flex-grow-1 d-flex flex-column justify-content-center">
+                                                <span class="rating-item__story--name text-one-row">@user.Username</span>
+                                                <div class="rating-item__story--categories small text-muted d-flex align-items-center">
+                                                    <span class="me-2 border border-danger rounded px-1 py-1" style="font-size: 10px;">VIP @user.VipLevel</span>
+                                                    <span class="border border-danger rounded px-1 py-1" style="font-size: 10px;">@FormatNumber(user.CoinsSpent) Xu</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            }
+                            else
+                            {
+                                <li class="text-center text-muted">Không có dữ liệu</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cột 4: Top Người Có Nhiều EXP -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="top-ratings p-3 rounded shadow-sm">
+                    <h4 class="mb-2 text-center text-md-start" style="font-size:20px">Top Tu Vi</h4>
+                    <hr />
+                    <div class="top-ratings__content">
+                        <ul class="list-unstyled">
+                            @if (ViewBag.TopExpAllTime != null)
+                            {
+                                @foreach (var user in ViewBag.TopExpAllTime)
+                                {
+                                    <li class="mb-2">
+                                        <div class="rating-item d-flex align-items-center">
+                                            <div class="rating-item__number text-primary fw-bold me-2" style="min-width: 25px;">@user.Rank</div>
+                                            <div class="rating-item__story flex-grow-1">
+                                                <span class="rating-item__story--name text-one-row">@user.Username</span>
+                                                <div class="rating-item__story--categories small text-muted">
+                                                    <span>EXP: @user.ExpPoints</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            }
+                            else
+                            {
+                                <li class="text-center text-muted">Không có dữ liệu</li>
+                            }
+                        </ul>
                     </div>
                 </div>
             </div>
