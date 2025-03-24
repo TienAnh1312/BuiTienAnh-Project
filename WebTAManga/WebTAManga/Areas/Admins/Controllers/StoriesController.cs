@@ -14,6 +14,7 @@ namespace WebTAManga.Areas.Admins.Controllers
     {
         private readonly WebMangaContext _context;
 
+
         public StoriesController(WebMangaContext context)
         {
             _context = context;
@@ -116,8 +117,8 @@ namespace WebTAManga.Areas.Admins.Controllers
             }
 
             var story = await _context.Stories
-                .Include(s => s.StoryGenres) //lấy thể loại story
-                .Include(s => s.Chapters) // Load danh sách Chapters
+                .Include(s => s.StoryGenres) // Lấy thể loại
+                .Include(s => s.Chapters)    // Load danh sách Chapters
                 .FirstOrDefaultAsync(m => m.StoryId == id);
 
             if (story == null)
@@ -125,15 +126,14 @@ namespace WebTAManga.Areas.Admins.Controllers
                 return NotFound();
             }
 
-            // Lấy danh sách thể loại đã chọn
-            var selectedGenres = story.StoryGenres.Select(sg => sg.GenreId).ToList();
+            var selectedGenres = story.StoryGenres?.Select(sg => sg.GenreId).ToList() ?? new List<int?>();
+            Console.WriteLine("Selected Genres: " + string.Join(", ", selectedGenres)); // Debug
 
-            ViewData["Genres"] = _context.Genres.ToList();
+            ViewData["Genres"] = await _context.Genres.ToListAsync();
             ViewData["SelectedGenres"] = selectedGenres;
 
             return View(story);
         }
-
 
         // POST: Admins/Stories/Edit/5
         [HttpPost]

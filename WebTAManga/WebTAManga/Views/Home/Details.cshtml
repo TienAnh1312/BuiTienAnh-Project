@@ -176,10 +176,10 @@
                                 </p>
                                 <div class="d-flex gap-2">
                                     <button class="btn btn-warning btn-sm toggle-favorite" data-story-id="@Model.StoryId" data-is-favorited="@ViewBag.IsFavorited.ToString().ToLower()">
-                                        <i class="fas fa-star"></i> @(ViewBag.IsFavorited ? "Remove from Favorites" : "Add to Favorites")
+                                        <i class="fas fa-star"></i> @(ViewBag.IsFavorited ? "Bỏ Yêu Thích" : "Yêu Thích")
                                     </button>
                                     <button class="btn btn-success btn-sm toggle-follow" data-story-id="@Model.StoryId" data-is-followed="@ViewBag.IsFollowed.ToString().ToLower()">
-                                        <i class="fas fa-check"></i> @(ViewBag.IsFollowed ? "Unfollow" : "Follow")
+                                        <i class="fas fa-check"></i> @(ViewBag.IsFollowed ? "Bỏ Theo Dõi" : "Theo Dõi")
                                     </button>
                                 </div>
                             </div>
@@ -297,7 +297,7 @@
                                                     <div class="rating-item__story flex-grow-1">
                                                         <a href="@Url.Action("Details", "Home", new { id = story.StoryId })" class="text-decoration-none rating-item__story--name text-one-row hover-title">@story.Title</a>
                                                         <div class="rating-item__story--categories small text-muted d-flex flex-wrap">
-                                                            <span class="me-2 badge text-bg-info">@story.ChapterNumber</span>
+                                                            <span class="me-2 text-bg-info">@story.ChapterNumber</span>
                                                             <span><i class="bi bi-eye"></i> @story.Views</span>
                                                         </div>
                                                     </div>
@@ -328,7 +328,7 @@
                                                     <div class="rating-item__story flex-grow-1">
                                                         <a href="@Url.Action("Details", "Home", new { id = story.StoryId })" class="text-decoration-none rating-item__story--name text-one-row hover-title">@story.Title</a>
                                                         <div class="rating-item__story--categories small text-muted d-flex flex-wrap">
-                                                            <span class="me-2 badge text-bg-info">@story.ChapterNumber</span>
+                                                            <span class="me-2 text-bg-info">@story.ChapterNumber</span>
                                                             <span><i class="bi bi-eye"></i> @story.Views</span>
                                                         </div>
                                                     </div>
@@ -566,7 +566,7 @@
                     if (response.success) {
                         button.data("is-favorited", !isFavorited);
                         button.html(
-                            `<i class="fas fa-star"></i> ${isFavorited ? "Add to Favorites" : "Remove from Favorites"
+                            `<i class="fas fa-star"></i> ${isFavorited ? "Yêu Thích" : "Bỏ Yêu Thích"
                             }`
                         );
                         alert(response.message);
@@ -601,7 +601,7 @@
                     if (response.success) {
                         button.data("is-followed", !isFollowed);
                         button.html(
-                            `<i class="fas fa-check"></i> ${isFollowed ? "Follow" : "Unfollow"}`
+                            `<i class="fas fa-check"></i> ${isFollowed ? "Theo Dõi" : "Bỏ Theo Dõi"}`
                         );
                         alert(response.message);
                     } else if (response.redirect) {

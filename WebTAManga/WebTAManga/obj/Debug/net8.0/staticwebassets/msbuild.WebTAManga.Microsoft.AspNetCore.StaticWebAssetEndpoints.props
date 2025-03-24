@@ -1,5 +1,17 @@
 ﻿<Project>
   <ItemGroup>
+    <StaticWebAssetEndpoint Include="_content/WebTAManga/credentials/service-account.json">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\credentials\service-account.json'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-TLBinBGMgyQ7zL7FVOZeK8c8U\u002Bb0UOM5A0fNOj6FbjQ="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"2548"},{"Name":"Content-Type","Value":"application/json"},{"Name":"ETag","Value":"\u0022TLBinBGMgyQ7zL7FVOZeK8c8U\u002Bb0UOM5A0fNOj6FbjQ=\u0022"},{"Name":"Last-Modified","Value":"Mon, 24 Mar 2025 08:50:27 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/WebTAManga/credentials/service-account.sw36zxb2km.json">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\credentials\service-account.json'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"sw36zxb2km"},{"Name":"integrity","Value":"sha256-TLBinBGMgyQ7zL7FVOZeK8c8U\u002Bb0UOM5A0fNOj6FbjQ="},{"Name":"label","Value":"_content/WebTAManga/credentials/service-account.json"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"2548"},{"Name":"Content-Type","Value":"application/json"},{"Name":"ETag","Value":"\u0022TLBinBGMgyQ7zL7FVOZeK8c8U\u002Bb0UOM5A0fNOj6FbjQ=\u0022"},{"Name":"Last-Modified","Value":"Mon, 24 Mar 2025 08:50:27 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/WebTAManga/css/details.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\details.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>

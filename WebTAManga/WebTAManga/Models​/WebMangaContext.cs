@@ -199,6 +199,9 @@ public partial class WebMangaContext : DbContext
 
             entity.Property(e => e.ImageId).HasColumnName("image_id");
             entity.Property(e => e.ChapterId).HasColumnName("chapter_id");
+            entity.Property(e => e.FileId)
+                .HasMaxLength(255)
+                .IsFixedLength();
             entity.Property(e => e.ImageUrl)
                 .HasMaxLength(255)
                 .HasColumnName("image_url");

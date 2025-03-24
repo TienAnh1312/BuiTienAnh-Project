@@ -194,20 +194,27 @@ namespace WebTAManga.Areas.Admins.Controllers
                 return NotFound();
             }
 
+            // Lấy danh sách các chapter
+            var existingChapters = await _context.Chapters
+                .Where(c => c.StoryId == storyId)
+                .Select(c => c.ChapterTitle)
+                .ToListAsync();
+
             ViewBag.StoryId = storyId;
             ViewBag.StoryTitle = story.Title;
+            ViewBag.ExistingChapters = existingChapters; // Truyền danh sách chapter hiện có
             return View();
         }
 
         // POST: Admins/Chapters/BulkCreate
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> BulkCreate(int storyId, int count, int defaultCoins, bool defaultIsLocked)
+        public async Task<IActionResult> BulkCreate(int storyId, int startChapter, int endChapter, int defaultCoins, bool defaultIsLocked)
         {
-            if (count < 1 || defaultCoins < 0)
+            if (startChapter < 1 || endChapter < startChapter || defaultCoins < 0)
             {
-                TempData["Error"] = count < 1 ? "Số lượng phải lớn hơn hoặc bằng 1" : "Số xu không thể âm";
-                return RedirectToAction(nameof(Index), new { storyId }); 
+                TempData["Error"] = "Vùng chapter không hợp lệ hoặc số xu không thể âm.";
+                return RedirectToAction(nameof(Index), new { storyId });
             }
 
             var story = await _context.Stories.FirstOrDefaultAsync(s => s.StoryId == storyId);
@@ -216,37 +223,29 @@ namespace WebTAManga.Areas.Admins.Controllers
                 return NotFound();
             }
 
+            // Lấy danh sách chapter hiện có
             var existingChapters = await _context.Chapters
                 .Where(c => c.StoryId == storyId)
                 .Select(c => c.ChapterTitle)
                 .ToListAsync();
 
-            int maxChapterNumber = 0;
-            foreach (var title in existingChapters)
-            {
-                if (int.TryParse(title.Replace("Chương ", ""), out int num) && num > maxChapterNumber)
-                {
-                    maxChapterNumber = num;
-                }
-            }
-
             var newChapters = new List<Chapter>();
-            for (int i = 1; i <= count; i++)
+            for (int i = startChapter; i <= endChapter; i++)
             {
-                var chapterNumber = maxChapterNumber + i;
-                var chapterTitle = $"Chương {chapterNumber}";
-                var chapterCode = $"{story.StoryCode}_C{chapterNumber}"; // Ví dụ: "CH_C1"
+                var chapterTitle = $"Chương {i}";
+                var chapterCode = $"{story.StoryCode}_C{i}";
 
+                // Kiểm tra xem chapter đã tồn tại chưa
                 if (existingChapters.Contains(chapterTitle))
                 {
-                    continue;
+                    continue; // Bỏ qua chapter đã tồn tại
                 }
 
                 newChapters.Add(new Chapter
                 {
                     StoryId = storyId,
                     ChapterTitle = chapterTitle,
-                    ChapterCode = chapterCode, 
+                    ChapterCode = chapterCode,
                     CreatedAt = DateTime.Now,
                     Coins = defaultCoins,
                     IsLocked = defaultIsLocked
@@ -257,11 +256,11 @@ namespace WebTAManga.Areas.Admins.Controllers
             {
                 _context.Chapters.AddRange(newChapters);
                 await _context.SaveChangesAsync();
-                TempData["Success"] = $"Đã tạo thành công {newChapters.Count} Chương mới";
+                TempData["Success"] = $"Đã tạo thành công {newChapters.Count} chapter mới.";
             }
             else
             {
-                TempData["Error"] = "Không tạo được Chương mới do số chapter đã tồn tại";
+                TempData["Error"] = "Không tạo được chapter mới do tất cả chapter trong khoảng đã tồn tại.";
             }
 
             return RedirectToAction(nameof(Index), new { storyId });

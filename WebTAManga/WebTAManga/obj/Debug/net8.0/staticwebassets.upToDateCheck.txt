@@ -1,3 +1,4 @@
+wwwroot\credentials\service-account.json
 wwwroot\css\details.css
 wwwroot\css\home.css
 wwwroot\css\profile.css

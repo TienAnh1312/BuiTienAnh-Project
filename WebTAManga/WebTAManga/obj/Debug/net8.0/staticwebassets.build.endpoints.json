@@ -85,6 +85,88 @@
       ]
     },
     {
+      "Route": "credentials/service-account.json",
+      "AssetFile": "credentials/service-account.json",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2548"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/json"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"TLBinBGMgyQ7zL7FVOZeK8c8U+b0UOM5A0fNOj6FbjQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 24 Mar 2025 08:50:27 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-TLBinBGMgyQ7zL7FVOZeK8c8U+b0UOM5A0fNOj6FbjQ="
+        }
+      ]
+    },
+    {
+      "Route": "credentials/service-account.sw36zxb2km.json",
+      "AssetFile": "credentials/service-account.json",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2548"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/json"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"TLBinBGMgyQ7zL7FVOZeK8c8U+b0UOM5A0fNOj6FbjQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 24 Mar 2025 08:50:27 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "sw36zxb2km"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-TLBinBGMgyQ7zL7FVOZeK8c8U+b0UOM5A0fNOj6FbjQ="
+        },
+        {
+          "Name": "label",
+          "Value": "credentials/service-account.json"
+        }
+      ]
+    },
+    {
       "Route": "css/details.css",
       "AssetFile": "css/details.css",
       "Selectors": [],

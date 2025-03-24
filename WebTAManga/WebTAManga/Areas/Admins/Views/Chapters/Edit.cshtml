@@ -1,65 +1,65 @@
-﻿@model WebTAManga.Models.Chapter
+﻿    @model WebTAManga.Models.Chapter
 
-@{
-    ViewData["Title"] = "Edit";
-}
-
-<h1>Edit</h1>
-<h4>Chapter</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ChapterId" />
-            <input type="hidden" asp-for="StoryId" />
-
-            <div class="form-group mb-3">
-                <label class="control-label fw-bold">Mã chương</label>
-                <input class="form-control" value="@(Model.ChapterCode ?? "N/A")" readonly />
-            </div>
-
-            <div class="form-group">
-                <label class="control-label">Số chương</label>
-                <input name="chapterNumber" class="form-control" type="number" min="1"
-                       value="@(Model.ChapterTitle != null && Model.ChapterTitle.StartsWith("Chương ") ? int.Parse(Model.ChapterTitle.Replace("Chương ", "")) : 1)" />
-                <span class="text-danger">@Html.ValidationMessage("chapterNumber")</span>
-            </div>
-
-            <div class="form-group mb-3">
-                <label asp-for="Coins" class="control-label fw-bold">Số xu mở khóa</label>
-                <input asp-for="Coins" class="form-control" />
-                <span asp-validation-for="Coins" class="text-danger"></span>
-            </div>
-
-            <div class="form-group mb-3">
-                <label asp-for="IsLocked" class="control-label fw-bold">Trạng thái khóa</label>
-                <select asp-for="IsLocked" class="form-control">
-                    <option value="true">Khóa</option>
-                    <option value="false">Mở khóa</option>
-                </select>
-                <span asp-validation-for="IsLocked" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="CreatedAt" class="control-label"></label>
-                <input asp-for="CreatedAt" class="form-control" />
-                <span asp-validation-for="CreatedAt" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-area="Admins" asp-controller="Stories" asp-action="Edit" asp-route-id="@Model.StoryId">Quay lại chỉnh sửa Story</a>
-</div>
-
-@section Scripts {
     @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        ViewData["Title"] = "Edit";
     }
-}
+
+    <h1>Edit</h1>
+    <h4>Chapter</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="ChapterId" />
+                <input type="hidden" asp-for="StoryId" />
+
+                <div class="form-group mb-3">
+                    <label class="control-label fw-bold">Mã chương</label>
+                    <input class="form-control" value="@(Model.ChapterCode ?? "N/A")" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Số chương</label>
+                    <input name="chapterNumber" class="form-control" type="number" min="1"
+                           value="@(Model.ChapterTitle != null && Model.ChapterTitle.StartsWith("Chương ") ? int.Parse(Model.ChapterTitle.Replace("Chương ", "")) : 1)" />
+                    <span class="text-danger">@Html.ValidationMessage("chapterNumber")</span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Coins" class="control-label fw-bold">Số xu mở khóa</label>
+                    <input asp-for="Coins" class="form-control" />
+                    <span asp-validation-for="Coins" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="IsLocked" class="control-label fw-bold">Trạng thái khóa</label>
+                    <select asp-for="IsLocked" class="form-control">
+                        <option value="true">Khóa</option>
+                        <option value="false">Mở khóa</option>
+                    </select>
+                    <span asp-validation-for="IsLocked" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="CreatedAt" class="control-label"></label>
+                    <input asp-for="CreatedAt" class="form-control" />
+                    <span asp-validation-for="CreatedAt" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-area="Admins" asp-controller="Stories" asp-action="Edit" asp-route-id="@Model.StoryId">Quay lại chỉnh sửa Story</a>
+    </div>
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }

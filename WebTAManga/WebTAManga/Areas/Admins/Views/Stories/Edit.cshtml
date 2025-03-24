@@ -1,7 +1,8 @@
 ﻿@model WebTAManga.Models.Story
 
 @{
-    var selectedGenres = ViewData["SelectedGenres"] as List<int> ?? new List<int>();
+    var selectedGenres = ViewData["SelectedGenres"] as List<int?> ?? new List<int?>();
+    var genres = ViewData["Genres"] as List<WebTAManga.Models.Genre> ?? new List<WebTAManga.Models.Genre>();
 }
 
 <style>
@@ -31,12 +32,14 @@
         <div class="form-group">
             <label class="control-label fw-bold">Genres</label>
             <div class="d-flex flex-wrap gap-3">
-                @foreach (var genre in (List<WebTAManga.Models.Genre>)ViewData["Genres"])
+                @foreach (var genre in genres)
                 {
                     <div class="form-check form-check-inline">
-                        <input type="checkbox" name="selectedGenres" value="@genre.GenreId"
+                        <input type="checkbox"
+                               name="selectedGenres"
+                               value="@genre.GenreId"
                                class="form-check-input"
-                        @(selectedGenres.Contains(genre.GenreId) ? "checked" : "") />
+                        @(selectedGenres.Contains(genre.GenreId) ? "checked='checked'" : "") />
                         <label class="form-check-label">@genre.Name</label>
                     </div>
                 }

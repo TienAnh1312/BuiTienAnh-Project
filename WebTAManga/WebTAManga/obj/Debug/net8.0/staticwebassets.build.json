@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "3/3E9MCwCP+E2rEZNEv2LgyV7WXdKIaPzkDNbJ+4i0U=",
+  "Hash": "xZ0IFPsLz9DwcRQA0UHc5Lsk0QnfECzB5UD1XuhhJB0=",
   "Source": "WebTAManga",
   "BasePath": "_content/WebTAManga",
   "Mode": "Default",
@@ -57,6 +57,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\WebTAManga.bundle.scp.css"
+    },
+    {
+      "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\credentials\\service-account.json",
+      "SourceId": "WebTAManga",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\",
+      "BasePath": "_content/WebTAManga",
+      "RelativePath": "credentials/service-account#[.{fingerprint}]?.json",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "sw36zxb2km",
+      "Integrity": "TLBinBGMgyQ7zL7FVOZeK8c8U+b0UOM5A0fNOj6FbjQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\credentials\\service-account.json"
     },
     {
       "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\css\\details.css",
@@ -9867,6 +9888,88 @@
     }
   ],
   "Endpoints": [
+    {
+      "Route": "credentials/service-account.json",
+      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\credentials\\service-account.json",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2548"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/json"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"TLBinBGMgyQ7zL7FVOZeK8c8U+b0UOM5A0fNOj6FbjQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 24 Mar 2025 08:50:27 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-TLBinBGMgyQ7zL7FVOZeK8c8U+b0UOM5A0fNOj6FbjQ="
+        }
+      ]
+    },
+    {
+      "Route": "credentials/service-account.sw36zxb2km.json",
+      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\credentials\\service-account.json",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2548"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/json"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"TLBinBGMgyQ7zL7FVOZeK8c8U+b0UOM5A0fNOj6FbjQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 24 Mar 2025 08:50:27 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "sw36zxb2km"
+        },
+        {
+          "Name": "label",
+          "Value": "credentials/service-account.json"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-TLBinBGMgyQ7zL7FVOZeK8c8U+b0UOM5A0fNOj6FbjQ="
+        }
+      ]
+    },
     {
       "Route": "css/details.css",
       "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\css\\details.css",

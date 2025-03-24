@@ -15,5 +15,7 @@ public partial class ChapterImage
 
     public int? StoryId { get; set; }
 
+    public string? FileId { get; set; }
+
     public virtual Chapter? Chapter { get; set; }
 }
