@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "xZ0IFPsLz9DwcRQA0UHc5Lsk0QnfECzB5UD1XuhhJB0=",
+  "Hash": "op/zmMVpYzNZKD+0Ghdv9j9CdLG7whUFlDTPhXBV6Q0=",
   "Source": "WebTAManga",
   "BasePath": "_content/WebTAManga",
   "Mode": "Default",
@@ -4740,27 +4740,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\admins\\stories\\chapter_57\\1_1_6800b051-6519-4e5d-adee-81102a818b74.jpg"
-    },
-    {
-      "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\chapter_63\\VanTraTrieuHoang_26938b3f-ab5c-4ce6-8ce8-ec08588e6709.jpg",
-      "SourceId": "WebTAManga",
-      "SourceType": "Discovered",
-      "ContentRoot": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\",
-      "BasePath": "_content/WebTAManga",
-      "RelativePath": "images/admins/stories/chapter_63/VanTraTrieuHoang_26938b3f-ab5c-4ce6-8ce8-ec08588e6709#[.{fingerprint}]?.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "Fingerprint": "3zutlk6x7q",
-      "Integrity": "8RisdX7M/+CZPt+AMx63jLFvgqH/2IylDZoJcJrEahs=",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\admins\\stories\\chapter_63\\VanTraTrieuHoang_26938b3f-ab5c-4ce6-8ce8-ec08588e6709.jpg"
     },
     {
       "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\chapter_78\\1_1_088fb025-3cad-44da-a9bc-89c17b19737c.jpeg",
@@ -9698,6 +9677,27 @@
       "OriginalItemSpec": "wwwroot\\uploads\\avatars\\3.jfif"
     },
     {
+      "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\uploads\\avatars\\3.jpeg",
+      "SourceId": "WebTAManga",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\",
+      "BasePath": "_content/WebTAManga",
+      "RelativePath": "uploads/avatars/3#[.{fingerprint}]?.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "5qusfrrp06",
+      "Integrity": "c8r4jrDuFgWTLbuwROLn6UnWmzi4SSrEeclECM9LvDs=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\avatars\\3.jpeg"
+    },
+    {
       "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\uploads\\avatars\\35.jpeg",
       "SourceId": "WebTAManga",
       "SourceType": "Discovered",
@@ -9738,6 +9738,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\avatars\\4.jfif"
+    },
+    {
+      "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\uploads\\avatars\\40.jpeg",
+      "SourceId": "WebTAManga",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\",
+      "BasePath": "_content/WebTAManga",
+      "RelativePath": "uploads/avatars/40#[.{fingerprint}]?.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "bax51xoll8",
+      "Integrity": "w7yWB6mUrOkhHjZekelvoensKRp2+6FaRoKJ3BRJNXQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\avatars\\40.jpeg"
     },
     {
       "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\uploads\\avatars\\6.jfif",
@@ -28171,88 +28192,6 @@
         {
           "Name": "integrity",
           "Value": "sha256-J4AhZ4SpgdlFWuRJtAPq7iGx+5UmGqBcZIIghVwrPfE="
-        }
-      ]
-    },
-    {
-      "Route": "images/admins/stories/chapter_63/VanTraTrieuHoang_26938b3f-ab5c-4ce6-8ce8-ec08588e6709.3zutlk6x7q.jpg",
-      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\chapter_63\\VanTraTrieuHoang_26938b3f-ab5c-4ce6-8ce8-ec08588e6709.jpg",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "15209"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/jpeg"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"8RisdX7M/+CZPt+AMx63jLFvgqH/2IylDZoJcJrEahs=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Wed, 19 Mar 2025 11:42:42 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "3zutlk6x7q"
-        },
-        {
-          "Name": "label",
-          "Value": "images/admins/stories/chapter_63/VanTraTrieuHoang_26938b3f-ab5c-4ce6-8ce8-ec08588e6709.jpg"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-8RisdX7M/+CZPt+AMx63jLFvgqH/2IylDZoJcJrEahs="
-        }
-      ]
-    },
-    {
-      "Route": "images/admins/stories/chapter_63/VanTraTrieuHoang_26938b3f-ab5c-4ce6-8ce8-ec08588e6709.jpg",
-      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\chapter_63\\VanTraTrieuHoang_26938b3f-ab5c-4ce6-8ce8-ec08588e6709.jpg",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "15209"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/jpeg"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"8RisdX7M/+CZPt+AMx63jLFvgqH/2IylDZoJcJrEahs=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Wed, 19 Mar 2025 11:42:42 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=3600, must-revalidate"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-8RisdX7M/+CZPt+AMx63jLFvgqH/2IylDZoJcJrEahs="
         }
       ]
     },
@@ -47445,6 +47384,51 @@
       ]
     },
     {
+      "Route": "uploads/avatars/3.5qusfrrp06.jpeg",
+      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\uploads\\avatars\\3.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "210223"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"c8r4jrDuFgWTLbuwROLn6UnWmzi4SSrEeclECM9LvDs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 25 Mar 2025 08:13:08 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5qusfrrp06"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/avatars/3.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-c8r4jrDuFgWTLbuwROLn6UnWmzi4SSrEeclECM9LvDs="
+        }
+      ]
+    },
+    {
       "Route": "uploads/avatars/3.8odeuy1vlk.jfif",
       "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\uploads\\avatars\\3.jfif",
       "Selectors": [],
@@ -47523,6 +47507,43 @@
         {
           "Name": "integrity",
           "Value": "sha256-SE0de76FyIDQE9+hFyHLiX/M+ixR2mpJa2QNbrsHCPA="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/avatars/3.jpeg",
+      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\uploads\\avatars\\3.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "210223"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"c8r4jrDuFgWTLbuwROLn6UnWmzi4SSrEeclECM9LvDs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 25 Mar 2025 08:13:08 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-c8r4jrDuFgWTLbuwROLn6UnWmzi4SSrEeclECM9LvDs="
         }
       ]
     },
@@ -47687,6 +47708,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-ZwDk5eByVVQ3EbqIoepeoPlrw4tKOVoM/ocO4VAEoMs="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/avatars/40.bax51xoll8.jpeg",
+      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\uploads\\avatars\\40.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "215888"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"w7yWB6mUrOkhHjZekelvoensKRp2+6FaRoKJ3BRJNXQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 25 Mar 2025 04:12:27 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "bax51xoll8"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/avatars/40.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-w7yWB6mUrOkhHjZekelvoensKRp2+6FaRoKJ3BRJNXQ="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/avatars/40.jpeg",
+      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\uploads\\avatars\\40.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "215888"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"w7yWB6mUrOkhHjZekelvoensKRp2+6FaRoKJ3BRJNXQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 25 Mar 2025 04:12:27 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-w7yWB6mUrOkhHjZekelvoensKRp2+6FaRoKJ3BRJNXQ="
         }
       ]
     },

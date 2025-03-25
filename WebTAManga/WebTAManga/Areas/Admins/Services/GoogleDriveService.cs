@@ -49,6 +49,7 @@ namespace WebTAManga.Areas.Admins.Services
                 throw new Exception($"Cannot access folder {_folderId}: {ex.Message}");
             }
         }
+
         public async Task<(string FileId, string WebViewLink)> UploadFileAsync(IFormFile file, string fileName)
         {
             var fileMetadata = new Google.Apis.Drive.v3.Data.File()
@@ -61,7 +62,7 @@ namespace WebTAManga.Areas.Admins.Services
             {
                 using var stream = file.OpenReadStream();
                 var request = _driveService.Files.Create(fileMetadata, stream, file.ContentType);
-                request.Fields = "id, webViewLink";
+                request.Fields = "id";
 
                 var uploadProgress = await request.UploadAsync();
                 if (uploadProgress.Status != UploadStatus.Completed)
@@ -75,7 +76,6 @@ namespace WebTAManga.Areas.Admins.Services
                     throw new Exception("Upload completed but no file metadata returned.");
                 }
 
-                // Đặt quyền công khai
                 var permission = new Google.Apis.Drive.v3.Data.Permission()
                 {
                     Type = "anyone",
@@ -83,8 +83,9 @@ namespace WebTAManga.Areas.Admins.Services
                 };
                 await _driveService.Permissions.Create(permission, uploadedFile.Id).ExecuteAsync();
 
-                string embedUrl = $"https://drive.google.com/uc?export=view&id={uploadedFile.Id}";
-                return (uploadedFile.Id, embedUrl);
+                // Lưu link tải xuống
+                string downloadLink = $"https://drive.google.com/uc?export=download&id={uploadedFile.Id}";
+                return (uploadedFile.Id, downloadLink);
             }
             catch (Exception ex)
             {
@@ -94,7 +95,7 @@ namespace WebTAManga.Areas.Admins.Services
 
         public async Task DeleteFileAsync(string fileId)
         {
-            if (string.IsNullOrEmpty(fileId)) return; // Bỏ qua nếu FileId rỗng
+            if (string.IsNullOrEmpty(fileId)) return;
 
             try
             {
@@ -104,7 +105,6 @@ namespace WebTAManga.Areas.Admins.Services
             catch (Google.GoogleApiException ex) when (ex.HttpStatusCode == System.Net.HttpStatusCode.NotFound)
             {
                 Console.WriteLine($"File {fileId} not found, skipping deletion.");
-                // Không ném lỗi, chỉ ghi log và tiếp tục
             }
             catch (Exception ex)
             {

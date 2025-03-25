@@ -2,25 +2,30 @@
 @{
     ViewData["Title"] = "Create";
 }
-<!-- Thêm CSS của Select2 -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-<!-- Thêm JavaScript của Select2 -->
- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
- 
- <h2>Thêm ảnh mới cho Chapter: @ViewData["ChapterTitle"]</h2>
- 
- <form asp-action="Create" method="post" enctype="multipart/form-data">
-     <input type="hidden" asp-for="ChapterId" />
- 
-     <div class="form-group">
-         <label asp-for="PageNumber">Page Number (Số trang bắt đầu)</label>
-         <input asp-for="PageNumber" class="form-control" placeholder="Số trang bắt đầu" />
-         <span asp-validation-for="PageNumber" class="text-danger"></span>
-     </div>
- 
-     <div class="form-group">
-         <label>Chọn nhiều ảnh</label>
-         <input type="file" name="ImageFiles" class="form-control" multiple />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+<h2>Thêm ảnh mới cho Chapter: @ViewData["ChapterTitle"]</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="ChapterId" />
+    <div class="form-group">
+        <label asp-for="PageNumber">Page Number (Số trang bắt đầu)</label>
+        <input asp-for="PageNumber" class="form-control" placeholder="Số trang bắt đầu" />
+        <span asp-validation-for="PageNumber" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Chọn nhiều ảnh</label>
+        <input type="file" name="ImageFiles" class="form-control" multiple />
     </div>
     <button type="submit" class="btn btn-primary">Thêm ảnh</button>
 </form>
@@ -30,7 +35,6 @@
 @section Scripts {
     <script>
         $(document).ready(function() {
-            // Áp dụng Select2 cho select có class "select2"
             $('.select2').select2({
                 placeholder: "Select or Type..."
             });
@@ -39,7 +43,4 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-}
-@{
-    await Html.RenderPartialAsync("_ValidationScriptsPartial");
 }

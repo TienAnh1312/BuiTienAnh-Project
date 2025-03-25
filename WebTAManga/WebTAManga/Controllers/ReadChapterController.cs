@@ -169,5 +169,33 @@ namespace WebTAManga.Controllers
 
             _context.SaveChanges();
         }
+
+        public async Task<IActionResult> GetImage(int imageId)
+        {
+            var chapterImage = await _context.ChapterImages.FindAsync(imageId);
+            if (chapterImage == null || string.IsNullOrEmpty(chapterImage.ImageUrl))
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                using var client = new HttpClient();
+                var response = await client.GetAsync(chapterImage.ImageUrl);
+                if (!response.IsSuccessStatusCode)
+                {
+                    return NotFound();
+                }
+
+                var stream = await response.Content.ReadAsStreamAsync();
+                var contentType = response.Content.Headers.ContentType?.MediaType ?? "image/jpeg";
+                return File(stream, contentType);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi khi tải hình ảnh: {ex.Message}");
+                return NotFound();
+            }
+        }
     }
 }

@@ -31,10 +31,9 @@ namespace WebTAManga.Areas.Admins.Controllers
 
             var chapterImages = _context.ChapterImages
                 .Include(c => c.Chapter)
-                .Where(ci => ci.ChapterId == chapterId); // Chỉ lấy ảnh của chapterId
+                .Where(ci => ci.ChapterId == chapterId);
 
-            ViewData["ChapterId"] = chapterId; // Để sử dụng khi cần thêm ảnh mới
-
+            ViewData["ChapterId"] = chapterId;
             return View(await chapterImages.ToListAsync());
         }
 
@@ -78,43 +77,80 @@ namespace WebTAManga.Areas.Admins.Controllers
             return View(chapterImage);
         }
 
-        // POST: Admins/ChapterImages/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(int chapterId, List<IFormFile> ImageFiles, [FromServices] GoogleDriveService googleDriveService)
         {
-            if (ImageFiles == null || ImageFiles.Count == 0)
+            // Kiểm tra chapter có tồn tại không
+            var chapter = await _context.Chapters.FindAsync(chapterId);
+            if (chapter == null)
             {
-                ModelState.AddModelError("ImageFiles", "Vui lòng chọn ít nhất một ảnh.");
-                var chapter = await _context.Chapters.FindAsync(chapterId);
-                ViewData["ChapterTitle"] = chapter?.ChapterTitle;
+                TempData["Error"] = "Chapter không tồn tại.";
+                return RedirectToAction("Index", new { chapterId });
+            }
+
+            // Kiểm tra danh sách file ảnh
+            if (ImageFiles == null || ImageFiles.Count == 0 || ImageFiles.All(f => f == null || f.Length == 0))
+            {
+                TempData["Error"] = "Vui lòng chọn ít nhất một ảnh hợp lệ.";
                 return View(new ChapterImage { ChapterId = chapterId });
             }
 
+            // Lấy số trang lớn nhất hiện tại
             var maxPageNumber = _context.ChapterImages
-                                .Where(ci => ci.ChapterId == chapterId)
-                                .Max(ci => (int?)ci.PageNumber) ?? 0;
+                .Where(ci => ci.ChapterId == chapterId)
+                .Max(ci => (int?)ci.PageNumber) ?? 0;
 
+            var chapterImagesToAdd = new List<ChapterImage>();
+
+            // Xử lý từng file ảnh
             foreach (var file in ImageFiles)
             {
-                if (file.Length > 0)
+                if (file == null || file.Length == 0) continue;
+
+                try
                 {
+                    // Tạo tên file duy nhất
                     var uniqueFileName = $"{Path.GetFileNameWithoutExtension(file.FileName)}_{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+
+                    // Tải file lên Google Drive và nhận đường link
                     var (fileId, webViewLink) = await googleDriveService.UploadFileAsync(file, uniqueFileName);
 
+                    // Tạo đối tượng ChapterImage với đường link
                     var chapterImage = new ChapterImage
                     {
                         ChapterId = chapterId,
                         PageNumber = ++maxPageNumber,
-                        ImageUrl = webViewLink,
-                        FileId = fileId
+                        ImageUrl = webViewLink, // Lưu đường link vào đây
+                        FileId = fileId,        // Lưu ID file để quản lý
+                        StoryId = chapter.StoryId
                     };
 
-                    _context.Add(chapterImage);
+                    chapterImagesToAdd.Add(chapterImage);
+                }
+                catch (Exception ex)
+                {
+                    TempData["Error"] = $"Lỗi khi tải lên tệp {file.FileName}: {ex.Message}";
+                    return View(new ChapterImage { ChapterId = chapterId });
                 }
             }
 
-            await _context.SaveChangesAsync();
+            // Lưu vào cơ sở dữ liệu
+            if (chapterImagesToAdd.Any())
+            {
+                try
+                {
+                    _context.ChapterImages.AddRange(chapterImagesToAdd);
+                    await _context.SaveChangesAsync();
+                    TempData["Success"] = $"Thêm {chapterImagesToAdd.Count} ảnh thành công! Đường link đã được lưu vào cơ sở dữ liệu.";
+                }
+                catch (Exception ex)
+                {
+                    TempData["Error"] = $"Lỗi khi lưu vào cơ sở dữ liệu: {ex.Message}";
+                    return View(new ChapterImage { ChapterId = chapterId });
+                }
+            }
+
             return RedirectToAction("Index", new { chapterId });
         }
 
@@ -262,7 +298,33 @@ namespace WebTAManga.Areas.Admins.Controllers
 
             return RedirectToAction("Index", new { chapterId });
         }
+        public async Task<IActionResult> GetImage(int imageId)
+        {
+            var chapterImage = await _context.ChapterImages.FindAsync(imageId);
+            if (chapterImage == null || string.IsNullOrEmpty(chapterImage.ImageUrl))
+            {
+                return NotFound();
+            }
 
+            try
+            {
+                using var client = new HttpClient();
+                var response = await client.GetAsync(chapterImage.ImageUrl);
+                if (!response.IsSuccessStatusCode)
+                {
+                    return NotFound();
+                }
+
+                var stream = await response.Content.ReadAsStreamAsync();
+                var contentType = response.Content.Headers.ContentType?.MediaType ?? "image/jpeg";
+                return File(stream, contentType);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi khi tải hình ảnh: {ex.Message}");
+                return NotFound();
+            }
+        }
         private bool ChapterImageExists(int id)
         {
             return _context.ChapterImages.Any(e => e.ImageId == id);

@@ -131,14 +131,17 @@
                 @foreach (var image in Model.ChapterImages.OrderBy(i => i.PageNumber))
                 {
                     <div class="col-12 text-center">
-                        <img src="~/@image.ImageUrl" alt="Page @image.PageNumber" class="img-fluid chapter-image">
+                        <img src="@Url.Action("GetImage", "ReadChapter", new { imageId = image.ImageId })"
+                             alt="Page @image.PageNumber"
+                             class="img-fluid chapter-image"
+                             onerror="this.src='/images/fallback.jpg';" />
                     </div>
                 }
             </div>
         }
         else
         {
-            <p>No images available for this chapter.</p>
+            <p>Không có hình ảnh nào cho chương này.</p>
         }
     }
     else

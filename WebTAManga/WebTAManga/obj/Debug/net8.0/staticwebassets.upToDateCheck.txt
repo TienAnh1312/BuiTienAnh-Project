@@ -221,7 +221,6 @@ wwwroot\images\admins\stories\chapter_38\2_7_003aecbb-3177-45fb-925c-8d2b49575ba
 wwwroot\images\admins\stories\chapter_38\2_8_5ee31e81-8d60-45a1-b5d0-ff98e76e5fd5.jpeg
 wwwroot\images\admins\stories\chapter_38\2_9_00331d05-6581-46ab-9869-85cc025e46e0.jpeg
 wwwroot\images\admins\stories\chapter_57\1_1_6800b051-6519-4e5d-adee-81102a818b74.jpg
-wwwroot\images\admins\stories\chapter_63\VanTraTrieuHoang_26938b3f-ab5c-4ce6-8ce8-ec08588e6709.jpg
 wwwroot\images\admins\stories\chapter_78\1_1_088fb025-3cad-44da-a9bc-89c17b19737c.jpeg
 wwwroot\images\admins\stories\chapter_78\1_10_b11d6626-3364-4acd-bbd6-08ec3ef29ffa.jpeg
 wwwroot\images\admins\stories\chapter_78\1_100_e0afe717-aa72-4129-a475-e822c8fec32e.jpeg
@@ -457,8 +456,10 @@ wwwroot\uploads\avatars\11.jpg
 wwwroot\uploads\avatars\2.jfif
 wwwroot\uploads\avatars\29.jpeg
 wwwroot\uploads\avatars\3.jfif
+wwwroot\uploads\avatars\3.jpeg
 wwwroot\uploads\avatars\35.jpeg
 wwwroot\uploads\avatars\4.jfif
+wwwroot\uploads\avatars\40.jpeg
 wwwroot\uploads\avatars\6.jfif
 wwwroot\uploads\avatars\74.jpeg
 wwwroot\uploads\avatars\8.jpeg
