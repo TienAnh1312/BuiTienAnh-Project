@@ -11,7 +11,6 @@ using Google.Apis.Drive.v3;
 
 namespace WebTAManga.Areas.Admins.Controllers
 {
-
     public class ChapterImagesController : BaseController
     {
         private readonly WebMangaContext _context;
@@ -36,7 +35,6 @@ namespace WebTAManga.Areas.Admins.Controllers
             ViewData["ChapterId"] = chapterId;
             return View(await chapterImages.ToListAsync());
         }
-
 
         // GET: Admins/ChapterImages/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -81,48 +79,51 @@ namespace WebTAManga.Areas.Admins.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(int chapterId, List<IFormFile> ImageFiles, [FromServices] GoogleDriveService googleDriveService)
         {
-            // Kiểm tra chapter có tồn tại không
-            var chapter = await _context.Chapters.FindAsync(chapterId);
-            if (chapter == null)
+            var chapter = await _context.Chapters
+                .Include(c => c.Story) // Include Story để lấy StoryCode và Title
+                .FirstOrDefaultAsync(c => c.ChapterId == chapterId);
+            if (chapter == null || chapter.Story == null)
             {
-                TempData["Error"] = "Chapter không tồn tại.";
+                TempData["Error"] = "Chapter hoặc Story không tồn tại.";
                 return RedirectToAction("Index", new { chapterId });
             }
 
-            // Kiểm tra danh sách file ảnh
             if (ImageFiles == null || ImageFiles.Count == 0 || ImageFiles.All(f => f == null || f.Length == 0))
             {
                 TempData["Error"] = "Vui lòng chọn ít nhất một ảnh hợp lệ.";
                 return View(new ChapterImage { ChapterId = chapterId });
             }
 
-            // Lấy số trang lớn nhất hiện tại
             var maxPageNumber = _context.ChapterImages
                 .Where(ci => ci.ChapterId == chapterId)
                 .Max(ci => (int?)ci.PageNumber) ?? 0;
 
             var chapterImagesToAdd = new List<ChapterImage>();
 
-            // Xử lý từng file ảnh
             foreach (var file in ImageFiles)
             {
                 if (file == null || file.Length == 0) continue;
 
                 try
                 {
-                    // Tạo tên file duy nhất
                     var uniqueFileName = $"{Path.GetFileNameWithoutExtension(file.FileName)}_{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
 
-                    // Tải file lên Google Drive và nhận đường link
-                    var (fileId, webViewLink) = await googleDriveService.UploadFileAsync(file, uniqueFileName);
+                    // Truyền StoryCode, StoryTitle và ChapterTitle khi upload
+                    var (fileId, webViewLink) = await googleDriveService.UploadFileAsync(
+                        file,
+                        uniqueFileName
+                        //,
+                        //chapter.Story.StoryCode,
+                        //chapter.Story.Title,
+                        //chapter.ChapterTitle
+                    );
 
-                    // Tạo đối tượng ChapterImage với đường link
                     var chapterImage = new ChapterImage
                     {
                         ChapterId = chapterId,
                         PageNumber = ++maxPageNumber,
-                        ImageUrl = webViewLink, // Lưu đường link vào đây
-                        FileId = fileId,        // Lưu ID file để quản lý
+                        ImageUrl = webViewLink,
+                        FileId = fileId,
                         StoryId = chapter.StoryId
                     };
 
@@ -135,14 +136,13 @@ namespace WebTAManga.Areas.Admins.Controllers
                 }
             }
 
-            // Lưu vào cơ sở dữ liệu
             if (chapterImagesToAdd.Any())
             {
                 try
                 {
                     _context.ChapterImages.AddRange(chapterImagesToAdd);
                     await _context.SaveChangesAsync();
-                    TempData["Success"] = $"Thêm {chapterImagesToAdd.Count} ảnh thành công! Đường link đã được lưu vào cơ sở dữ liệu.";
+                    TempData["Success"] = $"Thêm {chapterImagesToAdd.Count} ảnh thành công!";
                 }
                 catch (Exception ex)
                 {
@@ -161,6 +161,7 @@ namespace WebTAManga.Areas.Admins.Controllers
 
             var chapterImage = await _context.ChapterImages
                 .Include(ci => ci.Chapter)
+                .ThenInclude(c => c.Story) // Include Story để lấy thông tin khi edit
                 .FirstOrDefaultAsync(ci => ci.ImageId == id);
 
             if (chapterImage == null) return NotFound();
@@ -176,8 +177,11 @@ namespace WebTAManga.Areas.Admins.Controllers
         {
             if (id != chapterImage.ImageId) return NotFound();
 
-            var existingImage = await _context.ChapterImages.FindAsync(id);
-            if (existingImage == null) return NotFound();
+            var existingImage = await _context.ChapterImages
+                .Include(ci => ci.Chapter)
+                .ThenInclude(c => c.Story) // Include Story để lấy StoryCode và Title
+                .FirstOrDefaultAsync(ci => ci.ImageId == id);
+            if (existingImage == null || existingImage.Chapter == null || existingImage.Chapter.Story == null) return NotFound();
 
             var existingPage = await _context.ChapterImages
                 .FirstOrDefaultAsync(ci => ci.ChapterId == chapterImage.ChapterId
@@ -206,9 +210,18 @@ namespace WebTAManga.Areas.Admins.Controllers
                 if (ImageUrl != null && ImageUrl.Length > 0)
                 {
                     var uniqueFileName = $"{Path.GetFileNameWithoutExtension(ImageUrl.FileName)}_{Guid.NewGuid()}{Path.GetExtension(ImageUrl.FileName)}";
-                    var (newFileId, newWebViewLink) = await googleDriveService.UploadFileAsync(ImageUrl, uniqueFileName);
 
-                    // Xóa ảnh cũ nếu tồn tại, không dừng lại nếu lỗi NotFound
+                    // Truyền StoryCode, StoryTitle và ChapterTitle khi upload ảnh mới
+                    var (newFileId, newWebViewLink) = await googleDriveService.UploadFileAsync(
+                        ImageUrl,
+                        uniqueFileName
+                        //,
+                        //existingImage.Chapter.Story.StoryCode,
+                        //existingImage.Chapter.Story.Title,
+                        //existingImage.Chapter.ChapterTitle
+                    );
+
+                    // Xóa ảnh cũ nếu tồn tại
                     if (!string.IsNullOrEmpty(existingImage.FileId))
                     {
                         await googleDriveService.DeleteFileAsync(existingImage.FileId);
@@ -262,7 +275,6 @@ namespace WebTAManga.Areas.Admins.Controllers
                 {
                     await googleDriveService.DeleteFileAsync(chapterImage.FileId);
                 }
-
                 _context.ChapterImages.Remove(chapterImage);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", new { chapterId = chapterImage.ChapterId });
@@ -298,6 +310,7 @@ namespace WebTAManga.Areas.Admins.Controllers
 
             return RedirectToAction("Index", new { chapterId });
         }
+
         public async Task<IActionResult> GetImage(int imageId)
         {
             var chapterImage = await _context.ChapterImages.FindAsync(imageId);
@@ -325,6 +338,7 @@ namespace WebTAManga.Areas.Admins.Controllers
                 return NotFound();
             }
         }
+
         private bool ChapterImageExists(int id)
         {
             return _context.ChapterImages.Any(e => e.ImageId == id);
