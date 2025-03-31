@@ -63,6 +63,352 @@
         border: 1px solid #ccc;
         text-align: center; 
     }
+
+    /* Style cho phần bình luận */
+    .comment-section {
+        margin-top: 40px;
+    }
+
+    .comment-section h4 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .comment {
+        margin-bottom: 20px;
+        padding: 10px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .avatar-container {
+        position: relative;
+        width: 80px; /* Tăng kích thước để giống hình */
+        height: 60px;
+        margin-right: 15px;
+    }
+
+    .avatar-frame {
+        width: 106%;
+        height: 157%;
+        position: absolute;
+        top: -17px;
+        left: 0;
+        z-index: 1;
+        object-fit: cover;
+    }
+
+    .avatar-img {
+        width: 50px; /* Kích thước avatar nhỏ hơn khung viền */
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .flex-grow-1 {
+        flex: 1;
+    }
+
+    .flex-grow-1 strong {
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .badge.bg-primary {
+        background-color: #007bff !important;
+        font-size: 12px;
+        padding: 3px 6px;
+        margin-left: 8px;
+    }
+
+    .text-muted {
+        font-size: 12px;
+        color: #6c757d !important;
+        margin-left: 8px;
+    }
+
+    .flex-grow-1 p {
+        font-size: 14px;
+        margin: 5px 0;
+    }
+
+    .btn-reply {
+        background: none;
+        border: none;
+        color: #007bff;
+        font-size: 14px;
+        padding: 0;
+        margin-top: 5px;
+        cursor: pointer;
+    }
+
+    .btn-reply i {
+        margin-right: 5px;
+    }
+
+    .reply-form {
+        margin-left: 75px; /* Căn lề để thụt vào so với bình luận chính */
+        margin-top: 10px;
+    }
+
+    .reply {
+        margin-left: 75px; /* Căn lề để thụt vào so với bình luận chính */
+        margin-top: 10px;
+        padding: 10px 0;
+        border-top: 1px solid #e0e0e0;
+    }
+
+    .toggle-replies {
+        background: none;
+        border: none;
+        color: #007bff;
+        font-size: 14px;
+        padding: 0;
+        cursor: pointer;
+    }
+
+    .toggle-replies i {
+        margin-right: 5px;
+    }
+
+    .sticker-selection img {
+        max-width: 50px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    .sticker-selection label {
+        font-size: 14px;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    /* Style cho phần bình luận */
+    .comment-section {
+        margin-top: 50px;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+        .comment-section h4 {
+            font-size: 26px;
+            margin-bottom: 25px;
+            color: #343a40;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+    .comment-form {
+        background: #fff;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        margin-bottom: 30px;
+    }
+
+        .comment-form .form-control {
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 14px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            .comment-form .form-control:focus {
+                border-color: #00c4ff;
+                box-shadow: 0 0 5px rgba(0, 196, 255, 0.5);
+                outline: none;
+            }
+
+    .comment {
+        margin-bottom: 25px;
+        padding: 15px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+        .comment:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+    .avatar-container {
+        position: relative;
+        width: 80px;
+        height: 60px;
+        margin-right: 20px;
+    }
+
+    .avatar-frame {
+        width: 106%;
+        height: 157%;
+        position: absolute;
+        top: -17px;
+        left: 18px;
+        z-index: 1;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .avatar-container:hover .avatar-frame {
+        transform: scale(1.1);
+    }
+
+    .avatar-img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 2px solid #fff;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .flex-grow-1 strong {
+        font-size: 16px;
+        font-weight: 600;
+        color: #212529;
+    }
+
+    .badge.bg-primary {
+        background-color: #00c4ff !important;
+        font-size: 12px;
+        padding: 4px 8px;
+        margin-left: 10px;
+        border-radius: 20px;
+        font-weight: 500;
+    }
+
+    .text-muted {
+        font-size: 12px;
+        color: #868e96 !important;
+        margin-left: 10px;
+    }
+
+    .flex-grow-1 p {
+        font-size: 14px;
+        margin: 8px 0;
+        color: #495057;
+        line-height: 1.5;
+    }
+
+    .btn-reply {
+        background: none;
+        border: none;
+        color: #00c4ff;
+        font-size: 14px;
+        padding: 5px 0;
+        margin-top: 8px;
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+
+        .btn-reply:hover {
+            color: #007bff;
+        }
+
+        .btn-reply i {
+            margin-right: 6px;
+        }
+
+    .reply-form {
+        margin-left: 75px;
+        margin-top: 15px;
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .reply {
+        margin-left: 75px;
+        margin-top: 15px;
+        padding: 15px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        transition: transform 0.2s ease;
+    }
+
+        .reply:hover {
+            transform: translateY(-3px);
+        }
+
+    .toggle-replies {
+        background: none;
+        border: none;
+        color: #00c4ff;
+        font-size: 14px;
+        padding: 5px 0;
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+
+        .toggle-replies:hover {
+            color: #007bff;
+        }
+
+        .toggle-replies i {
+            margin-right: 6px;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-replies:hover i {
+            transform: rotate(180deg);
+        }
+
+    .sticker-selection {
+        margin-top: 10px;
+    }
+
+        .sticker-selection label {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #495057;
+            font-weight: 500;
+        }
+
+        .sticker-selection img {
+            max-width: 50px;
+            cursor: pointer;
+            margin-right: 15px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            border-radius: 5px;
+        }
+
+            .sticker-selection img:hover {
+                transform: scale(1.2);
+                opacity: 0.9;
+            }
+
+    .btn-primary {
+        background-color: #00c4ff;
+        border-color: #00c4ff;
+        padding: 8px 20px;
+        font-size: 14px;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #007bff;
+            border-color: #007bff;
+            transform: translateY(-2px);
+        }
 </style>
 
 @if (TempData["ErrorMessage"] != null)
@@ -121,7 +467,7 @@
     </div>
 </div>
 
-<!-- nội dung chương -->
+<!-- Nội dung chương -->
 <div class="mt-4">
     @if (ViewBag.IsUnlocked || ViewBag.IsPurchased)
     {
@@ -131,7 +477,7 @@
                 @foreach (var image in Model.ChapterImages.OrderBy(i => i.PageNumber))
                 {
                     <div class="col-12 text-center">
-                        <img src="@Url.Action("GetImage", "ReadChapter", new { imageId = image.ImageId })"
+                        <img src="#" 
                              alt="Page @image.PageNumber"
                              class="img-fluid chapter-image"
                              onerror="this.src='/images/fallback.jpg';" />
@@ -153,6 +499,196 @@
             </form>
         </div>
     }
+</div>
+
+@* bình luận *@
+<div class="container mt-5">
+    <div class="comment-section mt-5">
+        <h4 class="mb-4"><i class="fas fa-comments me-2"></i> Bình luận chương</h4>
+
+        <!-- Comment Form -->
+        <div class="comment-form mb-4">
+            <form method="post" asp-action="AddChapterComment" asp-controller="ReadChapter">
+                @Html.AntiForgeryToken()
+                <div class="form-group mb-3">
+                    <textarea class="form-control" name="content" id="commentContent" placeholder="Viết bình luận của bạn..." rows="3" required></textarea>
+                </div>
+                <input type="hidden" name="chapterId" value="@Model.ChapterId" />
+                <input type="hidden" name="StickerId" id="selectedStickerId" value="" />
+                <div class="sticker-selection mt-3">
+                    <label class="d-block fw-bold mb-2">Chọn nhãn dán (tùy chọn):</label>
+                    <div class="sticker-row d-flex flex-wrap gap-2">
+                        @foreach (var sticker in ViewBag.Stickers)
+                        {
+                            <img src="~/@sticker.ImagePath" alt="@sticker.Name" class="sticker-icon img-fluid" style="max-width: 50px;" data-sticker-id="@sticker.StickerId" />
+                        }
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3 w-100 w-md-auto"><i class="fas fa-paper-plane me-2"></i> Gửi bình luận</button>
+            </form>
+        </div>
+
+        <!-- Comment List -->
+        @if (ViewBag.Comments != null && (ViewBag.Comments as List<WebTAManga.Models.Comment>)?.Any() == true)
+        {
+            <ul class="list-group list-unstyled">
+                @foreach (var comment in ViewBag.Comments as List<WebTAManga.Models.Comment>)
+                {
+                    var timeSpan = DateTime.Now - (comment.CreatedAt ?? DateTime.MinValue);
+                    string timeAgo = timeSpan.TotalMinutes < 60 ? $"{(int)timeSpan.TotalMinutes} phút trước" :
+                    timeSpan.TotalHours < 24 ? $"{(int)timeSpan.TotalHours} giờ trước" :
+                    timeSpan.TotalDays < 30 ? $"{(int)timeSpan.TotalDays} ngày trước" :
+                    timeSpan.TotalDays < 365 ? $"{(int)(timeSpan.TotalDays / 30)} tháng trước" :
+                    $"{(int)(timeSpan.TotalDays / 365)} năm trước";
+
+                    <li class="comment mb-4" id="comment-@comment.CommentId">
+                        <div class="d-flex flex-column flex-md-row align-items-start">
+                            <div class="avatar-container me-md-3 mb-3 mb-md-0 text-center">
+                                @if (comment.User?.AvatarFrame != null && !string.IsNullOrEmpty(comment.User.AvatarFrame.ImagePath))
+                                {
+                                    <img src="~/@comment.User.AvatarFrame.ImagePath" alt="@comment.User.AvatarFrame.Name" class="avatar-frame img-fluid" style="max-width: 80px;" />
+                                }
+                                <img src="~/uploads/avatars/@(string.IsNullOrEmpty(comment.User?.Avatar) ? "default-avatar.png" : comment.User.Avatar)" alt="@comment.User?.Username" class="avatar-img img-fluid rounded-circle" style="max-width: 50px;" />
+                            </div>
+                            <div class="flex-grow-1 w-100">
+                                <div class="d-flex flex-column flex-md-row justify-content-between align-items-start">
+                                    <div>
+                                        <strong>@(comment.UserId == ViewBag.CurrentUserId ? "Bạn" : comment.User?.Username ?? "Ẩn danh")</strong>
+                                        @if (comment.User?.CategoryRank != null)
+                                        {
+                                            <span class="badge bg-primary ms-2">@comment.User.CategoryRank.Name</span>
+                                        }
+                                        <span class="text-muted ms-2">(@timeAgo)</span>
+                                        @if (comment.ChapterId.HasValue && comment.ChapterId == Model.ChapterId)
+                                        {
+                                            <span class="text-muted ms-2">[@Model.ChapterTitle]</span>
+                                        }
+                                    </div>
+                                </div>
+                                <p class="mt-1 mb-2">@comment.Content</p>
+                                @if (comment.Sticker != null && !string.IsNullOrEmpty(comment.Sticker.ImagePath))
+                                {
+                                    <img src="~/@comment.Sticker.ImagePath" alt="@comment.Sticker.Name" class="img-fluid" style="max-width: 100px;" />
+                                }
+
+                                <button class="btn btn-link p-0 mt-2" onclick="toggleReplyForm(@comment.CommentId, null, '@(comment.User?.Username ?? "Ẩn danh")', @(comment.UserId == ViewBag.CurrentUserId ? "true" : "false"))">
+                                    <i class="fas fa-reply me-1"></i> Trả lời
+                                </button>
+
+                                <!-- Reply Form -->
+                                <div id="replyForm-@comment.CommentId" class="reply-form mt-3" style="display:none;">
+                                    @using (Html.BeginForm("ReplyComment", "Comment", FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.Hidden("storyId", Model.StoryId)
+                                        @Html.Hidden("chapterId", Model.ChapterId)
+                                        @Html.Hidden("parentCommentId", comment.CommentId)
+                                        <div class="form-group mb-3">
+                                            <textarea class="form-control" name="content" placeholder="Viết câu trả lời của bạn..." rows="2" required></textarea>
+                                        </div>
+                                        <div class="sticker-selection mt-2">
+                                            <label class="fw-bold">Chọn nhãn dán (tùy chọn):</label>
+                                            <div class="sticker-row d-flex flex-wrap gap-2">
+                                                @foreach (var sticker in ViewBag.Stickers)
+                                                {
+                                                    <img src="~/@sticker.ImagePath" alt="@sticker.Name" class="sticker-icon img-fluid" style="max-width: 50px;" data-sticker-id="@sticker.StickerId" />
+                                                }
+                                            </div>
+                                            <input type="hidden" name="StickerId" id="selectedStickerId-@comment.CommentId" value="" />
+                                        </div>
+                                        <button type="submit" class="btn btn-primary mt-3 w-100 w-md-auto"><i class="fas fa-reply me-2"></i> Gửi</button>
+                                    }
+                                </div>
+
+                                <!-- Replies -->
+                                @if (comment.InverseParentComment?.Any() == true)
+                                {
+                                    <div class="replies-toggle mt-3">
+                                        <button class="btn btn-link p-0 toggle-replies" onclick="toggleReplies(@comment.CommentId)">
+                                            <i class="fas fa-caret-down me-1"></i> Hiện @comment.InverseParentComment.Count() bình luận
+                                        </button>
+                                        <div class="replies mt-3" id="replies-@comment.CommentId" style="display:none;">
+                                            @foreach (var reply in comment.InverseParentComment)
+                                            {
+                                                var replyTimeSpan = DateTime.Now - (reply.CreatedAt ?? DateTime.MinValue);
+                                                string replyTimeAgo = replyTimeSpan.TotalMinutes < 60 ? $"{(int)replyTimeSpan.TotalMinutes} phút trước" :
+                                                replyTimeSpan.TotalHours < 24 ? $"{(int)replyTimeSpan.TotalHours} giờ trước" :
+                                                replyTimeSpan.TotalDays < 30 ? $"{(int)replyTimeSpan.TotalDays} ngày trước" :
+                                                replyTimeSpan.TotalDays < 365 ? $"{(int)(replyTimeSpan.TotalDays / 30)} tháng trước" :
+                                                $"{(int)(replyTimeSpan.TotalDays / 365)} năm trước";
+
+                                                <div class="reply mb-3 ms-3 ">
+                                                    <div class="d-flex flex-column flex-md-row align-items-start">
+                                                        <div class="avatar-container me-md-3 mb-3 mb-md-0 text-center">
+                                                            @if (reply.User?.AvatarFrame != null && !string.IsNullOrEmpty(reply.User.AvatarFrame.ImagePath))
+                                                            {
+                                                                <img src="~/@reply.User.AvatarFrame.ImagePath" alt="@reply.User.AvatarFrame.Name" class="avatar-frame img-fluid" style="max-width: 80px;" />
+                                                            }
+                                                            <img src="~/uploads/avatars/@(string.IsNullOrEmpty(reply.User?.Avatar) ? "default-avatar.png" : reply.User.Avatar)" alt="@reply.User?.Username" class="avatar-img img-fluid rounded-circle" style="max-width: 50px;" />
+                                                        </div>
+                                                        <div class="flex-grow-1 w-100">
+                                                            <div>
+                                                                <strong>@(reply.UserId == ViewBag.CurrentUserId ? "Bạn" : reply.User?.Username ?? "Ẩn danh")</strong>
+                                                                @if (reply.User?.CategoryRank != null)
+                                                                {
+                                                                    <span class="badge bg-primary ms-2">@reply.User.CategoryRank.Name</span>
+                                                                }
+                                                                <span class="text-muted ms-2">(@replyTimeAgo)</span>
+                                                                @if (reply.ChapterId.HasValue && reply.ChapterId == Model.ChapterId)
+                                                                {
+                                                                    <span class="text-muted ms-2">[Chương: @Model.ChapterTitle]</span>
+                                                                }
+                                                            </div>
+                                                            <p class="mt-1 mb-2">@reply.Content</p>
+                                                            @if (reply.Sticker != null && !string.IsNullOrEmpty(reply.Sticker.ImagePath))
+                                                            {
+                                                                <img src="~/@reply.Sticker.ImagePath" alt="@reply.Sticker.Name" class="img-fluid" style="max-width: 100px;" />
+                                                            }
+                                                            <button class="btn btn-link p-0 mt-2" onclick="toggleReplyForm(@reply.CommentId, @comment.CommentId, '@(reply.User?.Username ?? "Ẩn danh")', @(reply.UserId == ViewBag.CurrentUserId ? "true" : "false"))">
+                                                                <i class="fas fa-reply me-1"></i> Trả lời
+                                                            </button>
+                                                            <div id="replyForm-@reply.CommentId" class="reply-form mt-3" style="display:none;">
+                                                                @using (Html.BeginForm("ReplyComment", "Comment", FormMethod.Post))
+                                                                {
+                                                                    @Html.AntiForgeryToken()
+                                                                    @Html.Hidden("storyId", Model.StoryId)
+                                                                    @Html.Hidden("chapterId", Model.ChapterId)
+                                                                    @Html.Hidden("parentCommentId", reply.CommentId)
+                                                                    @Html.Hidden("grandParentCommentId", comment.CommentId)
+                                                                    <div class="form-group mb-3">
+                                                                        <textarea class="form-control" name="content" placeholder="Viết câu trả lời của bạn..." rows="2" required></textarea>
+                                                                    </div>
+                                                                    <div class="sticker-selection mt-2">
+                                                                        <label class="fw-bold">Chọn nhãn dán (tùy chọn):</label>
+                                                                        <div class="sticker-row d-flex flex-wrap gap-2">
+                                                                            @foreach (var sticker in ViewBag.Stickers)
+                                                                            {
+                                                                                <img src="~/@sticker.ImagePath" alt="@sticker.Name" class="sticker-icon img-fluid" style="max-width: 50px;" data-sticker-id="@sticker.StickerId" />
+                                                                            }
+                                                                        </div>
+                                                                        <input type="hidden" name="StickerId" id="selectedStickerId-@reply.CommentId" value="" />
+                                                                    </div>
+                                                                    <button type="submit" class="btn btn-primary mt-3 w-100 w-md-auto"><i class="fas fa-reply me-2"></i> Gửi</button>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p class="no-comment text-muted text-center"><i class="fas fa-comment-slash me-2"></i> Chưa có bình luận nào.</p>
+        }
+    </div>
 </div>
 
 <!-- Thanh điều hướng dưới cùng -->
@@ -283,4 +819,38 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Không tìm thấy các phần tử cần thiết để xử lý mua chapter!");
     }
 });
+
+// Xử lý chọn nhãn dán và toggle trả lời
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('.sticker-icon').forEach(sticker => {
+        sticker.addEventListener('click', function () {
+            const stickerId = this.getAttribute('data-sticker-id');
+            const formId = this.closest('.reply-form') ? `#selectedStickerId-${this.closest('.reply-form').id.split('-')[1]}` : '#selectedStickerId';
+            document.querySelector(formId).value = stickerId;
+            this.closest('.sticker-row').querySelectorAll('.sticker-icon').forEach(s => s.style.border = 'none');
+            this.style.border = '2px solid #00c4ff';
+        });
+    });
+});
+
+function toggleReplyForm(commentId, parentCommentId, username, isCurrentUser) {
+    const replyForm = document.getElementById(`replyForm-${commentId}`);
+    if (replyForm.style.display === 'none' || replyForm.style.display === '') {
+        replyForm.style.display = 'block';
+    } else {
+        replyForm.style.display = 'none';
+    }
+}
+
+function toggleReplies(commentId) {
+    const replies = document.getElementById(`replies-${commentId}`);
+    const toggleButton = document.querySelector(`#replies-${commentId}`).previousElementSibling;
+    if (replies.style.display === 'none' || replies.style.display === '') {
+        replies.style.display = 'block';
+        toggleButton.innerHTML = `<i class="fas fa-caret-up"></i> Ẩn ${toggleButton.textContent.match(/\d+/)[0]} bình luận`;
+    } else {
+        replies.style.display = 'none';
+        toggleButton.innerHTML = `<i class="fas fa-caret-down"></i> Hiện ${toggleButton.textContent.match(/\d+/)[0]} bình luận`;
+    }
+}
 </script>

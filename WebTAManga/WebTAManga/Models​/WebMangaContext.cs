@@ -220,6 +220,7 @@ public partial class WebMangaContext : DbContext
             entity.ToTable("comments");
 
             entity.Property(e => e.CommentId).HasColumnName("comment_id");
+            entity.Property(e => e.ChapterId).HasColumnName("chapter_id");
             entity.Property(e => e.Content).HasColumnName("content");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
@@ -227,6 +228,10 @@ public partial class WebMangaContext : DbContext
                 .HasColumnName("created_at");
             entity.Property(e => e.StoryId).HasColumnName("story_id");
             entity.Property(e => e.UserId).HasColumnName("user_id");
+
+            entity.HasOne(d => d.Chapter).WithMany(p => p.Comments)
+                .HasForeignKey(d => d.ChapterId)
+                .HasConstraintName("FK_Comments_Chapters");
 
             entity.HasOne(d => d.ParentComment).WithMany(p => p.InverseParentComment)
                 .HasForeignKey(d => d.ParentCommentId)

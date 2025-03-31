@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using WebTAManga.Areas.Admins.Services;
 using WebTAManga.Models;
-using Google.Apis.Drive.v3;
 
 namespace WebTAManga.Areas.Admins.Controllers
 {
@@ -30,7 +29,8 @@ namespace WebTAManga.Areas.Admins.Controllers
 
             var chapterImages = _context.ChapterImages
                 .Include(c => c.Chapter)
-                .Where(ci => ci.ChapterId == chapterId);
+                .Where(ci => ci.ChapterId == chapterId)
+                .OrderBy(ci => ci.PageNumber); // Sắp xếp theo PageNumber tăng dần
 
             ViewData["ChapterId"] = chapterId;
             return View(await chapterImages.ToListAsync());
@@ -59,112 +59,118 @@ namespace WebTAManga.Areas.Admins.Controllers
         public IActionResult Create(int chapterId)
         {
             var chapter = _context.Chapters.Find(chapterId);
-            if (chapter == null) return NotFound();
+            if (chapter == null)
+            {
+                return NotFound();
+            }
 
-            var maxPageNumber = _context.ChapterImages
-                                .Where(ci => ci.ChapterId == chapterId)
-                                .Max(ci => (int?)ci.PageNumber) ?? 0;
+            // Lấy danh sách các số trang hiện có
+            var existingPages = _context.ChapterImages
+                .Where(ci => ci.ChapterId == chapterId)
+                .Select(ci => ci.PageNumber)
+                .ToList();
+
+            var maxPageNumber = existingPages.Any() ? existingPages.Max() : 0;
 
             var chapterImage = new ChapterImage
             {
                 ChapterId = chapterId,
-                PageNumber = maxPageNumber + 1
+                PageNumber = maxPageNumber + 1 // Mặc định là số trang lớn nhất + 1
             };
 
             ViewData["ChapterTitle"] = chapter.ChapterTitle;
+            ViewData["ExistingPages"] = existingPages; // Truyền danh sách số trang hiện có vào view
             return View(chapterImage);
         }
 
+        // POST: Admins/ChapterImages/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(int chapterId, List<IFormFile> ImageFiles, [FromServices] GoogleDriveService googleDriveService)
+        public async Task<IActionResult> Create(int chapterId, int pageNumber, List<IFormFile> ImageFiles)
         {
-            var chapter = await _context.Chapters
-                .Include(c => c.Story) // Include Story để lấy StoryCode và Title
-                .FirstOrDefaultAsync(c => c.ChapterId == chapterId);
-            if (chapter == null || chapter.Story == null)
+            var chapter = await _context.Chapters.Include(c => c.Story).FirstOrDefaultAsync(c => c.ChapterId == chapterId); // Khai báo một lần
+            if (chapter == null)
             {
-                TempData["Error"] = "Chapter hoặc Story không tồn tại.";
-                return RedirectToAction("Index", new { chapterId });
+                return NotFound();
             }
 
-            if (ImageFiles == null || ImageFiles.Count == 0 || ImageFiles.All(f => f == null || f.Length == 0))
+            if (ImageFiles == null || ImageFiles.Count == 0)
             {
-                TempData["Error"] = "Vui lòng chọn ít nhất một ảnh hợp lệ.";
-                return View(new ChapterImage { ChapterId = chapterId });
+                ModelState.AddModelError("ImageFiles", "Vui lòng chọn ít nhất một ảnh.");
+                ViewData["ChapterTitle"] = chapter.ChapterTitle;
+                ViewData["ExistingPages"] = _context.ChapterImages
+                    .Where(ci => ci.ChapterId == chapterId)
+                    .Select(ci => ci.PageNumber)
+                    .ToList();
+                return View(new ChapterImage { ChapterId = chapterId, PageNumber = pageNumber });
             }
 
-            var maxPageNumber = _context.ChapterImages
-                .Where(ci => ci.ChapterId == chapterId)
-                .Max(ci => (int?)ci.PageNumber) ?? 0;
+            // Kiểm tra số trang đã tồn tại
+            var existingPage = _context.ChapterImages
+                .FirstOrDefault(ci => ci.ChapterId == chapterId && ci.PageNumber == pageNumber);
+            if (existingPage != null)
+            {
+                ModelState.AddModelError("PageNumber", $"Số trang {pageNumber} đã tồn tại trong chapter này.");
+                ViewData["ChapterTitle"] = chapter.ChapterTitle;
+                ViewData["ExistingPages"] = _context.ChapterImages
+                    .Where(ci => ci.ChapterId == chapterId)
+                    .Select(ci => ci.PageNumber)
+                    .ToList();
+                return View(new ChapterImage { ChapterId = chapterId, PageNumber = pageNumber });
+            }
 
-            var chapterImagesToAdd = new List<ChapterImage>();
+            var storyFolderName = $"{chapter.Story.Title}({chapter.Story.StoryCode})";
+            var chapterFolderName = $"{chapter.ChapterTitle}({chapter.ChapterCode})";
+            var chapterFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "admins", "stories", storyFolderName, chapterFolderName);
+            if (!Directory.Exists(chapterFolderPath))
+            {
+                Directory.CreateDirectory(chapterFolderPath);
+            }
 
             foreach (var file in ImageFiles)
             {
-                if (file == null || file.Length == 0) continue;
-
-                try
+                if (file.Length > 0)
                 {
-                    var uniqueFileName = $"{Path.GetFileNameWithoutExtension(file.FileName)}_{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+                    var fileExtension = Path.GetExtension(file.FileName);
+                    var uniqueFileName = $"Page_{pageNumber}{fileExtension}";
+                    var filePath = Path.Combine(chapterFolderPath, uniqueFileName);
 
-                    // Truyền StoryCode, StoryTitle và ChapterTitle khi upload
-                    var (fileId, webViewLink) = await googleDriveService.UploadFileAsync(
-                        file,
-                        uniqueFileName
-                        //,
-                        //chapter.Story.StoryCode,
-                        //chapter.Story.Title,
-                        //chapter.ChapterTitle
-                    );
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
 
                     var chapterImage = new ChapterImage
                     {
                         ChapterId = chapterId,
-                        PageNumber = ++maxPageNumber,
-                        ImageUrl = webViewLink,
-                        FileId = fileId,
-                        StoryId = chapter.StoryId
+                        PageNumber = pageNumber++,
+                        ImageUrl = $"images/admins/stories/{storyFolderName}/{chapterFolderName}/{uniqueFileName}"
                     };
 
-                    chapterImagesToAdd.Add(chapterImage);
-                }
-                catch (Exception ex)
-                {
-                    TempData["Error"] = $"Lỗi khi tải lên tệp {file.FileName}: {ex.Message}";
-                    return View(new ChapterImage { ChapterId = chapterId });
+                    _context.Add(chapterImage);
                 }
             }
 
-            if (chapterImagesToAdd.Any())
-            {
-                try
-                {
-                    _context.ChapterImages.AddRange(chapterImagesToAdd);
-                    await _context.SaveChangesAsync();
-                    TempData["Success"] = $"Thêm {chapterImagesToAdd.Count} ảnh thành công!";
-                }
-                catch (Exception ex)
-                {
-                    TempData["Error"] = $"Lỗi khi lưu vào cơ sở dữ liệu: {ex.Message}";
-                    return View(new ChapterImage { ChapterId = chapterId });
-                }
-            }
-
+            await _context.SaveChangesAsync();
             return RedirectToAction("Index", new { chapterId });
         }
 
         // GET: Admins/ChapterImages/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null) return NotFound();
+            if (id == null)
+            {
+                return NotFound();
+            }
 
             var chapterImage = await _context.ChapterImages
                 .Include(ci => ci.Chapter)
-                .ThenInclude(c => c.Story) // Include Story để lấy thông tin khi edit
                 .FirstOrDefaultAsync(ci => ci.ImageId == id);
 
-            if (chapterImage == null) return NotFound();
+            if (chapterImage == null)
+            {
+                return NotFound();
+            }
 
             ViewData["ChapterId"] = new SelectList(_context.Chapters, "ChapterId", "ChapterTitle", chapterImage.ChapterId);
             return View(chapterImage);
@@ -173,26 +179,34 @@ namespace WebTAManga.Areas.Admins.Controllers
         // POST: Admins/ChapterImages/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ImageId,ChapterId,PageNumber,FileId")] ChapterImage chapterImage, IFormFile ImageUrl, [FromServices] GoogleDriveService googleDriveService)
+        public async Task<IActionResult> Edit(int id, [Bind("ImageId,ChapterId,PageNumber")] ChapterImage chapterImage, IFormFile ImageUrl)
         {
-            if (id != chapterImage.ImageId) return NotFound();
-
-            var existingImage = await _context.ChapterImages
-                .Include(ci => ci.Chapter)
-                .ThenInclude(c => c.Story) // Include Story để lấy StoryCode và Title
-                .FirstOrDefaultAsync(ci => ci.ImageId == id);
-            if (existingImage == null || existingImage.Chapter == null || existingImage.Chapter.Story == null) return NotFound();
-
-            var existingPage = await _context.ChapterImages
-                .FirstOrDefaultAsync(ci => ci.ChapterId == chapterImage.ChapterId
-                    && ci.PageNumber == chapterImage.PageNumber
-                    && ci.ImageId != chapterImage.ImageId);
-
-            if (existingPage != null)
+            if (id != chapterImage.ImageId)
             {
-                ModelState.AddModelError("PageNumber", $"Số trang {chapterImage.PageNumber} đã tồn tại trong chapter này.");
+                return NotFound();
             }
 
+            var existingImage = await _context.ChapterImages.FindAsync(id);
+            if (existingImage == null)
+            {
+                return NotFound();
+            }
+
+            // Kiểm tra số trang có bị trùng không (trừ ảnh hiện tại)
+            if (chapterImage.PageNumber != existingImage.PageNumber) // Chỉ kiểm tra nếu số trang thay đổi
+            {
+                var existingPage = await _context.ChapterImages
+                    .FirstOrDefaultAsync(ci => ci.ChapterId == chapterImage.ChapterId
+                        && ci.PageNumber == chapterImage.PageNumber
+                        && ci.ImageId != chapterImage.ImageId);
+
+                if (existingPage != null)
+                {
+                    ModelState.AddModelError("PageNumber", $"Số trang {chapterImage.PageNumber} đã tồn tại trong chapter này.");
+                }
+            }
+
+            // Loại bỏ lỗi xác thực cho ImageUrl nếu không có file được chọn
             if (ImageUrl == null || ImageUrl.Length == 0)
             {
                 ModelState.Remove("ImageUrl");
@@ -200,45 +214,70 @@ namespace WebTAManga.Areas.Admins.Controllers
 
             if (!ModelState.IsValid)
             {
-                ViewData["ImageUrl"] = existingImage.ImageUrl;
+                // Truyền lại danh sách số trang hiện có để hiển thị
+                var existingPages = await _context.ChapterImages
+                    .Where(ci => ci.ChapterId == chapterImage.ChapterId && ci.ImageId != id)
+                    .Select(ci => ci.PageNumber)
+                    .ToListAsync();
+
+                ViewData["ExistingPages"] = existingPages;
                 ViewData["ChapterId"] = new SelectList(_context.Chapters, "ChapterId", "ChapterTitle", chapterImage.ChapterId);
                 return View(chapterImage);
             }
 
             try
             {
+                string newImageUrl = existingImage.ImageUrl; // Giữ nguyên URL cũ mặc định
+
+                // Nếu có file mới được upload
                 if (ImageUrl != null && ImageUrl.Length > 0)
                 {
-                    var uniqueFileName = $"{Path.GetFileNameWithoutExtension(ImageUrl.FileName)}_{Guid.NewGuid()}{Path.GetExtension(ImageUrl.FileName)}";
-
-                    // Truyền StoryCode, StoryTitle và ChapterTitle khi upload ảnh mới
-                    var (newFileId, newWebViewLink) = await googleDriveService.UploadFileAsync(
-                        ImageUrl,
-                        uniqueFileName
-                        //,
-                        //existingImage.Chapter.Story.StoryCode,
-                        //existingImage.Chapter.Story.Title,
-                        //existingImage.Chapter.ChapterTitle
-                    );
-
-                    // Xóa ảnh cũ nếu tồn tại
-                    if (!string.IsNullOrEmpty(existingImage.FileId))
+                    var chapterFolder = Path.Combine("images", "admins", "stories", $"chapter_{chapterImage.ChapterId}");
+                    var fullFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", chapterFolder);
+                    if (!Directory.Exists(fullFolderPath))
                     {
-                        await googleDriveService.DeleteFileAsync(existingImage.FileId);
+                        Directory.CreateDirectory(fullFolderPath);
                     }
 
-                    existingImage.ImageUrl = newWebViewLink;
-                    existingImage.FileId = newFileId;
+                    var uniqueFileName = $"{Path.GetFileNameWithoutExtension(ImageUrl.FileName)}_{Guid.NewGuid()}{Path.GetExtension(ImageUrl.FileName)}";
+                    var filePath = Path.Combine(fullFolderPath, uniqueFileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await ImageUrl.CopyToAsync(stream);
+                    }
+
+                    newImageUrl = Path.Combine(chapterFolder, uniqueFileName).Replace("\\", "/");
+
+                    // Xóa ảnh cũ nếu tồn tại
+                    if (!string.IsNullOrEmpty(existingImage.ImageUrl))
+                    {
+                        var oldImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", existingImage.ImageUrl);
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
                 }
 
+                // Cập nhật thông tin
+                existingImage.ChapterId = chapterImage.ChapterId;
                 existingImage.PageNumber = chapterImage.PageNumber;
+                existingImage.ImageUrl = newImageUrl;
+
                 _context.Update(existingImage);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ChapterImageExists(chapterImage.ImageId)) return NotFound();
-                else throw;
+                if (!ChapterImageExists(chapterImage.ImageId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
 
             return RedirectToAction("Index", new { chapterId = chapterImage.ChapterId });
@@ -266,26 +305,33 @@ namespace WebTAManga.Areas.Admins.Controllers
         // POST: Admins/ChapterImages/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id, [FromServices] GoogleDriveService googleDriveService)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var chapterImage = await _context.ChapterImages.FindAsync(id);
             if (chapterImage != null)
             {
-                if (!string.IsNullOrEmpty(chapterImage.FileId))
+                if (!string.IsNullOrEmpty(chapterImage.ImageUrl))
                 {
-                    await googleDriveService.DeleteFileAsync(chapterImage.FileId);
+                    var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", chapterImage.ImageUrl);
+                    if (System.IO.File.Exists(imagePath))
+                    {
+                        System.IO.File.Delete(imagePath);
+                    }
                 }
+
                 _context.ChapterImages.Remove(chapterImage);
                 await _context.SaveChangesAsync();
+
                 return RedirectToAction("Index", new { chapterId = chapterImage.ChapterId });
             }
+
             return NotFound();
         }
 
         // POST: Admins/ChapterImages/BulkDelete
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> BulkDelete(int chapterId, List<int> selectedIds, [FromServices] GoogleDriveService googleDriveService)
+        public async Task<IActionResult> BulkDelete(int chapterId, List<int> selectedIds)
         {
             if (selectedIds == null || !selectedIds.Any())
             {
@@ -294,14 +340,18 @@ namespace WebTAManga.Areas.Admins.Controllers
             }
 
             var chapterImages = await _context.ChapterImages
-                                              .Where(ci => selectedIds.Contains(ci.ImageId))
-                                              .ToListAsync();
+                .Where(ci => selectedIds.Contains(ci.ImageId))
+                .ToListAsync();
 
             foreach (var image in chapterImages)
             {
-                if (!string.IsNullOrEmpty(image.FileId))
+                if (!string.IsNullOrEmpty(image.ImageUrl))
                 {
-                    await googleDriveService.DeleteFileAsync(image.FileId);
+                    var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", image.ImageUrl);
+                    if (System.IO.File.Exists(imagePath))
+                    {
+                        System.IO.File.Delete(imagePath);
+                    }
                 }
             }
 
@@ -310,7 +360,26 @@ namespace WebTAManga.Areas.Admins.Controllers
 
             return RedirectToAction("Index", new { chapterId });
         }
+        // GET: Admins/ChapterImages/CheckPageNumber
+        public async Task<IActionResult> CheckPageNumber(int chapterId, int pageNumber, int? imageId = null)
+        {
+            bool exists;
+            if (imageId.HasValue)
+            {
+                // Trong trường hợp Edit, loại trừ ảnh hiện tại
+                exists = await _context.ChapterImages
+                    .AnyAsync(ci => ci.ChapterId == chapterId && ci.PageNumber == pageNumber && ci.ImageId != imageId);
+            }
+            else
+            {
+                // Trong trường hợp Create
+                exists = await _context.ChapterImages
+                    .AnyAsync(ci => ci.ChapterId == chapterId && ci.PageNumber == pageNumber);
+            }
 
+            return Json(new { exists = exists });
+        }
+        // GET: Admins/ChapterImages/GetImage/5
         public async Task<IActionResult> GetImage(int imageId)
         {
             var chapterImage = await _context.ChapterImages.FindAsync(imageId);
@@ -319,24 +388,15 @@ namespace WebTAManga.Areas.Admins.Controllers
                 return NotFound();
             }
 
-            try
+            var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", chapterImage.ImageUrl);
+            if (!System.IO.File.Exists(imagePath))
             {
-                using var client = new HttpClient();
-                var response = await client.GetAsync(chapterImage.ImageUrl);
-                if (!response.IsSuccessStatusCode)
-                {
-                    return NotFound();
-                }
-
-                var stream = await response.Content.ReadAsStreamAsync();
-                var contentType = response.Content.Headers.ContentType?.MediaType ?? "image/jpeg";
-                return File(stream, contentType);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Lỗi khi tải hình ảnh: {ex.Message}");
                 return NotFound();
             }
+
+            var stream = new FileStream(imagePath, FileMode.Open, FileAccess.Read);
+            var contentType = "image/jpeg"; // Có thể điều chỉnh theo loại file thực tế
+            return File(stream, contentType);
         }
 
         private bool ChapterImageExists(int id)

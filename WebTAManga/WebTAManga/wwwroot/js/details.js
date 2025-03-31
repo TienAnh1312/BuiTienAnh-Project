@@ -71,28 +71,17 @@
 
     // === Xử lý sticker ===
     function initStickerSelection() {
-        document.addEventListener("click", function (e) {
-            if (!e.target.classList.contains("sticker-icon")) return;
-
-            const sticker = e.target;
-            const form = sticker.closest(".comment-form") || sticker.closest(".reply-form");
-            if (!form) return;
-
-            // Xóa lớp selected khỏi tất cả sticker trong form hiện tại
-            form.querySelectorAll(".sticker-icon").forEach((s) => s.classList.remove("selected"));
-
-            // Thêm lớp selected vào sticker được chọn
-            sticker.classList.add("selected");
-
-            // Cập nhật giá trị StickerId vào input ẩn
-            const stickerId = sticker.getAttribute("data-sticker-id");
-            const hiddenInput = form.querySelector('input[name="StickerId"]');
-            if (hiddenInput) {
-                hiddenInput.value = stickerId;
-                console.log(`StickerId set to ${stickerId} for form:`, form);
-            } else {
-                console.error("Hidden input for StickerId not found in form:", form);
-            }
+        document.addEventListener("DOMContentLoaded", function () {
+            // Xử lý chọn nhãn dán
+            document.querySelectorAll('.sticker-icon').forEach(sticker => {
+                sticker.addEventListener('click', function () {
+                    const stickerId = this.getAttribute('data-sticker-id');
+                    const formId = this.closest('.reply-form') ? `#selectedStickerId-${this.closest('.reply-form').id.split('-')[1]}` : '#selectedStickerId';
+                    document.querySelector(formId).value = stickerId;
+                    this.closest('.sticker-row').querySelectorAll('.sticker-icon').forEach(s => s.style.border = 'none');
+                    this.style.border = '2px solid #00c4ff';
+                });
+            });
         });
 
         // Xử lý khi submit form

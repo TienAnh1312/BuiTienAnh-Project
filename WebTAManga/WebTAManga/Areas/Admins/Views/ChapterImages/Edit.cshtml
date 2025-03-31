@@ -4,7 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Chỉnh sửa ảnh</h1>
 <h4>ChapterImage</h4>
 <hr />
 <div class="row">
@@ -16,10 +16,10 @@
 
             <div class="form-group">
                 <label class="control-label">Ảnh hiện tại</label>
-                @if (!string.IsNullOrEmpty(ViewData["ImageUrl"]?.ToString()) || !string.IsNullOrEmpty(Model.ImageUrl))
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
                 {
                     <div>
-                        <img src="/@(ViewData["ImageUrl"] ?? Model.ImageUrl)" alt="Current Image" style="max-width: 100%; height: auto;" />
+                        <img src="@Url.Action("GetImage", "ChapterImages", new { area = "Admins", imageId = Model.ImageId })" alt="Current Image" style="max-width: 100%; height: auto;" />
                     </div>
                 }
                 else
@@ -36,22 +36,63 @@
 
             <div class="form-group">
                 <label asp-for="PageNumber" class="control-label">Số trang</label>
-                <input asp-for="PageNumber" class="form-control" type="number" min="1" />
-                <span class="text-danger">@Html.ValidationMessage("PageNumber")</span>
+                <input asp-for="PageNumber" class="form-control" type="number" min="1" id="pageNumberInput" />
+                <span asp-validation-for="PageNumber" class="text-danger"></span>
+                <small id="pageNumberFeedback" class="form-text text-muted"></small>
+
+               
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Lưu" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index" asp-route-chapterId="@Model.ChapterId">Back to List</a>
+    <a asp-action="Index" asp-route-chapterId="@Model.ChapterId" class="btn btn-secondary">Quay lại danh sách</a>
 </div>
 
 @section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#pageNumberInput').on('input', function() {
+                const pageNumber = $(this).val();
+                const chapterId = @Model.ChapterId;
+                const imageId = @Model.ImageId;
+                const originalPageNumber = @Model.PageNumber; // Số trang ban đầu của ảnh
+
+                if (pageNumber < 1) {
+                    $('#pageNumberFeedback').text('Số trang phải lớn hơn hoặc bằng 1.').addClass('text-danger').removeClass('text-success');
+                    return;
+                }
+
+                // Nếu số trang không thay đổi, không cần kiểm tra
+                if (parseInt(pageNumber) === originalPageNumber) {
+                    $('#pageNumberFeedback').text('Số trang không thay đổi.').addClass('text-success').removeClass('text-danger');
+                    return;
+                }
+
+                // kiểm tra số trang đã tồn tại
+                $.ajax({
+                    url: '@Url.Action("CheckPageNumber", "ChapterImages", new { area = "Admins" })',
+                    type: 'GET',
+                    data: { chapterId: chapterId, pageNumber: pageNumber, imageId: imageId },
+                    success: function(response) {
+                        if (response.exists) {
+                            $('#pageNumberFeedback').text('Số trang này đã tồn tại.').addClass('text-danger').removeClass('text-success');
+                        } else {
+                            $('#pageNumberFeedback').text('Số trang này có thể sử dụng.').addClass('text-success').removeClass('text-danger');
+                        }
+                    },
+                    error: function() {
+                        $('#pageNumberFeedback').text('Lỗi khi kiểm tra số trang.').addClass('text-danger').removeClass('text-success');
+                    }
+                });
+            });
+        });
+    </script>
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }

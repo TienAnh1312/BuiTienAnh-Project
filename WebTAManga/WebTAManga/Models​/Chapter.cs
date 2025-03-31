@@ -23,6 +23,8 @@ public partial class Chapter
 
     public virtual ICollection<ChapterImage> ChapterImages { get; set; } = new List<ChapterImage>();
 
+    public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
+
     public virtual ICollection<FollowedStory> FollowedStories { get; set; } = new List<FollowedStory>();
 
     public virtual ICollection<PurchasedChapter> PurchasedChapters { get; set; } = new List<PurchasedChapter>();

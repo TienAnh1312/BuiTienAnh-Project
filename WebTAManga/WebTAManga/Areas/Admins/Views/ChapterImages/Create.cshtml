@@ -2,8 +2,6 @@
 @{
     ViewData["Title"] = "Create";
 }
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
 <h2>Thêm ảnh mới cho Chapter: @ViewData["ChapterTitle"]</h2>
 
@@ -18,15 +16,48 @@
 
 <form asp-action="Create" method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="ChapterId" />
+
     <div class="form-group">
-        <label asp-for="PageNumber">Page Number (Số trang bắt đầu)</label>
-        <input asp-for="PageNumber" class="form-control" placeholder="Số trang bắt đầu" />
+        <label asp-for="PageNumber">Page Number (Số trang)</label>
+        <input asp-for="PageNumber" class="form-control" type="number" min="1" id="pageNumberInput" />
         <span asp-validation-for="PageNumber" class="text-danger"></span>
+        <small id="pageNumberFeedback" class="form-text text-muted"></small>
+
+        @{
+            // Lấy danh sách các số trang hiện có
+            var existingPages = ViewData["ExistingPages"] as List<int> ?? new List<int>();
+            var maxPageNumber = existingPages.Any() ? existingPages.Max() : 0;
+
+            // Tìm các số trang bị thiếu
+            var missingPages = new List<int>();
+            if (existingPages.Any())
+            {
+                for (int i = 1; i <= maxPageNumber; i++)
+                {
+                    if (!existingPages.Contains(i))
+                    {
+                        missingPages.Add(i);
+                    }
+                }
+            }
+        }
+
+        @if (missingPages.Any())
+        {
+            <small class="form-text text-info">Các trang đang thiếu: Trang @string.Join(", ", missingPages)</small>
+        }
+        else
+        {
+            <small class="form-text text-info">Không có số trang nào bị thiếu.</small>
+        }
     </div>
+
     <div class="form-group">
         <label>Chọn nhiều ảnh</label>
         <input type="file" name="ImageFiles" class="form-control" multiple />
+        <span class="text-danger">@Html.ValidationMessage("ImageFiles")</span>
     </div>
+
     <button type="submit" class="btn btn-primary">Thêm ảnh</button>
 </form>
 
@@ -35,8 +66,31 @@
 @section Scripts {
     <script>
         $(document).ready(function() {
-            $('.select2').select2({
-                placeholder: "Select or Type..."
+            $('#pageNumberInput').on('input', function() {
+                const pageNumber = $(this).val();
+                const chapterId = @Model.ChapterId;
+
+                if (pageNumber < 1) {
+                    $('#pageNumberFeedback').text('Số trang phải lớn hơn hoặc bằng 1.').addClass('text-danger').removeClass('text-success');
+                    return;
+                }
+
+                // Gọi AJAX để kiểm tra số trang đã tồn tại
+                $.ajax({
+                    url: '@Url.Action("CheckPageNumber", "ChapterImages", new { area = "Admins" })',
+                    type: 'GET',
+                    data: { chapterId: chapterId, pageNumber: pageNumber },
+                    success: function(response) {
+                        if (response.exists) {
+                            $('#pageNumberFeedback').text('Số trang này đã tồn tại.').addClass('text-danger').removeClass('text-success');
+                        } else {
+                            $('#pageNumberFeedback').text('Số trang này có thể sử dụng.').addClass('text-success').removeClass('text-danger');
+                        }
+                    },
+                    error: function() {
+                        $('#pageNumberFeedback').text('Lỗi khi kiểm tra số trang.').addClass('text-danger').removeClass('text-success');
+                    }
+                });
             });
         });
     </script>

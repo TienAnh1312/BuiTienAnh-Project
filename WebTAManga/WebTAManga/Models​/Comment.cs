@@ -19,6 +19,10 @@ public partial class Comment
 
     public int? StickerId { get; set; }
 
+    public int? ChapterId { get; set; }
+
+    public virtual Chapter? Chapter { get; set; }
+
     public virtual ICollection<Comment> InverseParentComment { get; set; } = new List<Comment>();
 
     public virtual ICollection<Notification> Notifications { get; set; } = new List<Notification>();

@@ -22,7 +22,6 @@
 /* Bình luận chính */
 .comment {
     margin-left: 0;
-    border-left: 4px solid #007bff;
     padding: 15px;
 /*    background: #f8f9fa;*/
     border-radius: 8px;
@@ -37,8 +36,6 @@
 
 /* Bình luận con (reply) */
 .reply {
-    margin-left: 30px;
-    border-left: 4px solid #28a745;
     padding: 10px;
     background: #fff;
     border-radius: 6px;
@@ -49,7 +46,6 @@
 
 /* Bình luận con của con (nested reply) */
 .nested-reply {
-    margin-left: 60px;
     border-left: 4px solid #ffc107;
     padding: 10px;
     background: #fff;
@@ -181,7 +177,7 @@
 }
 
 /* Responsive */
-@@media (max-width: 576px) {
+@media (max-width: 576px) {
     .comment, .reply, .nested-reply {
         margin-left: 0;
         padding: 10px;
@@ -243,13 +239,8 @@
 }
 
 .comment, .reply {
-    border-left: 4px solid #007bff;
     padding-left: 10px;
     margin-bottom: 15px;
-}
-
-.reply {
-    margin-left: 40px;
 }
 
 .btn-reply {

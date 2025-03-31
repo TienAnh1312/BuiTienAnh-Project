@@ -75,17 +75,25 @@ namespace WebTAManga.Areas.Admins.Controllers
                     return View(story);
                 }
 
-                // Xử lý ảnh bìa 
+                // Tạo thư mục cho Story với tên "Title(StoryCode)"
+                var storyFolderName = $"{story.Title}({story.StoryCode})";
+                var storyFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "admins", "stories", storyFolderName);
+                if (!Directory.Exists(storyFolderPath))
+                {
+                    Directory.CreateDirectory(storyFolderPath);
+                }
+
+                // Xử lý ảnh bìa
                 var files = HttpContext.Request.Form.Files;
                 if (files.Count() > 0 && files[0].Length > 0)
                 {
                     var file = files[0];
                     var fileName = file.FileName;
-                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "admins", "stories", fileName);
+                    var path = Path.Combine(storyFolderPath, fileName);
                     using (var stream = new FileStream(path, FileMode.Create))
                     {
                         file.CopyTo(stream);
-                        story.CoverImage = "images/admins/stories/" + fileName;
+                        story.CoverImage = $"images/admins/stories/{storyFolderName}/{fileName}";
                     }
                 }
 
@@ -93,7 +101,7 @@ namespace WebTAManga.Areas.Admins.Controllers
                 _context.Add(story);
                 await _context.SaveChangesAsync();
 
-                // Thêm thể loại (giữ nguyên)
+                // Thêm thể loại
                 foreach (var genreId in selectedGenres)
                 {
                     _context.StoryGenres.Add(new StoryGenre { StoryId = story.StoryId, GenreId = genreId });

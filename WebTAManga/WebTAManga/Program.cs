@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Net.payOS;
 using WebTAManga.Areas.Admins.Models;
-using WebTAManga.Areas.Admins.Services;
 using WebTAManga.Models;
 using static WebTAManga.Controllers.AccountController;
 
@@ -14,10 +13,6 @@ namespace WebTAManga
             var builder = WebApplication.CreateBuilder(args);
             var connectionString = builder.Configuration.GetConnectionString("AppConnection");
 
-            var googleDriveSettings = builder.Configuration
-                                            .GetSection("GoogleDrive")
-                                            .Get<GoogleDriveSettings>();
-
             builder.Services.AddDbContext<WebMangaContext>(options => options.UseSqlServer(connectionString));
 
             builder.Services.AddHttpContextAccessor();
@@ -25,12 +20,6 @@ namespace WebTAManga
             builder.Services.AddHttpClient();
 
             builder.Services.AddScoped<IEmailSender, EmailSender>();
-
-            // Đăng ký GoogleDriveService
-            builder.Services.AddSingleton(new GoogleDriveService(
-                googleDriveSettings.CredentialsPath,
-                googleDriveSettings.FolderId
-            ));
 
             // Đọc cấu hình PayOS từ appsettings.json
             var payOsConfig = builder.Configuration.GetSection("PayOS");
@@ -41,8 +30,6 @@ namespace WebTAManga
             // Khởi tạo PayOS
             var payOS = new PayOS(clientId, apiKey, checksumKey);
             builder.Services.AddSingleton(payOS);
-
-
 
             // C?u hình s? d?ng session
             builder.Services.AddSession(options =>

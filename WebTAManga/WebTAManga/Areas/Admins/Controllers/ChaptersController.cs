@@ -112,7 +112,7 @@ namespace WebTAManga.Areas.Admins.Controllers
             }
 
             string chapterTitle = $"Chương {chapterNumber}";
-            string chapterCode = $"{story.StoryCode}_C{chapterNumber}"; // Ví dụ: "CH_C1"
+            string chapterCode = $"{story.StoryCode}_C{chapterNumber}";
 
             var existingChapter = await _context.Chapters
                 .FirstOrDefaultAsync(c => c.StoryId == StoryId && c.ChapterTitle == chapterTitle);
@@ -132,7 +132,7 @@ namespace WebTAManga.Areas.Admins.Controllers
             {
                 StoryId = StoryId,
                 ChapterTitle = chapterTitle,
-                ChapterCode = chapterCode, 
+                ChapterCode = chapterCode,
                 CreatedAt = DateTime.Now,
                 Coins = Coins
             };
@@ -140,24 +140,26 @@ namespace WebTAManga.Areas.Admins.Controllers
             _context.Add(chapter);
             await _context.SaveChangesAsync();
 
-            // Xử lý upload hình ảnh 
+            // Tạo thư mục cho Chapter với tên "ChapterTitle(ChapterCode)"
+            var storyFolderName = $"{story.Title}({story.StoryCode})";
+            var chapterFolderName = $"{chapterTitle}({chapterCode})";
+            var chapterFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "admins", "stories", storyFolderName, chapterFolderName);
+            if (!Directory.Exists(chapterFolderPath))
+            {
+                Directory.CreateDirectory(chapterFolderPath);
+            }
+
+            // Xử lý upload hình ảnh
             if (ImageFiles != null && ImageFiles.Count > 0)
             {
-                var chapterFolder = Path.Combine("images", "admins", "stories", $"chapter_{chapter.ChapterId}");
-                var fullFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", chapterFolder);
-                if (!Directory.Exists(fullFolderPath))
-                {
-                    Directory.CreateDirectory(fullFolderPath);
-                }
-
                 int pageNumber = 1;
                 foreach (var file in ImageFiles)
                 {
                     if (file.Length > 0)
                     {
                         var fileExtension = Path.GetExtension(file.FileName);
-                        var uniqueFileName = $"{chapterNumber}_{pageNumber}_{Guid.NewGuid()}{fileExtension}";
-                        var filePath = Path.Combine(fullFolderPath, uniqueFileName);
+                        var uniqueFileName = $"Page_{pageNumber}{fileExtension}"; // Tên ảnh theo PageNumber
+                        var filePath = Path.Combine(chapterFolderPath, uniqueFileName);
 
                         using (var stream = new FileStream(filePath, FileMode.Create))
                         {
@@ -168,7 +170,7 @@ namespace WebTAManga.Areas.Admins.Controllers
                         {
                             ChapterId = chapter.ChapterId,
                             PageNumber = pageNumber++,
-                            ImageUrl = Path.Combine(chapterFolder, uniqueFileName).Replace("\\", "/")
+                            ImageUrl = $"images/admins/stories/{storyFolderName}/{chapterFolderName}/{uniqueFileName}"
                         };
                         _context.ChapterImages.Add(chapterImage);
                     }

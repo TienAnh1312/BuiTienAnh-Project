@@ -104,35 +104,26 @@ namespace WebTAManga.Controllers
         {
             var userId = HttpContext.Session.GetInt32("UsersID");
 
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            // Tải thông tin truyện
             var story = _context.Stories
                 .Include(s => s.StoryGenres).ThenInclude(sg => sg.Genre)
                 .Include(s => s.Chapters)
                 .FirstOrDefault(s => s.StoryId == id);
 
-            if (story == null)
-            {
-                return NotFound();
-            }
+            if (story == null) return NotFound();
 
-            // Tính số đếm
             int favoriteCount = _context.Favorites.Count(f => f.StoryId == id);
             int viewCount = _context.ReadingHistories.Count(r => r.StoryId == id);
             int followerCount = _context.FollowedStories.Count(f => f.StoryId == id);
 
-            // Lấy danh sách PurchasedChapters của người dùng hiện tại
             var purchasedChapters = userId.HasValue
                 ? _context.PurchasedChapters
                     .Where(pc => pc.UserId == userId && pc.Chapter.StoryId == id)
                     .ToList()
                 : new List<PurchasedChapter>();
 
-            // Phân trang bình luận gốc
+            // Lấy bình luận, bao gồm cả bình luận chương
             int pageSize = 6;
             var rootCommentsQuery = _context.Comments
                 .Where(c => c.StoryId == id && c.ParentCommentId == null)
@@ -142,6 +133,7 @@ namespace WebTAManga.Controllers
                 .Include(c => c.InverseParentComment).ThenInclude(r => r.User).ThenInclude(u => u.AvatarFrame)
                 .Include(c => c.InverseParentComment).ThenInclude(r => r.User).ThenInclude(u => u.CategoryRank)
                 .Include(c => c.Sticker)
+                .Include(c => c.Chapter) // Thêm để lấy thông tin chương
                 .Include(c => c.InverseParentComment).ThenInclude(r => r.Sticker);
 
             var totalRootComments = rootCommentsQuery.Count();
@@ -150,13 +142,9 @@ namespace WebTAManga.Controllers
                 .Take(pageSize)
                 .ToList();
 
-            // Tải danh sách nhãn dán
             var stickers = _context.Stickers.ToList();
-
-            // Gọi GetRankings để gán dữ liệu vào ViewBag
             GetRankings();
 
-            // Truyền dữ liệu vào ViewBag
             ViewBag.FavoriteCount = favoriteCount;
             ViewBag.ViewCount = viewCount;
             ViewBag.FollowerCount = followerCount;

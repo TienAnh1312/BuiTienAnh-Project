@@ -31,7 +31,8 @@
             {
                 <div class="col-md-2 col-sm-4 col-6 mb-4">
                     <div class="card shadow-sm h-100">
-                        <img src="@Url.Action("GetImage", "ChapterImages", new { area = "Admins", imageId = item.ImageId })" class="card-img-top img-fluid img-thumbnail image-hover" alt="Image @item.PageNumber" onerror="this.src='/images/fallback.jpg';" />                        <div class="card-body p-2 text-center">
+                        <img src="@Url.Action("GetImage", "ChapterImages", new { area = "Admins", imageId = item.ImageId })" class="card-img-top img-fluid img-thumbnail image-hover" alt="Image @item.PageNumber" onerror="this.src='/images/fallback.jpg';" />
+                        <div class="card-body p-2 text-center">
                             <h6 class="text-secondary mb-2">Trang @item.PageNumber</h6>
                             <div class="d-flex justify-content-center mb-2">
                                 <a asp-action="Edit" asp-route-id="@item.ImageId" class="btn btn-warning btn-sm me-2">
