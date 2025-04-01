@@ -88,6 +88,9 @@
                                 <a class="nav-link" asp-controller="PayOs" asp-action="Index" asp-route-customerId="@Context.Session.GetInt32("UsersId")">Nạp xu</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" asp-controller="MoMo" asp-action="Recharge" asp-route-customerId="@Context.Session.GetInt32("UsersId")">MoMo</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" asp-controller="TetEvent" asp-action="TetTreeShake" asp-route-customerId="@Context.Session.GetInt32("UsersId")">Tết Rinh Quà</a>
                             </li>
                             <li class="nav-item">

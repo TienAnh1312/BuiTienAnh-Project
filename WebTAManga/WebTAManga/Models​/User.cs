@@ -67,6 +67,8 @@ public partial class User
 
     public virtual ICollection<ReadingHistory> ReadingHistories { get; set; } = new List<ReadingHistory>();
 
+    public virtual ICollection<RechargeHistory> RechargeHistories { get; set; } = new List<RechargeHistory>();
+
     public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
 
     public virtual ICollection<UserDailyTask> UserDailyTasks { get; set; } = new List<UserDailyTask>();

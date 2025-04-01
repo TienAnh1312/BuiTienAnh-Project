@@ -15,6 +15,8 @@ namespace WebTAManga
 
             builder.Services.AddDbContext<WebMangaContext>(options => options.UseSqlServer(connectionString));
 
+           
+
             builder.Services.AddHttpContextAccessor();
 
             builder.Services.AddHttpClient();

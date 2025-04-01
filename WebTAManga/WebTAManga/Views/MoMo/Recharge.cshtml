@@ -1,0 +1,290 @@
+﻿<style>
+    /* Sử dụng lại CSS từ phiên bản PayOs */
+    .recharge-info {
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 5px;
+        border: 1px solid #dee2e6;
+    }
+
+    .recharge-info-title {
+        font-size: 1.25rem;
+        font-weight: 500;
+        margin-bottom: 15px;
+        color: #2c3e50;
+    }
+
+    .recharge-info-content p {
+        margin-bottom: 10px;
+        color: #34495e;
+    }
+
+        .recharge-info-content p strong {
+            color: #2c3e50;
+        }
+
+    @@media (max-width: 768px) {
+        .recharge-info {
+            margin-top: 20px;
+        }
+    }
+
+    .recharge-title {
+        color: #2c3e50;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .bonus-text {
+        text-align: center;
+        color: #27ae60;
+        font-size: 1.1em;
+        margin-bottom: 25px;
+    }
+
+    .recharge-container {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .package-label {
+        font-weight: 500;
+        margin-bottom: 15px;
+        display: block;
+        color: #34495e;
+    }
+
+    .package-table {
+        display: grid;
+        gap: 10px;
+        border: 1px solid #eee;
+        border-radius: 5px;
+        padding: 10px;
+    }
+
+    .table-header {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        background: #f8f9fa;
+        padding: 10px;
+        font-weight: 500;
+        color: #2c3e50;
+        border-radius: 5px 5px 0 0;
+    }
+
+    .table-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 12px 10px;
+        align-items: center;
+        border-bottom: 1px solid #eee;
+        transition: background 0.2s;
+    }
+
+        .table-row:hover {
+            background: #f5f6f5;
+        }
+
+        .table-row:last-child {
+            border-bottom: none;
+        }
+
+        .table-row input[type="radio"] {
+            margin-right: 8px;
+        }
+
+        .table-row label {
+            cursor: pointer;
+            color: #2c3e50;
+        }
+
+    .form-actions {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .btn-recharge {
+        background: #e91e63; /* Màu thương hiệu của MoMo */
+        border: none;
+        padding: 10px 25px;
+        border-radius: 5px;
+        transition: background 0.3s;
+    }
+
+        .btn-recharge:hover {
+            background: #c2185b;
+        }
+
+    .message-text {
+        font-size: 0.9em;
+    }
+</style>
+@model WebTAManga.Models.RechargeHistory
+
+<div class="container recharge-container">
+    <div class="row">
+        <h3 class="recharge-title">Nạp Xu qua MoMo</h3>
+        <p class="bonus-text">Nạp lần đầu nhận thêm 1500 xu!</p>
+
+        <!-- Form nạp xu -->
+        <div class="col-md-6">
+            <form id="rechargeForm" asp-action="Recharge" method="post">
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    <div class="recharge-packages">
+                        <div class="package-table">
+                            <label class="package-label">Chọn gói nạp xu:</label>
+                            <div class="table-header">
+                                <div>Số tiền</div>
+                                <div>Số xu nhận</div>
+                            </div>
+                            <div class="table-row">
+                                <div><input type="radio" id="package10k" name="amount" value="10000" checked> <label for="package10k">10.000đ</label></div>
+                                <div>1.000 xu</div>
+                            </div>
+                            <div class="table-row">
+                                <div><input type="radio" id="package20k" name="amount" value="20000"> <label for="package20k">20.000đ</label></div>
+                                <div>2.000 xu</div>
+                            </div>
+                            <div class="table-row">
+                                <div><input type="radio" id="package50k" name="amount" value="50000"> <label for="package50k">50.000đ</label></div>
+                                <div>5.000 xu</div>
+                            </div>
+                            <div class="table-row">
+                                <div><input type="radio" id="package100k" name="amount" value="100000"> <label for="package100k">100.000đ</label></div>
+                                <div>10.000 xu</div>
+                            </div>
+                            <div class="table-row">
+                                <div><input type="radio" id="package200k" name="amount" value="200000"> <label for="package200k">200.000đ</label></div>
+                                <div>20.000 xu</div>
+                            </div>
+                            <div class="table-row">
+                                <div><input type="radio" id="package500k" name="amount" value="500000"> <label for="package500k">500.000đ</label></div>
+                                <div>50.000 xu</div>
+                            </div>
+                            <div class="table-row">
+                                <div><input type="radio" id="package1000k" name="amount" value="1000000"> <label for="package1000k">1.000.000đ</label></div>
+                                <div>100.000 xu</div>
+                            </div>
+                            <div class="table-row">
+                                <div><input type="radio" id="package2000k" name="amount" value="2000000"> <label for="package2000k">2.000.000đ</label></div>
+                                <div>200.000 xu</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mt-3">
+                    <label class="package-label">Phương thức thanh toán:</label>
+                    <select name="paymentMethod" class="form-control">
+                        <option value="payWithATM">Thẻ ATM</option>
+                        <option value="captureWallet">Ví MoMo</option>  
+                    </select>
+                </div>
+            </form>
+        </div>
+
+        <!-- Thông tin giao dịch -->
+        <div class="col-md-6">
+            <div class="recharge-info">
+                <h5 class="recharge-info-title">Chi tiết giao dịch</h5>
+                <div class="recharge-info-content">
+                    <p><strong>Tên người dùng:</strong> <span id="infoUsername"></span></p>
+                    <p><strong>Email:</strong> <span id="infoEmail"></span></p>
+                    <p><strong>Số tiền chọn:</strong> <span id="infoAmount"></span> đ</p>
+                    <p><strong>Số xu sẽ nhận:</strong> <span id="infoCoins"></span> xu</p>
+                    <p id="infoBonusCoins" style="display: none;"><strong>Số xu nhận thêm:</strong> 1500 xu (Bonus lần đầu)</p>
+                    <p><strong>Lưu ý:</strong> Số xu sẽ được cộng theo mốc nạp.</p>
+                    <button type="button" class="btn btn-recharge" id="confirmRecharge">Nạp ngay</button>
+                    <div class="form-actions">
+                        <span id="rechargeMessage" class="message-text">
+                            @if (TempData["ErrorMessage"] != null)
+                            {
+                                @TempData["ErrorMessage"]
+                            }
+                            @if (TempData["SuccessMessage"] != null)
+                            {
+                                @TempData["SuccessMessage"]
+                            }
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        var username = Context.Session.GetString("Username") ?? "Người dùng";
+        var email = Context.Session.GetString("Email") ?? "email@example.com";
+    }
+    <script>
+        $(document).ready(function () {
+            const username = '@Html.Raw(Json.Serialize(username))';
+            const email = '@Html.Raw(Json.Serialize(email))';
+
+            function updateRechargeInfo(amount, baseCoins, isFirstRecharge) {
+                const finalCoins = isFirstRecharge ? baseCoins + 1500 : baseCoins;
+                $('#infoUsername').text(username);
+                $('#infoEmail').text(email);
+                $('#infoAmount').text(amount.toLocaleString('vi-VN'));
+                $('#infoCoins').text(finalCoins.toLocaleString('vi-VN'));
+                $('#infoBonusCoins').toggle(isFirstRecharge);
+            }
+
+            let initialAmount = $('input[name="amount"]:checked').val();
+            let initialBaseCoins = initialAmount / 10;
+            $.ajax({
+                url: '@Url.Action("CheckFirstRecharge", "MoMo")',
+                type: 'GET',
+                success: function (response) {
+                    updateRechargeInfo(initialAmount, initialBaseCoins, response.isFirstRecharge);
+                }
+            });
+
+            $('input[name="amount"]').change(function () {
+                const amount = parseInt($(this).val());
+                const baseCoins = amount / 10;
+                $.ajax({
+                    url: '@Url.Action("CheckFirstRecharge", "MoMo")',
+                    type: 'GET',
+                    success: function (response) {
+                        updateRechargeInfo(amount, baseCoins, response.isFirstRecharge);
+                    }
+                });
+            });
+
+            $('#confirmRecharge').click(function () {
+                const amount = $('input[name="amount"]:checked').val();
+                const paymentMethod = $('select[name="paymentMethod"]').val();
+
+                $.ajax({
+                    url: '@Url.Action("Recharge", "MoMo")',
+                    type: 'POST',
+                    data: {
+                        amount: amount,
+                        paymentMethod: paymentMethod,
+                        '__RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function (response) {
+                        if (response.redirectUrl) {
+                            window.location.href = response.redirectUrl;
+                        } else {
+                            $("#rechargeMessage").text(response.message || "Đã xảy ra lỗi.").addClass("text-danger");
+                        }
+                    },
+                    error: function () {
+                        $("#rechargeMessage").text("Lỗi kết nối, vui lòng thử lại.").addClass("text-danger");
+                    }
+                });
+            });
+        });
+    </script>
+}

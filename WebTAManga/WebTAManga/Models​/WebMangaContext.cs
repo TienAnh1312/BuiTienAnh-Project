@@ -55,6 +55,8 @@ public partial class WebMangaContext : DbContext
 
     public virtual DbSet<ReadingHistory> ReadingHistories { get; set; }
 
+    public virtual DbSet<RechargeHistory> RechargeHistories { get; set; }
+
     public virtual DbSet<Sticker> Stickers { get; set; }
 
     public virtual DbSet<Story> Stories { get; set; }
@@ -494,6 +496,30 @@ public partial class WebMangaContext : DbContext
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__reading_h__user___5629CD9C");
+        });
+
+        modelBuilder.Entity<RechargeHistory>(entity =>
+        {
+            entity.HasKey(e => e.RechargeId).HasName("PK__Recharge__C58945F67E82AD07");
+
+            entity.ToTable("RechargeHistory");
+
+            entity.HasIndex(e => e.MomoTransactionId, "UQ__Recharge__9A323593BE6854F3").IsUnique();
+
+            entity.Property(e => e.CompletedAt).HasColumnType("datetime");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.MomoTransactionId).HasMaxLength(50);
+            entity.Property(e => e.PaymentMethod)
+                .HasMaxLength(255)
+                .IsFixedLength();
+            entity.Property(e => e.Status).HasMaxLength(20);
+
+            entity.HasOne(d => d.User).WithMany(p => p.RechargeHistories)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_RechargeHistory_User");
         });
 
         modelBuilder.Entity<Sticker>(entity =>
