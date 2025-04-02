@@ -31,28 +31,48 @@
             width: 100%;
         }
 
-            .search-result.show {
-                display: block; /* Hiển thị khi có gợi ý */
-            }
+        .search-result.show {
+            display: block; /* Hiển thị khi có gợi ý */
+        }
 
         .list-group-item {
             cursor: pointer;
             color: black;
         }
 
-            .list-group-item:hover {
-                background-color: #f0f0f0;
-            }
+        .list-group-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .header__form-search {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .search-story {
+            width: 100%;
+        }
+
+        .dropdown-menu-custom {
+            overflow-x: auto;
+        }
+        @@media (max-width: 991px) {
+            .header__form-search
+
+        {
+            margin: 10px 0;
+        }
+
+        }
     </style>
 </head>
 <body>
-    <header class="header d-none d-lg-block">
-        <!-- place navbar here -->
+    <header class="header">
         <nav class="navbar navbar-expand-lg navbar-dark header__navbar p-md-0">
             <div class="container">
                 <a class="navbar-brand" asp-action="Index" asp-controller="Home">
-                    <img src="./assets/images/logo_text.png" alt="Logo Suu Truyen" srcset="" class="img-fluid"
-                         style="width: 200px;">
+                    <img src="./assets/images/logo_text.png" alt="Logo Suu Truyen" class="img-fluid" style="max-width: 200px; width: 100%;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -67,45 +87,60 @@
                                 Thể loại
                             </a>
                             <ul class="dropdown-menu dropdown-menu-custom">
-                               @* lấy thể loại *@
                                 @await Component.InvokeAsync("Genre")
                             </ul>
                         </li>
-                      
-                        <!-- User-specific links -->
+
                         @if (Context.Session.GetString("usersLogin") != null)
                         {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Profile" asp-action="Profile" asp-route-customerId="@Context.Session.GetInt32("UsersId")">Thông tin cá nhân</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Favorites" asp-action="FavoriteList" asp-route-customerId="@Context.Session.GetInt32("UsersId")">Favorites</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Followed" asp-action="FollowedStories" asp-route-customerId="@Context.Session.GetInt32("UsersId")">Follows</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="PayOs" asp-action="Index" asp-route-customerId="@Context.Session.GetInt32("UsersId")">Nạp xu</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="MoMo" asp-action="Recharge" asp-route-customerId="@Context.Session.GetInt32("UsersId")">MoMo</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="TetEvent" asp-action="TetTreeShake" asp-route-customerId="@Context.Session.GetInt32("UsersId")">Tết Rinh Quà</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="@Url.Action("Index", "Notification")">
-                                    <i class="fas fa-bell"></i> 
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+                                    Tài khoản
                                 </a>
+                                <ul class="dropdown-menu dropdown-menu-custom">
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="Profile" asp-action="Profile"
+                                           asp-route-customerId="@Context.Session.GetInt32("UsersId")">Thông tin</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="Favorites" asp-action="FavoriteList"
+                                           asp-route-customerId="@Context.Session.GetInt32("UsersId")">Favorites</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="Followed" asp-action="FollowedStories"
+                                           asp-route-customerId="@Context.Session.GetInt32("UsersId")">Follows</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+                                    Nạp xu
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-custom">
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="PayOs" asp-action="Index"
+                                           asp-route-customerId="@Context.Session.GetInt32("UsersId")">QR</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="MoMo" asp-action="Recharge"
+                                           asp-route-customerId="@Context.Session.GetInt32("UsersId")">MoMo</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="Vnpay" asp-action="Recharge"
+                                           asp-route-customerId="@Context.Session.GetInt32("UsersId")">VNPAY</a>
+                                    </li>
+                                </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="@Url.Action("Logout", "Account")">Đăng xuất</a>
+                                <a class="nav-link" asp-controller="Account" asp-action="Logout">Đăng xuất</a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Account" asp-action="login" asp-route-customerId="@Context.Session.GetInt32("UsersId")">Đăng nhập</a>
+                                <a class="nav-link" asp-controller="Account" asp-action="login">Đăng nhập</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Account" asp-action="Register">Đăng ký</a>
@@ -130,7 +165,6 @@
                             </svg>
                         </button>
                     </form>
-
                 </div>
             </div>
         </nav>

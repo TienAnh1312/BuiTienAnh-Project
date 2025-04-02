@@ -25,6 +25,23 @@ namespace WebTAManga.Controllers
         {
             int pageSize = 24;
 
+            // Lấy UserId từ session
+            var userId = HttpContext.Session.GetInt32("UsersId");
+
+            // Lấy thông tin người dùng hiện tại (nếu đã đăng nhập)
+            if (userId.HasValue)
+            {
+                var currentUser = _context.Users
+                    .Include(u => u.AvatarFrame) // Bao gồm thông tin khung avatar
+                    .FirstOrDefault(u => u.UserId == userId.Value);
+
+                if (currentUser != null)
+                {
+                    // Truyền thông tin người dùng vào ViewBag
+                    ViewBag.CurrentUser = currentUser;
+                }
+            }
+
             // Gọi GetRankings để gán dữ liệu vào ViewBag
             GetRankings();
 
@@ -64,7 +81,6 @@ namespace WebTAManga.Controllers
                     FollowedStories = s.FollowedStories,
                     Ratings = s.Ratings,
                     ReadingHistories = s.ReadingHistories,
-
                 })
                 .Take(11)
                 .ToList();

@@ -4,31 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!-- Thông báo -->
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="alert alert-success text-center animate__animated animate__fadeIn">@TempData["SuccessMessage"]</div>
-}
-@if (TempData["ErrorMessage"] != null)
-{
-    <div class="alert alert-danger text-center animate__animated animate__fadeIn">@TempData["ErrorMessage"]</div>
-}
-
-@if (!ViewData.ModelState.IsValid)
-{
-    <div class="alert alert-danger animate__animated animate__shakeX">
-        <ul>
-            @foreach (var modelState in ViewData.ModelState.Values)
-            {
-                foreach (var error in modelState.Errors)
-                {
-                    <li>@error.ErrorMessage</li>
-                }
-            }
-        </ul>
-    </div>
-}
-
 <style>
     /* Container for the login page */
     .login-container {
@@ -147,6 +122,30 @@
 <!--  trang login -->
 <div class="login-container">
     <div class="card">
+        <!-- Thông báo -->
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success text-center animate__animated animate__fadeIn">@TempData["SuccessMessage"]</div>
+        }
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger text-center animate__animated animate__fadeIn">@TempData["ErrorMessage"]</div>
+        }
+
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger animate__animated animate__shakeX">
+                <ul>
+                    @foreach (var modelState in ViewData.ModelState.Values)
+                    {
+                        foreach (var error in modelState.Errors)
+                        {
+                            <li>@error.ErrorMessage</li>
+                        }
+                    }
+                </ul>
+            </div>
+        }
         <h2>Đăng nhập ngay</h2>
         <form asp-action="Login" method="post">
             <!-- Email input -->
