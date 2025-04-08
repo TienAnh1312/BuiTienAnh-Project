@@ -69,10 +69,6 @@ public partial class WebMangaContext : DbContext
 
     public virtual DbSet<UserDailyTask> UserDailyTasks { get; set; }
 
-    public virtual DbSet<VnpayRechargeHistory> VnpayRechargeHistories { get; set; }
-
-    public virtual DbSet<VnpayTransaction> VnpayTransactions { get; set; }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Server=DESKTOP-53K42V9;Database=WebManga;uid=sa;pwd=123456;MultipleActiveResultSets=True;TrustServerCertificate=True");
@@ -669,43 +665,6 @@ public partial class WebMangaContext : DbContext
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_UserDailyTask_Users");
-        });
-
-        modelBuilder.Entity<VnpayRechargeHistory>(entity =>
-        {
-            entity.HasKey(e => e.VnpayRechargeId).HasName("PK__VnpayRec__80DBA21BE6461192");
-
-            entity.ToTable("VnpayRechargeHistory");
-
-            entity.Property(e => e.CompletedAt).HasColumnType("datetime");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-            entity.Property(e => e.PaymentMethod)
-                .HasMaxLength(20)
-                .HasDefaultValue("VNPAY");
-            entity.Property(e => e.Status).HasMaxLength(50);
-
-            entity.HasOne(d => d.User).WithMany(p => p.VnpayRechargeHistories)
-                .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__VnpayRech__UserI__546180BB");
-        });
-
-        modelBuilder.Entity<VnpayTransaction>(entity =>
-        {
-            entity.HasKey(e => e.VnpayTransactionId).HasName("PK__VnpayTra__F672E972E65129F9");
-
-            entity.ToTable("VnpayTransaction");
-
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-            entity.Property(e => e.TransactionStatus).HasMaxLength(50);
-            entity.Property(e => e.VnpayTransactionNo).HasMaxLength(100);
-
-            entity.HasOne(d => d.User).WithMany(p => p.VnpayTransactions)
-                .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__VnpayTran__UserI__4F9CCB9E");
         });
 
         OnModelCreatingPartial(modelBuilder);

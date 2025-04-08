@@ -313,9 +313,8 @@ namespace WebTAManga.Areas.Admins.Controllers
             {
                 try
                 {
-                    // Lấy chapter từ context để cập nhật
                     var chapterToUpdate = await _context.Chapters
-                        .Include(c => c.Story) // Include Story để lấy StoryCode
+                        .Include(c => c.Story)
                         .FirstOrDefaultAsync(c => c.ChapterId == id);
 
                     if (chapterToUpdate == null)
@@ -323,11 +322,11 @@ namespace WebTAManga.Areas.Admins.Controllers
                         return NotFound();
                     }
 
-                    // Cập nhật ChapterTitle và ChapterCode dựa trên chapterNumber mới
+                    // Cập nhật thông tin
                     chapterToUpdate.ChapterTitle = newChapterTitle;
-                    chapterToUpdate.ChapterCode = $"{chapterToUpdate.Story.StoryCode}_C{chapterNumber}"; // Tự động cập nhật ChapterCode
+                    chapterToUpdate.ChapterCode = $"{chapterToUpdate.Story.StoryCode}_C{chapterNumber}";
                     chapterToUpdate.CreatedAt = chapter.CreatedAt;
-                    chapterToUpdate.Coins = chapter.Coins;
+                    chapterToUpdate.Coins = (bool)chapter.IsLocked ? chapter.Coins : 0; // Nếu mở khóa, đặt Coins về 0
                     chapterToUpdate.IsLocked = chapter.IsLocked;
 
                     await _context.SaveChangesAsync();
@@ -346,7 +345,7 @@ namespace WebTAManga.Areas.Admins.Controllers
                 return RedirectToAction(nameof(Index), new { storyId = chapter.StoryId });
             }
 
-            // Khi ModelState không hợp lệ, lấy ChapterCode gốc từ database
+            // Xử lý khi ModelState không hợp lệ
             var originalChapter = await _context.Chapters
                 .Include(c => c.Story)
                 .FirstOrDefaultAsync(c => c.ChapterId == id);
@@ -356,15 +355,8 @@ namespace WebTAManga.Areas.Admins.Controllers
                 return NotFound();
             }
 
-            // Gán lại ChapterCode để hiển thị trong view
             chapter.ChapterCode = originalChapter.ChapterCode;
-
-            // Tải lại Story để view có đủ dữ liệu
             chapter.Story = await _context.Stories.FirstOrDefaultAsync(s => s.StoryId == chapter.StoryId);
-            if (chapter.Story == null)
-            {
-                return NotFound();
-            }
             ViewData["StoryId"] = new SelectList(new List<Story> { chapter.Story }, "StoryId", "Title");
             return View(chapter);
         }

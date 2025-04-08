@@ -66,111 +66,6 @@
 
     /* Style cho phần bình luận */
     .comment-section {
-        margin-top: 40px;
-    }
-
-    .comment-section h4 {
-        font-size: 24px;
-        margin-bottom: 20px;
-    }
-
-    .comment {
-        margin-bottom: 20px;
-        padding: 10px;
-        border-bottom: 1px solid #e0e0e0;
-    }
-
-    .avatar-container {
-        position: relative;
-       
-        height: 60px;
-        margin-right: 15px;
-    }
-
-    .avatar-frame {
-        width: 106%;
-        height: 157%;
-        position: absolute;
-        top: -17px;
-        left: 0;
-        z-index: 1;
-        object-fit: cover;
-    }
-
-    .avatar-img {
-        width: 50px; /* Kích thước avatar nhỏ hơn khung viền */
-        height: 50px;
-        border-radius: 50%;
-        object-fit: cover;
-        position: relative;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    .flex-grow-1 {
-        flex: 1;
-    }
-
-    .flex-grow-1 p {
-        font-size: 14px;
-        margin: 5px 0;
-        margin-right:-10px;
-    }
-
-    .btn-reply {
-        background: none;
-        border: none;
-        color: #007bff;
-        font-size: 14px;
-        padding: 0;
-        margin-top: 5px;
-        cursor: pointer;
-    }
-
-    .btn-reply i {
-        margin-right: 5px;
-    }
-
-    .reply-form {
-        margin-left: 75px; 
-        margin-top: 10px;
-    }
-
-    .reply {
-        margin-left: 75px; 
-        margin-top: 10px;
-        padding: 10px 0;
-        border-top: 1px solid #e0e0e0;
-    }
-
-    .toggle-replies {
-        background: none;
-        border: none;
-        color: #007bff;
-        font-size: 14px;
-        padding: 0;
-        cursor: pointer;
-    }
-
-    .toggle-replies i {
-        margin-right: 5px;
-    }
-
-    .sticker-selection img {
-        max-width: 50px;
-        cursor: pointer;
-        margin-right: 10px;
-    }
-
-    .sticker-selection label {
-        font-size: 14px;
-        margin-bottom: 5px;
-        display: block;
-    }
-
-    /* Style cho phần bình luận */
-    .comment-section {
         margin-top: 50px;
         background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
         padding: 20px;
@@ -228,17 +123,16 @@
 
     .avatar-container {
         position: relative;
-        width: 80px;
         height: 60px;
         margin-right: 20px;
     }
 
     .avatar-frame {
-        width: 106%;
+        width: 160%;
         height: 157%;
         position: absolute;
         top: -17px;
-        left: 18px;
+        left: -13px;
         z-index: 1;
         object-fit: cover;
         transition: transform 0.3s ease;
@@ -307,7 +201,7 @@
     }
 
     .reply-form {
-        margin-left: 75px;
+        margin-left: -80px;
         margin-top: 15px;
         background: #f8f9fa;
         padding: 15px;
@@ -316,7 +210,7 @@
     }
 
     .reply {
-        margin-left: 75px;
+        margin-left: -80px;
         margin-top: 15px;
         padding: 15px;
         background: #fff;
@@ -458,7 +352,7 @@
                 @foreach (var image in Model.ChapterImages.OrderBy(i => i.PageNumber))
                 {
                     <div class="col-12 text-center">
-                        <img src="#" 
+                        <img src="~/@image.ImageUrl"
                              alt="Page @image.PageNumber"
                              class="img-fluid chapter-image"
                              onerror="this.src='/images/fallback.jpg';" />

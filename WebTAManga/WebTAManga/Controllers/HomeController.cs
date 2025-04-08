@@ -133,13 +133,24 @@ namespace WebTAManga.Controllers
             int viewCount = _context.ReadingHistories.Count(r => r.StoryId == id);
             int followerCount = _context.FollowedStories.Count(f => f.StoryId == id);
 
-            var purchasedChapters = userId.HasValue
-                ? _context.PurchasedChapters
+            // Lấy danh sách chapter đã mua
+            var purchasedChapterIds = new List<int?>();
+            if (userId.HasValue)
+            {
+                purchasedChapterIds = _context.PurchasedChapters
                     .Where(pc => pc.UserId == userId && pc.Chapter.StoryId == id)
-                    .ToList()
-                : new List<PurchasedChapter>();
+                    .Select(pc => pc.ChapterId)
+                    .ToList();
+            }
+            else if (TempData["PurchasedChapterIds"] != null)
+            {
+                // Giữ thông tin từ TempData khi đăng xuất
+                purchasedChapterIds = TempData["PurchasedChapterIds"] as List<int?>;
+            }
+            // Giữ TempData sống lâu hơn
+            TempData.Keep("PurchasedChapterIds");
 
-            // Lấy bình luận, bao gồm cả bình luận chương
+            // Lấy bình luận
             int pageSize = 6;
             var rootCommentsQuery = _context.Comments
                 .Where(c => c.StoryId == id && c.ParentCommentId == null)
@@ -149,7 +160,7 @@ namespace WebTAManga.Controllers
                 .Include(c => c.InverseParentComment).ThenInclude(r => r.User).ThenInclude(u => u.AvatarFrame)
                 .Include(c => c.InverseParentComment).ThenInclude(r => r.User).ThenInclude(u => u.CategoryRank)
                 .Include(c => c.Sticker)
-                .Include(c => c.Chapter) // Thêm để lấy thông tin chương
+                .Include(c => c.Chapter)
                 .Include(c => c.InverseParentComment).ThenInclude(r => r.Sticker);
 
             var totalRootComments = rootCommentsQuery.Count();
@@ -174,7 +185,7 @@ namespace WebTAManga.Controllers
             ViewBag.IsFollowed = userId.HasValue && _context.FollowedStories.Any(f => f.UserId == userId && f.StoryId == id);
             ViewBag.CurrentUserId = userId;
             ViewBag.Stickers = stickers;
-            ViewBag.PurchasedChapters = purchasedChapters;
+            ViewBag.PurchasedChapterIds = purchasedChapterIds;
 
             return View(story);
         }

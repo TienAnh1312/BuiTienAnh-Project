@@ -9351,6 +9351,334 @@
       ]
     },
     {
+      "Route": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 4(ST2_C4)/Page_1.3ho1rmfn09.jpeg",
+      "AssetFile": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 4(ST2_C4)/Page_1.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "203689"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"2Qrjw14E1hbRm1Pnm/l+tw6gY9sN+9qw5DBP1+Uadrc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 08 Apr 2025 10:09:12 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "3ho1rmfn09"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-2Qrjw14E1hbRm1Pnm/l+tw6gY9sN+9qw5DBP1+Uadrc="
+        },
+        {
+          "Name": "label",
+          "Value": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 4(ST2_C4)/Page_1.jpeg"
+        }
+      ]
+    },
+    {
+      "Route": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 4(ST2_C4)/Page_1.jpeg",
+      "AssetFile": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 4(ST2_C4)/Page_1.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "203689"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"2Qrjw14E1hbRm1Pnm/l+tw6gY9sN+9qw5DBP1+Uadrc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 08 Apr 2025 10:09:12 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-2Qrjw14E1hbRm1Pnm/l+tw6gY9sN+9qw5DBP1+Uadrc="
+        }
+      ]
+    },
+    {
+      "Route": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 4(ST2_C4)/Page_2.jpeg",
+      "AssetFile": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 4(ST2_C4)/Page_2.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "169690"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Me5483mPQMKG2x1yXBvH5vJhnWxk3a6eRzkEKOCeen8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 08 Apr 2025 10:09:12 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Me5483mPQMKG2x1yXBvH5vJhnWxk3a6eRzkEKOCeen8="
+        }
+      ]
+    },
+    {
+      "Route": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 4(ST2_C4)/Page_2.r1tv95dr04.jpeg",
+      "AssetFile": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 4(ST2_C4)/Page_2.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "169690"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Me5483mPQMKG2x1yXBvH5vJhnWxk3a6eRzkEKOCeen8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 08 Apr 2025 10:09:12 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "r1tv95dr04"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Me5483mPQMKG2x1yXBvH5vJhnWxk3a6eRzkEKOCeen8="
+        },
+        {
+          "Name": "label",
+          "Value": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 4(ST2_C4)/Page_2.jpeg"
+        }
+      ]
+    },
+    {
+      "Route": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 4(ST2_C4)/Page_3.h1n5cps24f.jpeg",
+      "AssetFile": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 4(ST2_C4)/Page_3.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "93589"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"5dMDSfY+qLoMMLCX6LM6VYcb1C76dKIZJr9FNH/a1D0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 08 Apr 2025 10:09:12 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "h1n5cps24f"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-5dMDSfY+qLoMMLCX6LM6VYcb1C76dKIZJr9FNH/a1D0="
+        },
+        {
+          "Name": "label",
+          "Value": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 4(ST2_C4)/Page_3.jpeg"
+        }
+      ]
+    },
+    {
+      "Route": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 4(ST2_C4)/Page_3.jpeg",
+      "AssetFile": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 4(ST2_C4)/Page_3.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "93589"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"5dMDSfY+qLoMMLCX6LM6VYcb1C76dKIZJr9FNH/a1D0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 08 Apr 2025 10:09:12 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-5dMDSfY+qLoMMLCX6LM6VYcb1C76dKIZJr9FNH/a1D0="
+        }
+      ]
+    },
+    {
+      "Route": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 4(ST2_C4)/Page_4.15g90nxa3d.jpeg",
+      "AssetFile": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 4(ST2_C4)/Page_4.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "216336"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"9QXCvxXGqgJh0HefqhybjRNR9hwwbj2isg42jA/79/U=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 08 Apr 2025 10:09:12 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "15g90nxa3d"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-9QXCvxXGqgJh0HefqhybjRNR9hwwbj2isg42jA/79/U="
+        },
+        {
+          "Name": "label",
+          "Value": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 4(ST2_C4)/Page_4.jpeg"
+        }
+      ]
+    },
+    {
+      "Route": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 4(ST2_C4)/Page_4.jpeg",
+      "AssetFile": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 4(ST2_C4)/Page_4.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "216336"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"9QXCvxXGqgJh0HefqhybjRNR9hwwbj2isg42jA/79/U=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 08 Apr 2025 10:09:12 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-9QXCvxXGqgJh0HefqhybjRNR9hwwbj2isg42jA/79/U="
+        }
+      ]
+    },
+    {
       "Route": "images/admins/stories/CuuThienKiemPhap.jfif",
       "AssetFile": "images/admins/stories/CuuThienKiemPhap.jfif",
       "Selectors": [],
@@ -10413,6 +10741,88 @@
         {
           "Name": "label",
           "Value": "images/event/tree3.png"
+        }
+      ]
+    },
+    {
+      "Route": "images/logo/image-removebg-preview.oslwu1g3as.png",
+      "AssetFile": "images/logo/image-removebg-preview.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "17273"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"WHi4a/3EZhxxVUnmSpkKhuOGRwGsibc1ULS2i8+/EZI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 08 Apr 2025 07:39:05 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "oslwu1g3as"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-WHi4a/3EZhxxVUnmSpkKhuOGRwGsibc1ULS2i8+/EZI="
+        },
+        {
+          "Name": "label",
+          "Value": "images/logo/image-removebg-preview.png"
+        }
+      ]
+    },
+    {
+      "Route": "images/logo/image-removebg-preview.png",
+      "AssetFile": "images/logo/image-removebg-preview.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "17273"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"WHi4a/3EZhxxVUnmSpkKhuOGRwGsibc1ULS2i8+/EZI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 08 Apr 2025 07:39:05 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-WHi4a/3EZhxxVUnmSpkKhuOGRwGsibc1ULS2i8+/EZI="
         }
       ]
     },

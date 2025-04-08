@@ -72,7 +72,8 @@
         <nav class="navbar navbar-expand-lg navbar-dark header__navbar p-md-0">
             <div class="container">
                 <a class="navbar-brand" asp-action="Index" asp-controller="Home">
-                    <img src="./assets/images/logo_text.png" alt="Logo Suu Truyen" class="img-fluid" style="max-width: 200px; width: 100%;">
+                    @* <img src="#" alt="Logo" class="img-fluid" style="max-width: 40px; width: 100%;"> *@
+                    TAMANGA
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -127,10 +128,7 @@
                                         <a class="dropdown-item" asp-controller="MoMo" asp-action="Recharge"
                                            asp-route-customerId="@Context.Session.GetInt32("UsersId")">MoMo</a>
                                     </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="Vnpay" asp-action="Recharge"
-                                           asp-route-customerId="@Context.Session.GetInt32("UsersId")">VNPAY</a>
-                                    </li>
+                                   
                                 </ul>
                             </li>
                             <li class="nav-item">

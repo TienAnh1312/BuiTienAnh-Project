@@ -64,12 +64,19 @@ namespace WebTAManga.Controllers
 
         public IActionResult Logout()
         {
-            var username = HttpContext.Session.GetString("usersLogin");
-            HttpContext.Session.Remove("usersLogin");
-            HttpContext.Session.Remove("UsersId");
-            HttpContext.Session.Remove("Username");
-            HttpContext.Session.Remove("Email");
-            TempData["SuccessMessage"] = $"Đăng xuất thành công{(username != null ? " khỏi tài khoản " + username : "")}";
+            var userId = HttpContext.Session.GetInt32("UsersID");
+
+            if (userId.HasValue)
+            {
+                var purchasedChapters = _context.PurchasedChapters
+                    .Where(pc => pc.UserId == userId.Value)
+                    .Select(pc => pc.ChapterId)
+                    .ToList();
+                TempData["PurchasedChapterIds"] = purchasedChapters;
+            }
+
+            HttpContext.Session.Clear(); // Xóa toàn bộ session
+            TempData["SuccessMessage"] = "Đăng xuất thành công";
             return RedirectToAction("Index", "Home");
         }
 
