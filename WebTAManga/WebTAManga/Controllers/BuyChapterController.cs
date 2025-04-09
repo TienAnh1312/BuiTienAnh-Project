@@ -17,7 +17,7 @@ namespace WebTAManga.Controllers
         [HttpPost]
         public IActionResult BuyChapter(int chapterId)
         {
-            var userId = HttpContext.Session.GetInt32("UsersID");
+            var userId = HttpContext.Session.GetInt32("UsersID"); 
             if (userId == null)
             {
                 TempData["ErrorMessage"] = "Bạn cần đăng nhập để mua Chương!";
@@ -58,7 +58,8 @@ namespace WebTAManga.Controllers
                     _context.PurchasedChapters.Add(new PurchasedChapter
                     {
                         UserId = user.UserId,
-                        ChapterCode = chapter.ChapterCode,
+                        ChapterId = chapter.ChapterId, 
+                        ChapterCode = chapter.ChapterCode, 
                         PurchasedAt = DateTime.Now
                     });
 
@@ -70,7 +71,7 @@ namespace WebTAManga.Controllers
                 catch (Exception ex)
                 {
                     transaction.Rollback();
-                    TempData["ErrorMessage"] = "Có lỗi xảy ra, vui lòng thử lại!";
+                    TempData["ErrorMessage"] = "Có lỗi xảy ra, vui lòng thử lại! Chi tiết: " + ex.Message;
                 }
             }
             return RedirectToAction("ReadChapter", "ReadChapter", new { id = chapterId });

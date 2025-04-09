@@ -64,18 +64,20 @@ namespace WebTAManga.Controllers
 
         public IActionResult Logout()
         {
-            var userId = HttpContext.Session.GetInt32("UsersID");
+            var userId = HttpContext.Session.GetInt32("UsersId");
 
             if (userId.HasValue)
             {
                 var purchasedChapters = _context.PurchasedChapters
                     .Where(pc => pc.UserId == userId.Value)
                     .Select(pc => pc.ChapterId)
+                    .Where(id => id.HasValue) // Lọc bỏ các giá trị null
+                    .Select(id => id.Value)   // Chuyển thành int
                     .ToList();
-                TempData["PurchasedChapterIds"] = purchasedChapters;
+                TempData["PurchasedChapterIds"] = purchasedChapters; // Lưu List<int>
             }
 
-            HttpContext.Session.Clear(); // Xóa toàn bộ session
+            HttpContext.Session.Clear();
             TempData["SuccessMessage"] = "Đăng xuất thành công";
             return RedirectToAction("Index", "Home");
         }

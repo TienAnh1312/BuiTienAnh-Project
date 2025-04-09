@@ -185,6 +185,7 @@ public partial class WebMangaContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
             entity.Property(e => e.IsLocked).HasDefaultValue(true);
+            entity.Property(e => e.IsUnlocked).HasDefaultValue(false);
             entity.Property(e => e.StoryId).HasColumnName("story_id");
 
             entity.HasOne(d => d.Story).WithMany(p => p.Chapters)

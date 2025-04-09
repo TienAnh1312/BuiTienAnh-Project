@@ -133,22 +133,20 @@ namespace WebTAManga.Controllers
             int viewCount = _context.ReadingHistories.Count(r => r.StoryId == id);
             int followerCount = _context.FollowedStories.Count(f => f.StoryId == id);
 
-            // Lấy danh sách chapter đã mua
-            var purchasedChapterIds = new List<int?>();
+            // Lấy danh sách ChapterCode của các chương đã mua
+            var purchasedChapterCodes = new List<string>();
             if (userId.HasValue)
             {
-                purchasedChapterIds = _context.PurchasedChapters
+                purchasedChapterCodes = _context.PurchasedChapters
                     .Where(pc => pc.UserId == userId && pc.Chapter.StoryId == id)
-                    .Select(pc => pc.ChapterId)
+                    .Select(pc => pc.ChapterCode)
                     .ToList();
+
+                // Log để kiểm tra
+                Console.WriteLine($"UserId: {userId}, Purchased Chapter Codes: {string.Join(", ", purchasedChapterCodes)}");
             }
-            else if (TempData["PurchasedChapterIds"] != null)
-            {
-                // Giữ thông tin từ TempData khi đăng xuất
-                purchasedChapterIds = TempData["PurchasedChapterIds"] as List<int?>;
-            }
-            // Giữ TempData sống lâu hơn
-            TempData.Keep("PurchasedChapterIds");
+            ViewBag.PurchasedChapterCodes = purchasedChapterCodes;
+
 
             // Lấy bình luận
             int pageSize = 6;
@@ -185,7 +183,6 @@ namespace WebTAManga.Controllers
             ViewBag.IsFollowed = userId.HasValue && _context.FollowedStories.Any(f => f.UserId == userId && f.StoryId == id);
             ViewBag.CurrentUserId = userId;
             ViewBag.Stickers = stickers;
-            ViewBag.PurchasedChapterIds = purchasedChapterIds;
 
             return View(story);
         }

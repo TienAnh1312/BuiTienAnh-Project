@@ -437,8 +437,8 @@
                                             foreach (var chapter in sortedChapters)
                                             {
                                                 bool isRead = ViewBag.ReadingHistories is IEnumerable<ReadingHistory> histories && histories.Any(x => x.ChapterId == chapter.ChapterId);
-                                                bool isPurchased = ViewBag.PurchasedChapterIds is List<int?> purchasedIds && purchasedIds.Contains(chapter.ChapterId);
-                                                bool isAccessible = !chapter.IsLocked.GetValueOrDefault(true) || isPurchased;
+                                                bool isPurchased = ViewBag.PurchasedChapterCodes is List<string> purchasedCodes && purchasedCodes.Contains(chapter.ChapterCode);
+                                                bool isLockedByAdmin = chapter.IsLocked.GetValueOrDefault(true);
 
                                                 <li class="chapter-item mb-2">
                                                     <a href="@Url.Action("ReadChapter", "ReadChapter", new { id = chapter.ChapterId })"
@@ -449,12 +449,14 @@
                                                             {
                                                                 <i class="fas fa-eye text-success ms-2" title="Đã đọc"></i>
                                                             }
-                                                            @if (isPurchased || !chapter.IsLocked.GetValueOrDefault(true))
+                                                            @if (isPurchased || !isLockedByAdmin)
                                                             {
-                                                                <i class="fas fa-lock-open text-success ms-2" title="Đã mở khóa"></i>
+                                                                <!-- Nếu đã mua hoặc admin đặt mở khóa miễn phí, hiển thị ổ khóa mở với tiêu đề "Miễn phí" -->
+                                                                <i class="fas fa-lock-open text-success ms-2" title="Miễn phí"></i>
                                                             }
-                                                            else if (chapter.IsLocked.GetValueOrDefault(true))
+                                                            else if (isLockedByAdmin)
                                                             {
+                                                                <!-- Nếu chưa mua và bị khóa bởi admin, hiển thị ổ khóa đóng -->
                                                                 <i class="fas fa-lock text-danger ms-2" title="Chapter này bị khóa"></i>
                                                             }
                                                         </span>

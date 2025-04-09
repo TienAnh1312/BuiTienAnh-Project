@@ -17,7 +17,7 @@ public partial class Chapter
 
     public double? Coins { get; set; }
 
-    public bool IsUnlocked { get; set; }
+    public bool? IsUnlocked { get; set; }
 
     public string? ChapterCode { get; set; }
 
