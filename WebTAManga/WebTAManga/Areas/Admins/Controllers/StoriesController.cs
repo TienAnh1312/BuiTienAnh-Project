@@ -13,7 +13,7 @@ namespace WebTAManga.Areas.Admins.Controllers
     public class StoriesController : BaseController
     {
         private readonly WebMangaContext _context;
-
+        private const int PageSize = 7; 
 
         public StoriesController(WebMangaContext context)
         {
@@ -21,9 +21,63 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Stories
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchTitle, string searchAuthor, string filter, int page = 1)
         {
-            return View(await _context.Stories.ToListAsync());
+            var stories = from s in _context.Stories
+                          select s;
+
+            // Áp dụng bộ lọc tìm kiếm
+            if (!string.IsNullOrEmpty(searchTitle))
+            {
+                stories = stories.Where(s => s.Title.Contains(searchTitle));
+            }
+
+            if (!string.IsNullOrEmpty(searchAuthor))
+            {
+                stories = stories.Where(s => s.Author.Contains(searchAuthor));
+            }
+
+            // Áp dụng bộ lọc trạng thái
+            switch (filter)
+            {
+                case "completed":
+                    stories = stories.Where(s => s.IsCompleted);
+                    break;
+                case "updating":
+                    stories = stories.Where(s => !s.IsCompleted);
+                    break;
+                case "hot":
+                    stories = stories.Where(s => s.IsHot);
+                    break;
+                case "new":
+                    var oneMonthAgo = DateTime.Now.AddMonths(-1);
+                    stories = stories.Where(s => s.CreatedAt >= oneMonthAgo);
+                    break;
+            }
+
+            // Sắp xếp theo LastUpdatedAt (nếu null thì dùng CreatedAt)
+            stories = stories.OrderByDescending(s => s.LastUpdatedAt ?? s.CreatedAt);
+
+            // Phân trang
+            int totalItems = await stories.CountAsync();
+            int totalPages = (int)Math.Ceiling(totalItems / (double)PageSize);
+
+            var pagedStories = await stories
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize)
+                .ToListAsync();
+
+            var viewModel = new StoryIndexView
+            {
+                Stories = pagedStories,
+                CurrentPage = page,
+                TotalPages = totalPages,
+                SearchTitle = searchTitle,
+                SearchAuthor = searchAuthor,
+                Filter = filter
+            };
+
+            return View(viewModel);
         }
 
         // GET: Admins/Stories/Details/5
@@ -329,5 +383,15 @@ namespace WebTAManga.Areas.Admins.Controllers
             return PartialView("_ChapterImagesPartial", chapterImages);
         }
 
+    }
+    // View model cho phân trang và tìm kiếm
+    public class StoryIndexView
+    {
+        public List<Story> Stories { get; set; }
+        public int CurrentPage { get; set; }
+        public int TotalPages { get; set; }
+        public string SearchTitle { get; set; }
+        public string SearchAuthor { get; set; }
+        public string Filter { get; set; }
     }
 }

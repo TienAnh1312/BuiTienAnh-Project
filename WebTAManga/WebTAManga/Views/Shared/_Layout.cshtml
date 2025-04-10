@@ -106,11 +106,11 @@
                                     </li>
                                     <li>
                                         <a class="dropdown-item" asp-controller="Favorites" asp-action="FavoriteList"
-                                           asp-route-customerId="@Context.Session.GetInt32("UsersId")">Favorites</a>
+                                           asp-route-customerId="@Context.Session.GetInt32("UsersId")">Yêu thích</a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item" asp-controller="Followed" asp-action="FollowedStories"
-                                           asp-route-customerId="@Context.Session.GetInt32("UsersId")">Follows</a>
+                                           asp-route-customerId="@Context.Session.GetInt32("UsersId")">Theo dõi</a>
                                     </li>
                                 </ul>
                             </li>

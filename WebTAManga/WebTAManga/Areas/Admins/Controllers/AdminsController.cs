@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,7 @@ namespace WebTAManga.Areas.Admins.Controllers
     public class AdminsController : BaseController
     {
         private readonly WebMangaContext _context;
+        private const int PageSize = 7;
 
         public AdminsController(WebMangaContext context)
         {
@@ -20,9 +22,44 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Admins
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchUsername, string searchEmail, int page = 1)
         {
-            return View(await _context.Admins.ToListAsync());
+            var admins = from a in _context.Admins
+                         select a;
+
+            // Áp dụng bộ lọc tìm kiếm
+            if (!string.IsNullOrEmpty(searchUsername))
+            {
+                admins = admins.Where(a => a.Username.Contains(searchUsername));
+            }
+
+            if (!string.IsNullOrEmpty(searchEmail))
+            {
+                admins = admins.Where(a => a.Email.Contains(searchEmail));
+            }
+
+            // Lấy tổng số mục để phân trang
+            int totalItems = await admins.CountAsync();
+            int totalPages = (int)Math.Ceiling(totalItems / (double)PageSize);
+
+            // Áp dụng phân trang
+            var pagedAdmins = await admins
+            .OrderBy(a => a.AdminId)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize)
+                .ToListAsync();
+
+            // Tạo view model với dữ liệu phân trang
+            var viewModel = new AdminIndexView
+            {
+                Admins = pagedAdmins,
+                CurrentPage = page,
+                TotalPages = totalPages,
+                SearchUsername = searchUsername,
+                SearchEmail = searchEmail
+            };
+
+            return View(viewModel);
         }
 
         // GET: Admins/Admins/Details/5
@@ -153,5 +190,14 @@ namespace WebTAManga.Areas.Admins.Controllers
         {
             return _context.Admins.Any(e => e.AdminId == id);
         }
+    }
+    //  model chứa dữ liệu phân trang và tìm kiếm
+    public class AdminIndexView
+    {
+        public List<Admin> Admins { get; set; }
+        public int CurrentPage { get; set; }
+        public int TotalPages { get; set; }
+        public string SearchUsername { get; set; }
+        public string SearchEmail { get; set; }
     }
 }

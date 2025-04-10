@@ -143,6 +143,16 @@ namespace WebTAManga.Areas.Admins.Controllers
             // Tạo thư mục cho Chapter với tên "ChapterTitle(ChapterCode)"
             var storyFolderName = $"{story.Title}({story.StoryCode})";
             var chapterFolderName = $"{chapterTitle}({chapterCode})";
+
+            // Cập nhật LastUpdatedAt của Story
+            var storyToUpdate = await _context.Stories.FindAsync(StoryId);
+            if (storyToUpdate != null)
+            {
+                storyToUpdate.LastUpdatedAt = DateTime.Now;
+                _context.Update(storyToUpdate);
+                await _context.SaveChangesAsync();
+            }
+
             var chapterFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "admins", "stories", storyFolderName, chapterFolderName);
             if (!Directory.Exists(chapterFolderPath))
             {
@@ -258,6 +268,16 @@ namespace WebTAManga.Areas.Admins.Controllers
             {
                 _context.Chapters.AddRange(newChapters);
                 await _context.SaveChangesAsync();
+
+                // Cập nhật LastUpdatedAt của Story
+                var storyToUpdate = await _context.Stories.FindAsync(storyId);
+                if (storyToUpdate != null)
+                {
+                    storyToUpdate.LastUpdatedAt = DateTime.Now;
+                    _context.Update(storyToUpdate);
+                    await _context.SaveChangesAsync();
+                }
+
                 TempData["Success"] = $"Đã tạo thành công {newChapters.Count} chapter mới.";
             }
             else
@@ -328,6 +348,7 @@ namespace WebTAManga.Areas.Admins.Controllers
                     chapterToUpdate.CreatedAt = chapter.CreatedAt;
                     chapterToUpdate.Coins = (bool)chapter.IsLocked ? chapter.Coins : 0; // Nếu mở khóa, đặt Coins về 0
                     chapterToUpdate.IsLocked = chapter.IsLocked;
+                    chapterToUpdate.Story.LastUpdatedAt = DateTime.Now;
 
                     await _context.SaveChangesAsync();
                 }

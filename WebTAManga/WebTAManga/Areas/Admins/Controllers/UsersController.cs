@@ -13,6 +13,7 @@ namespace WebTAManga.Areas.Admins.Controllers
     public class UsersController : BaseController
     {
         private readonly WebMangaContext _context;
+        private const int PageSize = 7; // Kích thước trang là 10
 
         public UsersController(WebMangaContext context)
         {
@@ -20,9 +21,44 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Users
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchUsername, string searchEmail, int page = 1)
         {
-            return View(await _context.Users.ToListAsync());
+            var users = from u in _context.Users
+                        select u;
+
+            // Áp dụng bộ lọc tìm kiếm
+            if (!string.IsNullOrEmpty(searchUsername))
+            {
+                users = users.Where(u => u.Username.Contains(searchUsername));
+            }
+
+            if (!string.IsNullOrEmpty(searchEmail))
+            {
+                users = users.Where(u => u.Email.Contains(searchEmail));
+            }
+
+            // Lấy tổng số mục để phân trang
+            int totalItems = await users.CountAsync();
+            int totalPages = (int)Math.Ceiling(totalItems / (double)PageSize);
+
+            // Áp dụng phân trang
+            var pagedUsers = await users
+                .OrderBy(u => u.UserId)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize)
+                .ToListAsync();
+
+            // Tạo view model
+            var viewModel = new UserIndexView
+            {
+                Users = pagedUsers,
+                CurrentPage = page,
+                TotalPages = totalPages,
+                SearchUsername = searchUsername,
+                SearchEmail = searchEmail
+            };
+
+            return View(viewModel);
         }
 
         // GET: Admins/Users/Details/5
@@ -154,5 +190,13 @@ namespace WebTAManga.Areas.Admins.Controllers
         {
             return _context.Users.Any(e => e.UserId == id);
         }
+    }
+    public class UserIndexView
+    {
+        public List<User> Users { get; set; }
+        public int CurrentPage { get; set; }
+        public int TotalPages { get; set; }
+        public string SearchUsername { get; set; }
+        public string SearchEmail { get; set; }
     }
 }

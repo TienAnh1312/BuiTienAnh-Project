@@ -98,17 +98,17 @@
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
 
-        .comment-section h4 {
-            font-size: 26px;
-            margin-bottom: 25px;
-            color: #343a40;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+    .comment-section h4 {
+        font-size: 26px;
+        margin-bottom: 25px;
+        color: #343a40;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
 
     .comment-form {
         background: #fff;
@@ -118,19 +118,19 @@
         margin-bottom: 30px;
     }
 
-        .comment-form .form-control {
-            border: 1px solid #ced4da;
-            border-radius: 8px;
-            padding: 10px;
-            font-size: 14px;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
+    .comment-form .form-control {
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        padding: 10px;
+        font-size: 14px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
 
-            .comment-form .form-control:focus {
-                border-color: #00c4ff;
-                box-shadow: 0 0 5px rgba(0, 196, 255, 0.5);
-                outline: none;
-            }
+    .comment-form .form-control:focus {
+        border-color: #00c4ff;
+        box-shadow: 0 0 5px rgba(0, 196, 255, 0.5);
+        outline: none;
+    }
 
     .comment {
         margin-bottom: 25px;
@@ -141,10 +141,10 @@
         transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-        .comment:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-        }
+    .comment:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
 
     .avatar-container {
         position: relative;  
@@ -214,13 +214,13 @@
         transition: color 0.3s ease;
     }
 
-        .btn-reply:hover {
-            color: #007bff;
-        }
+    .btn-reply:hover {
+        color: #007bff;
+    }
 
-        .btn-reply i {
-            margin-right: 6px;
-        }
+    .btn-reply i {
+        margin-right: 6px;
+    }
 
     .reply-form {
         margin-left: 75px;
@@ -240,9 +240,9 @@
         transition: transform 0.2s ease;
     }
 
-        .reply:hover {
-            transform: translateY(-3px);
-        }
+    .reply:hover {
+        transform: translateY(-3px);
+    }
 
     .toggle-replies {
         background: none;
@@ -254,42 +254,42 @@
         transition: color 0.3s ease;
     }
 
-        .toggle-replies:hover {
-            color: #007bff;
-        }
+    .toggle-replies:hover {
+        color: #007bff;
+    }
 
-        .toggle-replies i {
-            margin-right: 6px;
-            transition: transform 0.3s ease;
-        }
+    .toggle-replies i {
+        margin-right: 6px;
+        transition: transform 0.3s ease;
+    }
 
-        .toggle-replies:hover i {
-            transform: rotate(180deg);
-        }
+    .toggle-replies:hover i {
+        transform: rotate(180deg);
+    }
 
     .sticker-selection {
         margin-top: 10px;
     }
 
-        .sticker-selection label {
-            font-size: 14px;
-            margin-bottom: 8px;
-            color: #495057;
-            font-weight: 500;
-        }
+    .sticker-selection label {
+        font-size: 14px;
+        margin-bottom: 8px;
+        color: #495057;
+        font-weight: 500;
+    }
 
-        .sticker-selection img {
-            max-width: 50px;
-            cursor: pointer;
-            margin-right: 15px;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-            border-radius: 5px;
-        }
+    .sticker-selection img {
+        max-width: 50px;
+        cursor: pointer;
+        margin-right: 15px;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        border-radius: 5px;
+    }
 
-            .sticker-selection img:hover {
-                transform: scale(1.2);
-                opacity: 0.9;
-            }
+    .sticker-selection img:hover {
+        transform: scale(1.2);
+        opacity: 0.9;
+    }
 
     .btn-primary {
         background-color: #00c4ff;
@@ -300,11 +300,11 @@
         transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
-        .btn-primary:hover {
-            background-color: #007bff;
-            border-color: #007bff;
-            transform: translateY(-2px);
-        }
+    .btn-primary:hover {
+        background-color: #007bff;
+        border-color: #007bff;
+        transform: translateY(-2px);
+    }
 
     .no-comment {
         text-align: center;
@@ -407,7 +407,7 @@
                                         <i class="fas fa-star"></i> @(ViewBag.IsFavorited ? "Bỏ Yêu Thích" : "Yêu Thích")
                                     </button>
                                     <button class="btn btn-success btn-sm toggle-follow" data-story-id="@Model.StoryId" data-is-followed="@ViewBag.IsFollowed.ToString().ToLower()">
-                                        <i class="fas fa-check"></i> @(ViewBag.IsFollowed ? "Bỏ Theo Dõi" : "Theo Dõi")
+                                        <i class="fas fa-heart"></i> @(ViewBag.IsFollowed ? "Bỏ Theo Dõi" : "Theo Dõi")
                                     </button>
                                 </div>
                             </div>
@@ -853,7 +853,7 @@
                     if (response.success) {
                         button.data("is-followed", !isFollowed);
                         button.html(
-                            `<i class="fas fa-check"></i> ${isFollowed ? "Theo Dõi" : "Bỏ Theo Dõi"}`
+                            `<i class="fas fa-heart"></i> ${isFollowed ? "Theo Dõi" : "Bỏ Theo Dõi"}`
                         );
                         alert(response.message);
                     } else if (response.redirect) {

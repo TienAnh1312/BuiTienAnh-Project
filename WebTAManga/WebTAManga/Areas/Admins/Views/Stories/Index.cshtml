@@ -1,47 +1,135 @@
-﻿@model IEnumerable<WebTAManga.Models.Story>
+﻿@model WebTAManga.Areas.Admins.Controllers.StoryIndexView
 
 @{
-    ViewData["Title"] = "Story List";
+    ViewData["Title"] = "Quản lý Truyện";
 }
 
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2 class="text-primary">Story List</h2>
-        <a asp-action="Create" class="btn btn-success"><i class="bi bi-plus-lg"></i> Create New</a>
+        <h2 class="text-primary">@ViewData["Title"]</h2>
+        <a asp-action="Create" class="btn btn-success">
+            <i class="bi bi-plus-lg"></i> Tạo mới
+        </a>
     </div>
+
+    <!-- Form tìm kiếm và bộ lọc -->
+    <form asp-action="Index" method="get" class="mb-3">
+        <div class="row g-3">
+            <div class="col-md-3">
+                <input type="text" name="searchTitle" value="@Model.SearchTitle"
+                       class="form-control" placeholder="Tìm theo Tiêu đề" />
+            </div>
+            <div class="col-md-3">
+                <input type="text" name="searchAuthor" value="@Model.SearchAuthor"
+                       class="form-control" placeholder="Tìm theo Tác giả" />
+            </div>
+            <div class="col-md-3">
+                <select name="filter" class="form-select">
+                    <option value="">Tất cả</option>
+                    <option value="completed" @@(Model.Filter == "completed" ? "selected" : "")>Đã hoàn thành</option>
+                    <option value="updating" @@(Model.Filter == "updating" ? "selected" : "")>Đang cập nhật</option>
+                    <option value="hot" @@(Model.Filter == "hot" ? "selected" : "")>Hot</option>
+                    <option value="new" @@(Model.Filter == "new" ? "selected" : "")>Mới</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary me-2">
+                    <i class="bi bi-search"></i> Tìm kiếm
+                </button>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="bi bi-arrow-clockwise"></i> Đặt lại
+                </a>
+            </div>
+        </div>
+    </form>
 
     <div class="table-responsive">
         <table class="table table-hover table-bordered align-middle">
             <thead class="table-dark">
                 <tr>
-                    <th>Title</th>
-                    <th>Author</th>
-                    <th>Cover</th>
-                    <th>Created At</th>
-                    <th class="text-center">Actions</th>
+                    <th>@Html.DisplayNameFor(model => model.Stories[0].Title)</th>
+                    <th>@Html.DisplayNameFor(model => model.Stories[0].Author)</th>
+                    <th>Ảnh bìa</th>
+                    <th class="text-center">Hành động</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @if (Model.Stories != null && Model.Stories.Any())
+                {
+                    @foreach (var item in Model.Stories)
+                    {
+                        <tr>
+                            <td class="fw-bold">@Html.DisplayFor(modelItem => item.Title)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Author)</td>
+                            <td class="text-center">
+                                <img src="~/@item.CoverImage" alt="Ảnh bìa" class="img-thumbnail" style="max-width: 70px;">
+                            </td>
+                          
+                            <td class="text-center">
+                                <a asp-action="Edit" asp-route-id="@item.StoryId" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil-square"></i> Sửa
+                                </a>
+                                <a asp-action="Details" asp-route-id="@item.StoryId" class="btn btn-info btn-sm text-white">
+                                    <i class="bi bi-info-circle"></i> Chi tiết
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.StoryId" class="btn btn-danger btn-sm">
+                                    <i class="bi bi-trash"></i> Xóa
+                                </a>
+                                <a asp-controller="Chapters" asp-action="Index" asp-route-storyId="@item.StoryId" class="btn btn-primary btn-sm">
+                                    Chương
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
                 {
                     <tr>
-                        <td class="fw-bold">@Html.DisplayFor(modelItem => item.Title)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Author)</td>
-                        <td class="text-center">
-                            <img src="~/@item.CoverImage" alt="Cover Image" class="img-thumbnail" style="max-width: 70px;">
-                        </td>
-                        <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
-                        <td class="text-center">
-                            <a asp-action="Edit" asp-route-id="@item.StoryId" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i> Edit</a>
-                            <a asp-action="Details" asp-route-id="@item.StoryId" class="btn btn-info btn-sm text-white"><i class="bi bi-info-circle"></i> Details</a>
-                            <a asp-action="Delete" asp-route-id="@item.StoryId" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Delete</a>
-                            <a asp-controller="Chapters" asp-action="Index" asp-route-storyId="@item.StoryId" class="btn btn-primary btn-sm">Chapters</a>
-                        </td>
+                        <td colspan="6">Không tìm thấy truyện nào.</td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
+
+    <!-- Phân trang -->
+    <nav aria-label="Phân trang">
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                <a class="page-link"
+                   asp-action="Index"
+                   asp-route-page="@(Model.CurrentPage - 1)"
+                   asp-route-searchTitle="@Model.SearchTitle"
+                   asp-route-searchAuthor="@Model.SearchAuthor"
+                   asp-route-filter="@Model.Filter"
+                   aria-label="Trước">
+                    <span aria-hidden="true">«</span>
+                </a>
+            </li>
+
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                    <a class="page-link"
+                       asp-action="Index"
+                       asp-route-page="@i"
+                       asp-route-searchTitle="@Model.SearchTitle"
+                       asp-route-searchAuthor="@Model.SearchAuthor"
+                       asp-route-filter="@Model.Filter">@i</a>
+                </li>
+            }
+
+            <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
+                <a class="page-link"
+                   asp-action="Index"
+                   asp-route-page="@(Model.CurrentPage + 1)"
+                   asp-route-searchTitle="@Model.SearchTitle"
+                   asp-route-searchAuthor="@Model.SearchAuthor"
+                   asp-route-filter="@Model.Filter"
+                   aria-label="Tiếp">
+                    <span aria-hidden="true">»</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 </div>
-
-
