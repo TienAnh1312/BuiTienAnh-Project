@@ -327,19 +327,60 @@
                     {
                         <nav aria-label="Page navigation" class="mt-3">
                             <ul class="pagination justify-content-center">
+                                <!-- Nút Previous -->
                                 <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
-                                    <a class="page-link" href="@Url.Action("Index", "Home", new { page = ViewBag.CurrentPage - 1 })" aria-label="Previous">
+                                    <a class="page-link"
+                                       href="@Url.Action("Index", "Home", new { page = ViewBag.CurrentPage - 1, searchUsername = ViewBag.SearchUsername, searchEmail = ViewBag.SearchEmail })"
+                                       aria-label="Previous">
                                         <span aria-hidden="true">«</span>
                                     </a>
                                 </li>
-                                @for (int i = 1; i <= ViewBag.TotalPages; i++)
+
+                                <!-- Trang đầu tiên -->
+                                <li class="page-item @(ViewBag.CurrentPage == 1 ? "active" : "")">
+                                    <a class="page-link"
+                                       href="@Url.Action("Index", "Home", new { page = 1, searchUsername = ViewBag.SearchUsername, searchEmail = ViewBag.SearchEmail })">1</a>
+                                </li>
+
+                                <!-- Dấu ... nếu cần -->
+                                @if (ViewBag.CurrentPage > 3)
                                 {
-                                    <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-                                        <a class="page-link" href="@Url.Action("Index", "Home", new { page = i })">@i</a>
+                                    <li class="page-item disabled">
+                                        <span class="page-link">...</span>
                                     </li>
                                 }
+
+                                <!-- Các trang gần trang hiện tại -->
+                                @for (int i = Math.Max(2, ViewBag.CurrentPage - 2); i <= Math.Min(ViewBag.TotalPages - 1, ViewBag.CurrentPage + 2); i++)
+                                {
+                                    <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                        <a class="page-link"
+                                           href="@Url.Action("Index", "Home", new { page = i, searchUsername = ViewBag.SearchUsername, searchEmail = ViewBag.SearchEmail })">@i</a>
+                                    </li>
+                                }
+
+                                <!-- Dấu ... nếu cần -->
+                                @if (ViewBag.CurrentPage < ViewBag.TotalPages - 2)
+                                {
+                                    <li class="page-item disabled">
+                                        <span class="page-link">...</span>
+                                    </li>
+                                }
+
+                                <!-- Trang cuối cùng -->
+                                @if (ViewBag.TotalPages > 1)
+                                {
+                                    <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "active" : "")">
+                                        <a class="page-link"
+                                           href="@Url.Action("Index", "Home", new { page = ViewBag.TotalPages, searchUsername = ViewBag.SearchUsername, searchEmail = ViewBag.SearchEmail })">@ViewBag.TotalPages</a>
+                                    </li>
+                                }
+
+                                <!-- Nút Next -->
                                 <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")">
-                                    <a class="page-link" href="@Url.Action("Index", "Home", new { page = ViewBag.CurrentPage + 1 })" aria-label="Next">
+                                    <a class="page-link"
+                                       href="@Url.Action("Index", "Home", new { page = ViewBag.CurrentPage + 1, searchUsername = ViewBag.SearchUsername, searchEmail = ViewBag.SearchEmail })"
+                                       aria-label="Next">
                                         <span aria-hidden="true">»</span>
                                     </a>
                                 </li>

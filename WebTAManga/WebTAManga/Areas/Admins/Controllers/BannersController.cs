@@ -45,30 +45,41 @@ namespace WebTAManga.Areas.Admins.Controllers
         // GET: Admins/Banners/Create
         public IActionResult Create()
         {
+            // Kiểm tra xem số lượng banner đã đạt 4 chưa
+            if (_context.Banners.Count() >= 4)
+            {
+                TempData["ErrorMessage"] = "Không thể tạo quá 4 banner.";
+                return RedirectToAction(nameof(Index));
+            }
             return View();
         }
 
         // POST: Admins/Banners/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ImageUrl,Title,Description,LinkUrl,IsActive,DisplayOrder")] Banner banner)
         {
+            // Kiểm tra xem số lượng banner đã đạt 4 chưa
+            if (_context.Banners.Count() >= 4)
+            {
+                ModelState.AddModelError("", "Không thể tạo quá 4 banner.");
+                return View(banner);
+            }
+
             if (ModelState.IsValid)
             {
-                // Xử lý ảnh, nếu có ảnh mới
+                // Xử lý ảnh nếu có ảnh mới
                 var files = HttpContext.Request.Form.Files;
                 if (files.Count() > 0 && files[0].Length > 0)
                 {
                     var file = files[0];
                     var fileName = file.FileName;
-                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images","admins", "banner", fileName);
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "admins", "banner", fileName);
 
                     using (var stream = new FileStream(path, FileMode.Create))
                     {
-                        file.CopyTo(stream);
-                        banner.LinkUrl = "images/admins/banner/" + fileName; // Lưu đường dẫn ảnh
+                        await file.CopyToAsync(stream);
+                        banner.LinkUrl = "images/admins/banner/" + fileName; 
                     }
                 }
                 _context.Add(banner);
@@ -121,7 +132,7 @@ namespace WebTAManga.Areas.Admins.Controllers
                         using (var stream = new FileStream(path, FileMode.Create))
                         {
                             file.CopyTo(stream);
-                            banner.LinkUrl = "images/admins/banner/" + fileName; // Lưu đường dẫn ảnh
+                            banner.LinkUrl = "images/admins/banner/" + fileName; 
                         }
                     }
   

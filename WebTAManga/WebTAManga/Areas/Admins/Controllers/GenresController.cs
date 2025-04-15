@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebTAManga.Models;
 
 namespace WebTAManga.Areas.Admins.Controllers
 {
-    
     public class GenresController : BaseController
     {
         private readonly WebMangaContext _context;
+        private const int PageSize = 7;
 
         public GenresController(WebMangaContext context)
         {
@@ -20,9 +19,38 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Genres
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchName, int page = 1)
         {
-            return View(await _context.Genres.ToListAsync());
+            var genres = from g in _context.Genres
+                         select g;
+
+            // Apply search filter
+            if (!string.IsNullOrEmpty(searchName))
+            {
+                genres = genres.Where(g => g.Name.Contains(searchName));
+            }
+
+            // Get total items for pagination
+            int totalItems = await genres.CountAsync();
+            int totalPages = (int)Math.Ceiling(totalItems / (double)PageSize);
+
+            // Apply pagination
+            var pagedGenres = await genres
+                .OrderBy(g => g.GenreId)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize)
+                .ToListAsync();
+
+            // Create view model
+            var viewModel = new GenreIndexView
+            {
+                Genres = pagedGenres,
+                CurrentPage = page,
+                TotalPages = totalPages,
+                SearchName = searchName
+            };
+
+            return View(viewModel);
         }
 
         // GET: Admins/Genres/Details/5
@@ -50,11 +78,9 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // POST: Admins/Genres/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("GenreId,Name")] Genre genre)
+        public async Task<IActionResult> Create([Bind("GenreId,Name,Title")] Genre genre)
         {
             if (ModelState.IsValid)
             {
@@ -82,11 +108,9 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // POST: Admins/Genres/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("GenreId,Name")] Genre genre)
+        public async Task<IActionResult> Edit(int id, [Bind("GenreId,Name,Title")] Genre genre)
         {
             if (id != genre.GenreId)
             {
@@ -153,5 +177,14 @@ namespace WebTAManga.Areas.Admins.Controllers
         {
             return _context.Genres.Any(e => e.GenreId == id);
         }
+    }
+
+    // View model for pagination and search
+    public class GenreIndexView
+    {
+        public List<Genre> Genres { get; set; }
+        public int CurrentPage { get; set; }
+        public int TotalPages { get; set; }
+        public string SearchName { get; set; }
     }
 }

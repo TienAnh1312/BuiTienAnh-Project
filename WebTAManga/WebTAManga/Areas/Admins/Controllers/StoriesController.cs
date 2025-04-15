@@ -21,7 +21,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Stories
-        public async Task<IActionResult> Index(string searchTitle, string searchAuthor, string filter, int page = 1)
+        public async Task<IActionResult> Index(string searchTitle, string searchAuthor, string filter, int? searchGenre, int page = 1)
         {
             var stories = from s in _context.Stories
                           select s;
@@ -74,7 +74,8 @@ namespace WebTAManga.Areas.Admins.Controllers
                 TotalPages = totalPages,
                 SearchTitle = searchTitle,
                 SearchAuthor = searchAuthor,
-                Filter = filter
+                Filter = filter,
+                SearchGenre = searchGenre 
             };
 
             return View(viewModel);
@@ -393,5 +394,6 @@ namespace WebTAManga.Areas.Admins.Controllers
         public string SearchTitle { get; set; }
         public string SearchAuthor { get; set; }
         public string Filter { get; set; }
+        public int? SearchGenre { get; set; }
     }
 }

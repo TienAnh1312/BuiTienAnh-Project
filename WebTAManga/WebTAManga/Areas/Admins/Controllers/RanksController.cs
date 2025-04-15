@@ -12,6 +12,7 @@ namespace WebTAManga.Areas.Admins.Controllers
     public class RanksController : BaseController
     {
         private readonly WebMangaContext _context;
+        private const int PageSize = 7; 
 
         public RanksController(WebMangaContext context)
         {
@@ -19,9 +20,34 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Ranks
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchName, int page = 1)
         {
-            return View(await _context.Ranks.ToListAsync());
+            var ranks = from r in _context.Ranks
+                        select r;
+
+            if (!string.IsNullOrEmpty(searchName))
+            {
+                ranks = ranks.Where(r => r.Name.Contains(searchName));
+            }
+
+            int totalItems = await ranks.CountAsync();
+            int totalPages = (int)Math.Ceiling(totalItems / (double)PageSize);
+
+            var pagedRanks = await ranks
+                .OrderBy(r => r.RankId)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize)
+                .ToListAsync();
+
+            var viewModel = new RankIndexView
+            {
+                Ranks = pagedRanks,
+                CurrentPage = page,
+                TotalPages = totalPages,
+                SearchName = searchName
+            };
+
+            return View(viewModel);
         }
 
         // GET: Admins/Ranks/Details/5
@@ -106,17 +132,47 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Ranks/CategoryRanksByRank/5
-        public async Task<IActionResult> CategoryRanksByRank(int? id)
+        public async Task<IActionResult> CategoryRanksByRank(int? id, string searchName, int page = 1)
         {
             if (id == null) return NotFound();
+
             var rank = await _context.Ranks
                 .Include(r => r.CategoryRanks)
                 .ThenInclude(cr => cr.Levels)
                 .FirstOrDefaultAsync(m => m.RankId == id);
             if (rank == null) return NotFound();
-            return View(rank);
-        }
 
+            var categoryRanks = rank.CategoryRanks.AsQueryable();
+
+            // Áp dụng bộ lọc tìm kiếm không phân biệt hoa thường
+            if (!string.IsNullOrEmpty(searchName))
+            {
+                categoryRanks = categoryRanks.Where(cr => cr.Name.ToLower().Contains(searchName.ToLower()));
+            }
+
+            // Lấy tổng số mục để phân trang
+            int totalItems = categoryRanks.Count();
+            int totalPages = (int)Math.Ceiling(totalItems / (double)PageSize);
+
+            // Áp dụng phân trang
+            var pagedCategoryRanks = categoryRanks
+                .OrderBy(cr => cr.CategoryRankId)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize)
+                .ToList();
+
+            // Tạo view model
+            var viewModel = new CategoryRankIndex
+            {
+                Rank = rank,
+                CategoryRanks = pagedCategoryRanks,
+                CurrentPage = page,
+                TotalPages = totalPages,
+                SearchName = searchName
+            };
+
+            return View(viewModel);
+        }
         // GET: Admins/Ranks/CreateCategoryRank/5
         public IActionResult CreateCategoryRank(int? rankId)
         {
@@ -217,6 +273,49 @@ namespace WebTAManga.Areas.Admins.Controllers
             ViewData["RankId"] = new SelectList(_context.Ranks, "RankId", "Name", categoryRank.RankId);
             return View(categoryRank);
         }
+        // GET: Admins/Ranks/DeleteCategoryRank/5
+        public async Task<IActionResult> DeleteCategoryRank(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var categoryRank = await _context.CategoryRanks
+                .Include(cr => cr.Levels)
+                .Include(cr => cr.Rank)
+                .FirstOrDefaultAsync(cr => cr.CategoryRankId == id);
+            if (categoryRank == null) return NotFound();
+
+            return View(categoryRank);
+        }
+
+        // POST: Admins/Ranks/DeleteCategoryRank/5
+        [HttpPost, ActionName("DeleteCategoryRank")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteCategoryRankConfirmed(int id)
+        {
+            var categoryRank = await _context.CategoryRanks
+                .Include(cr => cr.Levels)
+                .Include(cr => cr.Users)
+                .FirstOrDefaultAsync(cr => cr.CategoryRankId == id);
+            if (categoryRank == null) return NotFound();
+
+            // Đặt CategoryRankId thành null cho tất cả người dùng liên kết
+            foreach (var user in categoryRank.Users)
+            {
+                user.CategoryRankId = null;
+            }
+
+            // Xóa các Level liên quan
+            if (categoryRank.Levels.Any())
+            {
+                _context.Levels.RemoveRange(categoryRank.Levels);
+            }
+
+            // Xóa CategoryRank
+            _context.CategoryRanks.Remove(categoryRank);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(CategoryRanksByRank), new { id = categoryRank.RankId });
+        }
 
         private bool RankExists(int id)
         {
@@ -227,5 +326,24 @@ namespace WebTAManga.Areas.Admins.Controllers
         {
             return _context.CategoryRanks.Any(e => e.CategoryRankId == id);
         }
+    }
+
+    // View model cho phân trang và tìm kiếm
+    public class RankIndexView
+    {
+        public List<Rank> Ranks { get; set; }
+        public int CurrentPage { get; set; }
+        public int TotalPages { get; set; }
+        public string SearchName { get; set; }
+    }
+
+    // View model cho danh sách CategoryRank
+    public class CategoryRankIndex
+    {
+        public Rank Rank { get; set; }
+        public List<CategoryRank> CategoryRanks { get; set; }
+        public int CurrentPage { get; set; }
+        public int TotalPages { get; set; }
+        public string SearchName { get; set; }
     }
 }

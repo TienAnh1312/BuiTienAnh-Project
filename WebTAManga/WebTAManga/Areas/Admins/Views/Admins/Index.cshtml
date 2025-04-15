@@ -38,9 +38,7 @@
         <table class="table table-hover table-bordered text-center align-middle">
             <thead class="table-dark">
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.Admins[0].Username)</th>
                     <th>@Html.DisplayNameFor(model => model.Admins[0].Email)</th>
-                    <th>Mật khẩu</th>
                     <th>@Html.DisplayNameFor(model => model.Admins[0].Role)</th> 
                     <th>Hành động</th>
                 </tr>
@@ -51,9 +49,7 @@
                     @foreach (var item in Model.Admins)
                     {
                         <tr>
-                            <td>@Html.DisplayFor(modelItem => item.Username)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Email)</td>
-                            <td>••••••••</td>
+                            <td>@Html.DisplayFor(modelItem => item.Email)</td>                            
                             <td>
                                 <span class="badge @(item.Role == "Admin" ? "bg-danger" : "bg-primary")">
                                     @Html.DisplayFor(modelItem => item.Role)
@@ -86,6 +82,7 @@
     <!-- Phân trang -->
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
+            <!-- Nút Previous -->
             <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
                 <a class="page-link"
                    asp-action="Index"
@@ -97,7 +94,25 @@
                 </a>
             </li>
 
-            @for (int i = 1; i <= Model.TotalPages; i++)
+            <!-- Trang đầu tiên -->
+            <li class="page-item @(Model.CurrentPage == 1 ? "active" : "")">
+                <a class="page-link"
+                   asp-action="Index"
+                   asp-route-page="1"
+                   asp-route-searchUsername="@Model.SearchUsername"
+                   asp-route-searchEmail="@Model.SearchEmail">1</a>
+            </li>
+
+            <!-- Dấu ... nếu cần -->
+            @if (Model.CurrentPage > 3)
+            {
+                <li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>
+            }
+
+            <!-- Các trang gần trang hiện tại -->
+            @for (int i = Math.Max(2, Model.CurrentPage - 2); i <= Math.Min(Model.TotalPages - 1, Model.CurrentPage + 2); i++)
             {
                 <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
                     <a class="page-link"
@@ -108,6 +123,27 @@
                 </li>
             }
 
+            <!-- Dấu ... nếu cần -->
+            @if (Model.CurrentPage < Model.TotalPages - 2)
+            {
+                <li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>
+            }
+
+            <!-- Trang cuối cùng -->
+            @if (Model.TotalPages > 1)
+            {
+                <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "active" : "")">
+                    <a class="page-link"
+                       asp-action="Index"
+                       asp-route-page="@Model.TotalPages"
+                       asp-route-searchUsername="@Model.SearchUsername"
+                       asp-route-searchEmail="@Model.SearchEmail">@Model.TotalPages</a>
+                </li>
+            }
+
+            <!-- Nút Next -->
             <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
                 <a class="page-link"
                    asp-action="Index"

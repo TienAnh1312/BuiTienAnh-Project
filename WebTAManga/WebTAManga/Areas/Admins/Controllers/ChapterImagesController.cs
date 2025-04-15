@@ -110,7 +110,7 @@ namespace WebTAManga.Areas.Admins.Controllers
                 .FirstOrDefault(ci => ci.ChapterId == chapterId && ci.PageNumber == pageNumber);
             if (existingPage != null)
             {
-                ModelState.AddModelError("PageNumber", $"Số trang {pageNumber} đã tồn tại trong chapter này.");
+                ModelState.AddModelError("PageNumber", $"Số trang {pageNumber} đã tồn tại trong chương này.");
                 ViewData["ChapterTitle"] = chapter.ChapterTitle;
                 ViewData["ExistingPages"] = _context.ChapterImages
                     .Where(ci => ci.ChapterId == chapterId)
@@ -202,7 +202,7 @@ namespace WebTAManga.Areas.Admins.Controllers
 
                 if (existingPage != null)
                 {
-                    ModelState.AddModelError("PageNumber", $"Số trang {chapterImage.PageNumber} đã tồn tại trong chapter này.");
+                    ModelState.AddModelError("PageNumber", $"Số trang {chapterImage.PageNumber} đã tồn tại trong chương này.");
                 }
             }
 
@@ -227,7 +227,7 @@ namespace WebTAManga.Areas.Admins.Controllers
 
             try
             {
-                string newImageUrl = existingImage.ImageUrl; // Giữ nguyên URL cũ mặc định
+                string newImageUrl = existingImage.ImageUrl; 
 
                 // Nếu có file mới được upload
                 if (ImageUrl != null && ImageUrl.Length > 0)

@@ -350,6 +350,7 @@ public partial class WebMangaContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(100)
                 .HasColumnName("name");
+            entity.Property(e => e.Title).HasMaxLength(1000);
         });
 
         modelBuilder.Entity<Level>(entity =>

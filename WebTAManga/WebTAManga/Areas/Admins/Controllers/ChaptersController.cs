@@ -225,7 +225,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         {
             if (startChapter < 1 || endChapter < startChapter || defaultCoins < 0)
             {
-                TempData["Error"] = "Vùng chapter không hợp lệ hoặc số xu không thể âm.";
+                TempData["Error"] = "Vùng chương không hợp lệ hoặc số xu không thể âm.";
                 return RedirectToAction(nameof(Index), new { storyId });
             }
 
@@ -278,11 +278,11 @@ namespace WebTAManga.Areas.Admins.Controllers
                     await _context.SaveChangesAsync();
                 }
 
-                TempData["Success"] = $"Đã tạo thành công {newChapters.Count} chapter mới.";
+                TempData["Success"] = $"Đã tạo thành công {newChapters.Count} chương mới.";
             }
             else
             {
-                TempData["Error"] = "Không tạo được chapter mới do tất cả chapter trong khoảng đã tồn tại.";
+                TempData["Error"] = "Không tạo được chương mới do tất cả chương trong khoảng đã tồn tại.";
             }
 
             return RedirectToAction(nameof(Index), new { storyId });
@@ -407,6 +407,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         {
             var chapter = await _context.Chapters
                 .Include(c => c.ChapterImages)
+                .Include(c => c.Comments) // Bao gồm Comments
                 .FirstOrDefaultAsync(c => c.ChapterId == id);
 
             if (chapter == null)
@@ -414,7 +415,7 @@ namespace WebTAManga.Areas.Admins.Controllers
                 return NotFound();
             }
 
-            // Lưu ChapterCode để sử dụng sau này
+            // Lưu ChapterCode 
             var chapterCode = chapter.ChapterCode;
 
             // Xóa các liên kết khác nhưng không xóa PurchasedChapter
@@ -432,6 +433,30 @@ namespace WebTAManga.Areas.Admins.Controllers
             if (readingHistories.Any())
             {
                 _context.ReadingHistories.RemoveRange(readingHistories);
+            }
+
+            // Xóa bình luận liên quan (bao gồm cả bình luận trả lời)
+            if (chapter.Comments != null && chapter.Comments.Any())
+            {
+                // Lấy tất cả bình luận liên quan, bao gồm bình luận trả lời
+                var commentsToDelete = new List<Comment>();
+                foreach (var comment in chapter.Comments)
+                {
+                    await CollectCommentsToDelete(comment.CommentId, commentsToDelete);
+                }
+
+                // Xóa các thông báo liên quan đến các bình luận
+                var commentIds = commentsToDelete.Select(c => c.CommentId).ToList();
+                var notifications = await _context.Notifications
+                    .Where(n => commentIds.Contains(n.CommentId ?? 0))
+                    .ToListAsync();
+                if (notifications.Any())
+                {
+                    _context.Notifications.RemoveRange(notifications);
+                }
+
+                // Xóa các bình luận
+                _context.Comments.RemoveRange(commentsToDelete);
             }
 
             // Xóa ảnh
@@ -453,6 +478,33 @@ namespace WebTAManga.Areas.Admins.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index), new { storyId = chapter.StoryId });
+        }
+
+        // Hàm đệ quy để thu thập tất cả bình luận và bình luận trả lời
+        private async Task CollectCommentsToDelete(int commentId, List<Comment> commentsToDelete)
+        {
+            // Tìm bình luận hiện tại
+            var comment = await _context.Comments
+                .Include(c => c.InverseParentComment) // Bao gồm các bình luận trả lời
+                .FirstOrDefaultAsync(c => c.CommentId == commentId);
+
+            if (comment == null)
+                return;
+
+            // Thêm bình luận hiện tại vào danh sách xóa
+            if (!commentsToDelete.Contains(comment))
+            {
+                commentsToDelete.Add(comment);
+            }
+
+            // Đệ quy xóa các bình luận trả lời
+            if (comment.InverseParentComment != null && comment.InverseParentComment.Any())
+            {
+                foreach (var reply in comment.InverseParentComment)
+                {
+                    await CollectCommentsToDelete(reply.CommentId, commentsToDelete);
+                }
+            }
         }
 
         private bool ChapterExists(int id)

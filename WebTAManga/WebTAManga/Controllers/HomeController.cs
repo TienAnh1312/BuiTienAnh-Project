@@ -23,7 +23,7 @@ namespace WebTAManga.Controllers
 
         public IActionResult Index(int? id, int page = 1)
         {
-            int pageSize = 24;
+            int pageSize = 24; 
 
             // Lấy UserId từ session
             var userId = HttpContext.Session.GetInt32("UsersId");

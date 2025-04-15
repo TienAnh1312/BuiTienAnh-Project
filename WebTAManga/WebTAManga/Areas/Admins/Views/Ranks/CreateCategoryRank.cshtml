@@ -1,10 +1,10 @@
 ﻿@model WebTAManga.Models.CategoryRank
 
 @{
-    ViewData["Title"] = "Create Category Rank";
+    ViewData["Title"] = "Tạo mới cấp độ";
 }
 
-<h1>Create New Category Rank</h1>
+<h1>Tạo mới cấp độ</h1>
 
 <form asp-action="CreateCategoryRank">
     <div class="form-group">
@@ -22,10 +22,9 @@
         <label>Levels (Exp Required)</label>
         <div id="levels-container">
             <div class="level-input">
-                <input type="number" name="expRequired" class="form-control mb-2" placeholder="Enter Exp Required" />
+                <input type="number" name="expRequired" class="form-control mb-2" placeholder="Nhập kinh nghiệm cần đạt" />
             </div>
         </div>
-        <button type="button" class="btn btn-secondary mt-2" onclick="addLevel()">Add Another Level</button>
     </div>
     <div class="form-group">
         <input type="submit" value="Create" class="btn btn-primary" />
@@ -37,13 +36,4 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-    <script>
-        function addLevel() {
-            const container = document.getElementById('levels-container');
-            const newInput = document.createElement('div');
-            newInput.className = 'level-input';
-            newInput.innerHTML = '<input type="number" name="expRequired" class="form-control mb-2" placeholder="Enter Exp Required" />';
-            container.appendChild(newInput);
-        }
-    </script>
 }

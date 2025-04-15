@@ -38,7 +38,7 @@
                 </div>
             }
         </div>
-        <button type="button" class="btn btn-secondary mt-2" onclick="addLevel()">Add Another Level</button>
+       
     </div>
     <div class="form-group">
         <input type="submit" value="Save" class="btn btn-primary" />
@@ -50,13 +50,4 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-    <script>
-        function addLevel() {
-            const container = document.getElementById('levels-container');
-            const newInput = document.createElement('div');
-            newInput.className = 'level-input';
-            newInput.innerHTML = '<input type="number" name="expRequired" class="form-control mb-2" placeholder="Enter Exp Required" />';
-            container.appendChild(newInput);
-        }
-    </script>
 }

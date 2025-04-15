@@ -1,52 +1,159 @@
-﻿@model WebTAManga.Models.Rank
+﻿@model WebTAManga.Areas.Admins.Controllers.CategoryRankIndex
 
 @{
-    ViewData["Title"] = "Category Ranks for " + Model.Name;
+    ViewData["Title"] = "Quản lý Cấp độ của " + Model.Rank.Name;
 }
 
-<h1>Category Ranks for @Model.Name</h1>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="text-primary">@ViewData["Title"]</h2>
+        <a asp-action="CreateCategoryRank" asp-route-rankId="@Model.Rank.RankId" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Tạo Category Rank mới
+        </a>
+    </div>
 
-<p>
-    <a asp-action="CreateCategoryRank" asp-route-rankId="@Model.RankId" class="btn btn-success">Create New Category Rank</a>
-</p>
+    <!-- Form tìm kiếm -->
+    <form asp-action="CategoryRanksByRank" method="get" class="mb-3">
+        <input type="hidden" name="id" value="@Model.Rank.RankId" />
+        <div class="row g-3">
+            <div class="col-md-4">
+                <input type="text" name="searchName" value="@Model.SearchName"
+                       class="form-control" placeholder="Tìm theo Tên cấp độ " />
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-primary me-2">
+                    <i class="bi bi-search"></i> Tìm kiếm
+                </button>
+                <a asp-action="CategoryRanksByRank" asp-route-id="@Model.Rank.RankId" class="btn btn-secondary">
+                    <i class="bi bi-arrow-clockwise"></i> Đặt lại
+                </a>
+            </div>
+        </div>
+    </form>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Category Rank Name</th>
-            <th>Levels (Exp Required)</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var categoryRank in Model.CategoryRanks)
-        {
-            <tr>
-                <td>@categoryRank.Name</td>
-                <td>
-                    <ul>
-                        @foreach (var level in categoryRank.Levels)
-                        {
-                            <li> @level.ExpRequired EXP</li>
-                        }
-                        @if (!categoryRank.Levels.Any())
-                        {
-                            <li>No levels available</li>
-                        }
-                    </ul>
-                </td>
-                <td>
-                    <a asp-action="EditCategoryRank" asp-route-id="@categoryRank.CategoryRankId" class="btn btn-warning">Edit</a>
-                </td>
-            </tr>
-        }
-        @if (!Model.CategoryRanks.Any())
-        {
-            <tr>
-                <td colspan="3">No Category Ranks available for this Rank.</td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered text-center align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Tên cấp độ</th>
+                    <th>Kinh nghiệm cần đạt</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.CategoryRanks != null && Model.CategoryRanks.Any())
+                {
+                    @foreach (var categoryRank in Model.CategoryRanks)
+                    {
+                        <tr>
+                            <td>@categoryRank.Name</td>
+                            <td>
+                                <ul>
+                                    @foreach (var level in categoryRank.Levels)
+                                    {
+                                        <li>@level.ExpRequired EXP</li>
+                                    }
+                                    @if (!categoryRank.Levels.Any())
+                                    {
+                                        <li>Không có level nào</li>
+                                    }
+                                </ul>
+                            </td>
+                            <td>
+                                <a asp-action="EditCategoryRank" asp-route-id="@categoryRank.CategoryRankId" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil-square"></i> Sửa
+                                </a>
+                                <a asp-action="DeleteCategoryRank" asp-route-id="@categoryRank.CategoryRankId" class="btn btn-danger btn-sm">
+                                    <i class="bi bi-trash"></i> Xóa
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="3">Không tìm thấy Category Rank nào.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 
-<a asp-action="Index" class="btn btn-primary">Back to Ranks</a>
+    <!--phân trang-->
+    <nav aria-label="Phân trang">
+        <ul class="pagination justify-content-center">
+            <!-- Nút Previous -->
+            <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                <a class="page-link"
+                   asp-action="Index"
+                   asp-route-page="@(Model.CurrentPage - 1)"
+                   asp-route-searchName="@Model.SearchName"
+                   aria-label="Trước">
+                    <span aria-hidden="true">«</span>
+                </a>
+            </li>
+
+            <!-- Trang đầu tiên -->
+            <li class="page-item @(Model.CurrentPage == 1 ? "active" : "")">
+                <a class="page-link"
+                   asp-action="Index"
+                   asp-route-page="1"
+                   asp-route-searchName="@Model.SearchName">1</a>
+            </li>
+
+            <!-- Dấu ... nếu cần -->
+            @if (Model.CurrentPage > 3)
+            {
+                <li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>
+            }
+
+            <!-- Các trang gần trang hiện tại -->
+            @for (int i = Math.Max(2, Model.CurrentPage - 2); i <= Math.Min(Model.TotalPages - 1, Model.CurrentPage + 2); i++)
+            {
+                <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                    <a class="page-link"
+                       asp-action="Index"
+                       asp-route-page="@i"
+                       asp-route-searchName="@Model.SearchName">@i</a>
+                </li>
+            }
+
+            <!-- Dấu ... nếu cần -->
+            @if (Model.CurrentPage < Model.TotalPages - 2)
+            {
+                <li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>
+            }
+
+            <!-- Trang cuối cùng -->
+            @if (Model.TotalPages > 1)
+            {
+                <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "active" : "")">
+                    <a class="page-link"
+                       asp-action="Index"
+                       asp-route-page="@Model.TotalPages"
+                       asp-route-searchName="@Model.SearchName">@Model.TotalPages</a>
+                </li>
+            }
+
+            <!-- Nút Next -->
+            <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
+                <a class="page-link"
+                   asp-action="Index"
+                   asp-route-page="@(Model.CurrentPage + 1)"
+                   asp-route-searchName="@Model.SearchName"
+                   aria-label="Tiếp">
+                    <span aria-hidden="true">»</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <a asp-action="Index" class="btn btn-primary">
+        <i class="bi bi-arrow-left"></i> Quay lại danh sách Rank
+    </a>
+</div>

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "OwGgXn7GmdKZKV4TrdZoIulypCGLLmjclAKMyhktPZc=",
+  "Hash": "6+J2kfmZPlmCMKCA/bcmAl2NRupQT7izYCBoxsbtxfo=",
   "Source": "WebTAManga",
   "BasePath": "_content/WebTAManga",
   "Mode": "Default",
@@ -2075,6 +2075,27 @@
       "OriginalItemSpec": "wwwroot\\images\\admins\\banner\\1jIZYRfOhND23Ztbw3n4bzGz9TFaJJax2.jfif"
     },
     {
+      "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\banner\\22.jpeg",
+      "SourceId": "WebTAManga",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\",
+      "BasePath": "_content/WebTAManga",
+      "RelativePath": "images/admins/banner/22#[.{fingerprint}]?.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "jf49p7jort",
+      "Integrity": "URyb11oPPH2hQXytnw//707YxEChqbOZIASgxUxFz5s=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\admins\\banner\\22.jpeg"
+    },
+    {
       "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\banner\\banner 3.jfif",
       "SourceId": "WebTAManga",
       "SourceType": "Discovered",
@@ -2283,132 +2304,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\admins\\stories\\BanChatCuaChuyenSinh.jfif"
-    },
-    {
-      "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\Chưởng Môn Khiêm Tốn Chút(ST2)\\Chương 1(ST2_C1)\\Page_1.jpeg",
-      "SourceId": "WebTAManga",
-      "SourceType": "Discovered",
-      "ContentRoot": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\",
-      "BasePath": "_content/WebTAManga",
-      "RelativePath": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 1(ST2_C1)/Page_1#[.{fingerprint}]?.jpeg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "Fingerprint": "3ho1rmfn09",
-      "Integrity": "2Qrjw14E1hbRm1Pnm/l+tw6gY9sN+9qw5DBP1+Uadrc=",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\admins\\stories\\Chưởng Môn Khiêm Tốn Chút(ST2)\\Chương 1(ST2_C1)\\Page_1.jpeg"
-    },
-    {
-      "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\Chưởng Môn Khiêm Tốn Chút(ST2)\\Chương 1(ST2_C1)\\Page_2.jpeg",
-      "SourceId": "WebTAManga",
-      "SourceType": "Discovered",
-      "ContentRoot": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\",
-      "BasePath": "_content/WebTAManga",
-      "RelativePath": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 1(ST2_C1)/Page_2#[.{fingerprint}]?.jpeg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "Fingerprint": "r1tv95dr04",
-      "Integrity": "Me5483mPQMKG2x1yXBvH5vJhnWxk3a6eRzkEKOCeen8=",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\admins\\stories\\Chưởng Môn Khiêm Tốn Chút(ST2)\\Chương 1(ST2_C1)\\Page_2.jpeg"
-    },
-    {
-      "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\Chưởng Môn Khiêm Tốn Chút(ST2)\\Chương 1(ST2_C1)\\Page_3.jpeg",
-      "SourceId": "WebTAManga",
-      "SourceType": "Discovered",
-      "ContentRoot": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\",
-      "BasePath": "_content/WebTAManga",
-      "RelativePath": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 1(ST2_C1)/Page_3#[.{fingerprint}]?.jpeg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "Fingerprint": "h1n5cps24f",
-      "Integrity": "5dMDSfY+qLoMMLCX6LM6VYcb1C76dKIZJr9FNH/a1D0=",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\admins\\stories\\Chưởng Môn Khiêm Tốn Chút(ST2)\\Chương 1(ST2_C1)\\Page_3.jpeg"
-    },
-    {
-      "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\Chưởng Môn Khiêm Tốn Chút(ST2)\\Chương 1(ST2_C1)\\Page_4.jpeg",
-      "SourceId": "WebTAManga",
-      "SourceType": "Discovered",
-      "ContentRoot": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\",
-      "BasePath": "_content/WebTAManga",
-      "RelativePath": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 1(ST2_C1)/Page_4#[.{fingerprint}]?.jpeg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "Fingerprint": "15g90nxa3d",
-      "Integrity": "9QXCvxXGqgJh0HefqhybjRNR9hwwbj2isg42jA/79/U=",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\admins\\stories\\Chưởng Môn Khiêm Tốn Chút(ST2)\\Chương 1(ST2_C1)\\Page_4.jpeg"
-    },
-    {
-      "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\Chưởng Môn Khiêm Tốn Chút(ST2)\\Chương 1(ST2_C1)\\Page_5.jpeg",
-      "SourceId": "WebTAManga",
-      "SourceType": "Discovered",
-      "ContentRoot": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\",
-      "BasePath": "_content/WebTAManga",
-      "RelativePath": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 1(ST2_C1)/Page_5#[.{fingerprint}]?.jpeg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "Fingerprint": "r671sxg616",
-      "Integrity": "oxpd+9qfAKRpAWOZL11hGkndYRGI3QBoDvBEmkWekkY=",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\admins\\stories\\Chưởng Môn Khiêm Tốn Chút(ST2)\\Chương 1(ST2_C1)\\Page_5.jpeg"
-    },
-    {
-      "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\Chưởng Môn Khiêm Tốn Chút(ST2)\\Chương 1(ST2_C1)\\Page_6.jpeg",
-      "SourceId": "WebTAManga",
-      "SourceType": "Discovered",
-      "ContentRoot": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\",
-      "BasePath": "_content/WebTAManga",
-      "RelativePath": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 1(ST2_C1)/Page_6#[.{fingerprint}]?.jpeg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "Fingerprint": "9oycyv4nxe",
-      "Integrity": "iXi3qZNchxEFtfovj08/i//NklcWOG3STydDpHa3W4I=",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\admins\\stories\\Chưởng Môn Khiêm Tốn Chút(ST2)\\Chương 1(ST2_C1)\\Page_6.jpeg"
     },
     {
       "Identity": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\Chưởng Môn Khiêm Tốn Chút(ST2)\\Chương 4(ST2_C4)\\Page_1.jpeg",
@@ -12469,6 +12364,88 @@
       ]
     },
     {
+      "Route": "images/admins/banner/22.jf49p7jort.jpeg",
+      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\banner\\22.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "136932"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"URyb11oPPH2hQXytnw//707YxEChqbOZIASgxUxFz5s=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 11 Apr 2025 08:42:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "jf49p7jort"
+        },
+        {
+          "Name": "label",
+          "Value": "images/admins/banner/22.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-URyb11oPPH2hQXytnw//707YxEChqbOZIASgxUxFz5s="
+        }
+      ]
+    },
+    {
+      "Route": "images/admins/banner/22.jpeg",
+      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\banner\\22.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "136932"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"URyb11oPPH2hQXytnw//707YxEChqbOZIASgxUxFz5s=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 11 Apr 2025 08:42:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-URyb11oPPH2hQXytnw//707YxEChqbOZIASgxUxFz5s="
+        }
+      ]
+    },
+    {
       "Route": "images/admins/banner/banner 3.jfif",
       "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\banner\\banner 3.jfif",
       "Selectors": [],
@@ -13285,498 +13262,6 @@
         {
           "Name": "integrity",
           "Value": "sha256-t+VT/rUFBuI/RYyVm/8BPdcOsX04unI6HeTqPt2aJMQ="
-        }
-      ]
-    },
-    {
-      "Route": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 1(ST2_C1)/Page_1.3ho1rmfn09.jpeg",
-      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\Chưởng Môn Khiêm Tốn Chút(ST2)\\Chương 1(ST2_C1)\\Page_1.jpeg",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "203689"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/jpeg"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"2Qrjw14E1hbRm1Pnm/l+tw6gY9sN+9qw5DBP1+Uadrc=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 09:23:09 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "3ho1rmfn09"
-        },
-        {
-          "Name": "label",
-          "Value": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 1(ST2_C1)/Page_1.jpeg"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-2Qrjw14E1hbRm1Pnm/l+tw6gY9sN+9qw5DBP1+Uadrc="
-        }
-      ]
-    },
-    {
-      "Route": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 1(ST2_C1)/Page_1.jpeg",
-      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\Chưởng Môn Khiêm Tốn Chút(ST2)\\Chương 1(ST2_C1)\\Page_1.jpeg",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "203689"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/jpeg"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"2Qrjw14E1hbRm1Pnm/l+tw6gY9sN+9qw5DBP1+Uadrc=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 09:23:09 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=3600, must-revalidate"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-2Qrjw14E1hbRm1Pnm/l+tw6gY9sN+9qw5DBP1+Uadrc="
-        }
-      ]
-    },
-    {
-      "Route": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 1(ST2_C1)/Page_2.jpeg",
-      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\Chưởng Môn Khiêm Tốn Chút(ST2)\\Chương 1(ST2_C1)\\Page_2.jpeg",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "169690"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/jpeg"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"Me5483mPQMKG2x1yXBvH5vJhnWxk3a6eRzkEKOCeen8=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 09:23:53 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=3600, must-revalidate"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-Me5483mPQMKG2x1yXBvH5vJhnWxk3a6eRzkEKOCeen8="
-        }
-      ]
-    },
-    {
-      "Route": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 1(ST2_C1)/Page_2.r1tv95dr04.jpeg",
-      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\Chưởng Môn Khiêm Tốn Chút(ST2)\\Chương 1(ST2_C1)\\Page_2.jpeg",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "169690"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/jpeg"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"Me5483mPQMKG2x1yXBvH5vJhnWxk3a6eRzkEKOCeen8=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 09:23:53 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "r1tv95dr04"
-        },
-        {
-          "Name": "label",
-          "Value": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 1(ST2_C1)/Page_2.jpeg"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-Me5483mPQMKG2x1yXBvH5vJhnWxk3a6eRzkEKOCeen8="
-        }
-      ]
-    },
-    {
-      "Route": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 1(ST2_C1)/Page_3.h1n5cps24f.jpeg",
-      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\Chưởng Môn Khiêm Tốn Chút(ST2)\\Chương 1(ST2_C1)\\Page_3.jpeg",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "93589"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/jpeg"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"5dMDSfY+qLoMMLCX6LM6VYcb1C76dKIZJr9FNH/a1D0=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 09:23:09 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "h1n5cps24f"
-        },
-        {
-          "Name": "label",
-          "Value": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 1(ST2_C1)/Page_3.jpeg"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-5dMDSfY+qLoMMLCX6LM6VYcb1C76dKIZJr9FNH/a1D0="
-        }
-      ]
-    },
-    {
-      "Route": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 1(ST2_C1)/Page_3.jpeg",
-      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\Chưởng Môn Khiêm Tốn Chút(ST2)\\Chương 1(ST2_C1)\\Page_3.jpeg",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "93589"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/jpeg"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"5dMDSfY+qLoMMLCX6LM6VYcb1C76dKIZJr9FNH/a1D0=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 09:23:09 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=3600, must-revalidate"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-5dMDSfY+qLoMMLCX6LM6VYcb1C76dKIZJr9FNH/a1D0="
-        }
-      ]
-    },
-    {
-      "Route": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 1(ST2_C1)/Page_4.15g90nxa3d.jpeg",
-      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\Chưởng Môn Khiêm Tốn Chút(ST2)\\Chương 1(ST2_C1)\\Page_4.jpeg",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "216336"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/jpeg"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"9QXCvxXGqgJh0HefqhybjRNR9hwwbj2isg42jA/79/U=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 09:23:09 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "15g90nxa3d"
-        },
-        {
-          "Name": "label",
-          "Value": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 1(ST2_C1)/Page_4.jpeg"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-9QXCvxXGqgJh0HefqhybjRNR9hwwbj2isg42jA/79/U="
-        }
-      ]
-    },
-    {
-      "Route": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 1(ST2_C1)/Page_4.jpeg",
-      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\Chưởng Môn Khiêm Tốn Chút(ST2)\\Chương 1(ST2_C1)\\Page_4.jpeg",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "216336"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/jpeg"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"9QXCvxXGqgJh0HefqhybjRNR9hwwbj2isg42jA/79/U=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 09:23:09 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=3600, must-revalidate"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-9QXCvxXGqgJh0HefqhybjRNR9hwwbj2isg42jA/79/U="
-        }
-      ]
-    },
-    {
-      "Route": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 1(ST2_C1)/Page_5.jpeg",
-      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\Chưởng Môn Khiêm Tốn Chút(ST2)\\Chương 1(ST2_C1)\\Page_5.jpeg",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "216473"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/jpeg"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"oxpd+9qfAKRpAWOZL11hGkndYRGI3QBoDvBEmkWekkY=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 09:23:09 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=3600, must-revalidate"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-oxpd+9qfAKRpAWOZL11hGkndYRGI3QBoDvBEmkWekkY="
-        }
-      ]
-    },
-    {
-      "Route": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 1(ST2_C1)/Page_5.r671sxg616.jpeg",
-      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\Chưởng Môn Khiêm Tốn Chút(ST2)\\Chương 1(ST2_C1)\\Page_5.jpeg",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "216473"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/jpeg"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"oxpd+9qfAKRpAWOZL11hGkndYRGI3QBoDvBEmkWekkY=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 09:23:09 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "r671sxg616"
-        },
-        {
-          "Name": "label",
-          "Value": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 1(ST2_C1)/Page_5.jpeg"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-oxpd+9qfAKRpAWOZL11hGkndYRGI3QBoDvBEmkWekkY="
-        }
-      ]
-    },
-    {
-      "Route": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 1(ST2_C1)/Page_6.9oycyv4nxe.jpeg",
-      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\Chưởng Môn Khiêm Tốn Chút(ST2)\\Chương 1(ST2_C1)\\Page_6.jpeg",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "252055"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/jpeg"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"iXi3qZNchxEFtfovj08/i//NklcWOG3STydDpHa3W4I=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 09:23:09 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "9oycyv4nxe"
-        },
-        {
-          "Name": "label",
-          "Value": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 1(ST2_C1)/Page_6.jpeg"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-iXi3qZNchxEFtfovj08/i//NklcWOG3STydDpHa3W4I="
-        }
-      ]
-    },
-    {
-      "Route": "images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 1(ST2_C1)/Page_6.jpeg",
-      "AssetFile": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\stories\\Chưởng Môn Khiêm Tốn Chút(ST2)\\Chương 1(ST2_C1)\\Page_6.jpeg",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "252055"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/jpeg"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"iXi3qZNchxEFtfovj08/i//NklcWOG3STydDpHa3W4I=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 09:23:09 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=3600, must-revalidate"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-iXi3qZNchxEFtfovj08/i//NklcWOG3STydDpHa3W4I="
         }
       ]
     },

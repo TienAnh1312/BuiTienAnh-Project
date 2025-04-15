@@ -1728,6 +1728,24 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\banner\1jIZYRfOhND23Ztbw3n4bzGz9TFaJJax2.jfif'))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\banner\22.jpeg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>WebTAManga</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/WebTAManga</BasePath>
+      <RelativePath>images/admins/banner/22.jpeg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>jf49p7jort</Fingerprint>
+      <Integrity>URyb11oPPH2hQXytnw//707YxEChqbOZIASgxUxFz5s=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\banner\22.jpeg'))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\banner\banner 3.jfif'))">
       <SourceType>Package</SourceType>
       <SourceId>WebTAManga</SourceId>
@@ -1925,114 +1943,6 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\ChuongMonKhiemTonChut.jfif'))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 1(ST2_C1)\Page_1.jpeg'))">
-      <SourceType>Package</SourceType>
-      <SourceId>WebTAManga</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/WebTAManga</BasePath>
-      <RelativePath>images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 1(ST2_C1)/Page_1.jpeg</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>3ho1rmfn09</Fingerprint>
-      <Integrity>2Qrjw14E1hbRm1Pnm/l+tw6gY9sN+9qw5DBP1+Uadrc=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 1(ST2_C1)\Page_1.jpeg'))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 1(ST2_C1)\Page_2.jpeg'))">
-      <SourceType>Package</SourceType>
-      <SourceId>WebTAManga</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/WebTAManga</BasePath>
-      <RelativePath>images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 1(ST2_C1)/Page_2.jpeg</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>r1tv95dr04</Fingerprint>
-      <Integrity>Me5483mPQMKG2x1yXBvH5vJhnWxk3a6eRzkEKOCeen8=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 1(ST2_C1)\Page_2.jpeg'))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 1(ST2_C1)\Page_3.jpeg'))">
-      <SourceType>Package</SourceType>
-      <SourceId>WebTAManga</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/WebTAManga</BasePath>
-      <RelativePath>images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 1(ST2_C1)/Page_3.jpeg</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>h1n5cps24f</Fingerprint>
-      <Integrity>5dMDSfY+qLoMMLCX6LM6VYcb1C76dKIZJr9FNH/a1D0=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 1(ST2_C1)\Page_3.jpeg'))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 1(ST2_C1)\Page_4.jpeg'))">
-      <SourceType>Package</SourceType>
-      <SourceId>WebTAManga</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/WebTAManga</BasePath>
-      <RelativePath>images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 1(ST2_C1)/Page_4.jpeg</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>15g90nxa3d</Fingerprint>
-      <Integrity>9QXCvxXGqgJh0HefqhybjRNR9hwwbj2isg42jA/79/U=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 1(ST2_C1)\Page_4.jpeg'))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 1(ST2_C1)\Page_5.jpeg'))">
-      <SourceType>Package</SourceType>
-      <SourceId>WebTAManga</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/WebTAManga</BasePath>
-      <RelativePath>images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 1(ST2_C1)/Page_5.jpeg</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>r671sxg616</Fingerprint>
-      <Integrity>oxpd+9qfAKRpAWOZL11hGkndYRGI3QBoDvBEmkWekkY=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 1(ST2_C1)\Page_5.jpeg'))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 1(ST2_C1)\Page_6.jpeg'))">
-      <SourceType>Package</SourceType>
-      <SourceId>WebTAManga</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/WebTAManga</BasePath>
-      <RelativePath>images/admins/stories/Chưởng Môn Khiêm Tốn Chút(ST2)/Chương 1(ST2_C1)/Page_6.jpeg</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>9oycyv4nxe</Fingerprint>
-      <Integrity>iXi3qZNchxEFtfovj08/i//NklcWOG3STydDpHa3W4I=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 1(ST2_C1)\Page_6.jpeg'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 4(ST2_C4)\Page_1.jpeg'))">
       <SourceType>Package</SourceType>
