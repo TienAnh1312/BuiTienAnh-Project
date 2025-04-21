@@ -105,13 +105,108 @@ wwwroot\images\admins\cpimages\0.jpg
 wwwroot\images\admins\cpimages\10dfbb8f-8a58-43db-bb5b-08a5a870a40c.jpg
 wwwroot\images\admins\cpimages\76e2e323-4ffe-4635-9c53-946897097840.jpg
 wwwroot\images\admins\stories\BanChatCuaChuyenSinh.jfif
-wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 4(ST2_C4)\Page_1.jpeg
-wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 4(ST2_C4)\Page_2.jpeg
-wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 4(ST2_C4)\Page_3.jpeg
-wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 4(ST2_C4)\Page_4.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_1.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_10.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_11.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_12.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_13.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_14.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_15.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_16.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_17.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_18.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_19.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_2.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_20.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_21.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_22.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_23.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_24.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_25.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_26.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_27.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_28.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_29.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_3.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_30.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_31.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_32.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_33.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_34.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_35.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_36.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_37.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_38.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_39.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_4.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_40.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_41.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_42.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_43.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_44.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_45.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_46.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_47.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_48.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_49.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_5.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_50.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_6.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_7.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_8.jpeg
+wwwroot\images\admins\stories\Chưởng Môn Khiêm Tốn Chút(ST2)\Chương 3(ST2_C3)\Page_9.jpeg
 wwwroot\images\admins\stories\ChuongMonKhiemTonChut.jfif
 wwwroot\images\admins\stories\CuuThienKiemPhap.jfif
 wwwroot\images\admins\stories\nguoi-choi-manh-nhat-hoi-quy-lan-thu-100_1698889715.jpg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_1.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_10.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_11.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_12.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_13.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_14.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_15.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_16.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_17.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_18.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_19.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_2.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_20.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_22.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_23.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_24.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_25.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_26.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_27.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_28.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_29.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_3.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_30.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_31.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_32.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_33.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_34.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_35.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_36.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_37.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_38.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_39.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_4.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_40.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_41.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_42.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_43.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_44.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_45.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_46.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_47.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_48.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_49.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_5.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_50.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_6.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_7.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_8.jpeg
+wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_9.jpeg
 wwwroot\images\admins\stories\nguyen-lai-ta-la-tu-tien-dai-lao_1644166269.jpg
 wwwroot\images\admins\stories\ThatTinh.jpg
 wwwroot\images\admins\stories\ThienTaiDoanMenh.jfif

@@ -1,0 +1,10 @@
+﻿@if (TempData["ToastrSuccess"] != null)
+{
+    <div>    @TempData["ToastrSuccess"]</div>
+}
+
+@if (TempData["ToastrError"] != null)
+{
+    @TempData["ToastrError"];
+}
+

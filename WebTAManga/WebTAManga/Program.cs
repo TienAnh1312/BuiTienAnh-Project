@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
 using Net.payOS;
 using WebTAManga.Areas.Admins.Models;
 using WebTAManga.Models;
@@ -13,14 +14,16 @@ namespace WebTAManga
             var builder = WebApplication.CreateBuilder(args);
             var connectionString = builder.Configuration.GetConnectionString("AppConnection");
 
+            // Thêm DbContext
             builder.Services.AddDbContext<WebMangaContext>(options => options.UseSqlServer(connectionString));
 
-           
-
+            // Thêm HttpContextAccessor
             builder.Services.AddHttpContextAccessor();
 
+            // Thêm HttpClient
             builder.Services.AddHttpClient();
 
+            // Thêm dịch vụ gửi email
             builder.Services.AddScoped<IEmailSender, EmailSender>();
 
             // Đọc cấu hình PayOS từ appsettings.json
@@ -33,7 +36,8 @@ namespace WebTAManga
             var payOS = new PayOS(clientId, apiKey, checksumKey);
             builder.Services.AddSingleton(payOS);
 
-            // C?u hình s? d?ng session
+            // Cấu hình session
+            builder.Services.AddDistributedMemoryCache(); // Cần cho session
             builder.Services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
@@ -42,16 +46,24 @@ namespace WebTAManga
                 options.Cookie.Name = "TADev";
             });
 
-            // Add services to the container.
+            // Thêm dịch vụ xác thực
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/Admins/Login/Index"; // Trang đăng nhập
+                    options.AccessDeniedPath = "/Admins/Login/AccessDenied"; // Trang khi bị từ chối truy cập
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(30); // Thời gian hết hạn cookie
+                });
+
+            // Thêm dịch vụ MVC
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            // Cấu hình pipeline
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -60,13 +72,16 @@ namespace WebTAManga
 
             app.UseRouting();
 
-            app.UseSession();
-
+            // Bật xác thực trước phân quyền
+            app.UseAuthentication();
             app.UseAuthorization();
 
+            // Bật session
+            app.UseSession();
+
             app.MapControllerRoute(
-            name: "areas",
-            pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
+                name: "areas",
+                pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
 
             app.MapControllerRoute(
                 name: "default",

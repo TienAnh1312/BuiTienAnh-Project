@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebTAManga.Models;
 
 namespace WebTAManga.Areas.Admins.Controllers
 {
+    [Authorize(Roles = "SuperAdmin, ContentManager")]
+
     public class GenresController : BaseController
     {
         private readonly WebMangaContext _context;

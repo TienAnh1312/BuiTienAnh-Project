@@ -43,6 +43,8 @@ public partial class WebMangaContext : DbContext
 
     public virtual DbSet<Level> Levels { get; set; }
 
+    public virtual DbSet<ManagerPermission> ManagerPermissions { get; set; }
+
     public virtual DbSet<Notification> Notifications { get; set; }
 
     public virtual DbSet<PurchasedAvatarFrame> PurchasedAvatarFrames { get; set; }
@@ -56,6 +58,8 @@ public partial class WebMangaContext : DbContext
     public virtual DbSet<ReadingHistory> ReadingHistories { get; set; }
 
     public virtual DbSet<RechargeHistory> RechargeHistories { get; set; }
+
+    public virtual DbSet<Role> Roles { get; set; }
 
     public virtual DbSet<Sticker> Stickers { get; set; }
 
@@ -103,6 +107,10 @@ public partial class WebMangaContext : DbContext
             entity.Property(e => e.Username)
                 .HasMaxLength(50)
                 .HasColumnName("username");
+
+            entity.HasOne(d => d.RoleNavigation).WithMany(p => p.Admins)
+                .HasForeignKey(d => d.RoleId)
+                .HasConstraintName("FK_Admins_Roles");
         });
 
         modelBuilder.Entity<AdminLog>(entity =>
@@ -365,6 +373,30 @@ public partial class WebMangaContext : DbContext
                 .HasConstraintName("FK__Level__CategoryR__7A3223E8");
         });
 
+        modelBuilder.Entity<ManagerPermission>(entity =>
+        {
+            entity.HasKey(e => e.PermissionId).HasName("PK__ManagerP__EFA6FB2FFC8E26D3");
+
+            entity.ToTable("ManagerPermission");
+
+            entity.Property(e => e.AssignedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.Module)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+
+            entity.HasOne(d => d.Admin).WithMany(p => p.ManagerPermissionAdmins)
+                .HasForeignKey(d => d.AdminId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__ManagerPe__Admin__08D548FA");
+
+            entity.HasOne(d => d.AssignedByNavigation).WithMany(p => p.ManagerPermissionAssignedByNavigations)
+                .HasForeignKey(d => d.AssignedBy)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__ManagerPe__Assig__09C96D33");
+        });
+
         modelBuilder.Entity<Notification>(entity =>
         {
             entity.HasKey(e => e.NotificationId).HasName("PK__Notifica__20CF2E124DDDFDA5");
@@ -522,6 +554,14 @@ public partial class WebMangaContext : DbContext
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_RechargeHistory_User");
+        });
+
+        modelBuilder.Entity<Role>(entity =>
+        {
+            entity.HasKey(e => e.RoleId).HasName("PK__Roles__8AFACE1AE8A91B48");
+
+            entity.Property(e => e.Description).HasMaxLength(200);
+            entity.Property(e => e.RoleName).HasMaxLength(50);
         });
 
         modelBuilder.Entity<Sticker>(entity =>

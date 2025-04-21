@@ -1,0 +1,56 @@
+﻿@model List<WebTAManga.Models.ManagerPermission>
+@using WebTAManga.Models
+
+@{
+    ViewData["Title"] = "Quản lý quyền ContentManager";
+    var admins = ViewData["Admins"] as List<Admin>;
+    var selectedAdminId = ViewData["SelectedAdminId"] as int?;
+    var modules = ViewData["Modules"] as List<string>;
+}
+
+<h1>Quản lý quyền ContentManager</h1>
+
+<div class="form-group">
+    <label>Chọn ContentManager</label>
+    <select class="form-control" id="adminSelect" onchange="location.href='@Url.Action("Index", new { adminId = "__id__" })'.replace('__id__', this.value)">
+        <option value="">-- Chọn ContentManager --</option>
+        @foreach (var admin in admins)
+        {
+            <option value="@admin.AdminId" selected="">@admin.Username (@admin.Email)</option>
+        }
+    </select>
+</div>
+
+@if (selectedAdminId.HasValue)
+{
+    <a asp-action="Create" asp-route-adminId="@selectedAdminId" class="btn btn-primary mb-3">Thêm quyền mới</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Module</th>
+                <th>Xem</th>
+                <th>Thêm</th>
+                <th>Sửa</th>
+                <th>Xóa</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var permission in Model)
+            {
+                <tr>
+                    <td>@permission.Module</td>
+                    <td>@(permission.CanView ? "Có" : "Không")</td>
+                    <td>@(permission.CanCreate ? "Có" : "Không")</td>
+                    <td>@(permission.CanEdit ? "Có" : "Không")</td>
+                    <td>@(permission.CanDelete ? "Có" : "Không")</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@permission.PermissionId" class="btn btn-warning btn-sm">Sửa</a>
+                        <a asp-action="Delete" asp-route-id="@permission.PermissionId" class="btn btn-danger btn-sm">Xóa</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

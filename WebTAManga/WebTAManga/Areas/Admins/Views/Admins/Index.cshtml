@@ -51,8 +51,8 @@
                         <tr>
                             <td>@Html.DisplayFor(modelItem => item.Email)</td>                            
                             <td>
-                                <span class="badge @(item.Role == "Admin" ? "bg-danger" : "bg-primary")">
-                                    @Html.DisplayFor(modelItem => item.Role)
+                                <span class="badge @(item.RoleNavigation?.RoleName == "SuperAdmin" ? "bg-primary" : "bg-secondary")">
+                                    @(item.RoleNavigation != null ? item.RoleNavigation.RoleName : "N/A")
                                 </span>
                             </td>
                             <td>
@@ -66,8 +66,10 @@
                                     <i class="bi bi-trash"></i> Xóa
                                 </a>
                             </td>
+
                         </tr>
                     }
+
                 }
                 else
                 {

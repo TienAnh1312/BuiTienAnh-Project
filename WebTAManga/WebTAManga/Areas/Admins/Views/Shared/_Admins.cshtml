@@ -1,6 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Http
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
-﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,8 +8,8 @@
     <title>Admins</title>
     <link rel="icon" type="image/x-icon" href="~/favicon-32x32.png">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/Lesson07.Assignment.styles.css" asp-append-version="true" />
-    <!-- Google Font: Source Sans Pro -->
+@*     <link rel="stylesheet" href="~/Lesson07.Assignment.styles.css" asp-append-version="personally identifiable information" />
+ *@    <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="~/plugins/fontawesome-free/css/all.min.css">
@@ -30,90 +29,91 @@
     <link rel="stylesheet" href="~/plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="~/plugins/summernote/summernote-bs4.min.css">
+    <!-- CSS của toastr -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
     <!-- Add Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
 </head>
 <body>
     <section class="wrapper">
-
         <!-- Preloader -->
         @await Html.PartialAsync("_Preloader")
-
         <!-- Navbar -->
         @await Html.PartialAsync("_NavBar")
-        <!-- /.navbar -->
         <!-- Main Sidebar Container -->
         @await Html.PartialAsync("_SideBar")
-
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <section class="content">
                 <div class="container-fluid">
-
                     @RenderBody()
-
                 </div>
             </section>
         </div>
-       @*  <footer class="main-footer position-fixed bottom-0 w-100">
-            <strong></a>.</strong>
-
+        <footer class="main-footer">
+            <strong></strong>
             <div class="float-right d-none d-sm-inline-block">
                 <b></b> 2024
-            </div> *@
+            </div>
         </footer>
         <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-
-        </aside>
-        <!-- /.control-sidebar -->
+        <aside class="control-sidebar control-sidebar-dark"></aside>
     </section>
 
-
-
+    <!-- jQuery (chỉ nạp một lần) -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-
-
-    <!-- jQuery -->
-    <script src="~/plugins/jquery/jquery.min.js"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="~/plugins/jquery-ui/jquery-ui.min.js"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-        //$.widget.bridge('uibutton', $.ui.button)
-    </script>
     <!-- Bootstrap 4 -->
-    <script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- ChartJS -->
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Toastr.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <!-- Các script khác -->
+    <script src="~/plugins/jquery-ui/jquery-ui.min.js"></script>
     <script src="~/plugins/chart.js/Chart.min.js"></script>
-    <!-- Sparkline -->
     <script src="~/plugins/sparklines/sparkline.js"></script>
-    <!-- JQVMap -->
     <script src="~/plugins/jqvmap/jquery.vmap.min.js"></script>
     <script src="~/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-    <!-- jQuery Knob Chart -->
     <script src="~/plugins/jquery-knob/jquery.knob.min.js"></script>
-    <!-- daterangepicker -->
     <script src="~/plugins/moment/moment.min.js"></script>
     <script src="~/plugins/daterangepicker/daterangepicker.js"></script>
-    <!-- Tempusdominus Bootstrap 4 -->
     <script src="~/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-    <!-- Summernote -->
     <script src="~/plugins/summernote/summernote-bs4.min.js"></script>
-    <!-- overlayScrollbars -->
     <script src="~/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-    <!-- AdminLTE App -->
     <script src="~/dist/js/adminlte.js"></script>
-    <!-- AdminLTE for demo purposes -->
     <script src="~/dist/js/demo.js"></script>
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="~/dist/js/pages/dashboard.js"></script>
     <script src="~/plugins/ckfinder/ckfinder.js"></script>
     <script src="~/plugins/ckeditor/ckeditor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- Cấu hình và logic Toastr -->
+    <script>
+        $(function () {
+            // Cấu hình Toastr
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "timeOut": "4000", // Tăng lên 4 giây để dễ thấy
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut",
+                "preventDuplicates": true // Ngăn hiển thị nhiều toast giống nhau
+            };
+
+            // Kiểm tra thông báo TempData
+            const successMessage = '@TempData["ToastrSuccess"]'.trim();
+            const errorMessage = '@TempData["ToastrError"]'.trim();
+
+            if (successMessage) toastr.success(successMessage);
+            if (errorMessage) toastr.error(errorMessage);
+        });
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

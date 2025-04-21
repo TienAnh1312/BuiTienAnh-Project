@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace WebTAManga.Areas.Admins.Controllers
 {
+
     [Area("Admins")]
     public class BaseController : Controller, IActionFilter
     {

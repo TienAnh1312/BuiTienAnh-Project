@@ -1,51 +1,132 @@
-﻿using WebTAManga.Areas.Admins.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using WebTAManga.Areas.Admins.Models;
 using WebTAManga.Models;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace WebTAManga.Areas.Admins.Controllers
 {
     [Area("Admins")]
     public class LoginController : Controller
     {
-        public WebMangaContext _context;
+        private readonly WebMangaContext _context;
+
         public LoginController(WebMangaContext context)
         {
             _context = context;
         }
 
+        // GET: Admins/Login
         public IActionResult Index()
         {
             return View();
         }
-        [HttpPost] // POST -> khi submit form
-        public IActionResult Index(LoginAdmins model)
+
+        // POST: Admins/Login
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Index(LoginAdmins model)
         {
             if (!ModelState.IsValid)
             {
-                ModelState.AddModelError(string.Empty, "Thông tin đăng nhập không hợp lệ.");
+                TempData["ToastrError"] = "Thông tin đăng nhập không hợp lệ.";
                 return View(model);
             }
 
-            var pass = model.Password;
-            var dataLogin = _context.Admins.FirstOrDefault(x => x.Email.Equals(model.Email) && x.Password.Equals(pass));
-            if (dataLogin != null)
+            if (string.IsNullOrEmpty(model.Email))
             {
-                HttpContext.Session.SetString("AdminLogin", model.Email);
+                TempData["ToastrError"] = "Email không được để trống.";
+                return View(model);
+            }
+
+            var dataLogin = await _context.Admins
+                .Include(a => a.RoleNavigation)
+                .FirstOrDefaultAsync(x => x.Email.Equals(model.Email));
+
+            if (dataLogin != null && VerifyPassword(model.Password, dataLogin.Password))
+            {
+                // Tạo claims cho người dùng
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, dataLogin.Email),
+                    new Claim(ClaimTypes.NameIdentifier, dataLogin.AdminId.ToString()),
+                    new Claim(ClaimTypes.Role, dataLogin.RoleNavigation?.RoleName ?? "Unknown")
+                };
+
+                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var authProperties = new AuthenticationProperties
+                {
+                    IsPersistent = false,
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30)
+                };
+
+                // Đăng nhập người dùng
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(claimsIdentity), authProperties);
+
+                // Lưu thông tin vào session
+                HttpContext.Session.SetString("AdminLogin", model.Email); //Lấy Email admin
+                HttpContext.Session.SetString("AdminRole", dataLogin.RoleNavigation?.RoleName ?? "Unknown");
+                HttpContext.Session.SetInt32("AdminId", dataLogin.AdminId);//lấy Id admin
+
+                // Ghi log đăng nhập
+                var adminLog = new AdminLog
+                {
+                    AdminId = dataLogin.AdminId,
+                    Action = "Login",
+                    TargetId = dataLogin.AdminId,
+                    TargetTable = "Admins",
+                    CreatedAt = DateTime.Now
+                };
+                _context.AdminLogs.Add(adminLog);
+                await _context.SaveChangesAsync();
+
+                TempData["ToastrSuccess"] = "Đăng nhập thành công!";
                 return RedirectToAction("Index", "Dashboard");
             }
-            else
-            {
-                ModelState.AddModelError(string.Empty, "Thông tin đăng nhập không chính xác.");
-                return View(model);
-            }
 
+            TempData["ToastrError"] = "Email hoặc mật khẩu không chính xác.";
+            return View(model);
         }
-        [HttpGet]// thoát đăng nhập, huỷ session
-        public IActionResult Logout()
-        {
-            HttpContext.Session.Remove("AdminLogin"); // huỷ session với key AdminLogin đã lưu trước đó
 
+        // GET: Admins/Login/Logout
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            // Đăng xuất người dùng
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            // Xóa session
+            HttpContext.Session.Remove("AdminLogin");
+            HttpContext.Session.Remove("AdminRole");
+            HttpContext.Session.Remove("AdminId");
+
+            TempData["ToastrSuccess"] = "Đăng xuất thành công!";
             return RedirectToAction("Index");
+        }
+
+        // GET: Admins/Login/AccessDenied
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            TempData["ToastrError"] = "Bạn không có quyền truy cập vào trang này.";
+            // Lấy URL trang trước đó từ header Referer
+            string referrer = HttpContext.Request.Headers["Referer"].ToString();
+            if (!string.IsNullOrEmpty(referrer))
+            {
+                return Redirect(referrer); 
+            }
+          
+            return RedirectToAction("Index");
+        }
+
+        // Hàm kiểm tra mật khẩu
+        private bool VerifyPassword(string inputPassword, string storedPassword)
+        {
+            return inputPassword.Equals(storedPassword); // Không mã hóa
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,8 @@ using WebTAManga.Models;
 
 namespace WebTAManga.Areas.Admins.Controllers
 {
-    
+    [Authorize(Roles = "SuperAdmin, CommentModerator")]
+
     public class CommentsController : BaseController
     {
         private readonly WebMangaContext _context;

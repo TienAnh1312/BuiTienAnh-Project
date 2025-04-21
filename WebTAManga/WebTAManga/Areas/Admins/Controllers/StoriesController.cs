@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WebTAManga.Areas.Admins.Filters;
 using WebTAManga.Models;
 
 namespace WebTAManga.Areas.Admins.Controllers
 {
-    
+    [Authorize(Roles = "SuperAdmin, ContentManager")]
+
     public class StoriesController : BaseController
     {
         private readonly WebMangaContext _context;
@@ -21,6 +24,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Stories
+        [PermissionAuthorize("Stories", "View")]
         public async Task<IActionResult> Index(string searchTitle, string searchAuthor, string filter, int? searchGenre, int page = 1)
         {
             var stories = from s in _context.Stories

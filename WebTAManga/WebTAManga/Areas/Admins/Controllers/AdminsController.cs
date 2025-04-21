@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing.Printing;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +10,7 @@ using WebTAManga.Models;
 
 namespace WebTAManga.Areas.Admins.Controllers
 {
-    
+    [Authorize(Roles = "SuperAdmin")]
     public class AdminsController : BaseController
     {
         private readonly WebMangaContext _context;
@@ -27,7 +27,6 @@ namespace WebTAManga.Areas.Admins.Controllers
             var admins = from a in _context.Admins
                          select a;
 
-            // Áp dụng bộ lọc tìm kiếm
             if (!string.IsNullOrEmpty(searchUsername))
             {
                 admins = admins.Where(a => a.Username.Contains(searchUsername));
@@ -38,18 +37,16 @@ namespace WebTAManga.Areas.Admins.Controllers
                 admins = admins.Where(a => a.Email.Contains(searchEmail));
             }
 
-            // Lấy tổng số mục để phân trang
             int totalItems = await admins.CountAsync();
             int totalPages = (int)Math.Ceiling(totalItems / (double)PageSize);
 
-            // Áp dụng phân trang
             var pagedAdmins = await admins
-            .OrderBy(a => a.AdminId)
+                .Include(a => a.RoleNavigation) 
+                .OrderBy(a => a.AdminId)
                 .Skip((page - 1) * PageSize)
                 .Take(PageSize)
                 .ToListAsync();
 
-            // Tạo view model với dữ liệu phân trang
             var viewModel = new AdminIndexView
             {
                 Admins = pagedAdmins,
@@ -71,6 +68,7 @@ namespace WebTAManga.Areas.Admins.Controllers
             }
 
             var admin = await _context.Admins
+                .Include(a => a.RoleNavigation)
                 .FirstOrDefaultAsync(m => m.AdminId == id);
             if (admin == null)
             {
@@ -83,22 +81,23 @@ namespace WebTAManga.Areas.Admins.Controllers
         // GET: Admins/Admins/Create
         public IActionResult Create()
         {
+            ViewBag.RoleList = new SelectList(_context.Roles, "RoleId", "RoleName");
             return View();
         }
 
         // POST: Admins/Admins/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AdminId,Username,Email,Password,Role,CreatedAt")] Admin admin)
+        public async Task<IActionResult> Create([Bind("AdminId,Username,Email,Password,RoleId,CreatedAt")] Admin admin)
         {
             if (ModelState.IsValid)
             {
+                admin.CreatedAt = DateTime.Now; 
                 _context.Add(admin);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.RoleList = new SelectList(_context.Roles, "RoleId", "RoleName");
             return View(admin);
         }
 
@@ -115,15 +114,14 @@ namespace WebTAManga.Areas.Admins.Controllers
             {
                 return NotFound();
             }
+            ViewBag.RoleList = new SelectList(_context.Roles, "RoleId", "RoleName", admin.RoleId);
             return View(admin);
         }
 
         // POST: Admins/Admins/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AdminId,Username,Email,Password,Role,CreatedAt")] Admin admin)
+        public async Task<IActionResult> Edit(int id, [Bind("AdminId,Username,Email,Password,RoleId,CreatedAt")] Admin admin)
         {
             if (id != admin.AdminId)
             {
@@ -150,6 +148,7 @@ namespace WebTAManga.Areas.Admins.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.RoleList = new SelectList(_context.Roles, "RoleId", "RoleName", admin.RoleId);
             return View(admin);
         }
 
@@ -162,6 +161,7 @@ namespace WebTAManga.Areas.Admins.Controllers
             }
 
             var admin = await _context.Admins
+                .Include(a => a.RoleNavigation)
                 .FirstOrDefaultAsync(m => m.AdminId == id);
             if (admin == null)
             {
@@ -191,7 +191,7 @@ namespace WebTAManga.Areas.Admins.Controllers
             return _context.Admins.Any(e => e.AdminId == id);
         }
     }
-    //  model chứa dữ liệu phân trang và tìm kiếm
+
     public class AdminIndexView
     {
         public List<Admin> Admins { get; set; }

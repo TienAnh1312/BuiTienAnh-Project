@@ -17,5 +17,13 @@ public partial class Admin
 
     public DateTime? CreatedAt { get; set; }
 
+    public int? RoleId { get; set; }
+
     public virtual ICollection<AdminLog> AdminLogs { get; set; } = new List<AdminLog>();
+
+    public virtual ICollection<ManagerPermission> ManagerPermissionAdmins { get; set; } = new List<ManagerPermission>();
+
+    public virtual ICollection<ManagerPermission> ManagerPermissionAssignedByNavigations { get; set; } = new List<ManagerPermission>();
+
+    public virtual Role? RoleNavigation { get; set; }
 }

@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WebTAManga.Areas.Admins.Filters;
 using WebTAManga.Models;
 
 namespace WebTAManga.Areas.Admins.Controllers
 {
+    [Authorize(Roles = "SuperAdmin, ContentManager")]
+
     public class BannersController : BaseController
     {
         private readonly WebMangaContext _context;
@@ -19,12 +23,14 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Banners
+        [PermissionAuthorize("Banners", "View")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Banners.ToListAsync());
         }
 
         // GET: Admins/Banners/Details/5
+        [PermissionAuthorize("Banners", "View")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -43,6 +49,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Banners/Create
+        [PermissionAuthorize("Banners", "Create")]
         public IActionResult Create()
         {
             // Kiểm tra xem số lượng banner đã đạt 4 chưa
@@ -57,6 +64,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         // POST: Admins/Banners/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [PermissionAuthorize("Banners", "Create")]
         public async Task<IActionResult> Create([Bind("Id,ImageUrl,Title,Description,LinkUrl,IsActive,DisplayOrder")] Banner banner)
         {
             // Kiểm tra xem số lượng banner đã đạt 4 chưa
@@ -90,6 +98,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Banners/Edit/5
+        [PermissionAuthorize("Banners", "Edit")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -110,6 +119,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [PermissionAuthorize("Banners", "Edit")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,ImageUrl,Title,Description,LinkUrl,IsActive,DisplayOrder")] Banner banner)
         {
             if (id != banner.Id)
@@ -156,6 +166,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Banners/Delete/5
+        [PermissionAuthorize("Banners", "Delete")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -176,6 +187,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         // POST: Admins/Banners/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [PermissionAuthorize("Banners", "Delete")]  
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var banner = await _context.Banners.FindAsync(id);

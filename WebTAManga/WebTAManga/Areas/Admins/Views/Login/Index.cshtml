@@ -93,9 +93,9 @@
                 <div class="card-body">
                     <p class="login-box-msg text-muted">Sign in to start your session</p>
 
-                    <form action="" method="post">
+                    <form asp-action="" method="post">
                         <div class="input-group mb-3">
-                            <input type="email" class="form-control" asp-for="Email" placeholder="Email" required value="buitienanh13122003@gmail.com">
+                            <input type="email" class="form-control" asp-for="Email" placeholder="Email" required value="admin@gmail.com">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-envelope"></span>
@@ -133,21 +133,7 @@
                         </div>
                     </form>
 
-                  @*   <div class="social-auth-links text-center mt-3">
-                        <a href="#" class="btn btn-block btn-primary">
-                            <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-                        </a>
-                        <a href="#" class="btn btn-block btn-danger">
-                            <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-                        </a>
-                    </div>
-
-                    <p class="mt-3 mb-1">
-                        <a href="forgot-password.html" class="text-decoration-none">I forgot my password</a>
-                    </p>
-                    <p class="mb-0">
-                        <a href="register.html" class="text-decoration-none">Register a new membership</a>
-                    </p> *@
+                 
                 </div>
 
             </div>
@@ -155,3 +141,9 @@
         </div>
     </div>
 </body>
+
+@section Scripts {
+
+
+    <partial name="_ValidationScriptsPartial" />
+}
