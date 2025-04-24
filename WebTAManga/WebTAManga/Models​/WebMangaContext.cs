@@ -90,6 +90,7 @@ public partial class WebMangaContext : DbContext
             entity.HasIndex(e => e.Username, "UQ__admins__F3DBC5722758602E").IsUnique();
 
             entity.Property(e => e.AdminId).HasColumnName("admin_id");
+            entity.Property(e => e.Area).HasMaxLength(50);
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
@@ -107,6 +108,10 @@ public partial class WebMangaContext : DbContext
             entity.Property(e => e.Username)
                 .HasMaxLength(50)
                 .HasColumnName("username");
+
+            entity.HasOne(d => d.Manager).WithMany(p => p.InverseManager)
+                .HasForeignKey(d => d.ManagerId)
+                .HasConstraintName("FK_Admins_ManagerId");
 
             entity.HasOne(d => d.RoleNavigation).WithMany(p => p.Admins)
                 .HasForeignKey(d => d.RoleId)

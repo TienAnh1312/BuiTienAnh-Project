@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WebTAManga.Areas.Admins.Filters;
 using WebTAManga.Models;
 
 namespace WebTAManga.Areas.Admins.Controllers
@@ -23,6 +24,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Ranks
+        [PermissionAuthorize("Ranks", "View")]
         public async Task<IActionResult> Index(string searchName, int page = 1)
         {
             var ranks = from r in _context.Ranks
@@ -54,6 +56,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Ranks/Details/5
+        [PermissionAuthorize("Ranks", "View")]
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null) return NotFound();
@@ -62,7 +66,9 @@ namespace WebTAManga.Areas.Admins.Controllers
             return View(rank);
         }
 
-        // GET: Admins/Ranks/Create
+        // GET: Admins/Ranks/Createq
+        [PermissionAuthorize("Ranks", "Create")]
+
         public IActionResult Create()
         {
             return View();
@@ -71,6 +77,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         // POST: Admins/Ranks/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [PermissionAuthorize("Ranks", "Create")]
+
         public async Task<IActionResult> Create([Bind("RankId,Name")] Rank rank)
         {
             if (ModelState.IsValid)
@@ -83,6 +91,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Ranks/Edit/5
+        [PermissionAuthorize("Ranks", "Edit")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
@@ -94,6 +103,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         // POST: Admins/Ranks/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [PermissionAuthorize("Ranks", "Edit")]
+
         public async Task<IActionResult> Edit(int id, [Bind("RankId,Name")] Rank rank)
         {
             if (id != rank.RankId) return NotFound();
@@ -115,6 +126,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Ranks/Delete/5
+        [PermissionAuthorize("Ranks", "Delete")]
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
@@ -126,6 +139,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         // POST: Admins/Ranks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [PermissionAuthorize("Ranks", "Delete")]
+
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var rank = await _context.Ranks.FindAsync(id);
@@ -135,6 +150,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Ranks/CategoryRanksByRank/5
+        [PermissionAuthorize("Ranks", "View")]
+
         public async Task<IActionResult> CategoryRanksByRank(int? id, string searchName, int page = 1)
         {
             if (id == null) return NotFound();
@@ -177,6 +194,8 @@ namespace WebTAManga.Areas.Admins.Controllers
             return View(viewModel);
         }
         // GET: Admins/Ranks/CreateCategoryRank/5
+        [PermissionAuthorize("Ranks", "Create")]
+
         public IActionResult CreateCategoryRank(int? rankId)
         {
             if (rankId == null) return NotFound();
@@ -191,6 +210,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         // POST: Admins/Ranks/CreateCategoryRank
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [PermissionAuthorize("Ranks", "Create")]
+
         public async Task<IActionResult> CreateCategoryRank([Bind("CategoryRankId,Name,RankId,Levels")] CategoryRank categoryRank, string[] expRequired)
         {
             if (ModelState.IsValid)
@@ -215,6 +236,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Ranks/EditCategoryRank/5
+        [PermissionAuthorize("Ranks", "Edit")]
+
         public async Task<IActionResult> EditCategoryRank(int? id)
         {
             if (id == null) return NotFound();
@@ -230,6 +253,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         // POST: Admins/Ranks/EditCategoryRank/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [PermissionAuthorize("Ranks", "Edit")]
+
         public async Task<IActionResult> EditCategoryRank(int id, [Bind("CategoryRankId,Name,RankId")] CategoryRank categoryRank, string[] expRequired)
         {
             if (id != categoryRank.CategoryRankId) return NotFound();
@@ -276,7 +301,10 @@ namespace WebTAManga.Areas.Admins.Controllers
             ViewData["RankId"] = new SelectList(_context.Ranks, "RankId", "Name", categoryRank.RankId);
             return View(categoryRank);
         }
+
         // GET: Admins/Ranks/DeleteCategoryRank/5
+        [PermissionAuthorize("Ranks", "Delete")]
+
         public async Task<IActionResult> DeleteCategoryRank(int? id)
         {
             if (id == null) return NotFound();
@@ -293,6 +321,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         // POST: Admins/Ranks/DeleteCategoryRank/5
         [HttpPost, ActionName("DeleteCategoryRank")]
         [ValidateAntiForgeryToken]
+        [PermissionAuthorize("Ranks", "Delete")]
+
         public async Task<IActionResult> DeleteCategoryRankConfirmed(int id)
         {
             var categoryRank = await _context.CategoryRanks

@@ -1,0 +1,118 @@
+﻿@model dynamic
+<h2>Phân quyền cho @(((WebTAManga.Models.Admin)ViewData["Admin"]).Username) (Vai trò: @(((WebTAManga.Models.Admin)ViewData["Admin"]).RoleNavigation?.RoleName))</h2>
+
+@if (!((List<string>)ViewData["Modules"]).Any())
+{
+    <p class="text-danger">Không có module nào khả dụng để phân quyền cho vai trò này.</p>
+}
+else
+{
+    <form asp-action="AssignPermissions" method="post">
+        <input type="hidden" name="id" value="@(((WebTAManga.Models.Admin)ViewData["Admin"]).AdminId)" />
+
+        <table class="table table-bordered mx-auto" style="max-width: 800px;">
+            <thead>
+                <tr>
+                    <th>Module</th>
+                    <th>Chọn</th>
+                    <th>Xem</th>
+                    <th>Thêm</th>
+                    <th>Sửa</th>
+                    <th>Xóa</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var module in (List<string>)ViewData["Modules"])
+                {
+                    var permission = ((List<WebTAManga.Models.ManagerPermission>)ViewData["Permissions"]).FirstOrDefault(p => p.Module == module);
+                    var isChecked = permission != null ? "checked" : "";
+                    <tr>
+                        <td>@module</td>
+                        <td>
+                            <input type="checkbox" class="module-checkbox" data-module="@module" name="selectedModules" value="@module" @isChecked />
+                        </td>
+                        <td>
+                            <input type="checkbox" name="permissions[@module].CanView" value="true" class="permission-checkbox view-checkbox" data-module="@module" @(permission?.CanView == true ? "checked" : "") disabled="@(permission == null ? "true" : "false")" />
+                            <input type="hidden" name="permissions[@module].CanView" value="false" />
+                        </td>
+                        <td>
+                            <input type="checkbox" name="permissions[@module].CanCreate" value="true" class="permission-checkbox create-checkbox" data-module="@module" @(permission?.CanCreate == true ? "checked" : "") disabled="@(permission == null ? "true" : "false")" />
+                            <input type="hidden" name="permissions[@module].CanCreate" value="false" />
+                        </td>
+                        <td>
+                            <input type="checkbox" name="permissions[@module].CanEdit" value="true" class="permission-checkbox edit-checkbox" data-module="@module" @(permission?.CanEdit == true ? "checked" : "") disabled="@(permission == null ? "true" : "false")" />
+                            <input type="hidden" name="permissions[@module].CanEdit" value="false" />
+                        </td>
+                        <td>
+                            <input type="checkbox" name="permissions[@module].CanDelete" value="true" class="permission-checkbox delete-checkbox" data-module="@module" @(permission?.CanDelete == true ? "checked" : "") disabled="@(permission == null ? "true" : "false")" />
+                            <input type="hidden" name="permissions[@module].CanDelete" value="false" />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="form-group text-center">
+            <input type="submit" value="Lưu quyền" class="btn btn-primary" />
+            <a asp-action="ManageGroups" class="btn btn-secondary">Quay lại</a>
+        </div>
+        <div id="spinner" style="display: none; text-align: center;">Đang xử lý...</div>
+    </form>
+}
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <script>
+        $(document).ready(function () {
+            function initializePermissionCheckboxes() {
+                $('.module-checkbox').each(function () {
+                    var module = $(this).data('module');
+                    var isChecked = $(this).is(':checked');
+                    $(`.permission-checkbox[data-module="${module}"]`).prop('disabled', !isChecked);
+                });
+            }
+
+            initializePermissionCheckboxes();
+
+            $('.module-checkbox').change(function () {
+                var module = $(this).data('module');
+                var isChecked = $(this).is(':checked');
+                $(`.permission-checkbox[data-module="${module}"]`).prop('disabled', !isChecked);
+                if (isChecked) {
+                    $(`.view-checkbox[data-module="${module}"]`).prop('checked', true);
+                    $(`.create-checkbox[data-module="${module}"]`).prop('checked', true);
+                    $(`.edit-checkbox[data-module="${module}"]`).prop('checked', true);
+                    $(`.delete-checkbox[data-module="${module}"]`).prop('checked', true);
+                } else {
+                    $(`.permission-checkbox[data-module="${module}"]`).prop('checked', false);
+                }
+            });
+
+            $('form').submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: '@Url.Action("AssignPermissions")',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    beforeSend: function () {
+                        $('#spinner').show();
+                    },
+                    success: function (result) {
+                        toastr.success('Cập nhật quyền thành công!');
+                        setTimeout(() => {
+                            window.location.href = '@Url.Action("ManageGroups")';
+                        }, 2000);
+                    },
+                    error: function () {
+                        toastr.error('Có lỗi xảy ra, vui lòng thử lại.');
+                    },
+                    complete: function () {
+                        $('#spinner').hide();
+                    }
+                });
+            });
+        });
+    </script>
+}

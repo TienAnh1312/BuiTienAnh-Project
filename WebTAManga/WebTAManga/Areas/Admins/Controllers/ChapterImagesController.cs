@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WebTAManga.Areas.Admins.Filters;
 using WebTAManga.Models;
 
 namespace WebTAManga.Areas.Admins.Controllers
@@ -23,6 +24,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/ChapterImages
+        [PermissionAuthorize("ChapterImages", "View")]
+
         public async Task<IActionResult> Index(int? chapterId)
         {
             if (chapterId == null)
@@ -40,6 +43,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/ChapterImages/Details/5
+        [PermissionAuthorize("ChapterImages", "View")]
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -59,6 +64,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/ChapterImages/Create
+        [PermissionAuthorize("ChapterImages", "Create")]
+
         public IActionResult Create(int chapterId)
         {
             var chapter = _context.Chapters.Find(chapterId);
@@ -89,6 +96,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         // POST: Admins/ChapterImages/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [PermissionAuthorize("ChapterImages", "Create")]
+
         public async Task<IActionResult> Create(int chapterId, int pageNumber, List<IFormFile> ImageFiles)
         {
             var chapter = await _context.Chapters.Include(c => c.Story).FirstOrDefaultAsync(c => c.ChapterId == chapterId); // Khai báo một lần
@@ -159,6 +168,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/ChapterImages/Edit/5
+        [PermissionAuthorize("ChapterImages", "Edit")]
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -182,6 +193,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         // POST: Admins/ChapterImages/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [PermissionAuthorize("ChapterImages", "Edit")]
+
         public async Task<IActionResult> Edit(int id, [Bind("ImageId,ChapterId,PageNumber")] ChapterImage chapterImage, IFormFile ImageUrl)
         {
             if (id != chapterImage.ImageId)
@@ -287,6 +300,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/ChapterImages/Delete/5
+        [PermissionAuthorize("ChapterImages", "Delete")]
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -308,6 +323,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         // POST: Admins/ChapterImages/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [PermissionAuthorize("ChapterImages", "Delete")]
+
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var chapterImage = await _context.ChapterImages.FindAsync(id);
@@ -334,6 +351,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         // POST: Admins/ChapterImages/BulkDelete
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [PermissionAuthorize("ChapterImages", "Delete")]
+
         public async Task<IActionResult> BulkDelete(int chapterId, List<int> selectedIds)
         {
             if (selectedIds == null || !selectedIds.Any())
@@ -398,7 +417,7 @@ namespace WebTAManga.Areas.Admins.Controllers
             }
 
             var stream = new FileStream(imagePath, FileMode.Open, FileAccess.Read);
-            var contentType = "image/jpeg"; // Có thể điều chỉnh theo loại file thực tế
+            var contentType = "image/jpeg"; 
             return File(stream, contentType);
         }
 

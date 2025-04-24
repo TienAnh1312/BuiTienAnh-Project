@@ -19,7 +19,17 @@ public partial class Admin
 
     public int? RoleId { get; set; }
 
+    public int? ManagerId { get; set; }
+
+    public string? Area { get; set; }
+
+    public bool? IsDepartmentHead { get; set; }
+
     public virtual ICollection<AdminLog> AdminLogs { get; set; } = new List<AdminLog>();
+
+    public virtual ICollection<Admin> InverseManager { get; set; } = new List<Admin>();
+
+    public virtual Admin? Manager { get; set; }
 
     public virtual ICollection<ManagerPermission> ManagerPermissionAdmins { get; set; } = new List<ManagerPermission>();
 

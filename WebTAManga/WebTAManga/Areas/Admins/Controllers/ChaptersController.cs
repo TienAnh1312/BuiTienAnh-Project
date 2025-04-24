@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WebTAManga.Areas.Admins.Filters;
 using WebTAManga.Areas.Admins.Models;
 using WebTAManga.Models;
 
@@ -23,6 +24,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Chapters
+        [PermissionAuthorize("Stories", "View")]
+
         public async Task<IActionResult> Index(int? storyId)
         {
             if (storyId == null)
@@ -52,6 +55,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Chapters/Details/5
+        [PermissionAuthorize("Stories", "View")]
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -71,6 +76,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Chapters/Create
+        [PermissionAuthorize("Stories", "Create")]
+
         public IActionResult Create(int? storyId)
         {
             if (storyId == null)
@@ -106,6 +113,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         // POST: Admins/Chapters/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [PermissionAuthorize("Stories", "Create")]
+
         public async Task<IActionResult> Create(int StoryId, int chapterNumber, int Coins, List<IFormFile> ImageFiles)
         {
             var story = await _context.Stories.FirstOrDefaultAsync(s => s.StoryId == StoryId);
@@ -196,6 +205,8 @@ namespace WebTAManga.Areas.Admins.Controllers
 
         // GET: Admins/Chapters/BulkCreate
         //Thêm mới nhiều Chương truyện
+        [PermissionAuthorize("Stories", "Create")]
+
         public async Task<IActionResult> BulkCreate(int? storyId)
         {
             if (storyId == null)
@@ -224,6 +235,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         // POST: Admins/Chapters/BulkCreate
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [PermissionAuthorize("Stories", "Create")]
+
         public async Task<IActionResult> BulkCreate(int storyId, int startChapter, int endChapter, int defaultCoins, bool defaultIsLocked)
         {
             if (startChapter < 1 || endChapter < startChapter || defaultCoins < 0)
@@ -292,6 +305,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Chapters/Edit/5
+        [PermissionAuthorize("Stories", "Edit")]
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -314,6 +329,8 @@ namespace WebTAManga.Areas.Admins.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [PermissionAuthorize("Stories", "Edit")]
+
         public async Task<IActionResult> Edit(int id, int chapterNumber, [Bind("ChapterId,StoryId,Content,CreatedAt,Coins,IsLocked")] Chapter chapter)
         {
             if (id != chapter.ChapterId)
@@ -386,6 +403,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Chapters/Delete/5
+        [PermissionAuthorize("Stories", "Delete")]
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -406,6 +425,8 @@ namespace WebTAManga.Areas.Admins.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [PermissionAuthorize("Stories", "Delete")]
+
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var chapter = await _context.Chapters

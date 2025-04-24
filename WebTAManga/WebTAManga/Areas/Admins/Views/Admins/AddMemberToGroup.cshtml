@@ -1,0 +1,71 @@
+﻿@model WebTAManga.Areas.Admins.Models.GroupManagement
+@{
+    ViewData["Title"] = "Thêm thành viên vào nhóm";
+    var manager = Model.Managers.FirstOrDefault();
+}
+
+<h1>Thêm thành viên vào nhóm của @manager?.Username</h1>
+
+<form id="add-member-form" asp-action="AddMemberToGroup" method="post">
+    <input type="hidden" name="managerId" value="@manager?.AdminId" />
+    <div class="text-danger" id="validationSummary"></div>
+
+    <div class="form-group">
+        <label for="AdminId">Thành viên</label>
+        <select id="AdminId" name="AdminId" class="form-control" required>
+            <option value="">Chọn thành viên</option>
+            @foreach (var admin in Model.Admins)
+            {
+                <option value="@admin.AdminId">@admin.Username</option>
+            }
+        </select>
+        <span class="text-danger field-validation-error" data-valmsg-for="AdminId"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Thêm thành viên" class="btn btn-primary" />
+        <a asp-action="ManageGroups" class="btn btn-secondary">Quay lại</a>
+    </div>
+    <div id="spinner" style="display: none; text-align: center;">Đang xử lý...</div>
+</form>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <script>
+        $(document).ready(function () {
+            $('#add-member-form').submit(function (e) {
+                e.preventDefault();
+                if (!$(this).valid()) return;
+
+                $.ajax({
+                    url: '@Url.Action("AddMemberToGroup", "Admins", new { area = "Admins" })',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    beforeSend: function () {
+                        $('#spinner').show();
+                    },
+                    success: function (result) {
+                        if (result.success) {
+                            toastr.success(result.message);
+                            setTimeout(() => {
+                                window.location.href = '@Url.Action("ManageGroups")';
+                            }, 2000);
+                        } else {
+                            toastr.error(result.message);
+                        }
+                    },
+                    error: function () {
+                        toastr.error('Có lỗi xảy ra, vui lòng thử lại.');
+                    },
+                    complete: function () {
+                        $('#spinner').hide();
+                    }
+                });
+            });
+        });
+    </script>
+}

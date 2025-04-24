@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebTAManga.Areas.Admins.Filters;
 using WebTAManga.Models;
 
 namespace WebTAManga.Areas.Admins.Controllers
@@ -22,6 +23,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Genres
+        [PermissionAuthorize("Genres", "View")]
+
         public async Task<IActionResult> Index(string searchName, int page = 1)
         {
             var genres = from g in _context.Genres
@@ -57,6 +60,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Genres/Details/5
+        [PermissionAuthorize("Genres", "View")]
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -75,6 +80,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Genres/Create
+        [PermissionAuthorize("Genres", "Create")]
+
         public IActionResult Create()
         {
             return View();
@@ -83,6 +90,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         // POST: Admins/Genres/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [PermissionAuthorize("Genres", "Create")]
+
         public async Task<IActionResult> Create([Bind("GenreId,Name,Title")] Genre genre)
         {
             if (ModelState.IsValid)
@@ -95,6 +104,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Genres/Edit/5
+        [PermissionAuthorize("Genres", "Edit")]
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -113,6 +124,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         // POST: Admins/Genres/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [PermissionAuthorize("Genres", "Edit")]
+
         public async Task<IActionResult> Edit(int id, [Bind("GenreId,Name,Title")] Genre genre)
         {
             if (id != genre.GenreId)
@@ -144,6 +157,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Genres/Delete/5
+        [PermissionAuthorize("Genres", "Delete")]
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -164,6 +179,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         // POST: Admins/Genres/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [PermissionAuthorize("Genres", "Delete")]
+
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var genre = await _context.Genres.FindAsync(id);

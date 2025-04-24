@@ -9,10 +9,44 @@
         public const string ChapterImages = "ChapterImages";
         public const string Genres = "Genres";
         public const string Stickers = "Stickers";
+        public const string Transactions = "Transactions";
+        public const string Reports = "Reports";
+        public const string Comments = "Comments";
+        public const string GroupManagement = "GroupManagement";
 
         public static readonly List<string> AllModules = new List<string>
-    {
-        Banners, Ranks, Stories, Chapters, ChapterImages, Genres, Stickers
-    };
+        {
+            Banners, Ranks, Stories, Chapters, ChapterImages, Genres, Stickers, Transactions, Reports, Comments, GroupManagement
+        };
+
+        public static readonly List<string> ContentManagerModules = new List<string>
+        {
+            Banners, Ranks, Stories, Chapters, ChapterImages, Genres, GroupManagement
+        };
+
+        public static readonly List<string> UserManagerModules = new List<string>
+        {
+            Transactions, Reports, GroupManagement
+        };
+
+        public static readonly List<string> CommentModeratorModules = new List<string>
+        {
+            Comments, GroupManagement
+        };
+
+        public static readonly List<string> ReporterHandlerModules = new List<string>
+        {
+            Reports, GroupManagement
+        };
+
+        // Danh sách module mà Manager có thể cấp quyền (chỉ bao gồm quyền trong khu vực của mình)
+        public static readonly Dictionary<string, List<string>> ManagerAssignableModules = new Dictionary<string, List<string>>
+        {
+            { "ContentManager", ContentManagerModules },
+            { "UserManager", UserManagerModules },
+            { "FinanceManager", UserManagerModules },
+            { "CommentModerator", CommentModeratorModules },
+            { "ReporterHandler", ReporterHandlerModules }
+        };
     }
 }

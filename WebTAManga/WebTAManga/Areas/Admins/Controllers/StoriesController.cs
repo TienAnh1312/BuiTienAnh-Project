@@ -86,6 +86,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Stories/Details/5
+        [PermissionAuthorize("Stories", "View")]
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -106,6 +108,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Stories/Create
+        [PermissionAuthorize("Stories", "Create")]
         public IActionResult Create()
         {
             ViewData["Genres"] = new SelectList(_context.Genres, "GenreId", "Name");
@@ -115,6 +118,7 @@ namespace WebTAManga.Areas.Admins.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [PermissionAuthorize("Stories", "Create")]
         public async Task<IActionResult> Create([Bind("StoryCode,Title,Author,Description,CoverImage,CreatedAt,IsCompleted,LastUpdatedAt,IsHot,IsNew")] Story story, int[] selectedGenres)
         {
             if (ModelState.IsValid)
@@ -175,6 +179,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Stories/Edit/5
+        [PermissionAuthorize("Stories", "Edit")]
 
         public async Task<IActionResult> Edit(int? id)
         {
@@ -205,6 +210,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         // POST: Admins/Stories/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [PermissionAuthorize("Stories", "Edit")]
         public async Task<IActionResult> Edit(int id, [Bind("StoryId,StoryCode,Title,Author,Description,CoverImage,CreatedAt,IsCompleted,LastUpdatedAt,IsHot,IsNew")] Story story, int[] selectedGenres, IFormFile? newCoverImage)
         {
             if (id != story.StoryId)
@@ -336,6 +342,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Stories/Delete/5
+        [PermissionAuthorize("Stories", "Delete")]
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -356,6 +364,8 @@ namespace WebTAManga.Areas.Admins.Controllers
         // POST: Admins/Stories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [PermissionAuthorize("Stories", "Delete")]
+
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var story = await _context.Stories.FindAsync(id);
