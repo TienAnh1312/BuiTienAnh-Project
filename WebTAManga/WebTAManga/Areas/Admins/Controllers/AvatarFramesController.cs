@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -13,6 +14,7 @@ namespace WebTAManga.Areas.Admins.Controllers
     public class AvatarFramesController : BaseController
     {
         private readonly WebMangaContext _context;
+        private const int PageSize = 7;
 
         public AvatarFramesController(WebMangaContext context)
         {
@@ -20,9 +22,50 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/AvatarFrames
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchName, string searchPriceRange, int page = 1)
         {
-            return View(await _context.AvatarFrames.ToListAsync());
+            var avatarFrames = from af in _context.AvatarFrames select af;
+
+            // Apply search filters
+            if (!string.IsNullOrEmpty(searchName))
+            {
+                avatarFrames = avatarFrames.Where(af => af.Name.Contains(searchName));
+            }
+            if (!string.IsNullOrEmpty(searchPriceRange))
+            {
+                switch (searchPriceRange)
+                {
+                    case "0-100":
+                        avatarFrames = avatarFrames.Where(af => af.Price >= 0 && af.Price <= 100);
+                        break;
+                    case "101-500":
+                        avatarFrames = avatarFrames.Where(af => af.Price >= 101 && af.Price <= 500);
+                        break;
+                    case "501+":
+                        avatarFrames = avatarFrames.Where(af => af.Price >= 501);
+                        break;
+                }
+            }
+
+            // Pagination
+            int totalItems = await avatarFrames.CountAsync();
+            int totalPages = (int)Math.Ceiling(totalItems / (double)PageSize);
+            var pagedAvatarFrames = await avatarFrames
+                .OrderBy(af => af.Name)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize)
+                .ToListAsync();
+
+            var viewModel = new AvatarFrameIndexView
+            {
+                AvatarFrames = pagedAvatarFrames,
+                CurrentPage = page,
+                TotalPages = totalPages,
+                SearchName = searchName,
+                SearchPriceRange = searchPriceRange
+            };
+
+            return View(viewModel);
         }
 
         // GET: Admins/AvatarFrames/Details/5
@@ -72,6 +115,7 @@ namespace WebTAManga.Areas.Admins.Controllers
 
                 _context.Add(avatarFrame);
                 await _context.SaveChangesAsync();
+                TempData["Success"] = "Khung avatar đã được tạo thành công.";
                 return RedirectToAction(nameof(Index));
             }
             return View(avatarFrame);
@@ -120,7 +164,7 @@ namespace WebTAManga.Areas.Admins.Controllers
                         var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                         var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "admins", "avatarFrames", fileName);
 
-                        // Xóa file cũ nếu tồn tại
+                        // Delete old file if it exists
                         if (!string.IsNullOrEmpty(existingFrame.ImagePath))
                         {
                             var oldPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", existingFrame.ImagePath);
@@ -138,11 +182,12 @@ namespace WebTAManga.Areas.Admins.Controllers
                     }
                     else
                     {
-                        avatarFrame.ImagePath = existingFrame.ImagePath; // Giữ nguyên ảnh cũ nếu không upload ảnh mới
+                        avatarFrame.ImagePath = existingFrame.ImagePath; // Keep old image if no new upload
                     }
 
                     _context.Update(avatarFrame);
                     await _context.SaveChangesAsync();
+                    TempData["Success"] = "Khung avatar đã được cập nhật thành công.";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -186,7 +231,7 @@ namespace WebTAManga.Areas.Admins.Controllers
             var avatarFrame = await _context.AvatarFrames.FindAsync(id);
             if (avatarFrame != null)
             {
-                // Xóa file ảnh nếu tồn tại
+                // Delete image file if it exists
                 if (!string.IsNullOrEmpty(avatarFrame.ImagePath))
                 {
                     var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", avatarFrame.ImagePath);
@@ -198,6 +243,7 @@ namespace WebTAManga.Areas.Admins.Controllers
 
                 _context.AvatarFrames.Remove(avatarFrame);
                 await _context.SaveChangesAsync();
+                TempData["Success"] = "Khung avatar đã được xóa thành công.";
             }
             return RedirectToAction(nameof(Index));
         }
@@ -206,5 +252,14 @@ namespace WebTAManga.Areas.Admins.Controllers
         {
             return _context.AvatarFrames.Any(e => e.AvatarFrameId == id);
         }
+    }
+
+    public class AvatarFrameIndexView
+    {
+        public List<AvatarFrame> AvatarFrames { get; set; }
+        public int CurrentPage { get; set; }
+        public int TotalPages { get; set; }
+        public string SearchName { get; set; }
+        public string SearchPriceRange { get; set; }
     }
 }

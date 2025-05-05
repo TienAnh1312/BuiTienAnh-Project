@@ -4,17 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebTAManga.Models;
 
 namespace WebTAManga.Areas.Admins.Controllers
 {
     [Authorize(Roles = "SuperAdmin")]
-
     public class RolesController : BaseController
     {
         private readonly WebMangaContext _context;
+        private const int PageSize = 7;
 
         public RolesController(WebMangaContext context)
         {
@@ -22,9 +21,36 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Roles
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchRoleName, int page = 1)
         {
-            return View(await _context.Roles.ToListAsync());
+            var roles = from r in _context.Roles
+                        select r;
+
+            // Apply search filter
+            if (!string.IsNullOrEmpty(searchRoleName))
+            {
+                roles = roles.Where(r => r.RoleName.Contains(searchRoleName) || r.Description.Contains(searchRoleName));
+            }
+
+            // Pagination
+            int totalItems = await roles.CountAsync();
+            int totalPages = (int)Math.Ceiling(totalItems / (double)PageSize);
+
+            var pagedRoles = await roles
+                .OrderBy(r => r.RoleName)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize)
+                .ToListAsync();
+
+            var viewModel = new RoleIndexView
+            {
+                Roles = pagedRoles,
+                CurrentPage = page,
+                TotalPages = totalPages,
+                SearchRoleName = searchRoleName
+            };
+
+            return View(viewModel);
         }
 
         // GET: Admins/Roles/Details/5
@@ -52,8 +78,6 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // POST: Admins/Roles/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("RoleId,RoleName,Description")] Role role)
@@ -84,8 +108,6 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // POST: Admins/Roles/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("RoleId,RoleName,Description")] Role role)
@@ -155,5 +177,14 @@ namespace WebTAManga.Areas.Admins.Controllers
         {
             return _context.Roles.Any(e => e.RoleId == id);
         }
+    }
+
+    // View model for pagination and search
+    public class RoleIndexView
+    {
+        public List<Role> Roles { get; set; }
+        public int CurrentPage { get; set; }
+        public int TotalPages { get; set; }
+        public string SearchRoleName { get; set; }
     }
 }

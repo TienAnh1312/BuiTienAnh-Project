@@ -17,40 +17,34 @@
         <table class="table table-hover table-bordered text-center align-middle">
             <thead class="table-dark">
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.First().ImageUrl)</th>
-                    <th>@Html.DisplayNameFor(model => model.First().Title)</th>
-                    <th>@Html.DisplayNameFor(model => model.First().Description)</th>
-                    <th>@Html.DisplayNameFor(model => model.First().IsActive)</th>
-                    <th>@Html.DisplayNameFor(model => model.First().DisplayOrder)</th>
-                    <th>Hành động</th>
+                    <th>Hình ảnh</th>
+                    <th style="width:120px">Trạng thái</th>
+                    <th style="width:162px">Hành động</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbodyc class ="action">
                 @if (Model != null && Model.Any())
                 {
                     @foreach (var item in Model)
                     {
                         <tr>
                             <td class="text-center">
-                                <img src="~/@item.LinkUrl" alt="Cover Image" class="img-thumbnail" style="max-width: 70px;">
+                                <img src="~/@item.LinkUrl" alt="Cover Image" class="img-thumbnail" style="max-width: 200px;">
                             </td>
-                            <td>@Html.DisplayFor(modelItem => item.Title)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Description)</td>
                             <td>
                                 <span class="badge @(item.IsActive ? "bg-success" : "bg-secondary")">
                                     @(item.IsActive ? "Kích hoạt" : "Không kích hoạt")
                                 </span>
                             </td>
-                            <td>@Html.DisplayFor(modelItem => item.DisplayOrder)</td>
                             <td>
                                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">
-                                    <i class="bi bi-pencil-square"></i> Sửa
+                                    <i class="bi bi-pencil-square" title="Sửa"></i> 
                                 </a>
                                 <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm text-white">
-                                    <i class="bi bi-eye"></i> Chi tiết
+                                    <i class="bi bi-info-circle"></i>
                                 </a>
                                 <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">
-                                    <i class="bi bi-trash"></i> Xóa
+                                    <i class="bi bi-trash" title="Xóa"></i> 
                                 </a>
                             </td>
                         </tr>
@@ -62,7 +56,7 @@
                         <td colspan="6">Không có banner nào.</td>
                     </tr>
                 }
-            </tbody>
+            </tbodyc>
         </table>
     </div>
 </div>

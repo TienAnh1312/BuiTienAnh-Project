@@ -387,6 +387,10 @@ public partial class WebMangaContext : DbContext
             entity.Property(e => e.AssignedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
+            entity.Property(e => e.CanCreate).HasDefaultValue(false);
+            entity.Property(e => e.CanDelete).HasDefaultValue(false);
+            entity.Property(e => e.CanEdit).HasDefaultValue(false);
+            entity.Property(e => e.CanView).HasDefaultValue(false);
             entity.Property(e => e.Module)
                 .HasMaxLength(50)
                 .IsUnicode(false);

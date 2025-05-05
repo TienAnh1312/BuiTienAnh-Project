@@ -21,10 +21,10 @@
             </div>
             <div class="col-md-4">
                 <button type="submit" class="btn btn-primary me-2">
-                    <i class="bi bi-search"></i> Tìm kiếm
+                    <i class="bi bi-search" title="Tìm kiếm"></i>
                 </button>
                 <a asp-action="Index" class="btn btn-secondary">
-                    <i class="bi bi-arrow-clockwise"></i> Đặt lại
+                    <i class="bi bi-arrow-clockwise" title="Đặt lại"></i> 
                 </a>
             </div>
         </div>
@@ -34,26 +34,26 @@
         <table class="table table-hover table-bordered text-center align-middle">
             <thead class="table-dark">
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.Genres[0].Name)</th>         
-                    <th>Actions</th>
+                    <th>Tên thể loại</th>         
+                    <th style="width:180px">Hành động</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="action">
                 @if (Model.Genres != null && Model.Genres.Any())
                 {
                     @foreach (var item in Model.Genres)
                     {
                         <tr>
-                            <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                            <td>
+                            <td style="text-align:left">@Html.DisplayFor(modelItem => item.Name)</td>
+                            <td class="action">
                                 <a asp-action="Edit" asp-route-id="@item.GenreId" class="btn btn-warning btn-sm">
-                                    <i class="bi bi-pencil-square"></i> Sửa
+                                    <i class="bi bi-pencil-square" title="Sửa"></i>
                                 </a>
                                 <a asp-action="Details" asp-route-id="@item.GenreId" class="btn btn-info btn-sm text-white">
-                                    <i class="bi bi-eye"></i> Chi tiết
+                                    <i class="bi bi-info-circle"></i>
                                 </a>
                                 <a asp-action="Delete" asp-route-id="@item.GenreId" class="btn btn-danger btn-sm">
-                                    <i class="bi bi-trash"></i> Xóa
+                                    <i class="bi bi-trash" title="Xóa"></i> 
                                 </a>
                             </td>
                         </tr>

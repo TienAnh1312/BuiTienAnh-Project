@@ -34,10 +34,10 @@
             </div>       
             <div class="col-md-3">
                 <button type="submit" class="btn btn-primary me-2">
-                    <i class="bi bi-search"></i> Tìm kiếm
+                    <i class="bi bi-search" title="Tìm kiếm"></i>
                 </button>
                 <a asp-action="Index" class="btn btn-secondary">
-                    <i class="bi bi-arrow-clockwise"></i> Đặt lại
+                    <i class="bi bi-arrow-clockwise" title="Đặt lại"></i>
                 </a>
             </div>
         </div>
@@ -46,37 +46,36 @@
     <div class="table-responsive">
         <table class="table table-hover table-bordered align-middle">
             <thead class="table-dark">
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Stories[0].Title)</th>
-                    <th>@Html.DisplayNameFor(model => model.Stories[0].Author)</th>
+                <tr class="text-center">
+                    <th>Tên truyện</th>
                     <th>Ảnh bìa</th>
-                    <th class="text-center">Hành động</th>
+                    <th style="width:162px">Hành động</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="action">
                 @if (Model.Stories != null && Model.Stories.Any())
                 {
                     @foreach (var item in Model.Stories)
                     {
-                        <tr>
-                            <td class="fw-bold">@Html.DisplayFor(modelItem => item.Title)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Author)</td>
-                            <td class="text-center">
+                        <tr >
+                            <td class="">@Html.DisplayFor(modelItem => item.Title)</td>
+                            <td class=" text-center">
                                 <img src="~/@item.CoverImage" alt="Ảnh bìa" class="img-thumbnail" style="max-width: 70px;">
                             </td>
-                            <td class="text-center">
+                            <td class=" text-center">
+                                <a asp-controller="Chapters" asp-action="Index" asp-route-storyId="@item.StoryId" class="btn btn-primary btn-sm">
+                                    <i class="fa-solid fa-list-ul" title="Danh sách chương"></i>
+                                </a>
                                 <a asp-action="Edit" asp-route-id="@item.StoryId" class="btn btn-warning btn-sm">
-                                    <i class="bi bi-pencil-square"></i> Sửa
+                                    <i class="bi bi-pencil-square" title="Sửa"></i>
                                 </a>
                                 <a asp-action="Details" asp-route-id="@item.StoryId" class="btn btn-info btn-sm text-white">
-                                    <i class="bi bi-info-circle"></i> Chi tiết
+                                    <i class="bi bi-info-circle" title="Chi tiết"></i>
                                 </a>
                                 <a asp-action="Delete" asp-route-id="@item.StoryId" class="btn btn-danger btn-sm">
-                                    <i class="bi bi-trash"></i> Xóa
+                                    <i class="bi bi-trash" title="Xóa"></i> 
                                 </a>
-                                <a asp-controller="Chapters" asp-action="Index" asp-route-storyId="@item.StoryId" class="btn btn-primary btn-sm">
-                                    Chương
-                                </a>
+                               
                             </td>
                         </tr>
                     }

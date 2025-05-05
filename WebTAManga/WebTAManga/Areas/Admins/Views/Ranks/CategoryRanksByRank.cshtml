@@ -8,7 +8,7 @@
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2 class="text-primary">@ViewData["Title"]</h2>
         <a asp-action="CreateCategoryRank" asp-route-rankId="@Model.Rank.RankId" class="btn btn-success">
-            <i class="bi bi-plus-circle"></i> Tạo Category Rank mới
+            <i class="bi bi-plus-circle"></i> Tạo Cấp độ
         </a>
     </div>
 
@@ -18,14 +18,14 @@
         <div class="row g-3">
             <div class="col-md-4">
                 <input type="text" name="searchName" value="@Model.SearchName"
-                       class="form-control" placeholder="Tìm theo Tên cấp độ " />
+                       class="form-control" placeholder="Tìm tên cấp độ " />
             </div>
             <div class="col-md-4">
                 <button type="submit" class="btn btn-primary me-2">
-                    <i class="bi bi-search"></i> Tìm kiếm
+                    <i class="bi bi-search" title="Tìm kiếm"></i>
                 </button>
                 <a asp-action="CategoryRanksByRank" asp-route-id="@Model.Rank.RankId" class="btn btn-secondary">
-                    <i class="bi bi-arrow-clockwise"></i> Đặt lại
+                    <i class="bi bi-arrow-clockwise" title="Đặt lại"></i>
                 </a>
             </div>
         </div>
@@ -61,10 +61,10 @@
                             </td>
                             <td>
                                 <a asp-action="EditCategoryRank" asp-route-id="@categoryRank.CategoryRankId" class="btn btn-warning btn-sm">
-                                    <i class="bi bi-pencil-square"></i> Sửa
+                                    <i class="bi bi-pencil-square" title="Sửa"></i>
                                 </a>
                                 <a asp-action="DeleteCategoryRank" asp-route-id="@categoryRank.CategoryRankId" class="btn btn-danger btn-sm">
-                                    <i class="bi bi-trash"></i> Xóa
+                                    <i class="bi bi-trash" title="Xóa"></i>
                                 </a>
                             </td>
                         </tr>
@@ -154,6 +154,6 @@
     </nav>
 
     <a asp-action="Index" class="btn btn-primary">
-        <i class="bi bi-arrow-left"></i> Quay lại danh sách Rank
+        <i class="bi bi-arrow-left"></i> Quay lại danh sách Cấp bậc
     </a>
 </div>

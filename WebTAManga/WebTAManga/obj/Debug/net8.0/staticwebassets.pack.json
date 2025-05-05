@@ -145,6 +145,10 @@
       "PackagePath": "staticwebassets\\dist\\css\\alt\\adminlte.plugins.min.css.map"
     },
     {
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\dist\\css\\style.css",
+      "PackagePath": "staticwebassets\\dist\\css\\style.css"
+    },
+    {
       "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\dist\\img\\AdminLTELogo.png",
       "PackagePath": "staticwebassets\\dist\\img\\AdminLTELogo.png"
     },
@@ -385,36 +389,20 @@
       "PackagePath": "staticwebassets\\images\\admins\\avatarFrames\\fcc62373-cdb2-42f6-b4e1-d541e77e66c4.png"
     },
     {
-      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\banner\\1jIZYRfOhND23Ztbw3n4bzGz9TFaJJax2.jfif",
-      "PackagePath": "staticwebassets\\images\\admins\\banner\\1jIZYRfOhND23Ztbw3n4bzGz9TFaJJax2.jfif"
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\banner\\back3.jfif",
+      "PackagePath": "staticwebassets\\images\\admins\\banner\\back3.jfif"
     },
     {
-      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\banner\\22.jpeg",
-      "PackagePath": "staticwebassets\\images\\admins\\banner\\22.jpeg"
-    },
-    {
-      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\banner\\banner 3.jfif",
-      "PackagePath": "staticwebassets\\images\\admins\\banner\\banner 3.jfif"
+      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\banner\\back4.jfif",
+      "PackagePath": "staticwebassets\\images\\admins\\banner\\back4.jfif"
     },
     {
       "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\banner\\banner 6.jfif",
       "PackagePath": "staticwebassets\\images\\admins\\banner\\banner 6.jfif"
     },
     {
-      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\banner\\banner2.jfif",
-      "PackagePath": "staticwebassets\\images\\admins\\banner\\banner2.jfif"
-    },
-    {
-      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\banner\\banner4.jfif",
-      "PackagePath": "staticwebassets\\images\\admins\\banner\\banner4.jfif"
-    },
-    {
       "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\banner\\banner5.jfif",
       "PackagePath": "staticwebassets\\images\\admins\\banner\\banner5.jfif"
-    },
-    {
-      "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\banner\\bannerback.jfif",
-      "PackagePath": "staticwebassets\\images\\admins\\banner\\bannerback.jfif"
     },
     {
       "Id": "E:\\BuiTienAnh\\Học tập\\BuiTienAnh-TH\\BuiTienAnh-Project\\WebTAManga\\WebTAManga\\wwwroot\\images\\admins\\cpimages\\0.jpg",

@@ -36,8 +36,7 @@ namespace WebTAManga.Areas.Admins.Controllers
                 return RedirectToAction("Index", "Login");
             }
 
-            var admins = from a in _context.Admins
-                         select a;
+            var admins = from a in _context.Admins select a;
 
             if (currentAdmin.IsDepartmentHead == true)
             {
@@ -198,14 +197,7 @@ namespace WebTAManga.Areas.Admins.Controllers
             manager.RoleId = roleId;
             _context.Update(manager);
 
-            _context.AdminLogs.Add(new AdminLog
-            {
-                AdminId = currentAdminId,
-                Action = $"Chỉ định {manager.Username} làm trưởng nhóm với vai trò {roleId}",
-                TargetId = managerId,
-                TargetTable = "Admins",
-                CreatedAt = DateTime.Now
-            });
+            var role = await _context.Roles.FindAsync(roleId);
 
             await _context.SaveChangesAsync();
             return Json(new { success = true, message = "Tạo nhóm thành công!" });
@@ -286,15 +278,6 @@ namespace WebTAManga.Areas.Admins.Controllers
 
             admin.ManagerId = managerId;
             _context.Update(admin);
-
-            _context.AdminLogs.Add(new AdminLog
-            {
-                AdminId = currentAdminId,
-                Action = $"Thêm admin {admin.Username} vào nhóm của {manager.Username}",
-                TargetId = adminId,
-                TargetTable = "Admins",
-                CreatedAt = DateTime.Now
-            });
 
             await _context.SaveChangesAsync();
             return Json(new { success = true, message = "Thêm thành viên thành công!" });
@@ -445,7 +428,6 @@ namespace WebTAManga.Areas.Admins.Controllers
                 }
             }
 
-            int assignedBy = HttpContext.Session.GetInt32("AdminId") ?? 0;
             foreach (var module in modules)
             {
                 if (selectedModules.Contains(module))
@@ -457,7 +439,7 @@ namespace WebTAManga.Areas.Admins.Controllers
                         {
                             AdminId = id,
                             Module = module,
-                            AssignedBy = assignedBy,
+                            AssignedBy = currentAdminId,
                             AssignedAt = DateTime.Now
                         };
                         _context.ManagerPermissions.Add(permission);
@@ -470,14 +452,6 @@ namespace WebTAManga.Areas.Admins.Controllers
                 }
             }
 
-            _context.AdminLogs.Add(new AdminLog
-            {
-                AdminId = assignedBy,
-                Action = $"Cập nhật quyền cho admin {admin.Username}: Modules [{string.Join(", ", selectedModules)}]",
-                TargetId = id,
-                TargetTable = "ManagerPermissions",
-                CreatedAt = DateTime.Now
-            });
 
             await _context.SaveChangesAsync();
             TempData["Success"] = "Cập nhật quyền thành công!";
@@ -487,6 +461,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         // GET: Admins/Admins/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            var currentAdminId = HttpContext.Session.GetInt32("AdminId") ?? 0;
             if (id == null)
             {
                 return NotFound();
@@ -505,8 +480,9 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
 
         // GET: Admins/Admins/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var currentAdminId = HttpContext.Session.GetInt32("AdminId") ?? 0;
             ViewBag.RoleList = new SelectList(_context.Roles, "RoleId", "RoleName");
             ViewBag.ManagerList = new SelectList(_context.Admins.Where(a => a.IsDepartmentHead == true), "AdminId", "Username");
             return View();
@@ -517,6 +493,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("AdminId,Username,Email,Password,RoleId,CreatedAt,ManagerId,IsDepartmentHead")] Admin admin, List<string> selectedModules)
         {
+            var currentAdminId = HttpContext.Session.GetInt32("AdminId") ?? 0;
             if (ModelState.IsValid)
             {
                 admin.Password = BCrypt.Net.BCrypt.HashPassword(admin.Password);
@@ -526,7 +503,6 @@ namespace WebTAManga.Areas.Admins.Controllers
 
                 if (selectedModules?.Any() == true)
                 {
-                    int assignedBy = HttpContext.Session.GetInt32("AdminId") ?? 0;
                     foreach (var module in selectedModules)
                     {
                         var permission = new ManagerPermission
@@ -537,7 +513,7 @@ namespace WebTAManga.Areas.Admins.Controllers
                             CanEdit = true,
                             CanCreate = true,
                             CanDelete = true,
-                            AssignedBy = assignedBy,
+                            AssignedBy = currentAdminId,
                             AssignedAt = DateTime.Now
                         };
                         _context.ManagerPermissions.Add(permission);
@@ -556,26 +532,18 @@ namespace WebTAManga.Areas.Admins.Controllers
                         CanEdit = true,
                         CanCreate = true,
                         CanDelete = true,
-                        AssignedBy = HttpContext.Session.GetInt32("AdminId") ?? 0,
+                        AssignedBy = currentAdminId,
                         AssignedAt = DateTime.Now
                     };
                     _context.ManagerPermissions.Add(permission);
                     await _context.SaveChangesAsync();
                 }
 
-                _context.AdminLogs.Add(new AdminLog
-                {
-                    AdminId = HttpContext.Session.GetInt32("AdminId"),
-                    Action = $"Created admin {admin.Username} with role {role?.RoleName}",
-                    TargetId = admin.AdminId,
-                    TargetTable = "Admins",
-                    CreatedAt = DateTime.Now
-                });
-                await _context.SaveChangesAsync();
 
                 TempData["Success"] = "Admin created successfully!";
                 return RedirectToAction(nameof(Index));
             }
+
             ViewBag.RoleList = new SelectList(_context.Roles, "RoleId", "RoleName");
             ViewBag.ManagerList = new SelectList(_context.Admins.Where(a => a.IsDepartmentHead == true), "AdminId", "Username");
             ViewBag.Modules = PermissionModules.AllModules;
@@ -585,6 +553,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         // GET: Admins/Admins/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var currentAdminId = HttpContext.Session.GetInt32("AdminId") ?? 0;
             if (id == null)
             {
                 return NotFound();
@@ -595,6 +564,7 @@ namespace WebTAManga.Areas.Admins.Controllers
             {
                 return NotFound();
             }
+
             ViewBag.RoleList = new SelectList(_context.Roles, "RoleId", "RoleName", admin.RoleId);
             ViewBag.ManagerList = new SelectList(_context.Admins.Where(a => a.IsDepartmentHead == true), "AdminId", "Username", admin.ManagerId);
             return View(admin);
@@ -605,6 +575,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("AdminId,Username,Email,Password,RoleId,CreatedAt,ManagerId,IsDepartmentHead")] Admin admin)
         {
+            var currentAdminId = HttpContext.Session.GetInt32("AdminId") ?? 0;
             if (id != admin.AdminId)
             {
                 return NotFound();
@@ -630,6 +601,7 @@ namespace WebTAManga.Areas.Admins.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
             ViewBag.RoleList = new SelectList(_context.Roles, "RoleId", "RoleName", admin.RoleId);
             ViewBag.ManagerList = new SelectList(_context.Admins.Where(a => a.IsDepartmentHead == true), "AdminId", "Username", admin.ManagerId);
             return View(admin);
@@ -638,6 +610,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         // GET: Admins/Admins/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            var currentAdminId = HttpContext.Session.GetInt32("AdminId") ?? 0;
             if (id == null)
             {
                 return NotFound();
@@ -659,15 +632,21 @@ namespace WebTAManga.Areas.Admins.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var currentAdminId = HttpContext.Session.GetInt32("AdminId") ?? 0;
             var admin = await _context.Admins.FindAsync(id);
             if (admin != null)
             {
                 _context.Admins.Remove(admin);
             }
+            else
+            {
+            }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+       
 
         private bool AdminExists(int id)
         {

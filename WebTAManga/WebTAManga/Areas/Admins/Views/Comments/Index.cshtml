@@ -7,25 +7,25 @@
 <div class="container mt-4">
     <h2 class="text-primary">@ViewData["Title"]</h2>
     <div class="table-responsive mt-3">
-        <table class="table table-hover table-bordered text-center align-middle">
-            <thead class="table-dark">
+        <table class="table table-hover table-bordered align-middle">
+            <thead class="table-dark text-center">
                 <tr>
-                    <th>Username</th>
+                    <th>Tên người dùng</th>
                     <th>Email</th>
-                    <th>Comment Count</th>
-                    <th>Actions</th>
+@*                     <th>Số lượng bình luận</th>
+ *@                    <th style="width:105px;">Hành động</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="action">
                 @foreach (var user in Model)
                 {
                     <tr>
                         <td>@user.Username</td>
                         <td>@user.Email</td>
-                        <td>@user.CommentCount</td>
-                        <td>
+@*                         <td>@user.CommentCount</td>
+ *@                        <td class="text-center">
                             <a asp-action="Details" asp-route-id="@user.UserId" class="btn btn-info btn-sm text-white">
-                                <i class="bi bi-eye"></i> View Stories
+                                <i class="bi bi-eye" title="Xem truyện đã bình luận"></i> 
                             </a>
                         </td>
                     </tr>

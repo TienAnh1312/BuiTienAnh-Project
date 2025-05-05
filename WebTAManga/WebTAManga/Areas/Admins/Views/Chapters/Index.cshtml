@@ -35,49 +35,47 @@
         <table class="table table-hover table-bordered align-middle">
             <thead class="table-dark">
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.ChapterTitle)</th>
-                    <th>@Html.DisplayNameFor(model => model.ChapterCode)</th>
-                    <th class="text-center">Actions</th>
-                    <th class="text-center">Hình Ảnh</th>
+                    <th>Tên chương truyện</th>
+                    <th class="text-center" style="width:120px">Hình ảnh</th>
+                    <th class="text-center" style="width:162px">Hành động</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="action">
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td class="fw-bold">@Html.DisplayFor(modelItem => item.ChapterTitle)</td>
-                        <td>@Html.DisplayFor(modelItem => item.ChapterCode)</td>
-                       
+                        <td class="">@Html.DisplayFor(modelItem => item.ChapterTitle)</td>
+                        <td>
+                            <div class="justify-content-center align-items-center">
+                                @if (item.ChapterImages == null || !item.ChapterImages.Any())
+                                {
+                                    <span class="badge bg-warning text-dark ms-1 text-center">Chưa có hình ảnh</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-success ms-1 text-center">Đã có hình ảnh (@item.ChapterImages.Count())</span>
+                                }
+                            </div>
+                        </td>
                         <td class="text-center">
-                            <div class="d-flex justify-content-center align-items-center">
+                            <div class="action d-flex justify-content-center align-items-center">
+                                <a asp-controller="ChapterImages" asp-action="Index" asp-route-chapterId="@item.ChapterId" class="btn btn-primary btn-sm me-1">
+                                    <i class="bi bi-image" title="Hình ảnh"></i>
+                                </a>
                                 <a asp-action="Edit" asp-route-id="@item.ChapterId" class="btn btn-warning btn-sm me-1">
-                                    <i class="bi bi-pencil-square"></i> Edit
+                                    <i class="bi bi-pencil-square" title="Sửa"></i> 
                                 </a>
                                 <a asp-action="Details" asp-route-id="@item.ChapterId" class="btn btn-info btn-sm text-white me-1">
-                                    <i class="bi bi-info-circle"></i> Details
+                                    <i class="bi bi-info-circle" title="Chi tiết"></i> 
                                 </a>
                                 <a asp-action="Delete" asp-route-id="@item.ChapterId" class="btn btn-danger btn-sm me-1">
-                                    <i class="bi bi-trash"></i> Delete
-                                </a>
-                                <a asp-controller="ChapterImages" asp-action="Index" asp-route-chapterId="@item.ChapterId" class="btn btn-primary btn-sm me-1">
-                                    <i class="bi bi-image"></i> Edit Images
+                                    <i class="bi bi-trash" title="Xóa"></i> 
                                 </a>
                                
                             </div>
                         </td>
 
-                        <td>
-                            <div class="justify-content-center align-items-center">
-                            @if (item.ChapterImages == null || !item.ChapterImages.Any())
-                            {
-                                <span class="badge bg-warning text-dark ms-1">Chưa có hình ảnh</span>
-                            }
-                            else
-                            {
-                                <span class="badge bg-success ms-1">Đã có hình ảnh (@item.ChapterImages.Count())</span>
-                            }
-                            </div>
-                        </td>
+                       
                     </tr>
                 }
             </tbody>

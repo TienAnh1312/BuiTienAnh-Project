@@ -33,6 +33,7 @@ wwwroot\dist\css\alt\adminlte.plugins.css
 wwwroot\dist\css\alt\adminlte.plugins.css.map
 wwwroot\dist\css\alt\adminlte.plugins.min.css
 wwwroot\dist\css\alt\adminlte.plugins.min.css.map
+wwwroot\dist\css\style.css
 wwwroot\dist\img\adminLTE.jpg
 wwwroot\dist\img\AdminLTELogo.png
 wwwroot\dist\img\avatar.png
@@ -93,14 +94,10 @@ wwwroot\images\admins\avatarFrames\d7629445-5b85-4936-8200-5a7c21c6177e.png
 wwwroot\images\admins\avatarFrames\f0df4cd6-14d9-4524-9083-7423a9328f65.png
 wwwroot\images\admins\avatarFrames\f580426e-407a-4044-86cb-225cfea2660f.png
 wwwroot\images\admins\avatarFrames\fcc62373-cdb2-42f6-b4e1-d541e77e66c4.png
-wwwroot\images\admins\banner\1jIZYRfOhND23Ztbw3n4bzGz9TFaJJax2.jfif
-wwwroot\images\admins\banner\22.jpeg
-wwwroot\images\admins\banner\banner 3.jfif
+wwwroot\images\admins\banner\back3.jfif
+wwwroot\images\admins\banner\back4.jfif
 wwwroot\images\admins\banner\banner 6.jfif
-wwwroot\images\admins\banner\banner2.jfif
-wwwroot\images\admins\banner\banner4.jfif
 wwwroot\images\admins\banner\banner5.jfif
-wwwroot\images\admins\banner\bannerback.jfif
 wwwroot\images\admins\cpimages\0.jpg
 wwwroot\images\admins\cpimages\10dfbb8f-8a58-43db-bb5b-08a5a870a40c.jpg
 wwwroot\images\admins\cpimages\76e2e323-4ffe-4635-9c53-946897097840.jpg

@@ -9,7 +9,7 @@ public partial class ManagerPermission
 
     public int AdminId { get; set; }
 
-    public string? Module { get; set; } = null!;
+    public string? Module { get; set; }
 
     public bool? CanView { get; set; }
 
@@ -23,7 +23,7 @@ public partial class ManagerPermission
 
     public DateTime AssignedAt { get; set; }
 
-    public virtual Admin? Admin { get; set; } = null!;
+    public virtual Admin Admin { get; set; } = null!;
 
-    public virtual Admin? AssignedByNavigation { get; set; } = null!;
+    public virtual Admin AssignedByNavigation { get; set; } = null!;
 }
