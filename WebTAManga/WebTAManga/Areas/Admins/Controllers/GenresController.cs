@@ -11,7 +11,6 @@ using WebTAManga.Models;
 namespace WebTAManga.Areas.Admins.Controllers
 {
     [Authorize(Roles = "SuperAdmin, ContentManager")]
-
     public class GenresController : BaseController
     {
         private readonly WebMangaContext _context;
@@ -24,30 +23,25 @@ namespace WebTAManga.Areas.Admins.Controllers
 
         // GET: Admins/Genres
         [PermissionAuthorize("Genres", "View")]
-
         public async Task<IActionResult> Index(string searchName, int page = 1)
         {
             var genres = from g in _context.Genres
                          select g;
 
-            // Apply search filter
             if (!string.IsNullOrEmpty(searchName))
             {
                 genres = genres.Where(g => g.Name.Contains(searchName));
             }
 
-            // Get total items for pagination
             int totalItems = await genres.CountAsync();
             int totalPages = (int)Math.Ceiling(totalItems / (double)PageSize);
 
-            // Apply pagination
             var pagedGenres = await genres
                 .OrderBy(g => g.GenreId)
                 .Skip((page - 1) * PageSize)
                 .Take(PageSize)
                 .ToListAsync();
 
-            // Create view model
             var viewModel = new GenreIndexView
             {
                 Genres = pagedGenres,
@@ -61,7 +55,6 @@ namespace WebTAManga.Areas.Admins.Controllers
 
         // GET: Admins/Genres/Details/5
         [PermissionAuthorize("Genres", "View")]
-
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -69,21 +62,27 @@ namespace WebTAManga.Areas.Admins.Controllers
                 return NotFound();
             }
 
-            var genre = await _context.Genres
-                .FirstOrDefaultAsync(m => m.GenreId == id);
+            var genre = await _context.Genres.FirstOrDefaultAsync(m => m.GenreId == id);
             if (genre == null)
             {
                 return NotFound();
             }
 
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_Details", genre);
+            }
             return View(genre);
         }
 
         // GET: Admins/Genres/Create
         [PermissionAuthorize("Genres", "Create")]
-
         public IActionResult Create()
         {
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_Create");
+            }
             return View();
         }
 
@@ -91,21 +90,28 @@ namespace WebTAManga.Areas.Admins.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [PermissionAuthorize("Genres", "Create")]
-
         public async Task<IActionResult> Create([Bind("GenreId,Name,Title")] Genre genre)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(genre);
                 await _context.SaveChangesAsync();
+                if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                {
+                    return Json(new { success = true });
+                }
                 return RedirectToAction(nameof(Index));
+            }
+
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_Create", genre);
             }
             return View(genre);
         }
 
         // GET: Admins/Genres/Edit/5
         [PermissionAuthorize("Genres", "Edit")]
-
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -118,6 +124,11 @@ namespace WebTAManga.Areas.Admins.Controllers
             {
                 return NotFound();
             }
+
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_Edit", genre);
+            }
             return View(genre);
         }
 
@@ -125,7 +136,6 @@ namespace WebTAManga.Areas.Admins.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [PermissionAuthorize("Genres", "Edit")]
-
         public async Task<IActionResult> Edit(int id, [Bind("GenreId,Name,Title")] Genre genre)
         {
             if (id != genre.GenreId)
@@ -151,14 +161,22 @@ namespace WebTAManga.Areas.Admins.Controllers
                         throw;
                     }
                 }
+                if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                {
+                    return Json(new { success = true });
+                }
                 return RedirectToAction(nameof(Index));
+            }
+
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_Edit", genre);
             }
             return View(genre);
         }
 
         // GET: Admins/Genres/Delete/5
         [PermissionAuthorize("Genres", "Delete")]
-
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -166,13 +184,16 @@ namespace WebTAManga.Areas.Admins.Controllers
                 return NotFound();
             }
 
-            var genre = await _context.Genres
-                .FirstOrDefaultAsync(m => m.GenreId == id);
+            var genre = await _context.Genres.FirstOrDefaultAsync(m => m.GenreId == id);
             if (genre == null)
             {
                 return NotFound();
             }
 
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_Delete", genre);
+            }
             return View(genre);
         }
 
@@ -180,16 +201,19 @@ namespace WebTAManga.Areas.Admins.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [PermissionAuthorize("Genres", "Delete")]
-
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var genre = await _context.Genres.FindAsync(id);
             if (genre != null)
             {
                 _context.Genres.Remove(genre);
+                await _context.SaveChangesAsync();
             }
 
-            await _context.SaveChangesAsync();
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return Json(new { success = true });
+            }
             return RedirectToAction(nameof(Index));
         }
 
@@ -199,7 +223,6 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
     }
 
-    // View model for pagination and search
     public class GenreIndexView
     {
         public List<Genre> Genres { get; set; }

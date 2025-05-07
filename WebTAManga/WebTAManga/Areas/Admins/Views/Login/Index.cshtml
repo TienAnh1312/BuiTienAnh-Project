@@ -145,6 +145,31 @@
 
 @section Scripts {
 
+    <script>
+        $(function () {
+            // Cấu hình Toastr
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "timeOut": "4000", 
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut",
+                "preventDuplicates": true // Ngăn hiển thị nhiều toast giống nhau
+            };
 
+            // Kiểm tra thông báo TempData
+            const successMessage = '@TempData["ToastrSuccess"]'.trim();
+            const errorMessage = '@TempData["ToastrError"]'.trim();
+
+            if (successMessage) toastr.success(successMessage);
+            if (errorMessage) toastr.error(errorMessage);
+        });
+
+
+    </script>
     <partial name="_ValidationScriptsPartial" />
 }

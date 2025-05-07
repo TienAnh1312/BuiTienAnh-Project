@@ -1,0 +1,9 @@
+﻿@model WebTAManga.Models.Banner
+
+<div class="alert alert-warning">
+    Bạn có chắc chắn muốn xóa banner <strong>@Model.Title</strong> không?
+</div>
+<form id="bannerForm" asp-action="Delete" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+</form>

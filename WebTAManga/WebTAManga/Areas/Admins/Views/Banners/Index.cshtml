@@ -2,32 +2,38 @@
 
 @{
     ViewData["Title"] = "Quản lý Banner";
+    int stt = 1;
 }
 
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2 class="text-primary">@ViewData["Title"]</h2>
-        <a asp-action="Create" class="btn btn-success">
-            <i class="bi bi-plus-circle"></i> Tạo mới
-        </a>
+        <button class="btn btn-success ajax-action" id="createBannerBtn">
+            <i class="bi bi-plus-lg"></i> Thêm banner
+        </button>
     </div>
 
-    <!-- Bảng hiển thị banner -->
+    <div id="bannerLimitError" class="alert alert-danger d-none" role="alert">
+        Không thể thêm banner mới. Giới hạn là 4 banner.
+    </div>
+
     <div class="table-responsive">
         <table class="table table-hover table-bordered text-center align-middle">
             <thead class="table-dark">
                 <tr>
+                    <th style="width: 50px;">STT</th>
                     <th>Hình ảnh</th>
                     <th style="width:120px">Trạng thái</th>
                     <th style="width:162px">Hành động</th>
                 </tr>
             </thead>
-            <tbodyc class ="action">
+            <tbody class="action">
                 @if (Model != null && Model.Any())
                 {
                     @foreach (var item in Model)
                     {
                         <tr>
+                            <td>@stt</td>
                             <td class="text-center">
                                 <img src="~/@item.LinkUrl" alt="Cover Image" class="img-thumbnail" style="max-width: 200px;">
                             </td>
@@ -37,26 +43,120 @@
                                 </span>
                             </td>
                             <td>
-                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">
-                                    <i class="bi bi-pencil-square" title="Sửa"></i> 
-                                </a>
-                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm text-white">
+                                <button class="btn btn-warning btn-sm ajax-action" data-bs-toggle="modal" data-bs-target="#bannerModal" data-url="@Url.Action("Edit", new { id = item.Id })">
+                                    <i class="bi bi-pencil-square" title="Sửa"></i>
+                                </button>
+                                <button class="btn btn-info btn-sm text-white ajax-action" data-bs-toggle="modal" data-bs-target="#bannerModal" data-url="@Url.Action("Details", new { id = item.Id })">
                                     <i class="bi bi-info-circle"></i>
-                                </a>
-                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">
-                                    <i class="bi bi-trash" title="Xóa"></i> 
-                                </a>
+                                </button>
+                                <button class="btn btn-danger btn-sm ajax-action" data-bs-toggle="modal" data-bs-target="#bannerModal" data-url="@Url.Action("Delete", new { id = item.Id })">
+                                    <i class="bi bi-trash" title="Xóa"></i>
+                                </button>
                             </td>
                         </tr>
+                        stt++;
                     }
                 }
                 else
                 {
                     <tr>
-                        <td colspan="6">Không có banner nào.</td>
+                        <td colspan="4">Không có banner nào.</td>
                     </tr>
                 }
-            </tbodyc>
+            </tbody>
         </table>
     </div>
+
+    <div class="modal fade" id="bannerModal" tabindex="-1" aria-labelledby="bannerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="bannerModalLabel">Quản lý Banner</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" id="saveBanner">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#createBannerBtn").click(function (e) {
+                e.preventDefault();
+                var bannerCount = @Model.Count();
+                if (bannerCount >= 4) {
+                    $("#bannerLimitError").removeClass("d-none");
+                    return;
+                }
+
+                $("#bannerLimitError").addClass("d-none");
+                var url = "@Url.Action("Create")";
+                $("#bannerModal .modal-body").load(url, function (response, status, xhr) {
+                    if (status === "error") {
+                        console.error("Lỗi:", xhr.status, xhr.statusText);
+                        alert("Lỗi khi tải dữ liệu: " + xhr.status + " " + xhr.statusText);
+                    } else if (typeof response === "object" && response.success === false) {
+                        $("#bannerLimitError").removeClass("d-none").text(response.message);
+                        $("#bannerModal").modal("hide");
+                    }
+                });
+
+                $("#bannerModalLabel").text("Tạo Banner");
+                $("#saveBanner").show();
+                $("#bannerModal").modal("show");
+            });
+
+            $(".ajax-action").not("#createBannerBtn").click(function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                $("#bannerModal .modal-body").load(url, function (response, status, xhr) {
+                    if (status === "error") {
+                        console.error("Lỗi:", xhr.status, xhr.statusText);
+                        alert("Lỗi khi tải dữ liệu: " + xhr.status + " " + xhr.statusText);
+                    }
+                });
+
+                var action = url.includes("Edit") ? "Sửa Banner" :
+                             url.includes("Delete") ? "Xóa Banner" : "Chi tiết Banner";
+                $("#bannerModalLabel").text(action);
+                $("#saveBanner").toggle(!url.includes("Details"));
+            });
+
+            $("#saveBanner").click(function () {
+                var form = $("#bannerModal .modal-body form");
+                if (form.length) {
+                    var formData = new FormData(form[0]);
+                    $.ajax({
+                        url: form.attr("action"),
+                        type: form.attr("method"),
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (response) {
+                            if (response.success) {
+                                $("#bannerModal").modal("hide");
+                                location.reload();
+                            } else if (typeof response === "object" && response.success === false) {
+                                $("#bannerLimitError").removeClass("d-none").text(response.message);
+                                $("#bannerModal").modal("hide");
+                            } else {
+                                $("#bannerModal .modal-body").html(response);
+                            }
+                        },
+                        error: function (xhr) {
+                            console.error("Lỗi lưu:", xhr.status, xhr.statusText);
+                            alert("Lỗi khi lưu dữ liệu: " + xhr.status + " " + xhr.statusText);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

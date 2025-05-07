@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Quản lý Khung Avatar";
+    int stt = ((Model?.CurrentPage ?? 1) - 1) * 7 + 1;
 }
 
 <div class="container mt-4">
@@ -51,6 +52,7 @@
         <table class="table table-hover table-bordered align-middle">
             <thead class="table-dark">
                 <tr class="text-center">
+                    <th style="width: 50px;">STT</th>
                     <th>Tên khung viền</th>
                     <th style="width: 100px;">Hình ảnh</th>
                     <th>Giá</th>
@@ -63,6 +65,7 @@
                     @foreach (var item in Model.AvatarFrames)
                     {
                         <tr>
+                            <td class=" text-center">@stt</td>
                             <td class="">@Html.DisplayFor(modelItem => item.Name)</td>
                             <td class="text-center">
                                 <img src="~/@item.ImagePath" alt="@item.Name" class="img-thumbnail" style="max-width: 70px;">
@@ -81,6 +84,7 @@
                                 </a>
                             </td>
                         </tr>
+                        stt++;
                     }
                 }
                 else

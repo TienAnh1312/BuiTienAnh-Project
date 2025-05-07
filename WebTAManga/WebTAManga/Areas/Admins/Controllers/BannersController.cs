@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebTAManga.Areas.Admins.Filters;
 using WebTAManga.Models;
@@ -12,7 +11,6 @@ using WebTAManga.Models;
 namespace WebTAManga.Areas.Admins.Controllers
 {
     [Authorize(Roles = "SuperAdmin, ContentManager")]
-
     public class BannersController : BaseController
     {
         private readonly WebMangaContext _context;
@@ -22,14 +20,12 @@ namespace WebTAManga.Areas.Admins.Controllers
             _context = context;
         }
 
-        // GET: Admins/Banners
         [PermissionAuthorize("Banners", "View")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Banners.ToListAsync());
         }
 
-        // GET: Admins/Banners/Details/5
         [PermissionAuthorize("Banners", "View")]
         public async Task<IActionResult> Details(int? id)
         {
@@ -38,66 +34,82 @@ namespace WebTAManga.Areas.Admins.Controllers
                 return NotFound();
             }
 
-            var banner = await _context.Banners
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var banner = await _context.Banners.FirstOrDefaultAsync(m => m.Id == id);
             if (banner == null)
             {
                 return NotFound();
             }
 
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_Details", banner);
+            }
             return View(banner);
         }
 
-        // GET: Admins/Banners/Create
         [PermissionAuthorize("Banners", "Create")]
         public IActionResult Create()
         {
-            // Kiểm tra xem số lượng banner đã đạt 4 chưa
             if (_context.Banners.Count() >= 4)
             {
+                if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                {
+                    return Json(new { success = false, message = "Không thể tạo quá 4 banner." });
+                }
                 TempData["ErrorMessage"] = "Không thể tạo quá 4 banner.";
                 return RedirectToAction(nameof(Index));
             }
-            return View();
+            return PartialView("_Create");
         }
 
-        // POST: Admins/Banners/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         [PermissionAuthorize("Banners", "Create")]
         public async Task<IActionResult> Create([Bind("Id,ImageUrl,Title,Description,LinkUrl,IsActive,DisplayOrder")] Banner banner)
         {
-            // Kiểm tra xem số lượng banner đã đạt 4 chưa
             if (_context.Banners.Count() >= 4)
             {
+                if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                {
+                    return Json(new { success = false, message = "Không thể tạo quá 4 banner." });
+                }
                 ModelState.AddModelError("", "Không thể tạo quá 4 banner.");
-                return View(banner);
+                return PartialView("_Create", banner);
             }
 
             if (ModelState.IsValid)
             {
-                // Xử lý ảnh nếu có ảnh mới
                 var files = HttpContext.Request.Form.Files;
-                if (files.Count() > 0 && files[0].Length > 0)
+                if (files.Any() && files[0].Length > 0)
                 {
                     var file = files[0];
-                    var fileName = file.FileName;
+                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                     var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "admins", "banner", fileName);
 
+                    Directory.CreateDirectory(Path.GetDirectoryName(path));
                     using (var stream = new FileStream(path, FileMode.Create))
                     {
                         await file.CopyToAsync(stream);
-                        banner.LinkUrl = "images/admins/banner/" + fileName; 
                     }
+                    banner.LinkUrl = "images/admins/banner/" + fileName;
                 }
+                else
+                {
+                    ModelState.AddModelError("LinkUrl", "Vui lòng chọn một hình ảnh.");
+                    return PartialView("_Create", banner);
+                }
+
                 _context.Add(banner);
                 await _context.SaveChangesAsync();
+                if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                {
+                    return Json(new { success = true });
+                }
                 return RedirectToAction(nameof(Index));
             }
-            return View(banner);
+            return PartialView("_Create", banner);
         }
 
-        // GET: Admins/Banners/Edit/5
         [PermissionAuthorize("Banners", "Edit")]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -111,12 +123,9 @@ namespace WebTAManga.Areas.Admins.Controllers
             {
                 return NotFound();
             }
-            return View(banner);
+            return PartialView("_Edit", banner);
         }
 
-        // POST: Admins/Banners/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [PermissionAuthorize("Banners", "Edit")]
@@ -131,21 +140,31 @@ namespace WebTAManga.Areas.Admins.Controllers
             {
                 try
                 {
-                    // Xử lý ảnh, nếu có ảnh mới
+                    var existingBanner = await _context.Banners.AsNoTracking().FirstOrDefaultAsync(b => b.Id == id);
+                    if (existingBanner == null)
+                    {
+                        return NotFound();
+                    }
+
                     var files = HttpContext.Request.Form.Files;
-                    if (files.Count() > 0 && files[0].Length > 0)
+                    if (files.Any() && files[0].Length > 0)
                     {
                         var file = files[0];
-                        var fileName = file.FileName;
+                        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                         var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "admins", "banner", fileName);
 
+                        Directory.CreateDirectory(Path.GetDirectoryName(path));
                         using (var stream = new FileStream(path, FileMode.Create))
                         {
-                            file.CopyTo(stream);
-                            banner.LinkUrl = "images/admins/banner/" + fileName; 
+                            await file.CopyToAsync(stream);
                         }
+                        banner.LinkUrl = "images/admins/banner/" + fileName;
                     }
-  
+                    else
+                    {
+                        banner.LinkUrl = existingBanner.LinkUrl;
+                    }
+
                     _context.Update(banner);
                     await _context.SaveChangesAsync();
                 }
@@ -155,17 +174,17 @@ namespace WebTAManga.Areas.Admins.Controllers
                     {
                         return NotFound();
                     }
-                    else
-                    {
-                        throw;
-                    }
+                    throw;
+                }
+                if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                {
+                    return Json(new { success = true });
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(banner);
+            return PartialView("_Edit", banner);
         }
 
-        // GET: Admins/Banners/Delete/5
         [PermissionAuthorize("Banners", "Delete")]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -174,29 +193,34 @@ namespace WebTAManga.Areas.Admins.Controllers
                 return NotFound();
             }
 
-            var banner = await _context.Banners
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var banner = await _context.Banners.FirstOrDefaultAsync(m => m.Id == id);
             if (banner == null)
             {
                 return NotFound();
             }
 
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_Delete", banner);
+            }
             return View(banner);
         }
 
-        // POST: Admins/Banners/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [PermissionAuthorize("Banners", "Delete")]  
+        [PermissionAuthorize("Banners", "Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var banner = await _context.Banners.FindAsync(id);
             if (banner != null)
             {
                 _context.Banners.Remove(banner);
+                await _context.SaveChangesAsync();
             }
-
-            await _context.SaveChangesAsync();
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return Json(new { success = true });
+            }
             return RedirectToAction(nameof(Index));
         }
 

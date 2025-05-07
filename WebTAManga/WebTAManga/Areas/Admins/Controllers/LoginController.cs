@@ -126,7 +126,7 @@ namespace WebTAManga.Areas.Admins.Controllers
         // Hàm kiểm tra mật khẩu
         private bool VerifyPassword(string inputPassword, string storedPassword)
         {
-            return inputPassword.Equals(storedPassword); // Không mã hóa
+            return inputPassword.Equals(storedPassword); 
         }
     }
 }

@@ -94,10 +94,15 @@ wwwroot\images\admins\avatarFrames\d7629445-5b85-4936-8200-5a7c21c6177e.png
 wwwroot\images\admins\avatarFrames\f0df4cd6-14d9-4524-9083-7423a9328f65.png
 wwwroot\images\admins\avatarFrames\f580426e-407a-4044-86cb-225cfea2660f.png
 wwwroot\images\admins\avatarFrames\fcc62373-cdb2-42f6-b4e1-d541e77e66c4.png
+wwwroot\images\admins\banner\18643630-9ea9-4593-96a6-87817064373c.jfif
+wwwroot\images\admins\banner\2eafcbb5-9861-45e5-8907-e357eaa88d3d.jfif
+wwwroot\images\admins\banner\4c006f16-6724-4e8a-98ca-ae49f8352cfb.jfif
 wwwroot\images\admins\banner\back3.jfif
 wwwroot\images\admins\banner\back4.jfif
 wwwroot\images\admins\banner\banner 6.jfif
 wwwroot\images\admins\banner\banner5.jfif
+wwwroot\images\admins\banner\d7ac2d69-f838-488b-be36-d42127568b63.jfif
+wwwroot\images\admins\banner\e15b767b-926f-4372-97bc-e04eda1f651e.jfif
 wwwroot\images\admins\cpimages\0.jpg
 wwwroot\images\admins\cpimages\10dfbb8f-8a58-43db-bb5b-08a5a870a40c.jpg
 wwwroot\images\admins\cpimages\76e2e323-4ffe-4635-9c53-946897097840.jpg

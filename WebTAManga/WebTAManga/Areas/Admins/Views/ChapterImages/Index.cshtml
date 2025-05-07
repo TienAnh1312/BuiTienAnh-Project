@@ -4,61 +4,6 @@
     ViewData["Title"] = "Chapter Images";
 }
 
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2 class="text-primary">Danh Sách Ảnh của Chapter</h2>
-        <a asp-action="Create" asp-route-chapterId="@ViewData["ChapterId"]" class="btn btn-success">
-            <i class="bi bi-plus-circle"></i> Thêm Ảnh Mới
-        </a>
-    </div>
-
-    <form asp-action="BulkDelete" method="post" id="bulkDeleteForm">
-        <input type="hidden" name="chapterId" value="@ViewData["ChapterId"]" />
-
-        <div class="mb-3">
-            <input type="checkbox" id="selectAll" class="form-check-input">
-            <label for="selectAll" class="form-check-label">Chọn tất cả</label>
-        </div>
-
-        <!-- Nút xóa hàng loạt, mặc định ẩn -->
-        <button type="submit" class="btn btn-danger mt-3 d-none" id="bulkDeleteButton"
-                onclick="return confirm('Bạn có chắc muốn xóa các mục đã chọn?');">
-            <i class="bi bi-trash3"></i> Xóa
-        </button>
-
-        <div class="row">
-            @foreach (var item in Model)
-            {
-                <div class="col-md-2 col-sm-4 col-6 mb-4">
-                    <div class="card shadow-sm h-100">
-                        <img src="@Url.Action("GetImage", "ChapterImages", new { area = "Admins", imageId = item.ImageId })" class="card-img-top img-fluid img-thumbnail image-hover" alt="Image @item.PageNumber" onerror="this.src='/images/fallback.jpg';" />
-                        <div class="card-body p-2 text-center">
-                            <h6 class="text-secondary mb-2">Trang @item.PageNumber</h6>
-                            <div class="d-flex justify-content-center mb-2">
-                                <a asp-action="Edit" asp-route-id="@item.ImageId" class="btn btn-warning btn-sm me-2">
-                                    <i class="bi bi-pencil-square"></i> Sửa
-                                </a>
-                                <a asp-action="Delete" asp-route-id="@item.ImageId" class="btn btn-danger btn-sm">
-                                    <i class="bi bi-trash"></i> Xóa
-                                </a>
-                            </div>
-                            <input type="checkbox" name="selectedIds" value="@item.ImageId" class="form-check-input item-checkbox">
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
-    </form>
-
-    <a asp-action="Index" asp-controller="Stories" class="btn btn-secondary mt-3">
-        <i class="bi bi-arrow-left"></i> Quay lại Stories
-    </a>
-</div>
-
-<!-- Thêm Bootstrap Icons (nếu chưa có) -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
-<!-- CSS tùy chỉnh -->
 <style>
     h2.text-primary {
         font-weight: bold;
@@ -86,6 +31,62 @@
         margin-right: auto;
     }
 </style>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="text-primary">Danh Sách Ảnh của Chapter</h2>
+        <a asp-action="Create" asp-route-chapterId="@ViewData["ChapterId"]" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Thêm Ảnh
+        </a>
+    </div>
+
+    <form asp-action="BulkDelete" method="post" id="bulkDeleteForm">
+        <input type="hidden" name="chapterId" value="@ViewData["ChapterId"]" />
+
+        <div class="mb-3">
+            <input type="checkbox" id="selectAll" class="form-check-input">
+            <label for="selectAll" class="form-check-label">Chọn tất cả</label>
+        </div>
+
+        <!-- Nút xóa hàng loạt, mặc định ẩn -->
+        <button type="submit" class="btn btn-danger mt-3 d-none" id="bulkDeleteButton"
+                onclick="return confirm('Bạn có chắc muốn xóa các mục đã chọn?');">
+            <i class="bi bi-trash3"></i> Xóa
+        </button>
+
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-2 col-sm-4 col-6 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <img src="@Url.Action("GetImage", "ChapterImages", new { area = "Admins", imageId = item.ImageId })" class="card-img-top img-fluid img-thumbnail image-hover" alt="Image @item.PageNumber" onerror="this.src='/images/fallback.jpg';" />
+                        <div class="card-body p-2 text-center">
+                            <h6 class="text-secondary mb-2">Trang @item.PageNumber</h6>
+                            <div class="d-flex justify-content-center mb-2">
+                                <a asp-action="Edit" asp-route-id="@item.ImageId" class="btn btn-warning btn-sm me-2">
+                                    <i class="bi bi-pencil-square" title="Sửa"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.ImageId" class="btn btn-danger btn-sm">
+                                    <i class="bi bi-trash" title="Xóa"></i>
+                                </a>
+                            </div>
+                            <input type="checkbox" name="selectedIds" value="@item.ImageId" class="form-check-input item-checkbox">
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </form>
+
+    <a asp-action="Index" asp-controller="Stories" class="btn btn-secondary mt-3">
+        <i class="bi bi-arrow-left"></i> Quay lại Stories
+    </a>
+</div>
+
+<!-- Thêm Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+
 
 @section Scripts {
     <script>

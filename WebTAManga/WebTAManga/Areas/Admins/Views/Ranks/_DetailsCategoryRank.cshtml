@@ -1,0 +1,25 @@
+﻿@model WebTAManga.Models.CategoryRank
+
+<div>
+    <h4>@Model.Name</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-4">Tên</dt>
+        <dd class="col-sm-8">@Model.Name</dd>
+        <dt class="col-sm-4">Rank</dt>
+        <dd class="col-sm-8">@(Model.Rank?.Name ?? "N/A")</dd>
+        <dt class="col-sm-4">Levels</dt>
+        <dd class="col-sm-8">
+            <ul>
+                @foreach (var level in Model.Levels)
+                {
+                        <li>@level.ExpRequired EXP</li>
+                }
+                @if (!Model.Levels.Any())
+                {
+                        <li>Không có level nào</li>
+                }
+            </ul>
+        </dd>
+    </dl>
+</div>

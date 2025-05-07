@@ -1,7 +1,9 @@
 ﻿@model WebTAManga.Areas.Admins.Controllers.AdminIndexView
 
 @{
+                                  
     ViewData["Title"] = "Quản lý Quản trị viên";
+    int stt = (Model.CurrentPage - 1) * 7 + 1;
 }
 
 <div class="container mt-4">
@@ -47,17 +49,20 @@
         <table class="table table-hover table-bordered align-middle">
             <thead class="table-dark">
                 <tr class="text-center">
+                    <th style="width: 50px;">STT</th> 
                     <th>@Html.DisplayNameFor(model => model.Admins[0].Email)</th>
                     <th>@Html.DisplayNameFor(model => model.Admins[0].RoleNavigation.RoleName)</th>
-                    <th style="width: 162px;" >Hành động</th>
+                    <th style="width: 162px;">Hành động</th>
                 </tr>
             </thead>
             <tbody>
                 @if (Model.Admins != null && Model.Admins.Any())
                 {
+                   
                     @foreach (var admin in Model.Admins)
                     {
                         <tr>
+                            <td class="text-center">@stt</td> 
                             <td>@Html.DisplayFor(modelItem => admin.Email)</td>
                             <td>@Html.DisplayFor(modelItem => admin.RoleNavigation.RoleName)</td>
                             <td class="text-center">
@@ -73,12 +78,13 @@
                                 </a>
                             </td>
                         </tr>
+                        stt++; 
                     }
                 }
                 else
                 {
                     <tr>
-                        <td colspan="5">Không tìm thấy quản trị viên nào.</td>
+                        <td colspan="4">Không tìm thấy quản trị viên nào.</td> 
                     </tr>
                 }
             </tbody>

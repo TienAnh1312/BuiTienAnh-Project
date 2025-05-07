@@ -1,0 +1,8 @@
+﻿@model WebTAManga.Models.Role
+
+<div class="alert alert-warning">
+    Bạn có chắc chắn muốn xóa vai trò <strong>@Model.RoleName</strong> không?
+</div>
+<form id="roleForm" asp-action="Delete" method="post">
+    <input type="hidden" asp-for="RoleId" />
+</form>

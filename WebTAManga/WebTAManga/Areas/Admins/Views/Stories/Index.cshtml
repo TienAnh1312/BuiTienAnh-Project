@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Quản lý Truyện";
+    int stt = ((Model?.CurrentPage ?? 1) - 1) * 7 + 1;
 }
 
 <div class="container mt-4">
@@ -47,6 +48,7 @@
         <table class="table table-hover table-bordered align-middle">
             <thead class="table-dark">
                 <tr class="text-center">
+                    <th style="width: 50px;">STT</th>
                     <th>Tên truyện</th>
                     <th>Ảnh bìa</th>
                     <th style="width:162px">Hành động</th>
@@ -58,6 +60,7 @@
                     @foreach (var item in Model.Stories)
                     {
                         <tr >
+                            <td class=" text-center">@stt</td>
                             <td class="">@Html.DisplayFor(modelItem => item.Title)</td>
                             <td class=" text-center">
                                 <img src="~/@item.CoverImage" alt="Ảnh bìa" class="img-thumbnail" style="max-width: 70px;">
@@ -78,6 +81,7 @@
                                
                             </td>
                         </tr>
+                        stt++;
                     }
                 }
                 else

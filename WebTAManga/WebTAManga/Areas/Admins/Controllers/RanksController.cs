@@ -57,20 +57,27 @@ namespace WebTAManga.Areas.Admins.Controllers
 
         // GET: Admins/Ranks/Details/5
         [PermissionAuthorize("Ranks", "View")]
-
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null) return NotFound();
             var rank = await _context.Ranks.FirstOrDefaultAsync(m => m.RankId == id);
             if (rank == null) return NotFound();
+
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_Details", rank);
+            }
             return View(rank);
         }
 
-        // GET: Admins/Ranks/Createq
+        // GET: Admins/Ranks/Create
         [PermissionAuthorize("Ranks", "Create")]
-
         public IActionResult Create()
         {
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_Create");
+            }
             return View();
         }
 
@@ -78,14 +85,22 @@ namespace WebTAManga.Areas.Admins.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [PermissionAuthorize("Ranks", "Create")]
-
         public async Task<IActionResult> Create([Bind("RankId,Name")] Rank rank)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(rank);
                 await _context.SaveChangesAsync();
+                if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                {
+                    return Json(new { success = true });
+                }
                 return RedirectToAction(nameof(CategoryRanksByRank), new { id = rank.RankId });
+            }
+
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_Create", rank);
             }
             return View(rank);
         }
@@ -97,6 +112,11 @@ namespace WebTAManga.Areas.Admins.Controllers
             if (id == null) return NotFound();
             var rank = await _context.Ranks.FindAsync(id);
             if (rank == null) return NotFound();
+
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_Edit", rank);
+            }
             return View(rank);
         }
 
@@ -104,7 +124,6 @@ namespace WebTAManga.Areas.Admins.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [PermissionAuthorize("Ranks", "Edit")]
-
         public async Task<IActionResult> Edit(int id, [Bind("RankId,Name")] Rank rank)
         {
             if (id != rank.RankId) return NotFound();
@@ -120,19 +139,32 @@ namespace WebTAManga.Areas.Admins.Controllers
                     if (!RankExists(rank.RankId)) return NotFound();
                     else throw;
                 }
+                if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                {
+                    return Json(new { success = true });
+                }
                 return RedirectToAction(nameof(Index));
+            }
+
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_Edit", rank);
             }
             return View(rank);
         }
 
         // GET: Admins/Ranks/Delete/5
         [PermissionAuthorize("Ranks", "Delete")]
-
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
             var rank = await _context.Ranks.FirstOrDefaultAsync(m => m.RankId == id);
             if (rank == null) return NotFound();
+
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_Delete", rank);
+            }
             return View(rank);
         }
 
@@ -140,12 +172,19 @@ namespace WebTAManga.Areas.Admins.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [PermissionAuthorize("Ranks", "Delete")]
-
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var rank = await _context.Ranks.FindAsync(id);
-            if (rank != null) _context.Ranks.Remove(rank);
-            await _context.SaveChangesAsync();
+            if (rank != null)
+            {
+                _context.Ranks.Remove(rank);
+                await _context.SaveChangesAsync();
+            }
+
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return Json(new { success = true });
+            }
             return RedirectToAction(nameof(Index));
         }
 
@@ -193,9 +232,27 @@ namespace WebTAManga.Areas.Admins.Controllers
 
             return View(viewModel);
         }
+
+        // GET: Admins/Ranks/DetailsCategoryRank/5
+        [PermissionAuthorize("Ranks", "View")]
+        public async Task<IActionResult> DetailsCategoryRank(int? id)
+        {
+            if (id == null) return NotFound();
+            var categoryRank = await _context.CategoryRanks
+                .Include(cr => cr.Rank)
+                .Include(cr => cr.Levels)
+                .FirstOrDefaultAsync(cr => cr.CategoryRankId == id);
+            if (categoryRank == null) return NotFound();
+
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_DetailsCategoryRank", categoryRank);
+            }
+            return View(categoryRank);
+        }
+
         // GET: Admins/Ranks/CreateCategoryRank/5
         [PermissionAuthorize("Ranks", "Create")]
-
         public IActionResult CreateCategoryRank(int? rankId)
         {
             if (rankId == null) return NotFound();
@@ -204,6 +261,11 @@ namespace WebTAManga.Areas.Admins.Controllers
 
             ViewData["RankId"] = new SelectList(_context.Ranks, "RankId", "Name", rankId);
             var model = new CategoryRank { RankId = rankId.Value, Levels = new List<Level> { new Level() } };
+
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_CreateCategoryRank", model);
+            }
             return View(model);
         }
 
@@ -211,7 +273,6 @@ namespace WebTAManga.Areas.Admins.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [PermissionAuthorize("Ranks", "Create")]
-
         public async Task<IActionResult> CreateCategoryRank([Bind("CategoryRankId,Name,RankId,Levels")] CategoryRank categoryRank, string[] expRequired)
         {
             if (ModelState.IsValid)
@@ -228,16 +289,24 @@ namespace WebTAManga.Areas.Admins.Controllers
 
                 _context.Add(categoryRank);
                 await _context.SaveChangesAsync();
+
+                if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                {
+                    return Json(new { success = true });
+                }
                 return RedirectToAction(nameof(CategoryRanksByRank), new { id = categoryRank.RankId });
             }
 
             ViewData["RankId"] = new SelectList(_context.Ranks, "RankId", "Name", categoryRank.RankId);
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_CreateCategoryRank", categoryRank);
+            }
             return View(categoryRank);
         }
 
         // GET: Admins/Ranks/EditCategoryRank/5
         [PermissionAuthorize("Ranks", "Edit")]
-
         public async Task<IActionResult> EditCategoryRank(int? id)
         {
             if (id == null) return NotFound();
@@ -247,6 +316,11 @@ namespace WebTAManga.Areas.Admins.Controllers
             if (categoryRank == null) return NotFound();
 
             ViewData["RankId"] = new SelectList(_context.Ranks, "RankId", "Name", categoryRank.RankId);
+
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_EditCategoryRank", categoryRank);
+            }
             return View(categoryRank);
         }
 
@@ -254,7 +328,6 @@ namespace WebTAManga.Areas.Admins.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [PermissionAuthorize("Ranks", "Edit")]
-
         public async Task<IActionResult> EditCategoryRank(int id, [Bind("CategoryRankId,Name,RankId")] CategoryRank categoryRank, string[] expRequired)
         {
             if (id != categoryRank.CategoryRankId) return NotFound();
@@ -289,32 +362,44 @@ namespace WebTAManga.Areas.Admins.Controllers
 
                     _context.Update(existingCategoryRank);
                     await _context.SaveChangesAsync();
+
+                    if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                    {
+                        return Json(new { success = true });
+                    }
+                    return RedirectToAction(nameof(CategoryRanksByRank), new { id = categoryRank.RankId });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!CategoryRankExists(categoryRank.CategoryRankId)) return NotFound();
                     else throw;
                 }
-                return RedirectToAction(nameof(CategoryRanksByRank), new { id = categoryRank.RankId });
             }
 
             ViewData["RankId"] = new SelectList(_context.Ranks, "RankId", "Name", categoryRank.RankId);
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_EditCategoryRank", categoryRank);
+            }
             return View(categoryRank);
         }
 
         // GET: Admins/Ranks/DeleteCategoryRank/5
         [PermissionAuthorize("Ranks", "Delete")]
-
         public async Task<IActionResult> DeleteCategoryRank(int? id)
         {
             if (id == null) return NotFound();
-
             var categoryRank = await _context.CategoryRanks
                 .Include(cr => cr.Levels)
                 .Include(cr => cr.Rank)
+                .Include(cr => cr.Users)
                 .FirstOrDefaultAsync(cr => cr.CategoryRankId == id);
             if (categoryRank == null) return NotFound();
 
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_DeleteCategoryRank", categoryRank);
+            }
             return View(categoryRank);
         }
 
@@ -322,7 +407,6 @@ namespace WebTAManga.Areas.Admins.Controllers
         [HttpPost, ActionName("DeleteCategoryRank")]
         [ValidateAntiForgeryToken]
         [PermissionAuthorize("Ranks", "Delete")]
-
         public async Task<IActionResult> DeleteCategoryRankConfirmed(int id)
         {
             var categoryRank = await _context.CategoryRanks
@@ -347,6 +431,10 @@ namespace WebTAManga.Areas.Admins.Controllers
             _context.CategoryRanks.Remove(categoryRank);
             await _context.SaveChangesAsync();
 
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return Json(new { success = true });
+            }
             return RedirectToAction(nameof(CategoryRanksByRank), new { id = categoryRank.RankId });
         }
 

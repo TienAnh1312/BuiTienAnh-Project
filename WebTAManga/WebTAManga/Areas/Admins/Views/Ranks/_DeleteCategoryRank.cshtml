@@ -1,12 +1,7 @@
 ﻿@model WebTAManga.Models.CategoryRank
 
-@{
-    ViewData["Title"] = "Xóa Category Rank";
-}
-
-<div class="container mt-4">
-    <h2 class="text-danger">@ViewData["Title"]</h2>
-    <h4>Bạn có chắc muốn xóa Category Rank "@Model.Name"?</h4>
+<div>
+    <h4>Bạn có chắc muốn xóa "@Model.Name"?</h4>
     <div class="alert alert-warning" role="alert">
         Hành động này sẽ xóa Category Rank và tất cả Levels liên quan.
         @if (Model.Users.Any())
@@ -19,18 +14,7 @@
         }
         Hành động này không thể hoàn tác!
     </div>
-
-    <div class="card mb-3">
-        <!-- Nội dung card hiện tại -->
-    </div>
-
     <form asp-action="DeleteCategoryRank">
         <input type="hidden" asp-for="CategoryRankId" />
-        <button type="submit" class="btn btn-danger">
-            <i class="bi bi-trash"></i> Xóa
-        </button>
-        <a asp-action="CategoryRanksByRank" asp-route-id="@Model.RankId" class="btn btn-secondary">
-            <i class="bi bi-arrow-left"></i> Hủy
-        </a>
     </form>
 </div>

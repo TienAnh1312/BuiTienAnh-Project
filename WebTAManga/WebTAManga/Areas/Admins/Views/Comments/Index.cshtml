@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "User Comments";
+    int stt = 1; 
 }
 
 <div class="container mt-4">
@@ -10,24 +11,34 @@
         <table class="table table-hover table-bordered align-middle">
             <thead class="table-dark text-center">
                 <tr>
+                    <th style="width: 50px;">STT</th> 
                     <th>Tên người dùng</th>
                     <th>Email</th>
-@*                     <th>Số lượng bình luận</th>
- *@                    <th style="width:105px;">Hành động</th>
+                    <th style="width:105px;">Hành động</th>
                 </tr>
             </thead>
             <tbody class="action">
-                @foreach (var user in Model)
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+                            <td class="text-center">@stt</td> 
+                            <td>@user.Username</td>
+                            <td>@user.Email</td>
+                            <td class="text-center">
+                                <a asp-action="Details" asp-route-id="@user.UserId" class="btn btn-info btn-sm text-white">
+                                    <i class="bi bi-eye" title="Xem truyện đã bình luận"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        stt++; // Tăng STT
+                    }
+                }
+                else
                 {
                     <tr>
-                        <td>@user.Username</td>
-                        <td>@user.Email</td>
-@*                         <td>@user.CommentCount</td>
- *@                        <td class="text-center">
-                            <a asp-action="Details" asp-route-id="@user.UserId" class="btn btn-info btn-sm text-white">
-                                <i class="bi bi-eye" title="Xem truyện đã bình luận"></i> 
-                            </a>
-                        </td>
+                        <td colspan="4">Không có người dùng nào.</td> 
                     </tr>
                 }
             </tbody>

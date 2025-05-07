@@ -61,19 +61,26 @@ namespace WebTAManga.Areas.Admins.Controllers
                 return NotFound();
             }
 
-            var role = await _context.Roles
-                .FirstOrDefaultAsync(m => m.RoleId == id);
+            var role = await _context.Roles.FirstOrDefaultAsync(m => m.RoleId == id);
             if (role == null)
             {
                 return NotFound();
             }
 
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_Details", role);
+            }
             return View(role);
         }
 
         // GET: Admins/Roles/Create
         public IActionResult Create()
         {
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_Create");
+            }
             return View();
         }
 
@@ -86,7 +93,16 @@ namespace WebTAManga.Areas.Admins.Controllers
             {
                 _context.Add(role);
                 await _context.SaveChangesAsync();
+                if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                {
+                    return Json(new { success = true });
+                }
                 return RedirectToAction(nameof(Index));
+            }
+            // Trả về partial view với lỗi nếu AJAX
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_Create", role);
             }
             return View(role);
         }
@@ -103,6 +119,11 @@ namespace WebTAManga.Areas.Admins.Controllers
             if (role == null)
             {
                 return NotFound();
+            }
+
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_Edit", role); 
             }
             return View(role);
         }
@@ -135,7 +156,16 @@ namespace WebTAManga.Areas.Admins.Controllers
                         throw;
                     }
                 }
+                if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                {
+                    return Json(new { success = true });
+                }
                 return RedirectToAction(nameof(Index));
+            }
+            // Trả về partial view với lỗi nếu AJAX
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_Edit", role);
             }
             return View(role);
         }
@@ -148,13 +178,16 @@ namespace WebTAManga.Areas.Admins.Controllers
                 return NotFound();
             }
 
-            var role = await _context.Roles
-                .FirstOrDefaultAsync(m => m.RoleId == id);
+            var role = await _context.Roles.FirstOrDefaultAsync(m => m.RoleId == id);
             if (role == null)
             {
                 return NotFound();
             }
 
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_Delete", role); 
+            }
             return View(role);
         }
 
@@ -167,9 +200,12 @@ namespace WebTAManga.Areas.Admins.Controllers
             if (role != null)
             {
                 _context.Roles.Remove(role);
+                await _context.SaveChangesAsync();
             }
-
-            await _context.SaveChangesAsync();
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return Json(new { success = true });
+            }
             return RedirectToAction(nameof(Index));
         }
 

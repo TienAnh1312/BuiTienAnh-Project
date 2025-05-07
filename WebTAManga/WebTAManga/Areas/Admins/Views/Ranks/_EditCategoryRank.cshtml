@@ -1,11 +1,5 @@
 ﻿@model WebTAManga.Models.CategoryRank
 
-@{
-    ViewData["Title"] = "Edit Category Rank";
-}
-
-<h1>Edit Category Rank</h1>
-
 <form asp-action="EditCategoryRank">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="CategoryRankId" />
@@ -27,22 +21,17 @@
                 foreach (var level in Model.Levels)
                 {
                     <div class="level-input">
-                        <input type="number" name="expRequired" class="form-control mb-2" value="@level.ExpRequired" placeholder="Enter Exp Required" />
+                        <input type="number" name="expRequired" class="form-control mb-2" value="@level.ExpRequired" placeholder="Nhập kinh nghiệm cần đạt" />
                     </div>
                 }
             }
             else
             {
                 <div class="level-input">
-                    <input type="number" name="expRequired" class="form-control mb-2" placeholder="Enter Exp Required" />
+                    <input type="number" name="expRequired" class="form-control mb-2" placeholder="Nhập kinh nghiệm cần đạt" />
                 </div>
             }
         </div>
-       
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Save" class="btn btn-primary" />
-        <a asp-action="CategoryRanksByRank" asp-route-id="@Model.RankId" class="btn btn-secondary">Back</a>
     </div>
 </form>
 
