@@ -160,6 +160,28 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
+            // Hàm SweetAlert tùy chỉnh
+            const SweetAlert = {
+                success: function (title, message, callback) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: title,
+                        text: message,
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed && callback) callback();
+                    });
+                },
+                error: function (title, message) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: title,
+                        text: message,
+                        confirmButtonText: 'OK'
+                    });
+                }
+            };
+
             // Xử lý AJAX cho các nút hành động
             $(".ajax-action").click(function (e) {
                 e.preventDefault();
@@ -168,7 +190,7 @@
                 // Tải nội dung vào modal
                 $("#genreModal .modal-body").load(url, function (response, status, xhr) {
                     if (status === "error") {
-                        alert("Lỗi khi tải dữ liệu: " + xhr.status + " " + xhr.statusText);
+                        SweetAlert.error('Lỗi!', 'Lỗi khi tải dữ liệu: ' + xhr.status + ' ' + xhr.statusText);
                     }
                 });
 
@@ -193,21 +215,24 @@
                     $.ajax({
                         url: form.attr("action"),
                         type: form.attr("method"),
-                        data: form.serialize(),
+                        data: form.serialize(), 
                         success: function (response) {
                             if (response.success) {
                                 $("#genreModal").modal("hide");
-                                location.reload();
+                                SweetAlert.success('Thành công!', 'Thao tác đã hoàn tất.', () => location.reload());
                             } else {
                                 $("#genreModal .modal-body").html(response);
                             }
                         },
                         error: function (xhr) {
-                            alert("Lỗi khi lưu dữ liệu: " + xhr.status + " " + xhr.statusText);
+                            SweetAlert.error('Lỗi!', 'Lỗi khi lưu dữ liệu: ' + xhr.status + ' ' + xhr.statusText);
                         }
                     });
                 }
             });
+
+            // Khởi tạo tooltip
+            $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
 }

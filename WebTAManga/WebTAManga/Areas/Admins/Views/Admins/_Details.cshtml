@@ -1,0 +1,16 @@
+﻿@model WebTAManga.Models.Admin
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Username)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Username)</dd>
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Email)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Email)</dd>
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.RoleNavigation.RoleName)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.RoleNavigation.RoleName)</dd>
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Manager.Username)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Manager.Username)</dd>
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.IsDepartmentHead)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.IsDepartmentHead)</dd>
+    </dl>
+</div>

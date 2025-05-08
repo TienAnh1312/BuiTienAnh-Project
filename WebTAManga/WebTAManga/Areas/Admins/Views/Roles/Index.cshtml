@@ -29,6 +29,20 @@
             </div>
         </div>
     </form>
+    <!-- Thông báo thành công với SweetAlert2 -->
+    @if (TempData["Success"] != null)
+    {
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công!',
+                    text: '@TempData["Success"]',
+                    confirmButtonText: 'OK'
+                });
+            });
+        </script>
+    }
     <div class="row justify-content-center">
         <div class="col-md-12" id="list-section">
             <div class="table-responsive">
@@ -55,7 +69,7 @@
                                         <button class="btn btn-info btn-sm me-1 text-white ajax-action" data-bs-toggle="modal" data-bs-target="#roleModal" data-url="@Url.Action("Details", new { id = item.RoleId })">
                                             <i class="bi bi-info-circle" title="Chi tiết"></i>
                                         </button>
-                                        <button class="btn btn-danger btn-sm ajax-action" data-bs-toggle="modal" data-bs-target="#roleModal" data-url="@Url.Action("Delete", new { id = item.RoleId })">
+                                        <button class="btn btn-danger btn-sm ajax-action delete-action" data-url="@Url.Action("Delete", new { id = item.RoleId })">
                                             <i class="bi bi-trash" title="Xóa"></i>
                                         </button>
                                     </td>
@@ -76,7 +90,6 @@
             <!-- Phân trang -->
             <nav aria-label="Phân trang">
                 <ul class="pagination justify-content-center">
-                    <!-- Nút Previous -->
                     <li class="page-item @(Model?.CurrentPage == 1 ? "disabled" : "")">
                         <a class="page-link"
                            asp-action="Index"
@@ -86,24 +99,18 @@
                             <span aria-hidden="true">«</span>
                         </a>
                     </li>
-
-                    <!-- Trang đầu tiên -->
                     <li class="page-item @(Model?.CurrentPage == 1 ? "active" : "")">
                         <a class="page-link"
                            asp-action="Index"
                            asp-route-page="1"
                            asp-route-searchRoleName="@Model?.SearchRoleName">1</a>
                     </li>
-
-                    <!-- Dấu ... nếu cần -->
                     @if (Model?.CurrentPage > 3)
                     {
                         <li class="page-item disabled">
                             <span class="page-link">...</span>
                         </li>
                     }
-
-                    <!-- Các trang gần trang hiện tại -->
                     @for (int i = Math.Max(2, Model?.CurrentPage - 2 ?? 1); i <= Math.Min(Model?.TotalPages - 1 ?? 1, Model?.CurrentPage + 2 ?? 1); i++)
                     {
                         <li class="page-item @(i == Model?.CurrentPage ? "active" : "")">
@@ -113,16 +120,12 @@
                                asp-route-searchRoleName="@Model?.SearchRoleName">@i</a>
                         </li>
                     }
-
-                    <!-- Dấu ... nếu cần -->
                     @if (Model?.CurrentPage < Model?.TotalPages - 2)
                     {
                         <li class="page-item disabled">
                             <span class="page-link">...</span>
                         </li>
                     }
-
-                    <!-- Trang cuối cùng -->
                     @if (Model?.TotalPages > 1)
                     {
                         <li class="page-item @(Model?.CurrentPage == Model?.TotalPages ? "active" : "")">
@@ -132,8 +135,6 @@
                                asp-route-searchRoleName="@Model?.SearchRoleName">@Model?.TotalPages</a>
                         </li>
                     }
-
-                    <!-- Nút Next -->
                     <li class="page-item @(Model?.CurrentPage == Model?.TotalPages ? "disabled" : "")">
                         <a class="page-link"
                            asp-action="Index"
@@ -171,30 +172,64 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
-            // Xử lý AJAX cho các nút hành động
-            $(".ajax-action").click(function (e) {
+            // Xử lý AJAX cho các nút hành động (trừ Delete)
+            $(".ajax-action:not(.delete-action)").click(function (e) {
                 e.preventDefault();
                 var url = $(this).data("url");
 
                 // Tải nội dung vào modal
                 $("#roleModal .modal-body").load(url, function (response, status, xhr) {
                     if (status === "error") {
-                        alert("Lỗi khi tải dữ liệu: " + xhr.status + " " + xhr.statusText);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi!',
+                            text: 'Không thể tải dữ liệu: ' + xhr.status + ' ' + xhr.statusText,
+                            confirmButtonText: 'OK'
+                        });
                     }
                 });
 
                 // Cập nhật tiêu đề modal dựa trên hành động
                 var action = url.includes("Create") ? "Thêm vai trò" :
                              url.includes("Edit") ? "Sửa vai trò" :
-                             url.includes("Delete") ? "Xóa vai trò" : "Chi tiết vai trò";
+                             url.includes("Details") ? "Chi tiết vai trò" : "Quản lý vai trò";
                 $("#roleModalLabel").text(action);
 
-                // Hiển thị hoặc ẩn nút Lưu dựa trên hành động
-                if (url.includes("Details")) {
-                    $("#saveRole").hide();
-                } else {
-                    $("#saveRole").show();
-                }
+                // Hiển thị hoặc ẩn nút Lưu
+                $("#saveRole").toggle(!url.includes("Details"));
+            });
+
+            // Xử lý nút Xóa với xác nhận SweetAlert2
+            $(".delete-action").click(function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Xác nhận xóa',
+                    text: 'Bạn có chắc chắn muốn xóa vai trò này?',
+                    showCancelButton: true,
+                    confirmButtonText: 'Xóa',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Tải nội dung modal xóa
+                        $("#roleModal .modal-body").load(url, function (response, status, xhr) {
+                            if (status === "error") {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Lỗi!',
+                                    text: 'Không thể tải dữ liệu: ' + xhr.status + ' ' + xhr.statusText,
+                                    confirmButtonText: 'OK'
+                                });
+                            } else {
+                                $("#roleModalLabel").text("Xóa vai trò");
+                                $("#saveRole").show();
+                            }
+                        });
+                        $("#roleModal").modal("show");
+                    }
+                });
             });
 
             // Xử lý nút Lưu trong modal
@@ -208,14 +243,25 @@
                         success: function (response) {
                             if (response.success) {
                                 $("#roleModal").modal("hide");
-                                location.reload(); 
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Thành công!',
+                                    text: 'Thao tác đã hoàn tất.',
+                                    confirmButtonText: 'OK'
+                                }).then(() => {
+                                    location.reload();
+                                });
                             } else {
-                                // Cập nhật nội dung modal với form có lỗi
                                 $("#roleModal .modal-body").html(response);
                             }
                         },
                         error: function (xhr) {
-                            alert("Lỗi khi lưu dữ liệu: " + xhr.status + " " + xhr.statusText);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Lỗi!',
+                                text: 'Không thể lưu dữ liệu: ' + xhr.status + ' ' + xhr.statusText,
+                                confirmButtonText: 'OK'
+                            });
                         }
                     });
                 }

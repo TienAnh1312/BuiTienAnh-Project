@@ -87,7 +87,6 @@ namespace WebTAManga.Areas.Admins.Controllers
 
         // GET: Admins/Stories/Details/5
         [PermissionAuthorize("Stories", "View")]
-
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -96,7 +95,7 @@ namespace WebTAManga.Areas.Admins.Controllers
             }
 
             var story = await _context.Stories
-                .Include(s => s.Chapters) // Chỉ load danh sách Chapters
+                .Include(s => s.Chapters)
                 .FirstOrDefaultAsync(m => m.StoryId == id);
 
             if (story == null)
@@ -104,6 +103,10 @@ namespace WebTAManga.Areas.Admins.Controllers
                 return NotFound();
             }
 
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_Details", story);
+            }
             return View(story);
         }
 
@@ -343,7 +346,6 @@ namespace WebTAManga.Areas.Admins.Controllers
 
         // GET: Admins/Stories/Delete/5
         [PermissionAuthorize("Stories", "Delete")]
-
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -358,6 +360,10 @@ namespace WebTAManga.Areas.Admins.Controllers
                 return NotFound();
             }
 
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_Delete", story);
+            }
             return View(story);
         }
 
@@ -365,17 +371,71 @@ namespace WebTAManga.Areas.Admins.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [PermissionAuthorize("Stories", "Delete")]
-
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var story = await _context.Stories.FindAsync(id);
-            if (story != null)
+            var story = await _context.Stories
+                .Include(s => s.Chapters)
+                .ThenInclude(c => c.ChapterImages)
+                .FirstOrDefaultAsync(s => s.StoryId == id);
+
+            if (story == null)
             {
-                _context.Stories.Remove(story);
+                if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                {
+                    return Json(new { success = false, message = "Không tìm thấy truyện." });
+                }   
+                return NotFound();
             }
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                // Xóa ảnh bìa
+                if (!string.IsNullOrEmpty(story.CoverImage))
+                {
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", story.CoverImage);
+                    if (System.IO.File.Exists(filePath))
+                    {
+                        System.IO.File.Delete(filePath);
+                    }
+                }
+
+                // Xóa ảnh chương
+                foreach (var chapter in story.Chapters)
+                {
+                    foreach (var image in chapter.ChapterImages)
+                    {
+                        var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", image.ImageUrl);
+                        if (System.IO.File.Exists(imagePath))
+                        {
+                            System.IO.File.Delete(imagePath);
+                        }
+                    }
+                    _context.ChapterImages.RemoveRange(chapter.ChapterImages);
+                }
+
+                // Xóa chương
+                _context.Chapters.RemoveRange(story.Chapters);
+
+                // Xóa truyện
+                _context.Stories.Remove(story);
+                await _context.SaveChangesAsync();
+
+                if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                {
+                    return Json(new { success = true });
+                }
+                TempData["Success"] = "Truyện đã được xóa thành công.";
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                {
+                    return Json(new { success = false, message = "Lỗi khi xóa truyện: " + ex.Message });
+                }
+                TempData["Error"] = "Lỗi khi xóa truyện: " + ex.Message;
+                return RedirectToAction(nameof(Index));
+            }
         }
 
         private bool StoryExists(int id)

@@ -23,16 +23,13 @@ namespace WebTAManga.Areas.Admins.Controllers
         // GET: Admins/Roles
         public async Task<IActionResult> Index(string searchRoleName, int page = 1)
         {
-            var roles = from r in _context.Roles
-                        select r;
+            var roles = from r in _context.Roles select r;
 
-            // Apply search filter
             if (!string.IsNullOrEmpty(searchRoleName))
             {
                 roles = roles.Where(r => r.RoleName.Contains(searchRoleName) || r.Description.Contains(searchRoleName));
             }
 
-            // Pagination
             int totalItems = await roles.CountAsync();
             int totalPages = (int)Math.Ceiling(totalItems / (double)PageSize);
 
@@ -97,9 +94,9 @@ namespace WebTAManga.Areas.Admins.Controllers
                 {
                     return Json(new { success = true });
                 }
+                TempData["Success"] = "Vai trò đã được tạo thành công.";
                 return RedirectToAction(nameof(Index));
             }
-            // Trả về partial view với lỗi nếu AJAX
             if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
             {
                 return PartialView("_Create", role);
@@ -123,7 +120,7 @@ namespace WebTAManga.Areas.Admins.Controllers
 
             if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
             {
-                return PartialView("_Edit", role); 
+                return PartialView("_Edit", role);
             }
             return View(role);
         }
@@ -160,9 +157,9 @@ namespace WebTAManga.Areas.Admins.Controllers
                 {
                     return Json(new { success = true });
                 }
+                TempData["Success"] = "Vai trò đã được cập nhật thành công.";
                 return RedirectToAction(nameof(Index));
             }
-            // Trả về partial view với lỗi nếu AJAX
             if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
             {
                 return PartialView("_Edit", role);
@@ -186,7 +183,7 @@ namespace WebTAManga.Areas.Admins.Controllers
 
             if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
             {
-                return PartialView("_Delete", role); 
+                return PartialView("_Delete", role);
             }
             return View(role);
         }
@@ -206,6 +203,7 @@ namespace WebTAManga.Areas.Admins.Controllers
             {
                 return Json(new { success = true });
             }
+            TempData["Success"] = "Vai trò đã được xóa thành công.";
             return RedirectToAction(nameof(Index));
         }
 
@@ -215,7 +213,6 @@ namespace WebTAManga.Areas.Admins.Controllers
         }
     }
 
-    // View model for pagination and search
     public class RoleIndexView
     {
         public List<Role> Roles { get; set; }

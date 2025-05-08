@@ -1,0 +1,10 @@
+﻿@model WebTAManga.Models.User
+
+<h4>Xóa Người dùng</h4>
+<hr />
+<div>
+    <p>Bạn có chắc chắn muốn xóa người dùng <strong>@Model.Username</strong>?</p>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="UserId" />
+    </form>
+</div>

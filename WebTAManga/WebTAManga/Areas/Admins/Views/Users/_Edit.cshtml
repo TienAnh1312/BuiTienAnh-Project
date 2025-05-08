@@ -1,0 +1,70 @@
+﻿@model WebTAManga.Models.User
+
+<form asp-action="Edit" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="UserId" />
+    <div class="form-group mb-3">
+        <label asp-for="Username" class="form-label"></label>
+        <input asp-for="Username" class="form-control" />
+        <span asp-validation-for="Username" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-3">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-3">
+        <label asp-for="Password" class="form-label"></label>
+        <input asp-for="Password" class="form-control" type="password" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-3">
+        <label asp-for="Avatar" class="form-label">Avatar hiện tại</label>
+        @if (!string.IsNullOrEmpty(Model.Avatar))
+        {
+            <img src="~/Uploads/avatars/@Model.Avatar" alt="@Model.Username" class="img-thumbnail" style="max-width: 100px;">
+        }
+        <input type="file" name="Avatar" class="form-control" accept="image/*" />
+    </div>
+    <div class="form-group mb-3">
+        <label asp-for="AvatarFrameId" class="form-label">Khung avatar</label>
+        <div class="row">
+            <!-- Tùy chọn "Không có khung" -->
+            <div class="col-md-3 mb-2">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <input type="radio" name="AvatarFrameId" value="-1" id="no-frame" @(Model.AvatarFrameId == null ? "checked" : "") />
+                        <label for="no-frame">Không có khung</label>
+                    </div>
+                </div>
+            </div>
+            <!-- Danh sách các khung avatar -->
+            @foreach (var frame in ViewBag.AvatarFrames as List<WebTAManga.Models.AvatarFrame> ?? new List<WebTAManga.Models.AvatarFrame>())
+            {
+                <div class="col-md-3 mb-2">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <input type="radio" name="AvatarFrameId" value="@frame.AvatarFrameId" id="frame-@frame.AvatarFrameId" @(Model.AvatarFrameId == frame.AvatarFrameId ? "checked" : "") />
+                            <label for="frame-@frame.AvatarFrameId">
+                                <img src="~/@frame.ImagePath" alt="@frame.Name" class="img-fluid" style="max-width: 80px; max-height: 80px;" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <span asp-validation-for="AvatarFrameId" class="text-danger"></span>
+    </div>
+        <span asp-validation-for="AvatarFrameId" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-3">
+        <label asp-for="Coins" class="form-label"></label>
+        <input asp-for="Coins" class="form-control" />
+        <span asp-validation-for="Coins" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-3">
+        <label asp-for="ExpPoints" class="form-label"></label>
+        <input asp-for="ExpPoints" class="form-control" />
+        <span asp-validation-for="ExpPoints" class="text-danger"></span>
+    </div>
+</form>

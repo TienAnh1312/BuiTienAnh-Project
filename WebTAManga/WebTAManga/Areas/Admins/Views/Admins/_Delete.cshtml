@@ -1,0 +1,8 @@
+﻿@model WebTAManga.Models.Admin
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="AdminId" />
+    <div class="alert alert-warning">
+        Bạn có chắc chắn muốn xóa quản trị viên <strong>@Model.Username</strong>?
+    </div>
+</form>

@@ -1,0 +1,31 @@
+﻿@model WebTAManga.Models.User
+
+<div>
+    <h4>Chi tiết Người dùng</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">Avatar</dt>
+        <dd class="col-sm-9">
+            @if (!string.IsNullOrEmpty(Model.Avatar))
+            {
+                <img src="~/Uploads/avatars/@Model.Avatar" alt="@Model.Username" class="img-thumbnail" style="max-width: 100px;">
+            }
+            else
+            {
+                <span>Chưa có avatar</span>
+            }
+        </dd>
+        <dt class="col-sm-3">Tên người dùng</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Username)</dd>
+        <dt class="col-sm-3">Email</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Email)</dd>
+        <dt class="col-sm-3">Khung avatar</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.AvatarFrame.Name)</dd>
+        <dt class="col-sm-3">Xu</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Coins)</dd>
+        <dt class="col-sm-3">Điểm kinh nghiệm</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.ExpPoints)</dd>
+        <dt class="col-sm-3">Ngày tạo</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.CreatedAt)</dd>
+    </dl>
+</div>

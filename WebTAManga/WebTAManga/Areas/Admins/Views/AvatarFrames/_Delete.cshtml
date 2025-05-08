@@ -1,0 +1,11 @@
+﻿@model WebTAManga.Models.AvatarFrame
+
+<div>
+    <h5>Xóa @Model.Name?</h5>
+    <p>Bạn có chắc chắn muốn xóa khung avatar này?</p>
+    <img src="~/@Model.ImagePath" alt="@Model.Name" class="img-thumbnail" style="max-width: 100px;" />
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="AvatarFrameId" />
+        <input type="hidden" name="id" value="@Model.AvatarFrameId" />
+    </form>
+</div>

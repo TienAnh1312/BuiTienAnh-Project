@@ -210,7 +210,6 @@ wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chư�
 wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_8.jpeg
 wwwroot\images\admins\stories\Nguyên Lai Ta Là Tu Tiên Đại Lão(ST4)\Chương 1(ST4_C1)\Page_9.jpeg
 wwwroot\images\admins\stories\nguyen-lai-ta-la-tu-tien-dai-lao_1644166269.jpg
-wwwroot\images\admins\stories\ThatTinh.jpg
 wwwroot\images\admins\stories\ThienTaiDoanMenh.jfif
 wwwroot\images\admins\stories\thiet-huyet-kiem-si-hoi-quy_1681531186.jpg
 wwwroot\images\admins\stories\TinhTuKiemSi.jfif

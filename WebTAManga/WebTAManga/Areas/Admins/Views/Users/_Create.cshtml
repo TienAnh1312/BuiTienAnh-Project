@@ -1,0 +1,35 @@
+﻿@model WebTAManga.Models.User
+
+<form asp-action="Create" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group mb-3">
+        <label asp-for="Username" class="form-label"></label>
+        <input asp-for="Username" class="form-control" />
+        <span asp-validation-for="Username" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-3">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-3">
+        <label asp-for="Password" class="form-label"></label>
+        <input asp-for="Password" class="form-control" type="password" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-3">
+        <label asp-for="Avatar" class="form-label">Avatar</label>
+        <input type="file" name="Avatar" class="form-control" accept="image/*" />
+    </div>
+   
+    <div class="form-group mb-3">
+        <label asp-for="Coins" class="form-label"></label>
+        <input asp-for="Coins" class="form-control" />
+        <span asp-validation-for="Coins" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-3">
+        <label asp-for="ExpPoints" class="form-label"></label>
+        <input asp-for="ExpPoints" class="form-control" />
+        <span asp-validation-for="ExpPoints" class="text-danger"></span>
+    </div>
+</form>

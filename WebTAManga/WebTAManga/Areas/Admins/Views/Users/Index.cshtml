@@ -4,25 +4,75 @@
     ViewData["Title"] = "Quản lý Người dùng";
     int stt = ((Model?.CurrentPage ?? 1) - 1) * 7 + 1;
 }
+<style>
+    .avatar-container {
+        position: relative;
+        display: inline-block;
+        width: 100px; 
+        height: 100px;
+    }
+
+    .avatar-frame {
+        top: 7%;
+        width: 85%; 
+        position: absolute;
+        left: 8px;
+        z-index: 1;
+        object-fit: cover;
+        transition: transform 0.3s ease; 
+    }
+
+    .avatar-img {
+        width: 52px;
+        height: 50px;
+        object-fit: cover;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 2px solid #fff;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .card {
+        transition: transform 0.2s;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+    }
+
+    .card input[type="radio"] {
+        margin-right: 10px;
+    }
+
+    .card label {
+        cursor: pointer;
+        display: block;
+    }
+
+    .card img {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+</style>
 
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2 class="text-primary">@ViewData["Title"]</h2>
-        <a asp-action="Create" class="btn btn-success">
+        <button class="btn btn-success ajax-action" data-bs-toggle="modal" data-bs-target="#userModal" data-url="@Url.Action("Create")">
             <i class="bi bi-plus-circle"></i> Tạo mới
-        </a>
+        </button>
     </div>
 
     <!-- Form tìm kiếm -->
     <form asp-action="Index" method="get" class="mb-3">
         <div class="row g-3">
             <div class="col-md-4">
-                <input type="text" name="searchUsername" value="@Model.SearchUsername"
-                class="form-control" placeholder="Tìm theo tên người dùng" />
+                <input type="text" name="searchUsername" value="@Model.SearchUsername" class="form-control" placeholder="Tìm theo tên người dùng" />
             </div>
             <div class="col-md-4">
-                <input type="text" name="searchEmail" value="@Model.SearchEmail"
-                class="form-control" placeholder="Tìm theo Email" />
+                <input type="text" name="searchEmail" value="@Model.SearchEmail" class="form-control" placeholder="Tìm theo Email" />
             </div>
             <div class="col-md-4">
                 <button type="submit" class="btn btn-primary me-2">
@@ -35,13 +85,24 @@
         </div>
     </form>
 
+    <!-- Success message -->
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
     <div class="table-responsive">
         <table class="table table-hover table-bordered align-middle">
             <thead class="table-dark">
-                <tr>
+                <tr class="text-center">
                     <th style="width: 50px;">STT</th>
-                    <th class="text-center">@Html.DisplayNameFor(model => model.Users[0].Email)</th>
-                    <th style="width: 162px;" class="text-center">Hành động</th>
+                    <th style="width: 50px;">Ảnh đại diện</th>
+                    <th>Tên độc giả</th>
+                    <th>Email</th>
+                    <th style="width: 162px;">Hành động</th>
                 </tr>
             </thead>
             <tbody class="action">
@@ -51,18 +112,27 @@
                     {
                         <tr>
                             <td class="text-center">@stt</td>
-                            <td class="">@Html.DisplayFor(modelItem => item.Email)</td>
-                            <td class="action text-center">
-                                <a asp-action="Edit" asp-route-id="@item.UserId" class="btn btn-warning btn-sm me-1" title="Sửa">
-                                    <i class="bi bi-pencil-square"></i>
-                                </a>
-                                <a asp-action="Details" asp-route-id="@item.UserId" class="btn btn-info btn-sm me-1 text-white" title="Chi tiết">
+                            <td class="text-center">
+                                <div class="avatar-container me-md-3 mb-3 mb-md-0 text-center">
+                                    @if (item.AvatarFrame != null && !string.IsNullOrEmpty(item.AvatarFrame.ImagePath))
+                                    {
+                                        <img src="~/@item.AvatarFrame.ImagePath" alt="@item.AvatarFrame.Name" class="avatar-frame img-fluid" />
+                                    }
+                                    <img src="~/Uploads/avatars/@(string.IsNullOrEmpty(item.Avatar) ? "default-avatar.png" : item.Avatar)" alt="@item.Username" class="avatar-img img-fluid rounded-circle" />
+                                </div>
+                            </td>
+                            <td>@Html.DisplayFor(modelItem => item.Username)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                            <td class="text-center">
+                                <button class="btn btn-info btn-sm me-1 text-white ajax-action" data-bs-toggle="modal" data-bs-target="#userModal" data-url="@Url.Action("Details", new { id = item.UserId })" title="Chi tiết">
                                     <i class="bi bi-info-circle"></i>
-                                </a>
-                                <a asp-action="Delete" asp-route-id="@item.UserId" class="btn btn-danger btn-sm" title="Xóa"
-                                onclick="return confirm('Bạn có chắc chắn muốn xóa người dùng này?');">
+                                </button>
+                                <button class="btn btn-warning btn-sm me-1 ajax-action" data-bs-toggle="modal" data-bs-target="#userModal" data-url="@Url.Action("Edit", new { id = item.UserId })" title="Sửa">
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+                                <button class="btn btn-danger btn-sm ajax-action" data-url="@Url.Action("Delete", new { id = item.UserId })" title="Xóa">
                                     <i class="bi bi-trash"></i>
-                                </a>
+                                </button>
                             </td>
                         </tr>
                         stt++;
@@ -71,7 +141,7 @@
                 else
                 {
                     <tr>
-                        <td colspan="2">Không tìm thấy người dùng nào.</td>
+                        <td colspan="7">Không tìm thấy người dùng nào.</td>
                     </tr>
                 }
             </tbody>
@@ -81,78 +151,145 @@
     <!-- Phân trang -->
     <nav aria-label="Phân trang">
         <ul class="pagination justify-content-center">
-            <!-- Nút Previous -->
             <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
-                <a class="page-link"
-                   asp-action="Index"
-                   asp-route-page="@(Model.CurrentPage - 1)"
-                   asp-route-searchUsername="@Model.SearchUsername"
-                   asp-route-searchEmail="@Model.SearchEmail"
-                   aria-label="Trước">
+                <a class="page-link" asp-action="Index" asp-route-page="@(Model.CurrentPage - 1)" asp-route-searchUsername="@Model.SearchUsername" asp-route-searchEmail="@Model.SearchEmail" aria-label="Trước">
                     <span aria-hidden="true">«</span>
                 </a>
             </li>
-
-            <!-- Trang đầu tiên -->
             <li class="page-item @(Model.CurrentPage == 1 ? "active" : "")">
-                <a class="page-link"
-                   asp-action="Index"
-                   asp-route-page="1"
-                   asp-route-searchUsername="@Model.SearchUsername"
-                   asp-route-searchEmail="@Model.SearchEmail">1</a>
+                <a class="page-link" asp-action="Index" asp-route-page="1" asp-route-searchUsername="@Model.SearchUsername" asp-route-searchEmail="@Model.SearchEmail">1</a>
             </li>
-
-            <!-- Dấu ... nếu cần -->
             @if (Model.CurrentPage > 3)
             {
-                <li class="page-item disabled">
-                    <span class="page-link">...</span>
-                </li>
+                <li class="page-item disabled"><span class="page-link">...</span></li>
             }
-
-            <!-- Các trang gần trang hiện tại -->
             @for (int i = Math.Max(2, Model.CurrentPage - 2); i <= Math.Min(Model.TotalPages - 1, Model.CurrentPage + 2); i++)
             {
-                <li class улица="page-item @(i == Model.CurrentPage ? "active" : "")">
-                    <a class="page-link"
-                       asp-action="Index"
-                       asp-route-page="@i"
-                       asp-route-searchUsername="@Model.SearchUsername"
-                       asp-route-searchEmail="@Model.SearchEmail">@i</a>
+                <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                    <a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-searchUsername="@Model.SearchUsername" asp-route-searchEmail="@Model.SearchEmail">@i</a>
                 </li>
             }
-
-            <!-- Dấu ... nếu cần -->
             @if (Model.CurrentPage < Model.TotalPages - 2)
             {
-                <li class="page-item disabled">
-                    <span class="page-link">...</span>
-                </li>
+                <li class="page-item disabled"><span class="page-link">...</span></li>
             }
-
-            <!-- Trang cuối cùng -->
             @if (Model.TotalPages > 1)
             {
                 <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "active" : "")">
-                    <a class="page-link"
-                       asp-action="Index"
-                       asp-route-page="@Model.TotalPages"
-                       asp-route-searchUsername="@Model.SearchUsername"
-                       asp-route-searchEmail="@Model.SearchEmail">@Model.TotalPages</a>
+                    <a class="page-link" asp-action="Index" asp-route-page="@Model.TotalPages" asp-route-searchUsername="@Model.SearchUsername" asp-route-searchEmail="@Model.SearchEmail">@Model.TotalPages</a>
                 </li>
             }
-
-            <!-- Nút Next -->
             <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
-                <a class="page-link"
-                   asp-action="Index"
-                   asp-route-page="@(Model.CurrentPage + 1)"
-                   asp-route-searchUsername="@Model.SearchUsername"
-                   asp-route-searchEmail="@Model.SearchEmail"
-                   aria-label="Tiếp">
+                <a class="page-link" asp-action="Index" asp-route-page="@(Model.CurrentPage + 1)" asp-route-searchUsername="@Model.SearchUsername" asp-route-searchEmail="@Model.SearchEmail" aria-label="Tiếp">
                     <span aria-hidden="true">»</span>
                 </a>
             </li>
         </ul>
     </nav>
 </div>
+
+<!-- Modal Container -->
+<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="userModalLabel">Quản lý Người dùng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Nội dung tải qua AJAX -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" id="saveUser">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+                $(document).ready(function () {
+            // Xử lý AJAX cho các nút hành động
+            $(".ajax-action").click(function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                var modalBody = $("#userModal .modal-body");
+
+                // Xóa nội dung modal trước khi tải mới
+                modalBody.empty();
+
+                if (url.includes("Delete")) {
+                    Swal.fire({
+                        title: 'Bạn có chắc chắn?',
+                        text: "Hành động này không thể hoàn tác!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Xóa',
+                        cancelButtonText: 'Hủy'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            modalBody.load(url, function (response, status, xhr) {
+                                if (status === "error") {
+                                    Swal.fire('Lỗi!', 'Lỗi khi tải dữ liệu: ' + xhr.status + ' ' + xhr.statusText, 'error');
+                                } else {
+                                    $("#userModalLabel").text("Xóa Người dùng");
+                                    $("#saveUser").show();
+                                    $("#userModal").modal("show");
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    modalBody.load(url, function (response, status, xhr) {
+                        if (status === "error") {
+                            Swal.fire('Lỗi!', 'Lỗi khi tải dữ liệu: ' + xhr.status + ' ' + xhr.statusText, 'error');
+                        } else {
+                            var action = url.includes("Create") ? "Thêm Người dùng" :
+                                         url.includes("Edit") ? "Sửa Người dùng" :
+                                         "Chi tiết Người dùng";
+                            $("#userModalLabel").text(action);
+
+                            if (url.includes("Details")) {
+                                $("#saveUser").hide();
+                            } else {
+                                $("#saveUser").show();
+                            }
+                            $("#userModal").modal("show");
+                        }
+                    });
+                }
+            });
+
+            // Xử lý nút Lưu trong modal
+            $("#saveUser").click(function () {
+                var form = $("#userModal .modal-body form");
+                if (form.length) {
+                    var formData = new FormData(form[0]);
+
+                    $.ajax({
+                        url: form.attr("action"),
+                        type: form.attr("method"),
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (response) {
+                            if (response.success) {
+                                $("#userModal").modal("hide");
+                                Swal.fire('Thành công!', 'Thao tác đã hoàn tất.', 'success').then(() => location.reload());
+                            } else {
+                                $("#userModal .modal-body").html(response);
+                            }
+                        },
+                        error: function (xhr) {
+                            Swal.fire('Lỗi!', 'Lỗi khi lưu dữ liệu: ' + xhr.status + ' ' + xhr.statusText, 'error');
+                        }
+                    });
+                }
+            });
+
+            // Khởi tạo tooltip
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+}
