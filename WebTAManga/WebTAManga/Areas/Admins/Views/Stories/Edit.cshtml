@@ -11,26 +11,26 @@
     }
 </style>
 
-<h2 class="mb-4">Edit Story</h2>
+<h2 class="mb-4">Chỉnh sửa truyện</h2>
 
 <div class="card shadow-sm p-4">
     <form asp-action="Edit" method="post" enctype="multipart/form-data">
         <input type="hidden" asp-for="StoryId" />
 
         <div class="mb-3">
-            <label asp-for="StoryCode" class="form-label fw-bold"></label>
+            <label asp-for="StoryCode" class="form-label fw-bold">Mã truyện</label>
             <input asp-for="StoryCode" class="form-control" placeholder="Enter story code (e.g., CH)" required />
             <span asp-validation-for="StoryCode" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
-            <label asp-for="Title" class="form-label fw-bold"></label>
+            <label asp-for="Title" class="form-label fw-bold">Tên truyện</label>
             <input asp-for="Title" class="form-control" placeholder="Enter story title" />
             <span asp-validation-for="Title" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label class="control-label fw-bold">Genres</label>
+            <label class="control-label fw-bold">Thể loại</label>
             <div class="d-flex flex-wrap gap-3">
                 @foreach (var genre in genres)
                 {
@@ -63,44 +63,38 @@
         </div>
 
         <div class="mb-3">
-            <label asp-for="Author" class="form-label fw-bold"></label>
+            <label asp-for="Author" class="form-label fw-bold">Tác giả</label>
             <input asp-for="Author" class="form-control" placeholder="Enter author name" />
             <span asp-validation-for="Author" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
-            <label asp-for="Description" class="form-label fw-bold"></label>
+            <label asp-for="Description" class="form-label fw-bold">Giới thiệu</label>
             <textarea asp-for="Description" class="form-control" id="descriptionEditor" rows="4" placeholder="Enter story description"></textarea>
             <span asp-validation-for="Description" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
-            <label asp-for="CreatedAt" class="form-label fw-bold"></label>
+            <label asp-for="CreatedAt" class="form-label fw-bold">Ngày tạo</label>
             <input asp-for="CreatedAt" class="form-control" readonly />
             <span asp-validation-for="CreatedAt" class="text-danger"></span>
         </div>
 
         <!-- Các trường khác -->
         <div class="mb-3">
-            <label asp-for="IsCompleted" class="form-label fw-bold"></label>
+            <label asp-for="IsCompleted" class="form-label fw-bold">Truyện đã hoàn thành</label>
             <input asp-for="IsCompleted" type="checkbox" class="form-check-input" />
             <span asp-validation-for="IsCompleted" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
-            <label asp-for="LastUpdatedAt" class="form-label fw-bold"></label>
-            <input asp-for="LastUpdatedAt" type="datetime-local" class="form-control" />
-            <span asp-validation-for="LastUpdatedAt" class="text-danger"></span>
-        </div>
-
-        <div class="mb-3">
-            <label asp-for="IsHot" class="form-label fw-bold"></label>
+            <label asp-for="IsHot" class="form-label fw-bold">Truyện đang nổi</label>
             <input asp-for="IsHot" type="checkbox" class="form-check-input" />
             <span asp-validation-for="IsHot" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
-            <label asp-for="IsNew" class="form-label fw-bold"></label>
+            <label asp-for="IsNew" class="form-label fw-bold">Truyện mới </label>
             <input asp-for="IsNew" type="checkbox" class="form-check-input" />
             <span asp-validation-for="IsNew" class="text-danger"></span>
         </div>

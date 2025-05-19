@@ -27,7 +27,7 @@
                     return threshold.Key;
                 }
             }
-            return 0; // Không đạt ngưỡng nào thì là 0 (không VIP)
+            return 0; 
         }
     }
 }

@@ -18,4 +18,8 @@ public partial class Banner
     public bool IsActive { get; set; }
 
     public int DisplayOrder { get; set; }
+
+    public DateTime? CreateAt { get; set; }
+
+    public DateTime? UpdateAt { get; set; }
 }

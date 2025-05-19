@@ -12,6 +12,7 @@ public partial class PurchasedChapter
     public int? ChapterId { get; set; }
 
     public DateTime? PurchasedAt { get; set; }
+    public DateTime? CreatedAt { get; set; }
 
     public string? ChapterCode { get; set; }
 

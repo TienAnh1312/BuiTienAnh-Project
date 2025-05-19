@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="~/css/profile.css" asp-append-version="true" />
 
 <div class="container mt-5">
-    <h2 class="text-center mb-4" style="color: #ffffff; font-weight: bold; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">Your Profile</h2>
+   
 
     <form method="post" enctype="multipart/form-data" class="profile-form">
         @Html.AntiForgeryToken()
@@ -24,21 +24,22 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card shadow-sm bg-dark text-light p-4">
+                    <h2 class="text-center mb-4" style="color: #ffffff; font-weight: bold; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">Thông tin</h2>
                     <!-- Username -->
                     <div class="form-group">
-                        <label for="Username" class="form-label">Username</label>
+                        <label for="Username" class="form-label">Tên người dùng</label>
                         <input type="text" class="form-control bg-secondary text-light border-0" id="Username" name="Username" value="@Model.Username" required />
                     </div>
 
                     <!-- Email -->
                     <div class="form-group">
                         <label for="Email" class="form-label">Email</label>
-                        <input type="email" class="form-control bg-secondary text-light border-0" id="Email" name="Email" value="@Model.Email" required />
+                        <input type="email" class="form-control bg-secondary text-light border-0" id="Email" name="Email" value="@Model.Email" required readonly/>
                     </div>
 
                     <!-- Avatar -->
-                    <div class="form-group text-center">
-                        <label for="Avatar" class="form-label">Avatar</label>
+                    <div class="form-group text-center mt-3">
+                        @* <label for="Avatar" class="form-label">Avatar</label> *@
                         <div class="mb-3 avatar-container mx-auto">
                             @if (Model.AvatarFrame != null && !string.IsNullOrEmpty(Model.AvatarFrame.ImagePath))
                             {
@@ -54,7 +55,7 @@
 
                     <!-- Rank Selection -->
                     <div class="form-group">
-                        <label class="form-label"><strong>Chọn Rank:</strong></label>
+                        <label class="form-label"><strong>Chọn cấp bậc:</strong></label>
                         <div class="rank-options">
                             @foreach (var rank in ViewBag.Ranks as List<WebTAManga.Models.Rank>)
                             {
@@ -68,18 +69,25 @@
 
                     <!-- Avatar Frame Selection -->
                     <div class="form-group">
-                        <label class="form-label"><strong>Khung Avatar Đã Sở Hữu:</strong></label>
-                        <div class="frame-options">
+                        <label class="form-label"><strong>Chọn khung viền:</strong></label>
+                        <div class="frame-options" id="frameOptions">
                             @if (ViewBag.PurchasedFrames != null && ((List<WebTAManga.Models.AvatarFrame>)ViewBag.PurchasedFrames).Count > 0)
                             {
+                                int frameIndex = 0;
                                 @foreach (var frame in ViewBag.PurchasedFrames as List<WebTAManga.Models.AvatarFrame>)
                                 {
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" id="frame_@frame.AvatarFrameId" name="selectedFrameId" value="@frame.AvatarFrameId" @(Model.AvatarFrameId == frame.AvatarFrameId ? "checked" : "") />
+                                    <div class="frame-option @(frameIndex < 3 ? "" : "hidden")" data-frame-index="@frameIndex">
                                         <label class="form-check-label" for="frame_@frame.AvatarFrameId">
-                                            @frame.Name
                                             <img src="~/@frame.ImagePath" alt="@frame.Name" class="frame-preview" />
                                         </label>
+                                        <input class="form-check-input" type="radio" id="frame_@frame.AvatarFrameId" name="selectedFrameId" value="@frame.AvatarFrameId" @(Model.AvatarFrameId == frame.AvatarFrameId ? "checked" : "") />
+                                    </div>
+                                    frameIndex++;
+                                }
+                                @if (((List<WebTAManga.Models.AvatarFrame>)ViewBag.PurchasedFrames).Count > 3)
+                                {
+                                    <div class="text-center mt-3">
+                                        <button type="button" class="btn btn-outline-light" id="loadMoreFrames">Tải thêm</button>
                                     </div>
                                 }
                             }
@@ -124,35 +132,36 @@
 
 <!-- Modal để chọn và mua khung -->
 <div class="modal fade" id="purchaseFrameModal" tabindex="-1" aria-labelledby="purchaseFrameModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content bg-dark text-light">
             <div class="modal-header">
                 <h5 class="modal-title" id="purchaseFrameModalLabel">Chọn Khung Để Mua</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p><strong>Số xu hiện tại:</strong> @ViewBag.UserCoins</p>
-                <div class="frame-options">
+                <p class="text-center mb-4"><strong>Số xu hiện tại:</strong> <span class="text-warning">@ViewBag.UserCoins</span></p>
+                <div class="purchase-frame-options">
                     @foreach (var frame in ViewBag.AvatarFrames as List<WebTAManga.Models.AvatarFrame>)
                     {
                         var isPurchased = ((List<WebTAManga.Models.AvatarFrame>)ViewBag.PurchasedFrames)?.Any(p => p.AvatarFrameId == frame.AvatarFrameId) ?? false;
-                        <div class="frame-item mb-3">
-                            <img src="~/@frame.ImagePath" alt="@frame.Name" class="frame-preview" />
-                            <p>@frame.Name - <strong>@frame.Price xu</strong></p>
+                        <div class="purchase-frame-item">
+                            <img src="~/@frame.ImagePath" alt="@frame.Name" class="purchase-frame-preview" />
+                            <p class="frame-name mt-2">@frame.Name</p>
+                            <p class="frame-price">@frame.Price xu</p>
                             @if (isPurchased)
                             {
-                                <span class="badge bg-success">Đã sở hữu</span>
+                                <span class="badge bg-success w-100 py-2">Đã sở hữu</span>
                             }
                             else
                             {
                                 <form asp-action="PurchaseAvatarFrame" method="post">
                                     @Html.AntiForgeryToken()
                                     <input type="hidden" name="avatarFrameId" value="@frame.AvatarFrameId" />
-                                    <button type="submit" class="btn btn-sm btn-primary">Mua</button>
+                                    <button type="submit" class="btn btn-primary btn-sm w-100 py-2">Mua</button>
                                 </form>
                             }
                         </div>
-                   }
+                    }
                 </div>
             </div>
             <div class="modal-footer">
@@ -163,6 +172,38 @@
 </div>
 
 <script>
+    function previewAvatar(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('avatarPreview').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+<script>
+    // Load More Frames functionality
+    document.getElementById('loadMoreFrames')?.addEventListener('click', function () {
+        const hiddenFrames = document.querySelectorAll('.frame-option.hidden');
+        const framesToShow = 3; // Số khung hiển thị mỗi lần nhấn
+        let shownCount = 0;
+
+        hiddenFrames.forEach((frame, index) => {
+            if (shownCount < framesToShow && frame.classList.contains('hidden')) {
+                frame.classList.remove('hidden');
+                shownCount++;
+            }
+        });
+
+        // Nếu không còn khung ẩn, ẩn nút "Tải thêm"
+        if (document.querySelectorAll('.frame-option.hidden').length === 0) {
+            document.getElementById('loadMoreFrames').style.display = 'none';
+        }
+    });
+
+    // Giữ chức năng previewAvatar hiện có
     function previewAvatar(event) {
         const file = event.target.files[0];
         if (file) {

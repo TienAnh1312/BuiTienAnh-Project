@@ -21,6 +21,8 @@ public partial class Chapter
 
     public string? ChapterCode { get; set; }
 
+    public string? UpdateAt { get; set; }
+
     public virtual ICollection<ChapterImage> ChapterImages { get; set; } = new List<ChapterImage>();
 
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();

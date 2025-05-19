@@ -12,7 +12,7 @@ public partial class ReadingHistory
     public int? StoryId { get; set; }
 
     public int? ChapterId { get; set; }
-
+    
     public DateTime? LastReadAt { get; set; }
 
     public DateTime? StartTime { get; set; }

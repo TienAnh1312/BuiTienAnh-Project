@@ -28,11 +28,11 @@ namespace WebTAManga.Controllers
             // Lấy UserId từ session
             var userId = HttpContext.Session.GetInt32("UsersId");
 
-            // Lấy thông tin người dùng hiện tại (nếu đã đăng nhập)
+            // Lấy thông tin người dùng hiện 
             if (userId.HasValue)
             {
                 var currentUser = _context.Users
-                    .Include(u => u.AvatarFrame) // Bao gồm thông tin khung avatar
+                    .Include(u => u.AvatarFrame) 
                     .FirstOrDefault(u => u.UserId == userId.Value);
 
                 if (currentUser != null)
@@ -42,7 +42,7 @@ namespace WebTAManga.Controllers
                 }
             }
 
-            // Gọi GetRankings để gán dữ liệu vào ViewBag
+            // GetRankings gán dữ liệu vào ViewBag
             GetRankings();
 
             // Lấy danh sách banner theo thứ tự DisplayOrder
@@ -141,9 +141,7 @@ namespace WebTAManga.Controllers
                     .Where(pc => pc.UserId == userId && pc.Chapter.StoryId == id)
                     .Select(pc => pc.ChapterCode)
                     .ToList();
-
-                // Log để kiểm tra
-                Console.WriteLine($"UserId: {userId}, Purchased Chapter Codes: {string.Join(", ", purchasedChapterCodes)}");
+               ;
             }
             ViewBag.PurchasedChapterCodes = purchasedChapterCodes;
 

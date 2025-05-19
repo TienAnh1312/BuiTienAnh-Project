@@ -43,6 +43,8 @@ public partial class User
 
     public string? ConfirmPassword { get; set; }
 
+    public DateTime? UpdatedAt { get; set; }
+
     public virtual AvatarFrame? AvatarFrame { get; set; }
 
     public virtual CategoryRank? CategoryRank { get; set; }
@@ -70,6 +72,4 @@ public partial class User
     public virtual ICollection<RechargeHistory> RechargeHistories { get; set; } = new List<RechargeHistory>();
 
     public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
-
-    public virtual ICollection<UserDailyTask> UserDailyTasks { get; set; } = new List<UserDailyTask>();
 }

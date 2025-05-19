@@ -31,8 +31,6 @@ public partial class WebMangaContext : DbContext
 
     public virtual DbSet<Comment> Comments { get; set; }
 
-    public virtual DbSet<DailyTask> DailyTasks { get; set; }
-
     public virtual DbSet<ExpHistory> ExpHistories { get; set; }
 
     public virtual DbSet<Favorite> Favorites { get; set; }
@@ -71,8 +69,6 @@ public partial class WebMangaContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-    public virtual DbSet<UserDailyTask> UserDailyTasks { get; set; }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Server=DESKTOP-53K42V9;Database=WebManga;uid=sa;pwd=123456;MultipleActiveResultSets=True;TrustServerCertificate=True");
@@ -83,13 +79,10 @@ public partial class WebMangaContext : DbContext
         {
             entity.HasKey(e => e.AdminId).HasName("PK__admins__43AA41419291874A");
 
-            entity.ToTable("admins");
-
             entity.HasIndex(e => e.Email, "UQ__admins__AB6E61642427EAFB").IsUnique();
 
             entity.HasIndex(e => e.Username, "UQ__admins__F3DBC5722758602E").IsUnique();
 
-            entity.Property(e => e.AdminId).HasColumnName("admin_id");
             entity.Property(e => e.Area).HasMaxLength(50);
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
@@ -150,19 +143,31 @@ public partial class WebMangaContext : DbContext
 
             entity.ToTable("AvatarFrame");
 
+            entity.Property(e => e.CreateAt)
+                .HasColumnType("datetime")
+                .HasColumnName("Create_at");
             entity.Property(e => e.ImagePath).HasMaxLength(500);
             entity.Property(e => e.Name).HasMaxLength(255);
+            entity.Property(e => e.UpdateAt)
+                .HasColumnType("datetime")
+                .HasColumnName("Update_at");
         });
 
         modelBuilder.Entity<Banner>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Banners__3214EC077EBFC59D");
 
+            entity.Property(e => e.CreateAt)
+                .HasColumnType("datetime")
+                .HasColumnName("Create_at");
             entity.Property(e => e.Description).HasMaxLength(1000);
             entity.Property(e => e.ImageUrl).HasMaxLength(500);
             entity.Property(e => e.IsActive).HasDefaultValue(true);
             entity.Property(e => e.LinkUrl).HasMaxLength(500);
             entity.Property(e => e.Title).HasMaxLength(255);
+            entity.Property(e => e.UpdateAt)
+                .HasColumnType("datetime")
+                .HasColumnName("Update_at");
         });
 
         modelBuilder.Entity<CategoryRank>(entity =>
@@ -171,7 +176,13 @@ public partial class WebMangaContext : DbContext
 
             entity.ToTable("CategoryRank");
 
+            entity.Property(e => e.CreateAt)
+                .HasColumnType("datetime")
+                .HasColumnName("Create_at");
             entity.Property(e => e.Name).HasMaxLength(255);
+            entity.Property(e => e.UpdateAt)
+                .HasColumnType("datetime")
+                .HasColumnName("Update_at");
 
             entity.HasOne(d => d.Rank).WithMany(p => p.CategoryRanks)
                 .HasForeignKey(d => d.RankId)
@@ -183,23 +194,23 @@ public partial class WebMangaContext : DbContext
         {
             entity.HasKey(e => e.ChapterId).HasName("PK__chapters__745EFE8771004EC1");
 
-            entity.ToTable("chapters");
-
-            entity.Property(e => e.ChapterId).HasColumnName("chapter_id");
-            entity.Property(e => e.ChapterCode)
-                .HasMaxLength(50)
-                .HasColumnName("chapterCode");
+            entity.Property(e => e.ChapterId).HasColumnName("Chapter_id");
+            entity.Property(e => e.ChapterCode).HasMaxLength(50);
             entity.Property(e => e.ChapterTitle)
                 .HasMaxLength(255)
-                .HasColumnName("chapter_title");
+                .HasColumnName("Chapter_title");
             entity.Property(e => e.Coins).HasDefaultValue(0.0);
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
-                .HasColumnName("created_at");
+                .HasColumnName("Created_at");
             entity.Property(e => e.IsLocked).HasDefaultValue(true);
             entity.Property(e => e.IsUnlocked).HasDefaultValue(false);
-            entity.Property(e => e.StoryId).HasColumnName("story_id");
+            entity.Property(e => e.StoryId).HasColumnName("Story_id");
+            entity.Property(e => e.UpdateAt)
+                .HasMaxLength(10)
+                .IsFixedLength()
+                .HasColumnName("Update_at");
 
             entity.HasOne(d => d.Story).WithMany(p => p.Chapters)
                 .HasForeignKey(d => d.StoryId)
@@ -211,17 +222,16 @@ public partial class WebMangaContext : DbContext
         {
             entity.HasKey(e => e.ImageId).HasName("PK__chapter___DC9AC9559DDFE85B");
 
-            entity.ToTable("chapter_images");
+            entity.ToTable("Chapter_images");
 
-            entity.Property(e => e.ImageId).HasColumnName("image_id");
-            entity.Property(e => e.ChapterId).HasColumnName("chapter_id");
-            entity.Property(e => e.FileId)
-                .HasMaxLength(255)
-                .IsFixedLength();
-            entity.Property(e => e.ImageUrl)
-                .HasMaxLength(255)
-                .HasColumnName("image_url");
-            entity.Property(e => e.PageNumber).HasColumnName("page_number");
+            entity.Property(e => e.CreateAt)
+                .HasColumnType("datetime")
+                .HasColumnName("Create_at");
+            entity.Property(e => e.ImageUrl).HasMaxLength(255);
+            entity.Property(e => e.PageNumber).HasColumnName("Page_number");
+            entity.Property(e => e.UpdateAt)
+                .HasColumnType("datetime")
+                .HasColumnName("Update_at");
 
             entity.HasOne(d => d.Chapter).WithMany(p => p.ChapterImages)
                 .HasForeignKey(d => d.ChapterId)
@@ -233,17 +243,12 @@ public partial class WebMangaContext : DbContext
         {
             entity.HasKey(e => e.CommentId).HasName("PK__comments__E7957687FA04305E");
 
-            entity.ToTable("comments");
-
-            entity.Property(e => e.CommentId).HasColumnName("comment_id");
-            entity.Property(e => e.ChapterId).HasColumnName("chapter_id");
+            entity.Property(e => e.ChapterId).HasColumnName("chapterId");
             entity.Property(e => e.Content).HasColumnName("content");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
-                .HasColumnName("created_at");
-            entity.Property(e => e.StoryId).HasColumnName("story_id");
-            entity.Property(e => e.UserId).HasColumnName("user_id");
+                .HasColumnName("Created_at");
 
             entity.HasOne(d => d.Chapter).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.ChapterId)
@@ -269,15 +274,6 @@ public partial class WebMangaContext : DbContext
                 .HasConstraintName("FK__comments__user_i__5BE2A6F2");
         });
 
-        modelBuilder.Entity<DailyTask>(entity =>
-        {
-            entity.HasKey(e => e.TaskId).HasName("PK__DailyTas__7C6949B1341E921F");
-
-            entity.ToTable("DailyTask");
-
-            entity.Property(e => e.TaskName).HasMaxLength(255);
-        });
-
         modelBuilder.Entity<ExpHistory>(entity =>
         {
             entity.HasKey(e => e.ExpHistoryId).HasName("PK__ExpHisto__8ACA2CD66071C7CE");
@@ -299,15 +295,11 @@ public partial class WebMangaContext : DbContext
         {
             entity.HasKey(e => e.FavoriteId).HasName("PK__favorite__46ACF4CB92150085");
 
-            entity.ToTable("favorites");
-
-            entity.Property(e => e.FavoriteId).HasColumnName("favorite_id");
+            entity.Property(e => e.FavoriteId).HasColumnName("Favorite_id");
             entity.Property(e => e.AddedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
                 .HasColumnName("added_at");
-            entity.Property(e => e.StoryId).HasColumnName("story_id");
-            entity.Property(e => e.UserId).HasColumnName("user_id");
 
             entity.HasOne(d => d.Story).WithMany(p => p.Favorites)
                 .HasForeignKey(d => d.StoryId)
@@ -324,17 +316,15 @@ public partial class WebMangaContext : DbContext
         {
             entity.HasKey(e => e.FollowId).HasName("PK__followed__15A69144C7050AB0");
 
-            entity.ToTable("followed_stories");
+            entity.ToTable("Followed_stories");
 
             entity.HasIndex(e => new { e.UserId, e.StoryId }, "unique_follow").IsUnique();
 
-            entity.Property(e => e.FollowId).HasColumnName("follow_id");
+            entity.Property(e => e.FollowId).HasColumnName("followId");
             entity.Property(e => e.FollowedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
                 .HasColumnName("followed_at");
-            entity.Property(e => e.StoryId).HasColumnName("story_id");
-            entity.Property(e => e.UserId).HasColumnName("user_id");
 
             entity.HasOne(d => d.LastReadChapter).WithMany(p => p.FollowedStories)
                 .HasForeignKey(d => d.LastReadChapterId)
@@ -355,15 +345,17 @@ public partial class WebMangaContext : DbContext
         {
             entity.HasKey(e => e.GenreId).HasName("PK__genres__18428D42B38D820E");
 
-            entity.ToTable("genres");
-
             entity.HasIndex(e => e.Name, "UQ__genres__72E12F1B75844B93").IsUnique();
 
-            entity.Property(e => e.GenreId).HasColumnName("genre_id");
-            entity.Property(e => e.Name)
-                .HasMaxLength(100)
-                .HasColumnName("name");
+            entity.Property(e => e.GenreId).HasColumnName("Genre_id");
+            entity.Property(e => e.CreateAt)
+                .HasColumnType("datetime")
+                .HasColumnName("Create_at");
+            entity.Property(e => e.Name).HasMaxLength(100);
             entity.Property(e => e.Title).HasMaxLength(1000);
+            entity.Property(e => e.UpdateAt)
+                .HasColumnType("datetime")
+                .HasColumnName("Update_at");
         });
 
         modelBuilder.Entity<Level>(entity =>
@@ -476,14 +468,18 @@ public partial class WebMangaContext : DbContext
 
             entity.ToTable("Rank");
 
+            entity.Property(e => e.CreateAt)
+                .HasColumnType("datetime")
+                .HasColumnName("Create_at");
             entity.Property(e => e.Name).HasMaxLength(255);
+            entity.Property(e => e.UpdateAt)
+                .HasColumnType("datetime")
+                .HasColumnName("Update_at");
         });
 
         modelBuilder.Entity<Rating>(entity =>
         {
             entity.HasKey(e => e.RatingId).HasName("PK__ratings__D35B278BF3CCAC4C");
-
-            entity.ToTable("ratings");
 
             entity.Property(e => e.RatingId).HasColumnName("rating_id");
             entity.Property(e => e.CreatedAt)
@@ -509,7 +505,7 @@ public partial class WebMangaContext : DbContext
         {
             entity.HasKey(e => e.HistoryId).HasName("PK__reading___096AA2E9F47ADE32");
 
-            entity.ToTable("reading_history");
+            entity.ToTable("Reading_history");
 
             entity.Property(e => e.HistoryId).HasColumnName("history_id");
             entity.Property(e => e.ChapterId).HasColumnName("chapter_id");
@@ -579,15 +575,19 @@ public partial class WebMangaContext : DbContext
 
             entity.ToTable("Sticker");
 
+            entity.Property(e => e.CreateAt)
+                .HasColumnType("datetime")
+                .HasColumnName("Create_at");
             entity.Property(e => e.ImagePath).HasMaxLength(500);
             entity.Property(e => e.Name).HasMaxLength(255);
+            entity.Property(e => e.UpdateAt)
+                .HasColumnType("datetime")
+                .HasColumnName("Update_at");
         });
 
         modelBuilder.Entity<Story>(entity =>
         {
             entity.HasKey(e => e.StoryId).HasName("PK__stories__66339C5649B23FA7");
-
-            entity.ToTable("stories");
 
             entity.Property(e => e.StoryId).HasColumnName("story_id");
             entity.Property(e => e.Author)
@@ -616,7 +616,7 @@ public partial class WebMangaContext : DbContext
         {
             entity.HasKey(e => e.StoryGenreId).HasName("PK__story_ge__B78B7C18999E6C04");
 
-            entity.ToTable("story_genres");
+            entity.ToTable("Story_genres");
 
             entity.HasIndex(e => new { e.StoryId, e.GenreId }, "unique_story_genre").IsUnique();
 
@@ -656,31 +656,25 @@ public partial class WebMangaContext : DbContext
         {
             entity.HasKey(e => e.UserId).HasName("PK__users__B9BE370FED03E79E");
 
-            entity.ToTable("users");
-
             entity.HasIndex(e => e.Email, "UQ__users__AB6E6164979432CC").IsUnique();
 
             entity.HasIndex(e => e.Username, "UQ__users__F3DBC57212A6DAF4").IsUnique();
 
-            entity.Property(e => e.UserId).HasColumnName("user_id");
             entity.Property(e => e.Avatar).HasMaxLength(255);
             entity.Property(e => e.Coins).HasDefaultValue(0.0);
             entity.Property(e => e.ConfirmPassword).HasMaxLength(255);
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
-                .HasColumnName("created_at");
-            entity.Property(e => e.Email)
-                .HasMaxLength(100)
-                .HasColumnName("email");
+                .HasColumnName("Created_at");
+            entity.Property(e => e.Email).HasMaxLength(100);
             entity.Property(e => e.ExpPoints).HasDefaultValue(0.0);
-            entity.Property(e => e.Password)
-                .HasMaxLength(255)
-                .HasColumnName("password");
+            entity.Property(e => e.Password).HasMaxLength(255);
             entity.Property(e => e.RankId).HasDefaultValue(1);
-            entity.Property(e => e.Username)
-                .HasMaxLength(50)
-                .HasColumnName("username");
+            entity.Property(e => e.UpdatedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("Updated_at");
+            entity.Property(e => e.Username).HasMaxLength(50);
             entity.Property(e => e.VerificationCode).HasMaxLength(50);
             entity.Property(e => e.VerificationCodeExpires).HasColumnType("datetime");
 
@@ -697,25 +691,6 @@ public partial class WebMangaContext : DbContext
                 .HasForeignKey(d => d.RankId)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("FK_users_Rank");
-        });
-
-        modelBuilder.Entity<UserDailyTask>(entity =>
-        {
-            entity.HasKey(e => e.UserTaskId).HasName("PK__UserDail__4EF5961F6E8C86C0");
-
-            entity.ToTable("UserDailyTask");
-
-            entity.Property(e => e.CompletedAt).HasColumnType("datetime");
-
-            entity.HasOne(d => d.Task).WithMany(p => p.UserDailyTasks)
-                .HasForeignKey(d => d.TaskId)
-                .OnDelete(DeleteBehavior.Cascade)
-                .HasConstraintName("FK_UserDailyTask_DailyTask");
-
-            entity.HasOne(d => d.User).WithMany(p => p.UserDailyTasks)
-                .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.Cascade)
-                .HasConstraintName("FK_UserDailyTask_Users");
         });
 
         OnModelCreatingPartial(modelBuilder);

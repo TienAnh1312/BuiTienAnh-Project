@@ -11,5 +11,9 @@ public partial class Sticker
 
     public string? ImagePath { get; set; }
 
+    public DateTime? CreateAt { get; set; }
+
+    public DateTime? UpdateAt { get; set; }
+
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 }

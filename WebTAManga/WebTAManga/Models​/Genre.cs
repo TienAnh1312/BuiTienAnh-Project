@@ -11,5 +11,9 @@ public partial class Genre
 
     public string? Title { get; set; }
 
+    public DateTime? CreateAt { get; set; }
+
+    public DateTime? UpdateAt { get; set; }
+
     public virtual ICollection<StoryGenre> StoryGenres { get; set; } = new List<StoryGenre>();
 }

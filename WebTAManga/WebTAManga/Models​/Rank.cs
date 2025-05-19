@@ -9,6 +9,10 @@ public partial class Rank
 
     public string? Name { get; set; }
 
+    public DateTime? CreateAt { get; set; }
+
+    public DateTime? UpdateAt { get; set; }
+
     public virtual ICollection<CategoryRank> CategoryRanks { get; set; } = new List<CategoryRank>();
 
     public virtual ICollection<User> Users { get; set; } = new List<User>();

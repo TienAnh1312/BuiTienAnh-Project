@@ -25,7 +25,7 @@ namespace WebTAManga.Areas.Admins.Controllers
 
         // GET: Admins/Admins
         public async Task<IActionResult> Index(string searchUsername, string searchEmail, int page = 1)
-        {
+        {   
             var currentAdminId = HttpContext.Session.GetInt32("AdminId") ?? 0;
             var currentAdmin = await _context.Admins
                 .Include(a => a.RoleNavigation)

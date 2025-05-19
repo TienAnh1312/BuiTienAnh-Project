@@ -11,6 +11,10 @@ public partial class CategoryRank
 
     public int? RankId { get; set; }
 
+    public DateTime? CreateAt { get; set; }
+
+    public DateTime? UpdateAt { get; set; }
+
     public virtual ICollection<Level> Levels { get; set; } = new List<Level>();
 
     public virtual Rank? Rank { get; set; }

@@ -1,16 +1,25 @@
 ﻿@model WebTAManga.Models.Admin
 
-<div>
-    <dl class="row">
-        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Username)</dt>
-        <dd class="col-sm-8">@Html.DisplayFor(model => model.Username)</dd>
-        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Email)</dt>
-        <dd class="col-sm-8">@Html.DisplayFor(model => model.Email)</dd>
-        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.RoleNavigation.RoleName)</dt>
-        <dd class="col-sm-8">@Html.DisplayFor(model => model.RoleNavigation.RoleName)</dd>
-        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Manager.Username)</dt>
-        <dd class="col-sm-8">@Html.DisplayFor(model => model.Manager.Username)</dd>
-        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.IsDepartmentHead)</dt>
-        <dd class="col-sm-8">@Html.DisplayFor(model => model.IsDepartmentHead)</dd>
-    </dl>
-</div>
+<form asp-action="" method="">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="AdminId" />
+
+    <div class="form-group">
+        <label asp-for="Username" class="control-label"></label>
+        <input asp-for="Username" class="form-control" readonly />
+        <span asp-validation-for="Username" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Email" class="control-label"></label>
+        <input asp-for="Email" class="form-control" readonly />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="RoleId" class="control-label">RoleName</label>
+        <input asp-for="RoleNavigation.RoleName" class="form-control" readonly/>
+    </div>
+
+    <input type="hidden" asp-for="CreatedAt" />
+</form>

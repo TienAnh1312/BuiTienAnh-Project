@@ -9,9 +9,8 @@
     }
 </style>
 
-<h1>Create</h1>
+<h1>Thêm mới truyện</h1>
 
-<h4>Story</h4>
 <hr />
 <div class="row">
     <div class="col-md-12">
@@ -19,25 +18,25 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group">
-                <label asp-for="StoryCode" class="control-label"></label>
+                <label asp-for="StoryCode" class="control-label">Mã truyện</label>
                 <input asp-for="StoryCode" class="form-control" placeholder="Enter story code (e.g., CH)" required />
                 <span asp-validation-for="StoryCode" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
+                <label asp-for="Title" class="control-label">Tên truyện</label>
                 <input asp-for="Title" class="form-control" placeholder="Enter story title" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Author" class="control-label"></label>
+                <label asp-for="Author" class="control-label">Tác giả</label>
                 <input asp-for="Author" class="form-control" placeholder="Enter author name" />
                 <span asp-validation-for="Author" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label class="control-label">Genres</label>
+                <label class="control-label">Thể loại</label>
                 <div class="d-flex flex-wrap gap-3">
                     @foreach (var genre in (SelectList)ViewData["Genres"])
                     {
@@ -50,50 +49,44 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
+                <label asp-for="Description" class="control-label">Giới thiệu</label>
                 <textarea asp-for="Description" class="form-control" id="descriptionEditor" rows="4" placeholder="Enter story description"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="CoverImage" class="control-label"></label>
+                <label asp-for="CoverImage" class="control-label">Ảnh bìa</label>
                 <input type="file" name="CoverImage" class="form-control" />
                 <span asp-validation-for="CoverImage" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="IsCompleted" class="control-label"></label>
+                <label asp-for="IsCompleted" class="control-label">Truyện đã hoàn thành</label>
                 <input asp-for="IsCompleted" type="checkbox" class="form-check-input" />
                 <span asp-validation-for="IsCompleted" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="LastUpdatedAt" class="control-label"></label>
-                <input asp-for="LastUpdatedAt" type="datetime-local" class="form-control" />
-                <span asp-validation-for="LastUpdatedAt" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="IsHot" class="control-label"></label>
+                <label asp-for="IsHot" class="control-label">Truyện đang nổi</label>
                 <input asp-for="IsHot" type="checkbox" class="form-check-input" />
                 <span asp-validation-for="IsHot" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="IsNew" class="control-label"></label>
+                <label asp-for="IsNew" class="control-label">Tryện mới</label>
                 <input asp-for="IsNew" type="checkbox" class="form-check-input" />
                 <span asp-validation-for="IsNew" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Thêm mới" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Trở về danh sách</a>
 </div>
 
 @section Scripts {

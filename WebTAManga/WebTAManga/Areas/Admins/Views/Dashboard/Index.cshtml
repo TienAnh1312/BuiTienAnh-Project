@@ -1,1 +1,303 @@
-﻿<h1>Dashboard</h1>
+﻿@model WebTAManga.Areas.Admins.Controllers.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Bảng điều khiển";
+}
+<!-- Optional CSS for further refinement -->
+<style>
+    .table th, .table td {
+        vertical-align: middle;
+        font-size: 0.85rem;
+    }
+
+    .card-body {
+        padding: 0.25rem;
+    }
+
+    .card {
+        margin-bottom: 1rem;
+    }
+</style>
+
+<div class="container mt-4">
+
+    <!-- Info boxes -->
+    <div class="row">
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+                <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-book"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Tổng truyện</span>
+                    <span class="info-box-number">@Model.TotalStories</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-comments"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Tổng bình luận</span>
+                    <span class="info-box-number">@Model.TotalComments</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-coins"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Doanh thu (Xu)</span>
+                    <span class="info-box-number">@Model.TotalRevenue.ToString("N0")</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        @* <!-- /.col -->
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-tags"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Tổng thể loại</span>
+                    <span class="info-box-number">@Model.TotalGenres</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div> *@
+        <!-- /.col -->
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+                <span class="info-box-icon bg-dark elevation-1"><i class="fas fa-users"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Tổng người dùng</span>
+                    <span class="info-box-number">@Model.TotalUsers</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+
+    </div>
+
+    <!-- Charts -->
+    <div class="row mt-6">
+        <div class="col-md-4">
+            <h4>Doanh thu theo thời gian</h4>
+            <canvas id="revenueChart"></canvas>
+        </div>
+        <div class="col-md-4">
+            <h4>Top truyện lượt xem</h4>
+            <canvas id="viewsChart"></canvas>
+        </div>
+        <div class="col-md-4">
+            <h4>Top truyện bình luận</h4>
+            <canvas id="commentsChart"></canvas>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <!-- TABLE: Recent Stories -->
+        <div class="col-12 col-md-4">
+            <div class="card">
+                <div class="card-header border-transparent">
+                    <h3 class="card-title">Truyện mới cập nhật</h3>
+
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive table-responsive-md">
+                        <table class="table table-sm m-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-truncate" style="max-width: 150px;">Tiêu đề</th>
+                                    <th>Ngày thêm</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var story in Model.RecentStories)
+                                {
+                                    <tr>
+                                        <td class="text-truncate" style="max-width: 150px;">@story.Title</td>
+                                        <td>@story.CreatedAt?.ToString("dd/MM/yyyy")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TABLE: Admin Logs -->
+        <div class="col-12 col-md-4">
+            <div class="card">
+                <div class="card-header border-transparent">
+                    <h3 class="card-title">Hoạt động quản trị viên</h3>
+
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive table-responsive-md">
+                        <table class="table table-sm m-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-truncate" style="max-width: 100px;">Quản trị viên</th>
+                                    <th class="text-truncate" style="max-width: 120px;">Hoạt động</th>
+                                    <th>Thời gian</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var log in Model.RecentAdminLogs)
+                                {
+                                    <tr>
+                                        <td class="text-truncate" style="max-width: 100px;">@log.AdminUsername</td>
+                                        <td class="text-truncate" style="max-width: 120px;">@log.Action</td>
+                                        <td>@log.CreatedAt?.ToString("dd/MM/yyyy HH:mm")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TABLE: Transactions -->
+        <div class="col-12 col-md-4">
+            <div class="card">
+                <div class="card-header border-transparent">
+                    <h3 class="card-title">Giao dịch gần đây</h3>
+
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive table-responsive-md">
+                        <table class="table table-sm m-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-truncate" style="max-width: 100px;">Người dùng</th>
+                                    <th>Xu</th>
+                                    <th class="d-none d-md-table-cell">Phương thức</th>
+                                    <th>Thời gian</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var trans in Model.RecentTransactions)
+                                {
+                                    <tr>
+                                        <td class="text-truncate" style="max-width: 100px;">@trans.Username</td>
+                                        <td>@trans.Coins.ToString("N0")</td>
+                                        <td class="d-none d-md-table-cell">@trans.PaymentMethod</td>
+                                        <td>@trans.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            console.log('Document ready - Bắt đầu khởi tạo biểu đồ');
+
+            $.get('/Admins/Dashboard/GetRevenueData', { period: 'month' }, function (data) {
+                console.log('Dữ liệu doanh thu:', data);
+                if (data && data.labels && data.values) {
+                    new Chart(document.getElementById('revenueChart'), {
+                        type: 'line',
+                        data: {
+                            labels: data.labels,
+                            datasets: [{
+                                label: 'Doanh thu (Xu)',
+                                data: data.values,
+                                borderColor: '#007bff',
+                                fill: false
+                            }]
+                        },
+                        options: { scales: { y: { beginAtZero: true } } }
+                    });
+                } else {
+                    console.error('Dữ liệu doanh thu không hợp lệ:', data);
+                }
+            }).fail(function (xhr, status, error) {
+                console.error('Lỗi khi gọi API GetRevenueData:', status, error);
+            });
+
+            $.get('/Admins/Dashboard/GetTopStoriesByViews', function (data) {
+                console.log('Dữ liệu lượt xem:', data);
+                if (data && data.labels && data.values) {
+                    new Chart(document.getElementById('viewsChart'), {
+                        type: 'bar',
+                        data: {
+                            labels: data.labels,
+                            datasets: [{
+                                label: 'Lượt xem',
+                                data: data.values,
+                                backgroundColor: '#28a745'
+                            }]
+                        },
+                        options: { scales: { y: { beginAtZero: true } } }
+                    });
+                } else {
+                    console.error('Dữ liệu lượt xem không hợp lệ:', data);
+                }
+            }).fail(function (xhr, status, error) {
+                console.error('Lỗi khi gọi API GetTopStoriesByViews:', status, error);
+            });
+
+            $.get('/Admins/Dashboard/GetTopStoriesByComments', function (data) {
+                console.log('Dữ liệu bình luận:', data);
+                if (data && data.labels && data.values) {
+                    new Chart(document.getElementById('commentsChart'), {
+                        type: 'bar',
+                        data: {
+                            labels: data.labels,
+                            datasets: [{
+                                label: 'Số bình luận',
+                                data: data.values,
+                                backgroundColor: '#dc3545'
+                            }]
+                        },
+                        options: { scales: { y: { beginAtZero: true } } }
+                    });
+                } else {
+                    console.error('Dữ liệu bình luận không hợp lệ:', data);
+                }
+            }).fail(function (xhr, status, error) {
+                console.error('Lỗi khi gọi API GetTopStoriesByComments:', status, error);
+            });
+        });
+    </script>
+}
