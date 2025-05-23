@@ -1,0 +1,131 @@
+﻿@model WebTAManga.Areas.Admins.Models.GroupManagement
+
+@{
+    ViewData["Title"] = "Tạo Nhóm Mới";
+}
+
+<h2>Tạo Nhóm Mới</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="CreateGroup" method="post" id="createGroupForm">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="RoleId" class="control-label">Vai trò</label>
+                <select asp-for="RoleId" class="form-control" asp-items="Model.RoleList" id="roleId">
+                    <option value="">-- Chọn vai trò --</option>
+                </select>
+                <span asp-validation-for="RoleId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ManagerId" class="control-label">Trưởng nhóm</label>
+                <select asp-for="ManagerId" class="form-control" id="managerId" asp-items="Model.ManagerList">
+                    <option value="">-- Chọn trưởng nhóm --</option>
+                </select>
+                <span asp-validation-for="ManagerId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-primary" id="submitButton" disabled>Tạo nhóm</button>
+                <a asp-action="ManageGroups" class="btn btn-secondary">Quay lại</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            // Kích hoạt client-side validation
+            $("#createGroupForm").validate({
+                rules: {
+                    RoleId: {
+                        required: true,
+                        min: 1
+                    },
+                    ManagerId: {
+                        required: true,
+                        min: 1
+                    }
+                },
+                messages: {
+                    RoleId: "Vui lòng chọn vai trò.",
+                    ManagerId: "Vui lòng chọn trưởng nhóm."
+                },
+                errorElement: "span",
+                errorPlacement: function (error, element) {
+                    error.addClass("text-danger");
+                    error.insertAfter(element);
+                }
+            });
+
+            // Kích hoạt/vô hiệu hóa nút submit
+            $('#roleId, #managerId').on('change', function () {
+                var roleId = $('#roleId').val();
+                var managerId = $('#managerId').val();
+                $('#submitButton').prop('disabled', !(roleId > 0 && managerId > 0));
+            });
+
+            // Cập nhật danh sách trưởng nhóm khi vai trò thay đổi
+            $('#roleId').on('change', function () {
+                var roleId = $(this).val();
+                if (roleId && roleId > 0) {
+                    $.ajax({
+                        url: '@Url.Action("GetManagersForRole")',
+                        type: 'GET',
+                        data: { roleId: roleId },
+                        success: function (data) {
+                            var managerSelect = $('#managerId');
+                            managerSelect.empty();
+                            managerSelect.append('<option value="">-- Chọn trưởng nhóm --</option>');
+                            if (data.success === false) {
+                                toastr.warning(data.message);
+                                $('#submitButton').prop('disabled', true);
+                            } else {
+                                $.each(data, function (index, item) {
+                                    managerSelect.append('<option value="' + item.adminId + '">' + item.username + '</option>');
+                                });
+                            }
+                        },
+                        error: function () {
+                            toastr.error('Không thể tải danh sách trưởng nhóm.');
+                            $('#submitButton').prop('disabled', true);
+                        }
+                    });
+                } else {
+                    $('#managerId').empty().append('<option value="">-- Chọn trưởng nhóm --</option>');
+                    $('#submitButton').prop('disabled', true);
+                }
+            });
+
+            // Xử lý form submit bằng AJAX
+            $('#createGroupForm').on('submit', function (e) {
+                e.preventDefault();
+                if ($(this).valid()) {
+                    var form = $(this);
+                    $.ajax({
+                        url: form.attr('action'),
+                        type: form.attr('method'),
+                        data: form.serialize(),
+                        success: function (response) {
+                            if (response.success) {
+                                toastr.success(response.message);
+                                setTimeout(function () {
+                                    window.location.href = '@Url.Action("ManageGroups")';
+                                }, 1500);
+                            } else {
+                                toastr.error(response.message);
+                            }
+                        },
+                        error: function () {
+                            toastr.error('Đã xảy ra lỗi khi tạo nhóm.');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

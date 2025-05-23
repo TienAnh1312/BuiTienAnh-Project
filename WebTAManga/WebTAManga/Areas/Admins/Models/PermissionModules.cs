@@ -13,10 +13,11 @@
         public const string Reports = "Reports";
         public const string Comments = "Comments";
         public const string GroupManagement = "GroupManagement";
+        public const string FinancialReports = "FinancialReports";
 
         public static readonly List<string> AllModules = new List<string>
         {
-            Banners, Ranks, Stories, Chapters, ChapterImages, Genres, Stickers, Transactions, Reports, Comments, GroupManagement
+            Banners, Ranks, Stories, Chapters, ChapterImages, Genres, Stickers, Transactions, Reports, Comments, GroupManagement, FinancialReports
         };
 
         public static readonly List<string> ContentManagerModules = new List<string>
@@ -29,6 +30,11 @@
             Transactions, Reports, GroupManagement
         };
 
+        public static readonly List<string> FinanceManagerModules = new List<string>
+        {
+            Transactions, FinancialReports, GroupManagement
+        };
+
         public static readonly List<string> CommentModeratorModules = new List<string>
         {
             Comments, GroupManagement
@@ -39,12 +45,11 @@
             Reports, GroupManagement
         };
 
-        // Danh sách module mà Manager có thể cấp quyền (chỉ bao gồm quyền trong khu vực của mình)
         public static readonly Dictionary<string, List<string>> ManagerAssignableModules = new Dictionary<string, List<string>>
         {
             { "ContentManager", ContentManagerModules },
             { "UserManager", UserManagerModules },
-            { "FinanceManager", UserManagerModules },
+            { "FinanceManager", FinanceManagerModules }, 
             { "CommentModerator", CommentModeratorModules },
             { "ReporterHandler", ReporterHandlerModules }
         };

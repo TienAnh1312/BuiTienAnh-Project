@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using BCrypt.Net;
 
 namespace WebTAManga.Areas.Admins.Controllers
 {
@@ -68,9 +69,9 @@ namespace WebTAManga.Areas.Admins.Controllers
                     new ClaimsPrincipal(claimsIdentity), authProperties);
 
                 // Lưu thông tin vào session
-                HttpContext.Session.SetString("AdminLogin", model.Email); //Lấy Email admin
+                HttpContext.Session.SetString("AdminLogin", model.Email);
                 HttpContext.Session.SetString("AdminRole", dataLogin.RoleNavigation?.RoleName ?? "Unknown");
-                HttpContext.Session.SetInt32("AdminId", dataLogin.AdminId);//lấy Id admin
+                HttpContext.Session.SetInt32("AdminId", dataLogin.AdminId);
 
                 // Ghi log đăng nhập
                 var adminLog = new AdminLog
@@ -113,20 +114,19 @@ namespace WebTAManga.Areas.Admins.Controllers
         public IActionResult AccessDenied()
         {
             TempData["ToastrError"] = "Bạn không có quyền truy cập vào trang này.";
-            // Lấy URL trang trước đó từ header Referer
             string referrer = HttpContext.Request.Headers["Referer"].ToString();
             if (!string.IsNullOrEmpty(referrer))
             {
-                return Redirect(referrer); 
+                return Redirect(referrer);
             }
-          
+
             return RedirectToAction("Index");
         }
 
         // Hàm kiểm tra mật khẩu
         private bool VerifyPassword(string inputPassword, string storedPassword)
         {
-            return inputPassword.Equals(storedPassword); 
+            return BCrypt.Net.BCrypt.Verify(inputPassword, storedPassword);
         }
     }
 }

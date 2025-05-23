@@ -1,0 +1,210 @@
+﻿@model WebTAManga.Areas.Admins.Models.GroupManagement
+
+@{
+    var manager = Model.Managers.FirstOrDefault();
+    ViewData["Title"] = "Danh sách thành viên của nhóm " + (manager?.Username ?? "Không xác định");
+    int stt = 1;
+    var currentAdminId = int.Parse(ViewData["CurrentAdminId"]?.ToString() ?? "0");
+    var isDepartmentHead = ViewData["CurrentIsDepartmentHead"]?.ToString() == "True";
+    var isSuperAdminOrAdmin = User.IsInRole("SuperAdmin") || User.IsInRole("Admin");
+    var managerId = int.Parse(ViewData["ManagerId"]?.ToString() ?? "0");
+    var isGroupMember = ViewData["IsGroupMember"]?.ToString() == "True";
+
+    <div style="display:none;">
+        <p>currentAdminId: @currentAdminId</p>
+        <p>isDepartmentHead: @isDepartmentHead</p>
+        <p>isSuperAdminOrAdmin: @isSuperAdminOrAdmin</p>
+        <p>managerId: @managerId</p>
+        <p>manager.AdminId: @(manager?.AdminId ?? 0)</p>
+        <p>isGroupMember: @isGroupMember</p>
+    </div>
+}
+
+<div class="container mt-4">
+    <h2 class="text-primary mb-4">@ViewData["Title"]</h2>
+
+    @if (manager == null)
+    {
+        <div class="alert alert-danger">
+            Không tìm thấy trưởng nhóm. Vui lòng quay lại và thử lại.
+        </div>
+        <a asp-action="ManageGroups" asp-controller="Groups" asp-area="Admins" class="btn btn-secondary btn-sm">
+            <i class="bi bi-arrow-left"></i> Quay lại
+        </a>
+    }
+    else
+    {
+        <div class="mb-3">
+            <a asp-action="ViewGroupsByRole" asp-controller="Groups" asp-area="Admins" asp-route-roleId="@(Model.Roles.FirstOrDefault()?.RoleId ?? 0)" class="btn btn-secondary btn-sm me-2">
+                <i class="bi bi-arrow-left"></i> Quay lại
+            </a>
+            @if (isSuperAdminOrAdmin || (isDepartmentHead && managerId == currentAdminId))
+            {
+                <a asp-action="AddMemberToGroup" asp-controller="Groups" asp-area="Admins" asp-route-managerId="@managerId" class="btn btn-success btn-sm me-2">
+                    <i class="bi bi-person-plus"></i> Thêm thành viên
+                </a>
+                <form class="delete-group-form d-inline" data-manager-id="@managerId">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="managerId" value="@managerId" />
+                    <button type="submit" class="btn btn-danger btn-sm">
+                        <i class="bi bi-trash"></i> Xóa nhóm
+                    </button>
+                </form>
+            }
+        </div>
+
+        <div class="table-responsive mt-3">
+            <table class="table table-hover table-bordered align-middle">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th style="width: 50px;">STT</th>
+                        <th>Tên thành viên</th>
+                        <th>Email</th>
+                        <th style="width: 200px;">Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Admins.Any())
+                    {
+                        @foreach (var member in Model.Admins)
+                        {
+                            <tr>
+                                <td class="text-center">@stt</td>
+                                <td>@member.Username</td>
+                                <td>@member.Email</td>
+                                <td class="text-center">
+                                    @if (isSuperAdminOrAdmin || (isDepartmentHead && member.ManagerId == currentAdminId))
+                                    {
+                                        <a asp-action="AssignPermissions" asp-controller="Permissions" asp-area="Admins" asp-route-id="@member.AdminId" class="btn btn-info btn-sm text-white me-1">
+                                            <i class="bi bi-shield-lock" title="Phân quyền"></i>
+                                        </a>
+                                        <form class="delete-member-form d-inline" data-manager-id="@managerId" data-admin-id="@member.AdminId">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="managerId" value="@managerId" />
+                                            <input type="hidden" name="adminId" value="@member.AdminId" />
+                                            <button type="submit" class="btn btn-danger btn-sm text-white">
+                                                <i class="bi bi-trash" title="Xóa khỏi nhóm"></i>
+                                            </button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Không có quyền chỉnh sửa</span>
+                                    }
+                                </td>
+                            </tr>
+                            stt++;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4" class="text-center">Không có thành viên nào trong nhóm này.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            // Xử lý xóa thành viên bằng AJAX
+            $('.delete-member-form').on('submit', function (e) {
+                e.preventDefault();
+                var form = $(this);
+                var managerId = form.data('manager-id');
+                var adminId = form.data('admin-id');
+
+                Swal.fire({
+                    title: 'Xác nhận',
+                    text: 'Bạn có chắc muốn xóa thành viên này khỏi nhóm?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Xóa',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '@Url.Action("DeleteMemberFromGroup", "Groups", new { area = "Admins" })',
+                            type: 'POST',
+                            data: form.serialize(),
+                            headers: {
+                                'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                            },
+                            beforeSend: function () {
+                                form.find('button').prop('disabled', true).html('<i class="bi bi-spinner bi-spin"></i> Đang xóa...');
+                            },
+                            success: function (result) {
+                                if (result.success) {
+                                    Swal.fire('Thành công!', result.message, 'success').then(() => location.reload());
+                                } else {
+                                    Swal.fire('Lỗi!', result.message, 'error');
+                                    form.find('button').prop('disabled', false).html('<i class="bi bi-trash" title="Xóa khỏi nhóm"></i>');
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                Swal.fire('Lỗi!', 'Có lỗi xảy ra: ' + (xhr.responseJSON?.message || error), 'error');
+                                form.find('button').prop('disabled', false).html('<i class="bi bi-trash" title="Xóa khỏi nhóm"></i>');
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Xử lý xóa nhóm bằng AJAX
+            $('.delete-group-form').on('submit', function (e) {
+                e.preventDefault();
+                var form = $(this);
+                var managerId = form.data('manager-id');
+
+                Swal.fire({
+                    title: 'Xác nhận',
+                    text: 'Bạn có chắc muốn xóa nhóm này? Tất cả thành viên sẽ được gỡ khỏi nhóm.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Xóa',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '@Url.Action("DeleteGroup", "Groups", new { area = "Admins" })',
+                            type: 'POST',
+                            data: form.serialize(),
+                            headers: {
+                                'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                            },
+                            beforeSend: function () {
+                                form.find('button').prop('disabled', true).html('<i class="bi bi-spinner bi-spin"></i> Đang xóa...');
+                            },
+                            success: function (result) {
+                                if (result.success) {
+                                    Swal.fire('Thành công!', result.message, 'success').then(() => window.location.href = '@Url.Action("ManageGroups", "Groups", new { area = "Admins" })');
+                                } else {
+                                    Swal.fire('Lỗi!', result.message, 'error');
+                                    form.find('button').prop('disabled', false).html('<i class="bi bi-trash"></i> Xóa nhóm');
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                Swal.fire('Lỗi!', 'Có lỗi xảy ra: ' + (xhr.responseJSON?.message || error), 'error');
+                                form.find('button').prop('disabled', false).html('<i class="bi bi-trash"></i> Xóa nhóm');
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Tự động đóng alert sau 3 giây
+            const alert = document.querySelector('.alert-success');
+            if (alert) {
+                setTimeout(function () {
+                    alert.classList.remove('show');
+                    alert.classList.add('fade');
+                }, 3000);
+            }
+        });
+    </script>
+}

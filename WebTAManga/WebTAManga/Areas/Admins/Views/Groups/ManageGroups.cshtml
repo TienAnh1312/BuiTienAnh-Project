@@ -1,0 +1,58 @@
+﻿@model WebTAManga.Areas.Admins.Models.GroupManagement
+@{
+    ViewData["Title"] = "Quản lý nhóm và vai trò";
+    int stt = 1;
+}
+
+<div class="container mt-4">
+    <h2 class="text-primary mb-4">@ViewData["Title"]</h2>
+
+    <div class="mb-3">
+        <a asp-action="CreateGroup" asp-controller="Groups" asp-area="Admins" class="btn btn-primary btn-sm">
+            <i class="bi bi-plus-circle"></i> Tạo nhóm mới
+        </a>
+    </div>
+
+    <div class="table-responsive mt-3">
+        <table class="table table-hover table-bordered align-middle">
+            <thead class="table-dark text-center">
+                <tr>
+                    <th style="width: 50px;">STT</th>
+                    <th>Vai trò</th>
+                    <th>Số nhóm</th>
+                    <th style="width: 150px;">Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Roles.Any())
+                {
+                    @foreach (var role in Model.Roles)
+                    {
+                        var managers = Model.Managers
+                        .Where(m => m.RoleId == role.RoleId && m.IsDepartmentHead.GetValueOrDefault())
+                        .ToList();
+                        var groupCount = managers.Count;
+
+                        <tr>
+                            <td class="text-center">@stt</td>
+                            <td>@role.RoleName</td>
+                            <td class="text-center">@groupCount</td>
+                            <td class="text-center">
+                                <a asp-action="ViewGroupsByRole" asp-controller="Groups" asp-area="Admins" asp-route-roleId="@role.RoleId" class="btn btn-info btn-sm text-white">
+                                    <i class="bi bi-eye" title="Xem nhóm"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        stt++;
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" class="text-center">Không có vai trò nào.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

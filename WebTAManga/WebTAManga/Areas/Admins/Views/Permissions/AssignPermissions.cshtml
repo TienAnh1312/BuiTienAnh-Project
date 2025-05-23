@@ -1,0 +1,215 @@
+﻿@model dynamic
+<h2>Phân quyền cho @(((WebTAManga.Models.Admin)ViewData["Admin"]).Username) (Vai trò: @(((WebTAManga.Models.Admin)ViewData["Admin"]).RoleNavigation?.RoleName))</h2>
+
+@{
+    var admin = (WebTAManga.Models.Admin)ViewData["Admin"];
+    var currentAdminId = (int)ViewData["CurrentAdminId"];
+    var modules = (List<string>)ViewData["Modules"];
+    var permissions = (List<WebTAManga.Models.ManagerPermission>)ViewData["Permissions"];
+}
+
+@if (admin.AdminId == currentAdminId && !admin.IsDepartmentHead != true)
+{
+    <div class="alert alert-danger">
+        Bạn không có quyền sửa quyền của chính mình.
+    </div>
+}
+else if (!modules.Any())
+{
+    <p class="text-danger">Không có module nào khả dụng để phân quyền cho vai trò này.</p>
+}
+else
+{
+    <!-- Bảng hiển thị quyền hiện tại -->
+    <h4>Quyền hiện tại</h4>
+    <table class="table table-bordered mx-auto" style="max-width: 800px;">
+        <thead>
+            <tr>
+                <th>Module</th>
+                <th>Xem</th>
+                <th>Thêm</th>
+                <th>Sửa</th>
+                <th>Xóa</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var module in modules)
+            {
+                var permission = permissions.FirstOrDefault(p => p.Module == module);
+                <tr>
+                    <td>@module</td>
+                    <td>@(permission?.CanView == true ? "✓" : "")</td>
+                    <td>@(permission?.CanCreate == true ? "✓" : "")</td>
+                    <td>@(permission?.CanEdit == true ? "✓" : "")</td>
+                    <td>@(permission?.CanDelete == true ? "✓" : "")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Form phân quyền -->
+    <form asp-action="AssignPermissions" method="post" id="permissionsForm">
+        <input type="hidden" name="id" value="@admin.AdminId" />
+        <h4>Cập nhật quyền</h4>
+        <table class="table table-bordered mx-auto" style="max-width: 800px;">
+            <thead>
+                <tr>
+                    <th>Module</th>
+                    <th>Chọn</th>
+                    <th>Xem</th>
+                    <th>Thêm</th>
+                    <th>Sửa</th>
+                    <th>Xóa</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var module in modules)
+                {
+                    var permission = permissions.FirstOrDefault(p => p.Module == module);
+                    var isChecked = permission != null ? "checked" : "";
+                    <tr>
+                        <td>@module</td>
+                        <td>
+                            <input type="checkbox" class="module-checkbox" data-module="@module" name="selectedModules" value="@module" @isChecked data-toggle="tooltip" title="Chọn để gán quyền cho module @module" />
+                        </td>
+                        <td>
+                            <input type="checkbox" name="permissions[@module].CanView" value="true" class="permission-checkbox view-checkbox" data-module="@module" @(permission?.CanView == true ? "checked" : "") disabled="@(permission == null ? "true" : "false")" data-toggle="tooltip" title="Cho phép xem nội dung module @module" />
+                            <input type="hidden" name="permissions[@module].CanView" value="false" />
+                        </td>
+                        <td>
+                            <input type="checkbox" name="permissions[@module].CanCreate" value="true" class="permission-checkbox create-checkbox" data-module="@module" @(permission?.CanCreate == true ? "checked" : "") disabled="@(permission == null ? "true" : "false")" data-toggle="tooltip" title="Cho phép thêm nội dung trong module @module" />
+                            <input type="hidden" name="permissions[@module].CanCreate" value="false" />
+                        </td>
+                        <td>
+                            <input type="checkbox" name="permissions[@module].CanEdit" value="true" class="permission-checkbox edit-checkbox" data-module="@module" @(permission?.CanEdit == true ? "checked" : "") disabled="@(permission == null ? "true" : "false")" data-toggle="tooltip" title="Cho phép sửa nội dung trong module @module" />
+                            <input type="hidden" name="permissions[@module].CanEdit" value="false" />
+                        </td>
+                        <td>
+                            <input type="checkbox" name="permissions[@module].CanDelete" value="true" class="permission-checkbox delete-checkbox" data-module="@module" @(permission?.CanDelete == true ? "checked" : "") disabled="@(permission == null ? "true" : "false")" data-toggle="tooltip" title="Cho phép xóa nội dung trong module @module" />
+                            <input type="hidden" name="permissions[@module].CanDelete" value="false" />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="form-group text-center">
+            <input type="submit" value="Lưu quyền" class="btn btn-primary" />
+            <a asp-controller="Groups" asp-action="ManageGroups" class="btn btn-secondary">Quay lại</a>
+        </div>
+        <div id="spinner" style="display: none; text-align: center;">Đang xử lý...</div>
+    </form>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Khởi tạo tooltip
+            $('[data-toggle="tooltip"]').tooltip();
+
+            // Khởi tạo trạng thái checkbox
+            function initializePermissionCheckboxes() {
+                $('.module-checkbox').each(function () {
+                    var module = $(this).data('module');
+                    var isChecked = $(this).is(':checked');
+                    $(`.permission-checkbox[data-module="${module}"]`).prop('disabled', !isChecked);
+                });
+            }
+
+            initializePermissionCheckboxes();
+
+            // Xử lý thay đổi trạng thái module checkbox
+            $('.module-checkbox').change(function () {
+                var module = $(this).data('module');
+                var isChecked = $(this).is(':checked');
+                $(`.permission-checkbox[data-module="${module}"]`).prop('disabled', !isChecked);
+                if (isChecked) {
+                    $(`.view-checkbox[data-module="${module}"]`).prop('checked', true);
+                    $(`.create-checkbox[data-module="${module}"]`).prop('checked', false);
+                    $(`.edit-checkbox[data-module="${module}"]`).prop('checked', false);
+                    $(`.delete-checkbox[data-module="${module}"]`).prop('checked', false);
+                } else {
+                    $(`.permission-checkbox[data-module="${module}"]`).prop('checked', false);
+                }
+            });
+
+            // Xử lý submit form qua AJAX
+            $('#permissionsForm').submit(function (e) {
+                e.preventDefault();
+
+                // Kiểm tra client-side: đảm bảo ít nhất một hành động được chọn
+                let valid = true;
+                $('input[name="selectedModules"]:checked').each(function () {
+                    let module = $(this).val();
+                    if (!$(`input[name="permissions[${module}].CanView"]`).is(':checked') &&
+                        !$(`input[name="permissions[${module}].CanCreate"]`).is(':checked') &&
+                        !$(`input[name="permissions[${module}].CanEdit"]`).is(':checked') &&
+                        !$(`input[name="permissions[${module}].CanDelete"]`).is(':checked')) {
+                        valid = false;
+                    }
+                });
+
+                if (!valid) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi',
+                        text: 'Vui lòng chọn ít nhất một hành động cho mỗi module.',
+                        confirmButtonText: 'OK'
+                    });
+                    return;
+                }
+
+                // Modal xác nhận
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Xác nhận',
+                    text: 'Bạn có chắc muốn lưu các thay đổi quyền?',
+                    showCancelButton: true,
+                    confirmButtonText: 'Có',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '@Url.Action("AssignPermissions", "Permissions", new { area = "Admins" })',
+                            type: 'POST',
+                            data: $(this).serialize(),
+                            beforeSend: function () {
+                                $('#spinner').show();
+                            },
+                            success: function (response) {
+                                if (response.success) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Thành công',
+                                        text: response.message,
+                                        confirmButtonText: 'OK'
+                                    }).then(() => {
+                                        window.location.href = '@Url.Action("ManageGroups", "Groups", new { area = "Admins" })';
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Lỗi',
+                                        text: response.message,
+                                        confirmButtonText: 'OK'
+                                    });
+                                }
+                            },
+                            error: function () {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Lỗi',
+                                    text: 'Có lỗi xảy ra, vui lòng thử lại.',
+                                    confirmButtonText: 'OK'
+                                });
+                            },
+                            complete: function () {
+                                $('#spinner').hide();
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

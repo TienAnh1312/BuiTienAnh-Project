@@ -1,0 +1,201 @@
+﻿@model WebTAManga.Areas.Admins.Controllers.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Thống kê doanh thu";
+}
+
+<!-- Optional CSS for refinement -->
+<style>
+    .card {
+        margin-bottom: 1rem;
+    }
+
+    .chart-container {
+        position: relative;
+        height: 300px;
+        width: 100%;
+    }
+
+    h4 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+</style>
+
+<div class="container mt-4">
+    <h2 class="mb-4">Thống kê doanh thu</h2>
+
+    <!-- Info box for Total Revenue -->
+    <div class="row">
+        <div class="col-12 col-sm-6 col-md-4">
+            <div class="info-box mb-3">
+                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-coins"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Tổng doanh thu (Xu)</span>
+                    <span class="info-box-number">@Model.TotalRevenue.ToString("N0")</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Doanh thu theo thời gian</h4>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Top truyện có doanh thu cao nhất</h4>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="revenueByStoryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4>So sánh doanh thu và lượt truy cập</h4>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="revenueVsViewsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            console.log('Document ready - Bắt đầu khởi tạo biểu đồ');
+
+            // Biểu đồ doanh thu theo thời gian (Area Chart)
+            $.get('/Admins/Revenue/GetRevenueData', { period: 'month' }, function (data) {
+                console.log('Dữ liệu doanh thu:', data);
+                if (data && data.labels && data.values) {
+                    new Chart(document.getElementById('revenueChart'), {
+                        type: 'line',
+                        data: {
+                            labels: data.labels,
+                            datasets: [{
+                                label: 'Doanh thu (Xu)',
+                                data: data.values,
+                                borderColor: '#007bff',
+                                backgroundColor: 'rgba(0, 123, 255, 0.2)',
+                                fill: true
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: { beginAtZero: true, title: { display: true, text: 'Xu' } },
+                                x: { title: { display: true, text: 'Thời gian' } }
+                            }
+                        }
+                    });
+                } else {
+                    console.error('Dữ liệu doanh thu không hợp lệ:', data);
+                }
+            }).fail(function (xhr, status, error) {
+                console.error('Lỗi khi gọi API GetRevenueData:', status, error);
+            });
+
+            // Biểu đồ top truyện có doanh thu cao nhất (Bar Chart)
+            $.get('/Admins/Revenue/GetTopStoriesByRevenue', function (data) {
+                console.log('Dữ liệu doanh thu truyện:', data);
+                if (data && data.labels && data.values) {
+                    new Chart(document.getElementById('revenueByStoryChart'), {
+                        type: 'bar',
+                        data: {
+                            labels: data.labels,
+                            datasets: [{
+                                label: 'Doanh thu (Xu)',
+                                data: data.values,
+                                backgroundColor: '#28a745'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: { beginAtZero: true, title: { display: true, text: 'Xu' } },
+                                x: { title: { display: true, text: 'Tiêu đề truyện' } }
+                            }
+                        }
+                    });
+                } else {
+                    console.error('Dữ liệu doanh thu truyện không hợp lệ:', data);
+                }
+            }).fail(function (xhr, status, error) {
+                console.error('Lỗi khi gọi API GetTopStoriesByRevenue:', status, error);
+            });
+
+            // Biểu đồ so sánh doanh thu và lượt truy cập (Combo Chart)
+            $.get('/Admins/Revenue/GetRevenueAndViewsComparison', function (data) {
+                console.log('Dữ liệu so sánh doanh thu và lượt truy cập:', data);
+                if (data && data.labels && data.revenueValues && data.viewValues) {
+                    new Chart(document.getElementById('revenueVsViewsChart'), {
+                        type: 'bar',
+                        data: {
+                            labels: data.labels,
+                            datasets: [
+                                {
+                                    label: 'Doanh thu (Xu)',
+                                    data: data.revenueValues,
+                                    backgroundColor: '#dc3545',
+                                    yAxisID: 'y-revenue'
+                                },
+                                {
+                                    label: 'Lượt truy cập',
+                                    data: data.viewValues,
+                                    type: 'line',
+                                    borderColor: '#007bff',
+                                    backgroundColor: '#007bff',
+                                    fill: false,
+                                    yAxisID: 'y-views'
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                'y-revenue': {
+                                    beginAtZero: true,
+                                    position: 'left',
+                                    title: { display: true, text: 'Xu' }
+                                },
+                                'y-views': {
+                                    beginAtZero: true,
+                                    position: 'right',
+                                    title: { display: true, text: 'Lượt truy cập' }
+                                },
+                                x: { title: { display: true, text: 'Tiêu đề truyện' } }
+                            }
+                        }
+                    });
+                } else {
+                    console.error('Dữ liệu so sánh không hợp lệ:', data);
+                }
+            }).fail(function (xhr, status, error) {
+                console.error('Lỗi khi gọi API GetRevenueAndViewsComparison:', status, error);
+            });
+        });
+    </script>
+}
